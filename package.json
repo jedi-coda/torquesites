@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@stripe/stripe-js": "^7.9.0",
-    "framer-motion": "^12.23.16",
+    "framer-motion": "^12.23.18",
     "lucide-react": "^0.544.0",
     "next": "15.5.2",
     "react": "19.1.0",
