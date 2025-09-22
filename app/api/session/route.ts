@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-06-20",
 });
 
@@ -14,21 +14,16 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "Missing session_id" }, { status: 400 });
     }
 
-    // Retrieve the full checkout session from Stripe
-    const session = await stripe.checkout.sessions.retrieve(sessionId, {
-      expand: ["line_items", "line_items.data.price.product"],
-    });
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
 
     return NextResponse.json({
-      id: session.id,
-      garage: session.metadata?.garage || "Unknown Garage",
-      service: session.metadata?.service || "General Service",
-      amount_total: session.amount_total ? session.amount_total / 100 : null, // in £
-      currency: session.currency ? session.currency.toUpperCase() : "GBP",
+      garage: session.metadata?.garage,
+      service: session.metadata?.service,
+      amount_total: session.amount_total,
+      currency: session.currency,
     });
   } catch (err: any) {
     console.error("Error retrieving session:", err);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
-

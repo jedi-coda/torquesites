@@ -27,7 +27,15 @@ export default function SuccessPage() {
       try {
         const res = await fetch(`/api/session?session_id=${sessionId}`);
         const data = await res.json();
-        setDetails(data);
+
+        if (data.error) throw new Error(data.error);
+
+        setDetails({
+          garage: data.garage || "Unknown Garage",
+          service: data.service || "Unknown Service",
+          amount_total: data.amount_total,
+          currency: data.currency,
+        });
       } catch (err) {
         console.error("Error fetching session:", err);
       } finally {
@@ -38,40 +46,49 @@ export default function SuccessPage() {
     fetchSession();
   }, []);
 
+  if (loading) {
+    return (
+      <main className="flex flex-col items-center justify-center min-h-screen">
+        <h1 className="text-xl font-semibold">Loading your booking...</h1>
+      </main>
+    );
+  }
+
+  if (!details) {
+    return (
+      <main className="flex flex-col items-center justify-center min-h-screen">
+        <h1 className="text-xl font-semibold">Booking not found</h1>
+        <Link href="/" className="mt-4 text-pink-600 underline">
+          Go back home
+        </Link>
+      </main>
+    );
+  }
+
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-green-50 text-center px-6">
-      <div className="bg-white shadow-lg rounded-xl p-10 max-w-lg w-full">
-        {loading ? (
-          <h1 className="text-2xl font-bold text-gray-700">Loading booking details...</h1>
-        ) : details ? (
-          <>
-            <h1 className="text-3xl font-bold text-green-600 mb-4">
-              ✅ Booking Confirmed!
-            </h1>
-            <p className="text-lg text-gray-700 mb-6">
-              Thank you for booking your <strong>{details.service}</strong> at{" "}
-              <strong>{details.garage}</strong>. <br />
-              {details.amount_total && (
-                <>Your payment of <strong>£{details.amount_total}</strong> was received.</>
-              )}{" "}
-              A confirmation email has been sent to your inbox.
-            </p>
-          </>
-        ) : (
-          <p className="text-lg text-gray-600 mb-6">
-            Thank you for your booking. A confirmation email has been sent to your inbox.
+    <main className="flex flex-col items-center justify-center min-h-screen px-6 text-center">
+      <h1 className="text-4xl font-bold text-green-600">✅ Payment Successful!</h1>
+      <p className="mt-4 text-gray-700 text-lg">
+        Thank you for booking with <strong>MOT Match</strong>.
+      </p>
+
+      <div className="mt-6 border rounded-lg shadow p-6 max-w-md bg-white">
+        <h2 className="font-semibold text-xl">{details.garage}</h2>
+        <p className="mt-2">{details.service}</p>
+        {details.amount_total && (
+          <p className="mt-2 text-lg font-bold">
+            {details.currency?.toUpperCase()}{" "}
+            {(details.amount_total / 100).toFixed(2)}
           </p>
         )}
-
-        <Link
-          href="/"
-          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold shadow transition"
-        >
-          Back to Home
-        </Link>
       </div>
+
+      <Link
+        href="/"
+        className="mt-8 inline-block bg-pink-600 text-white px-6 py-3 rounded-xl hover:bg-pink-700"
+      >
+        Back to Home
+      </Link>
     </main>
   );
 }
-
-
