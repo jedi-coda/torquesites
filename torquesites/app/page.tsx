@@ -52,7 +52,7 @@ export default function HomePage() {
       <section className="relative bg-gray-900 text-white text-center overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/porsche-hero.jpg" // Place Porsche image in /public
+            src="/porsche-hero.jpg"
             alt="Porsche hero"
             fill
             priority
@@ -91,12 +91,15 @@ export default function HomePage() {
             transition={{ duration: 0.7, delay: 0.9 }}
             className="mt-8 flex justify-center gap-4"
           >
-            <Link
-              href="/pricing"
+            {/* Updated: Stripe Checkout link */}
+            <a
+              href="https://buy.stripe.com/test_6oUbJ05jpcop0Lo0Z9grS01"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition"
             >
-              Get Started (£499)
-            </Link>
+              Get Started (£999)
+            </a>
             <Link
               href="/contact"
               className="bg-white text-gray-900 hover:bg-gray-100 font-semibold px-6 py-3 rounded-xl shadow transition"
@@ -174,11 +177,23 @@ export default function HomePage() {
           className="mt-10 max-w-sm mx-auto border rounded-2xl shadow-lg p-8 bg-white"
         >
           <h3 className="text-xl font-bold">Starter Package</h3>
-          <p className="mt-2 text-4xl font-extrabold text-gray-900">£499</p>
-          <p className="text-sm text-gray-500">+ £59/mo all-in</p>
+          <p className="mt-2 text-4xl font-extrabold text-gray-900">£999</p>
+          <p className="text-sm text-gray-500">+ £99/mo all-in</p>
+
+          {/* Stripe Button */}
+          <a
+            href="https://buy.stripe.com/test_6oUbJ05jpcop0Lo0Z9grS01"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-block w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition text-center"
+          >
+            Get Started (£999)
+          </a>
+
+          {/* Pricing Page Redirect */}
           <Link
             href="/pricing"
-            className="mt-6 inline-block w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition"
+            className="mt-4 block text-pink-600 hover:underline font-medium"
           >
             See Full Pricing →
           </Link>
@@ -220,12 +235,14 @@ export default function HomePage() {
           to win customers.
         </p>
         <div className="mt-8 flex justify-center gap-4">
-          <Link
-            href="/pricing"
+          <a
+            href="https://buy.stripe.com/test_6oUbJ05jpcop0Lo0Z9grS01"
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-white text-gray-900 hover:bg-gray-100 font-semibold px-6 py-3 rounded-xl shadow-lg transition"
           >
-            Get Started (£499)
-          </Link>
+            Get Started (£999)
+          </a>
           <Link
             href="/contact"
             className="bg-gray-900 border border-white text-white hover:bg-gray-800 font-semibold px-6 py-3 rounded-xl shadow transition"
@@ -263,4 +280,3 @@ function Feature({
     </motion.div>
   );
 }
-
