@@ -1,0 +1,20 @@
+[
+  {
+    "slug": "newtown-garage",
+    "name": "Newtown Garage",
+    "phone": "01494 123456",
+    "location": "Chesham",
+    "logo": "/logos/newtown.png",
+    "services": ["MOT Testing", "Servicing", "Repairs", "EV & Hybrid"],
+    "ctaPrice": "From £54.85"
+  },
+  {
+    "slug": "swift-motors",
+    "name": "Swift Motors",
+    "phone": "01273 987654",
+    "location": "Brighton",
+    "logo": "/logos/swift.png",
+    "services": ["MOT", "Diagnostics", "Repairs"],
+    "ctaPrice": "From £49"
+  }
+]
