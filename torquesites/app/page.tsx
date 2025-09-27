@@ -91,7 +91,7 @@ export default function HomePage() {
             transition={{ duration: 0.7, delay: 0.9 }}
             className="mt-8 flex justify-center gap-4"
           >
-            {/* Updated: Stripe Checkout link */}
+            {/* Stripe Checkout link */}
             <a
               href="https://buy.stripe.com/test_6oUbJ05jpcop0Lo0Z9grS01"
               target="_blank"
@@ -200,7 +200,7 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* GUARANTEE */}
+      {/* GUARANTEE (Hybrid Version) */}
       <section className="py-24 px-6 bg-gray-900 text-white text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -212,10 +212,12 @@ export default function HomePage() {
           Our Guarantee
         </motion.h2>
         <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">
-          Launch in 7 days or your setup fee back. No questions asked.
+          Your site, live in days — not months. Most garages launch in 7–10 days.
+          And if you’re not fully satisfied, your setup fee is protected with our
+          money-back promise.
         </p>
         <p className="mt-10 text-pink-400 font-medium">
-          Trusted by forward-thinking garages across the UK.
+          No risk. Just results.
         </p>
       </section>
 
