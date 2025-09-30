@@ -1,0 +1,39 @@
+﻿name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Type check (if tsconfig exists)
+        if: hashFiles('tsconfig.json') != ''
+        run: npx tsc -v && npx tsc --noEmit
+
+      - name: Lint (if script exists)
+        if: contains(fromJSON(steps.pkg.outputs.scripts), 'lint')
+        run: npm run lint
+        env:
+          CI: true
+
+      - name: Build
+        run: npm run build
+        env:
+          CI: true
+
+    outputs: {}
