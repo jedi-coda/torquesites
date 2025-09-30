@@ -1,0 +1,72 @@
+[
+  {
+    "slug": "gem",
+    "name": "GEM UK Garage",
+    "phone": "01903 700 009",
+    "location": "Worthing",
+    "address": "61F Ferringham Lane, South Ferring, Worthing, BN12 5LW",
+    "email": "servicedaniel@gem-ukgarage.com",
+    "logo": "/logos/gem.png",
+    "accent": {
+      "primary": "#C5A572",
+      "secondary": "#111111"
+    },
+    "services": [
+      "MOT & Hybrid/EV servicing",
+      "Engine diagnostics & repairs",
+      "Clutch & gearbox replacements",
+      "Air conditioning service",
+      "Car body repairs & paintwork",
+      "Tyres, brakes & exhausts",
+      "Wheel alignment & tracking",
+      "Breakdown recovery"
+    ],
+    "reviews": [
+      { "name": "Sarah J.", "text": "Excellent service! The team explained everything clearly." },
+      { "name": "James L.", "text": "Friendly, transparent and reliable. Highly recommend." },
+      { "name": "Emily R.", "text": "MOT and service done in one day. Loved the courtesy car option!" }
+    ],
+    "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!...",
+    "ctaPrice": "From £54.85"
+  },
+  {
+    "slug": "swift-motors",
+    "name": "Swift Motors",
+    "phone": "01273 987654",
+    "location": "Brighton",
+    "address": "123 Brighton Road, Brighton",
+    "email": "info@swiftmotors.com",
+    "logo": "/logos/swift.png",
+    "accent": {
+      "primary": "#E63946",
+      "secondary": "#1E1E1E"
+    },
+    "services": ["MOT", "Diagnostics", "Repairs"],
+    "reviews": [
+      { "name": "Tom K.", "text": "Quick turnaround and very professional." },
+      { "name": "Anna P.", "text": "Saved me a lot on repairs. Honest garage!" }
+    ],
+    "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!...",
+    "ctaPrice": "From £49"
+  },
+  {
+    "slug": "newtown-garage",
+    "name": "Newtown Garage",
+    "phone": "01494 123456",
+    "location": "Chesham",
+    "address": "45 Newtown Street, Chesham",
+    "email": "info@newtowngarage.com",
+    "logo": "/logos/newtown.png",
+    "accent": {
+      "primary": "#2563EB",
+      "secondary": "#111827"
+    },
+    "services": ["MOT Testing", "Servicing", "Repairs", "EV & Hybrid"],
+    "reviews": [
+      { "name": "Luke W.", "text": "Always reliable, my go-to garage." },
+      { "name": "Sophie G.", "text": "Friendly staff and great service." }
+    ],
+    "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!...",
+    "ctaPrice": "From £54.85"
+  }
+]
