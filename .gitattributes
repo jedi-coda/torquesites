@@ -1,0 +1,13 @@
+﻿* text=auto eol=lf
+
+# keep these as text with LF
+*.sh   text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.svg  text eol=lf
+
+# treat binaries as binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
