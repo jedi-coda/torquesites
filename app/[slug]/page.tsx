@@ -1,20 +1,18 @@
-import garages from "@/data/garages.json";
-import GarageTemplate from "@/components/GarageTemplate";
+import { redirect } from "next/navigation";
+// adjust the path if your folder layout differs:
+import garages from "../../data/garages.json";
+import GarageTemplate from "../../components/GarageTemplate";
 
-interface PageProps {
-  params: { slug: string };
-}
+type Params = { params: { slug: string } };
 
-export default function GaragePage({ params }: PageProps) {
-  const garage = garages.find((g) => g.slug === params.slug);
+export default function GaragePage({ params }: Params) {
+  const garage = (garages as any[]).find((g) => g.slug === params.slug);
 
   if (!garage) {
-    return (
-      <main className="h-screen flex items-center justify-center text-center">
-        <h1 className="text-3xl font-bold">Garage not found</h1>
-      </main>
-    );
+    // Backstop — if unknown slug, send to home (or a 404 if you prefer)
+    redirect("/");
   }
 
+  // Remove global site nav on garage pages (we render only the partner bar + template)
   return <GarageTemplate garage={garage} />;
 }
