@@ -1,7 +1,7 @@
-"use client";
-
-import { useMemo, useState } from "react";
 import Link from "next/link";
+import EnquiryForm from "./EnquiryForm";
+
+/* ------------ types ------------ */
 
 type Brand = { primary?: string; dark?: string };
 type Contact = { phone?: string; email?: string; whatsapp?: string };
@@ -30,6 +30,8 @@ type Garage = {
   mapEmbed?: string;
 };
 
+/* ------------ helpers (no client state) ------------ */
+
 function greeting() {
   const h = new Date().getHours();
   if (h < 12) return "Good morning";
@@ -43,25 +45,24 @@ function safeColor(hex?: string, fallback = "#1F4FC9") {
   return ok ? hex : fallback;
 }
 
+function softFromHex(hex: string, alpha = 0.12) {
+  const h = hex.replace("#", "");
+  const r = parseInt(h.substring(0, 2), 16);
+  const g = parseInt(h.substring(2, 4), 16);
+  const b = parseInt(h.substring(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+/* ------------ component (server) ------------ */
+
 export default function GarageTemplate({ garage }: { garage: Garage }) {
   const accent = safeColor(garage.brand?.primary);
   const dark = safeColor(garage.brand?.dark, "#0B0B0C");
-
-  const accentSoft = useMemo(() => {
-    // 10% alpha overlay from hex
-    const h = accent.replace("#", "");
-    const r = parseInt(h.substring(0, 2), 16);
-    const g = parseInt(h.substring(2, 4), 16);
-    const b = parseInt(h.substring(4, 6), 16);
-    return `rgba(${r}, ${g}, ${b}, 0.12)`;
-  }, [accent]);
+  const accentSoft = softFromHex(accent);
 
   const bgStyle =
     garage.hero?.background === "gradient"
-      ? {
-          background:
-            `linear-gradient(135deg, ${accent} 0%, ${dark} 100%)`,
-        }
+      ? { background: `linear-gradient(135deg, ${accent} 0%, ${dark} 100%)` }
       : { backgroundColor: dark };
 
   const phoneHref = garage.contact?.phone
@@ -71,18 +72,6 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
   const whatsappHref = garage.contact?.whatsapp
     ? `https://wa.me/${garage.contact.whatsapp.replace(/\D/g, "")}`
     : undefined;
-
-  // Simple booking submit mock — replace with your API/email handler later
-  const [submitting, setSubmitting] = useState(false);
-  function submitBooking(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setSubmitting(true);
-    setTimeout(() => {
-      alert("Thanks — we’ll be in touch shortly.");
-      setSubmitting(false);
-      (e.target as HTMLFormElement).reset();
-    }, 800);
-  }
 
   return (
     <div className="min-h-screen bg-white text-neutral-900">
@@ -98,13 +87,10 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
         </Link>
       </div>
 
-      {/* HERO (reduced height, solid/gradient, no logos) */}
+      {/* HERO */}
       <header
         className="relative w-full flex items-center"
-        style={{
-          ...bgStyle,
-          minHeight: "55vh",
-        }}
+        style={{ ...bgStyle, minHeight: "55vh" }}
       >
         <div className="container mx-auto px-4 py-16 sm:py-20">
           <h1 className="text-white text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight drop-shadow">
@@ -148,7 +134,10 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
         <div className="container mx-auto px-4 py-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap gap-2 items-center">
             {garage.hours && (
-              <span className="text-sm px-3 py-1 rounded-full border" style={{ borderColor: accent }}>
+              <span
+                className="text-sm px-3 py-1 rounded-full border"
+                style={{ borderColor: accent }}
+              >
                 {garage.hours}
               </span>
             )}
@@ -191,9 +180,9 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
             Why Choose {garage.name.split(" ")[0]}?
           </h2>
           <p className="text-neutral-600 mb-6">
-            With over 25 years’ experience, our team delivers honest, transparent care for any
-            make, any model. Proud members of the Good Garage Scheme with excellent customer
-            satisfaction.
+            With over 25 years’ experience, our team delivers honest, transparent care
+            for any make, any model. Proud members of the Good Garage Scheme with
+            excellent customer satisfaction.
           </p>
 
           {garage.chips && (
@@ -204,10 +193,7 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
                   className="rounded-xl border bg-white p-4"
                   style={{ borderColor: accentSoft, boxShadow: "0 1px 0 rgba(0,0,0,0.02)" }}
                 >
-                  <div
-                    className="h-1 w-8 rounded"
-                    style={{ backgroundColor: accent }}
-                  />
+                  <div className="h-1 w-8 rounded" style={{ backgroundColor: accent }} />
                   <div className="mt-3 font-medium">{c}</div>
                 </div>
               ))}
@@ -225,10 +211,7 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
                     className="rounded-xl border bg-white p-5 hover:shadow-sm transition"
                     style={{ borderColor: accentSoft }}
                   >
-                    <div
-                      className="h-1 w-8 rounded"
-                      style={{ backgroundColor: accent }}
-                    />
+                    <div className="h-1 w-8 rounded" style={{ backgroundColor: accent }} />
                     <div className="mt-3 font-medium">{s}</div>
                   </div>
                 ))}
@@ -236,87 +219,65 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
             </>
           )}
 
-          {/* Pricing (optional) */}
+          {/* Pricing */}
           {garage.pricing && (
             <>
               <h3 className="text-2xl font-bold mt-10 mb-4">Straightforward pricing</h3>
               <div className="grid sm:grid-cols-3 gap-4">
-                <CardPrice
-                  title="MOT (Class 4)"
-                  price={garage.pricing.mot}
-                  accent={accent}
-                />
+                <CardPrice title="MOT (Class 4)" price={garage.pricing.mot} />
                 <CardPrice
                   title="Interim Service"
                   price={`from ${garage.pricing.interimFrom ?? "£—"}`}
                   subtitle="Oil & filter, checks"
-                  accent={accent}
                 />
                 <CardPrice
                   title="Full Service"
                   price={`from ${garage.pricing.fullFrom ?? "£—"}`}
                   subtitle="Manufacturer schedule"
-                  accent={accent}
                 />
               </div>
             </>
           )}
         </div>
 
-        {/* Right: Booking */}
-        <aside className="lg:col-span-1">
-          <div className="rounded-2xl border bg-white p-6 sticky top-4"
-               style={{ borderColor: accentSoft }}>
+        {/* Right: Booking (client form inside) */}
+        <aside id="booking" className="lg:col-span-1">
+          <div
+            className="rounded-2xl border bg-white p-6 sticky top-4"
+            style={{ borderColor: accentSoft }}
+          >
             <h3 className="text-xl font-bold mb-4">Quick booking</h3>
-            <form className="space-y-3" onSubmit={submitBooking}>
-              <input className="w-full rounded-lg border px-3 py-2"
-                     placeholder="Your name" />
-              <input className="w-full rounded-lg border px-3 py-2"
-                     placeholder="Phone" />
-              <input className="w-full rounded-lg border px-3 py-2"
-                     placeholder="VEHICLE REG (E.G. AB12 CDE)" />
-              <select className="w-full rounded-lg border px-3 py-2">
-                <option value="MOT">MOT</option>
-                <option value="Interim Service">Interim Service</option>
-                <option value="Full Service">Full Service</option>
-                <option value="Diagnostics">Diagnostics</option>
-              </select>
-              <textarea className="w-full rounded-lg border px-3 py-2"
-                        placeholder="Preferred date/time (optional)" />
-              <textarea className="w-full rounded-lg border px-3 py-2"
-                        placeholder="Notes (optional)" />
-              <button
-                type="submit"
-                disabled={submitting}
-                className="w-full rounded-lg px-4 py-2 font-semibold text-white"
-                style={{ backgroundColor: accent }}
-              >
-                {submitting ? "Sending…" : "Send booking by email"}
-              </button>
 
-              {garage.contact?.phone && (
-                <p className="text-xs text-neutral-500 mt-2">
-                  Or call:{" "}
-                  <a className="underline" href={phoneHref}>
-                    {garage.contact.phone}
-                  </a>
-                </p>
-              )}
-            </form>
+            <EnquiryForm
+              garageName={garage.name}
+              toEmail={garage.contact?.email ?? ""}
+              brandPrimary={accent}
+            />
+
+            {garage.contact?.phone && (
+              <p className="text-xs text-neutral-500 mt-2">
+                Or call:{" "}
+                <a className="underline" href={phoneHref}>
+                  {garage.contact.phone}
+                </a>
+              </p>
+            )}
           </div>
         </aside>
       </section>
 
       {/* Reviews (dark band) */}
       {garage.reviews && garage.reviews.length > 0 && (
-        <section id="reviews" className="py-14"
-                 style={{ backgroundColor: dark, color: "#fff" }}>
+        <section
+          id="reviews"
+          className="py-14"
+          style={{ backgroundColor: dark, color: "#fff" }}
+        >
           <div className="container mx-auto px-4">
             <h3 className="text-2xl font-bold mb-6">What Our Customers Say</h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {garage.reviews.slice(0, 3).map((r, i) => (
-                <div key={i}
-                     className="rounded-xl border border-white/10 bg-white/5 p-5">
+                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-5">
                   <p className="italic">“{r.quote}”</p>
                   <p className="mt-3 text-sm text-white/80">— {r.author}</p>
                 </div>
@@ -333,9 +294,11 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
         {garage.branches && garage.branches.length > 0 && (
           <div className="grid md:grid-cols-2 gap-4 mb-6">
             {garage.branches.map((b, i) => (
-              <div key={i}
-                   className="rounded-xl border bg-white p-5"
-                   style={{ borderColor: accentSoft }}>
+              <div
+                key={i}
+                className="rounded-xl border bg-white p-5"
+                style={{ borderColor: accentSoft }}
+              >
                 <div className="font-semibold">{b.name}</div>
                 {b.address && <div className="text-sm text-neutral-600">{b.address}</div>}
                 {b.hours && <div className="text-sm text-neutral-600 mt-1">{b.hours}</div>}
@@ -350,7 +313,7 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
                     </a>
                   )}
                   <a
-                    href={`/book?garage=${encodeURIComponent(garage.slug)}`}
+                    href="#booking"
                     className="rounded-lg px-3 py-1.5 text-sm border"
                     style={{ borderColor: accentSoft }}
                   >
@@ -363,8 +326,10 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
         )}
 
         {garage.mapEmbed && (
-          <div className="w-full rounded-xl overflow-hidden border"
-               style={{ borderColor: accentSoft }}>
+          <div
+            className="w-full rounded-xl overflow-hidden border"
+            style={{ borderColor: accentSoft }}
+          >
             <iframe
               src={garage.mapEmbed}
               width="100%"
@@ -377,14 +342,12 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
         )}
       </section>
 
-      {/* Contact band */}
+      {/* Contact band (dark) with client form */}
       <section className="py-12" style={{ backgroundColor: dark, color: "#fff" }}>
         <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8">
           <div className="rounded-2xl p-6 bg-black/20 border border-white/10">
             <h4 className="text-xl font-bold mb-3">Call or Email</h4>
-            <p className="text-white/80 mb-4">
-              Fastest way to book your MOT, service or repair.
-            </p>
+            <p className="text-white/80 mb-4">Fastest way to book your MOT, service or repair.</p>
             <div className="flex flex-col sm:flex-row gap-3">
               {garage.contact?.phone && (
                 <a
@@ -411,22 +374,12 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
 
           <div className="rounded-2xl p-6 bg-black/20 border border-white/10">
             <h4 className="text-xl font-bold mb-3">Quick Enquiry</h4>
-            <form className="space-y-3" onSubmit={submitBooking}>
-              <input className="w-full rounded-lg border border-white/10 bg-transparent px-3 py-2 placeholder-white/60"
-                     placeholder="Your Name" />
-              <input className="w-full rounded-lg border border-white/10 bg-transparent px-3 py-2 placeholder-white/60"
-                     placeholder="Phone" />
-              <input className="w-full rounded-lg border border-white/10 bg-transparent px-3 py-2 placeholder-white/60"
-                     placeholder="Email (optional)" />
-              <textarea className="w-full rounded-lg border border-white/10 bg-transparent px-3 py-2 placeholder-white/60"
-                        placeholder="Tell us about your car…" rows={4} />
-              <button type="submit"
-                      disabled={submitting}
-                      className="w-full rounded-lg px-4 py-2 font-semibold text-white"
-                      style={{ backgroundColor: accent }}>
-                {submitting ? "Sending…" : "Send Enquiry"}
-              </button>
-            </form>
+
+            <EnquiryForm
+              garageName={garage.name}
+              toEmail={garage.contact?.email ?? ""}
+              brandPrimary={accent}
+            />
           </div>
         </div>
       </section>
@@ -441,15 +394,17 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
             <span>✅ No Hidden Fees</span>
           </div>
           <p className="mt-6 text-neutral-500 text-sm">
-            Built for independent garages — everything you need to win bookings and look world-class online.
+            Built for independent garages — everything you need to win bookings and look
+            world-class online.
           </p>
           <p className="mt-2 text-neutral-400 text-xs">
-            © {new Date().getFullYear()} <span className="font-semibold">TorqueSites</span>. All rights reserved.
+            © {new Date().getFullYear()} <span className="font-semibold">TorqueSites</span>.
+            All rights reserved.
           </p>
         </div>
       </footer>
 
-      {/* Sticky mobile CTA */}
+      {/* Sticky mobile CTA (anchors only) */}
       {garage.contact?.phone && (
         <div className="fixed bottom-3 left-0 right-0 px-3 md:hidden">
           <div className="mx-auto max-w-md grid grid-cols-2 gap-2">
@@ -462,12 +417,6 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
             </a>
             <a
               href="#booking"
-              onClick={(e) => {
-                e.preventDefault();
-                // scroll to booking panel
-                const el = document.querySelector("aside");
-                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-              }}
               className="text-center rounded-full py-3 font-semibold border bg-white"
               style={{ borderColor: accentSoft }}
             >
@@ -480,18 +429,16 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
   );
 }
 
-/* --- small helper components --- */
+/* ------------ simple pricing card (no event handlers) ------------ */
 
 function CardPrice({
   title,
   price,
   subtitle,
-  accent
 }: {
   title: string;
   price?: string;
   subtitle?: string;
-  accent: string;
 }) {
   return (
     <div
@@ -504,13 +451,7 @@ function CardPrice({
       <div className="mt-auto">
         <a
           href="#booking"
-          onClick={(e) => {
-            e.preventDefault();
-            const el = document.querySelector("aside");
-            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }}
-          className="inline-flex mt-4 rounded-lg px-4 py-2 font-semibold text-white"
-          style={{ backgroundColor: accent }}
+          className="inline-flex mt-4 rounded-lg px-4 py-2 font-semibold text-white bg-neutral-900"
         >
           Book now
         </a>
