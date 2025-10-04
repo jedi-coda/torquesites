@@ -119,7 +119,93 @@
       { "quote": "Decent. Would recommend.", "author": "Richard" }
     ],
     "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2520.4675220901904!2d-0.35400032285762584!3d50.822503571665536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4875986c907b76bf%3A0xb57c8c4377a2c0ad!2sSwift%20Motor%20Services!5e0!3m2!1sen!2suk!4v1759496088389!5m2!1sen!2suk"
-  }
+  },
+  {
+  "slug": "arundel-road-garage",
+  "name": "Arundel Road Garage",
+  "brand": { "primary": "#1666B3", "dark": "#0B0B0C" },
+  "contact": {
+    "phone": "01903 201714",
+    "email": "info@arundelroadgarage.co.uk"
+  },
+  "hours": "Mon–Fri 08:30–17:30",
+  "hero": { "greeting": true, "background": "gradient" },
+  "chips": [
+    "DVSA MOT",
+    "Local – Independent",
+    "Servicing & Repairs",
+    "Diagnostics",
+    "Tyres & Brakes",
+    "Air Conditioning"
+  ],
+  "services": [
+    "MOT Testing",
+    "Servicing",
+    "Repairs",
+    "Diagnostics",
+    "Tyres",
+    "Brakes",
+    "Air Con",
+    "Exhausts",
+    "Batteries"
+  ],
+  "pricing": { "mot": "£54.85", "interimFrom": "£149", "fullFrom": "£199" },
+  "branches": [
+    {
+      "name": "Worthing (Arundel Road)",
+      "address": "37 Arundel Road, Worthing BN13 3EH",
+      "hours": "Mon–Fri 08:30–17:30",
+      "phone": "01903 201714"
+    }
+  ],
+  "reviews": [
+    { "quote": "Helpful and professional local garage.", "author": "Customer" }
+  ],
+  "mapEmbed": "https://www.google.com/maps?q=Arundel+Road+Garage,+37+Arundel+Rd,+Worthing+BN13+3EH&output=embed"
+},
+{
+  "slug": "autopics-garage",
+  "name": "Autopics Garage Services",
+  "brand": { "primary": "#0F6BD4", "dark": "#0B0B0C" },
+  "contact": {
+    "phone": "01903 856016",
+    "email": "sales@autopics.co.uk"
+  },
+  "hours": "Mon–Fri 08:30–17:30",
+  "hero": { "greeting": true, "background": "solid" },
+  "chips": [
+    "DVSA MOT",
+    "Local – Independent",
+    "Courtesy cars",
+    "Diagnostics",
+    "Trusted team",
+    "Transparent pricing"
+  ],
+  "services": [
+    "MOT Testing",
+    "Servicing",
+    "Repairs",
+    "Diagnostics",
+    "Tyres",
+    "Brakes",
+    "Batteries",
+    "Exhausts"
+  ],
+  "pricing": { "mot": "£54.85", "interimFrom": "£149", "fullFrom": "£199" },
+  "branches": [
+    {
+      "name": "Rustington",
+      "address": "Unit 15, Brookside Business Park, Rustington BN16 3LP",
+      "hours": "Mon–Fri 08:30–17:30",
+      "phone": "01903 856016"
+    }
+  ],
+  "reviews": [
+    { "quote": "Great service and quick turnaround.", "author": "Customer" }
+  ],
+  "mapEmbed": "https://www.google.com/maps?q=Autopics,+Unit+15+Brookside+Business+Park,+Rustington+BN16+3LP&output=embed"
+}
+
 ]
 
 
