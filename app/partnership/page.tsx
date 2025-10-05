@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -30,7 +30,8 @@ export default function PartnershipPage() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="absolute inset-0"
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden
         >
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -44,7 +45,7 @@ export default function PartnershipPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-pink-400 font-medium tracking-widest uppercase text-sm md:text-base mb-4"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur text-pink-200/90 tracking-widest uppercase text-xs md:text-sm shadow-sm mb-3"
           >
             {greeting}
           </motion.p>
@@ -68,28 +69,10 @@ export default function PartnershipPage() {
         </div>
       </section>
 
-      {/* WHY PARTNER */}
-      <section className="py-24 bg-[#0B1221] text-white text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-10">
-          Why Partner with TorqueSites?
-        </h2>
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto text-left">
-          <ul className="space-y-4">
-            <li>✓ Stand out with world-class design</li>
-            <li>✓ Get found on Google with built-in SEO</li>
-            <li>✓ Exclusive partner pricing for the first 100 garages</li>
-          </ul>
-          <ul className="space-y-4">
-            <li>✓ Mobile-first websites your customers trust</li>
-            <li>✓ Hosting, SSL & updates — all included</li>
-          </ul>
-        </div>
-      </section>
-
-      {/* PRICING */}
+      {/* PRICING (Partner) */}
       <section className="py-24 bg-gray-50 text-center">
         <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-          {/* Starter */}
+          {/* Partner Starter */}
           <div className="p-8 rounded-2xl border bg-white shadow-lg">
             <h3 className="text-xl font-bold text-pink-600">Partner Starter</h3>
             <p className="mt-4 text-4xl font-extrabold">£499</p>
@@ -110,15 +93,15 @@ export default function PartnershipPage() {
             </motion.a>
           </div>
 
-          {/* Buy Out */}
+          {/* Partner Pro (Buy Out) */}
           <div className="p-8 rounded-2xl border bg-white shadow-lg">
-            <h3 className="text-xl font-bold text-orange-600">Partner Buy Out</h3>
+            <h3 className="text-xl font-bold text-orange-600">Choose Pro Package</h3>
             <p className="mt-4 text-4xl font-extrabold">£999</p>
             <p className="text-gray-500">+ optional £49/mo</p>
             <ul className="mt-6 space-y-3 text-gray-700 text-left">
               <li>✓ Full site ownership</li>
               <li>✓ Same premium features as Starter</li>
-              <li>✓ Optional hosting, SSL & updates (£49/mo)</li>
+              <li>✓ Optional hosting, SSL &amp; updates (£49/mo)</li>
               <li>✓ Advanced SEO setup</li>
               <li>✓ Priority maintenance available</li>
             </ul>
@@ -127,7 +110,7 @@ export default function PartnershipPage() {
               whileHover={{ y: -2 }}
               className="mt-8 block w-full text-center rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold py-3 shadow-md hover:shadow-orange-500/50 transition"
             >
-              Partner Buy Out
+              Choose Pro Package
             </motion.a>
           </div>
         </div>
@@ -139,7 +122,7 @@ export default function PartnershipPage() {
           Ready to look world-class online?
         </h2>
         <p className="text-lg text-pink-100 max-w-2xl mx-auto mb-6">
-          Secure your Torque 100 Partner slot today before they're gone.
+          Secure your Torque 100 Partner slot today before they&apos;re gone.
         </p>
         <div className="flex justify-center gap-4">
           <motion.a

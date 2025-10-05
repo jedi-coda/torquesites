@@ -21,7 +21,7 @@ export default function EnquiryForm({
     const fd = new FormData(form);
     const data = Object.fromEntries(fd.entries());
 
-    // Minimal “works now” behaviour: open mailto
+    // Minimal "works nowâ€ behaviour: open mailto
     const subject = encodeURIComponent(`New enquiry — ${garageName}`);
     const body = encodeURIComponent(
       `Name: ${data.name ?? ""}\nPhone: ${data.phone ?? ""}\nEmail: ${data.email ?? ""}\nService: ${data.service ?? ""}\nNotes: ${data.notes ?? ""}`

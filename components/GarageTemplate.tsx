@@ -98,7 +98,7 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
             <span style={{ color: accent }}>{garage.name}</span>
           </h1>
           <p className="mt-4 text-white/90 text-base sm:text-lg max-w-2xl">
-            Worthing’s trusted experts in MOTs, servicing & full vehicle care.
+            Worthing's trusted experts in MOTs, servicing & full vehicle care.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
@@ -180,7 +180,7 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
             Why Choose {garage.name.split(" ")[0]}?
           </h2>
           <p className="text-neutral-600 mb-6">
-            With over 25 years’ experience, our team delivers honest, transparent care
+            With over 25 years' experience, our team delivers honest, transparent care
             for any make, any model. Proud members of the Good Garage Scheme with
             excellent customer satisfaction.
           </p>
@@ -278,7 +278,7 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {garage.reviews.slice(0, 3).map((r, i) => (
                 <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-5">
-                  <p className="italic">“{r.quote}”</p>
+                  <p className="italic">"{r.quote}â€</p>
                   <p className="mt-3 text-sm text-white/80">— {r.author}</p>
                 </div>
               ))}
@@ -388,17 +388,17 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
       <footer className="py-10 bg-neutral-50 border-t">
         <div className="container mx-auto px-4 text-center">
           <div className="flex gap-4 justify-center text-sm text-neutral-600">
-            <span>🔒 SSL Secured</span>
-            <span>🇬🇧 UK Support</span>
-            <span>⚡ Fast Hosting</span>
-            <span>✅ No Hidden Fees</span>
+            <span>ðŸ”’ SSL Secured</span>
+            <span>ðŸ‡¬ðŸ‡§ UK Support</span>
+            <span>âš¡ Fast Hosting</span>
+            <span>âœ… No Hidden Fees</span>
           </div>
           <p className="mt-6 text-neutral-500 text-sm">
             Built for independent garages — everything you need to win bookings and look
             world-class online.
           </p>
           <p className="mt-2 text-neutral-400 text-xs">
-            © {new Date().getFullYear()} <span className="font-semibold">TorqueSites</span>.
+            Â© {new Date().getFullYear()} <span className="font-semibold">TorqueSites</span>.
             All rights reserved.
           </p>
         </div>

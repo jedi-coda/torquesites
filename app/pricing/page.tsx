@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
@@ -67,11 +67,11 @@ export default function PricingPage() {
             href="https://buy.stripe.com/fZuaEZcyH8CheM09b0eQM0b"
             className="rounded-2xl bg-gradient-to-r from-pink-500 to-pink-600 text-white px-8 py-4 text-lg font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-transform text-center"
           >
-            Get Started
+            Get Starter Package
           </a>
         </motion.div>
 
-        {/* Buy Out */}
+        {/* Pro (was Buy Out) */}
         <motion.div
           whileHover={{ scale: 1.03 }}
           className="border rounded-2xl p-8 shadow-lg bg-white flex flex-col relative hover:shadow-xl transition"
@@ -80,7 +80,7 @@ export default function PricingPage() {
             Most Popular
           </div>
           <h3 className="text-2xl font-bold mb-4 text-gray-900">
-            Buy Out Package
+            Pro Package
           </h3>
           <p className="text-4xl font-extrabold">£1499</p>
           <p className="text-lg mb-6 text-gray-600">+ £49/month optional</p>
@@ -110,7 +110,7 @@ export default function PricingPage() {
             href="https://buy.stripe.com/8x28wReGP5q5bzO2MCeQM03"
             className="rounded-2xl bg-gray-900 text-white px-8 py-4 text-lg font-semibold hover:bg-gray-800 hover:shadow-lg transition text-center"
           >
-            Buy Now
+            Get Pro Package
           </a>
         </motion.div>
 
@@ -121,7 +121,7 @@ export default function PricingPage() {
         >
           <h3 className="text-2xl font-bold mb-4 text-gray-900">Custom Build</h3>
           <p className="text-4xl font-extrabold">By Quotation</p>
-          <p className="text-lg mb-6 text-gray-600">for larger sites & groups</p>
+          <p className="text-lg mb-6 text-gray-600">for larger sites &amp; groups</p>
           <ul className="text-gray-700 flex-1 space-y-3 mb-6 text-left">
             <li className="flex items-start gap-2">
               <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
@@ -167,8 +167,8 @@ export default function PricingPage() {
           <div>
             <h3 className="font-semibold text-lg">Can I upgrade later?</h3>
             <p>
-              Absolutely. You can start on the Starter package and move to Buy
-              Out or Custom when your business is ready.
+              Absolutely. You can start on the Starter package and move to Pro
+              or Custom when your business is ready.
             </p>
           </div>
           <div>

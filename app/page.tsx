@@ -1,6 +1,5 @@
-"use client";
+﻿"use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Wrench,
@@ -11,17 +10,9 @@ import {
   Headphones,
 } from "lucide-react";
 import Link from "next/link";
+import { links } from "@/lib/links";
 
 export default function HomePage() {
-  const [greeting, setGreeting] = useState("");
-
-  useEffect(() => {
-    const hour = new Date().getHours();
-    if (hour < 12) setGreeting("Good morning, welcome to TorqueSites.");
-    else if (hour < 18) setGreeting("Good afternoon, welcome to TorqueSites.");
-    else setGreeting("Good evening, welcome to TorqueSites.");
-  }, []);
-
   return (
     <main className="font-sans text-gray-900">
       {/* NAV */}
@@ -47,28 +38,23 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* HERO */}
       <section
         className="relative flex items-center justify-center text-center h-[80vh] bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/porsche-hero.jpg')",
-          backgroundPosition: "center 40%", // adjust vertical placement
-        }}
+        style={{ backgroundImage: "url('/porsche-hero.jpg')", backgroundPosition: "center 40%" }}
       >
-        {/* Overlay for contrast */}
         <div className="absolute inset-0 bg-black/50" />
-
         <div className="relative z-10 max-w-3xl px-6">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            You’ve earned your reputation. <br /> Now let it shine online.
+            You've earned your reputation. <br /> Now let it shine online.
           </h1>
           <p className="text-lg md:text-xl text-gray-200 mb-8">
             Your reputation is built in the garage. We make sure it shows online.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            {/* Stripe Checkout link */}
             <a
-              href="https://buy.stripe.com/test_6oUbJ05jpcop0Lo0Z9grS01"
+              suppressHydrationWarning
+              href={links.publicStarter}
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-xl bg-pink-600 text-white font-semibold shadow hover:bg-pink-700 transition"
@@ -155,9 +141,9 @@ export default function HomePage() {
           <p className="mt-2 text-4xl font-extrabold text-gray-900">£999</p>
           <p className="text-sm text-gray-500">+ £99/mo all-in</p>
 
-          {/* Stripe Button */}
           <a
-            href="https://buy.stripe.com/test_6oUbJ05jpcop0Lo0Z9grS01"
+            suppressHydrationWarning
+            href={links.publicStarter}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 inline-block w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition text-center"
@@ -165,12 +151,11 @@ export default function HomePage() {
             Get Started (£999)
           </a>
 
-          {/* Pricing Page Redirect */}
           <Link
             href="/pricing"
             className="mt-4 block text-pink-600 hover:underline font-medium"
           >
-            See Full Pricing →
+            See Full Pricing &rarr;
           </Link>
         </motion.div>
       </section>
@@ -187,13 +172,9 @@ export default function HomePage() {
           Our Guarantee
         </motion.h2>
         <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">
-          Your site, live in days — not months. Most garages launch in 7–10 days.
-          And if you’re not fully satisfied, your setup fee is protected with our
-          money-back promise.
+          Your site, live in days — not months. Most garages launch in 7–10 days. And if you're not fully satisfied, your setup fee is protected with our money-back promise.
         </p>
-        <p className="mt-10 text-pink-400 font-medium">
-          No risk. Just results.
-        </p>
+        <p className="mt-10 text-pink-400 font-medium">No risk. Just results.</p>
       </section>
 
       {/* FINAL CTA */}
@@ -213,7 +194,8 @@ export default function HomePage() {
         </p>
         <div className="mt-8 flex justify-center gap-4">
           <a
-            href="https://buy.stripe.com/test_6oUbJ05jpcop0Lo0Z9grS01"
+            suppressHydrationWarning
+            href={links.publicStarter}
             target="_blank"
             rel="noopener noreferrer"
             className="bg-white text-gray-900 hover:bg-gray-100 font-semibold px-6 py-3 rounded-xl shadow-lg transition"
@@ -257,3 +239,4 @@ function Feature({
     </motion.div>
   );
 }
+
