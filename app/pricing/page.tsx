@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { CheckCircle2 } from "lucide-react";
 
 export default function PricingPage() {
   return (
@@ -37,12 +38,30 @@ export default function PricingPage() {
           <p className="text-4xl font-extrabold">£999</p>
           <p className="text-lg mb-6 text-gray-600">+ £99/month (all-in)</p>
           <ul className="text-gray-700 flex-1 space-y-3 mb-6 text-left">
-            <li>✅ Custom branded microsite</li>
-            <li>✅ Mobile-friendly, fast design</li>
-            <li>✅ Hosting & SSL included</li>
-            <li>✅ Booking/contact form</li>
-            <li>✅ Basic SEO setup</li>
-            <li>✅ Ongoing updates & support</li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Custom branded microsite</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Mobile-friendly, fast design</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Hosting &amp; SSL included</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Booking/contact form</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Basic SEO setup</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Ongoing updates &amp; support</span>
+            </li>
           </ul>
           <a
             href="https://buy.stripe.com/fZuaEZcyH8CheM09b0eQM0b"
@@ -66,11 +85,26 @@ export default function PricingPage() {
           <p className="text-4xl font-extrabold">£1499</p>
           <p className="text-lg mb-6 text-gray-600">+ £49/month optional</p>
           <ul className="text-gray-700 flex-1 space-y-3 mb-6 text-left">
-            <li>✅ Full site ownership</li>
-            <li>✅ Same features as Starter</li>
-            <li>✅ Hosting optional (add £49/mo)</li>
-            <li>✅ Advanced SEO setup</li>
-            <li>✅ Updates & maintenance available</li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Full site ownership</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Same features as Starter</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Hosting optional (add £49/mo)</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Advanced SEO setup</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Updates &amp; maintenance available</span>
+            </li>
           </ul>
           <a
             href="https://buy.stripe.com/8x28wReGP5q5bzO2MCeQM03"
@@ -89,10 +123,22 @@ export default function PricingPage() {
           <p className="text-4xl font-extrabold">By Quotation</p>
           <p className="text-lg mb-6 text-gray-600">for larger sites & groups</p>
           <ul className="text-gray-700 flex-1 space-y-3 mb-6 text-left">
-            <li>✅ Tailored design & branding</li>
-            <li>✅ Advanced SEO & integrations</li>
-            <li>✅ Multi-site or franchise options</li>
-            <li>✅ Conversion-first UX for bookings</li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Tailored design &amp; branding</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Advanced SEO &amp; integrations</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Multi-site or franchise options</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
+              <span>Conversion-first UX for bookings</span>
+            </li>
           </ul>
           <a
             href="https://buy.stripe.com/aFa4gBdCL2dT5bq4UKeQM09"
@@ -126,7 +172,7 @@ export default function PricingPage() {
             </p>
           </div>
           <div>
-            <h3 className="font-semibold text-lg">What’s included in support?</h3>
+            <h3 className="font-semibold text-lg">What's included in support?</h3>
             <p>
               Support includes technical help, small content updates, and
               performance checks to make sure your site is always live and
@@ -142,13 +188,9 @@ export default function PricingPage() {
           TorqueSites — World-class websites for UK garages
         </p>
         <p className="text-sm mt-2">
-          © {new Date().getFullYear()} TorqueSites. All rights reserved.
+          &copy; {new Date().getFullYear()} TorqueSites. All rights reserved.
         </p>
       </footer>
     </div>
   );
 }
-
-
-
-
