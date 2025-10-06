@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import EnquiryForm from "./EnquiryForm";
 
 /* ------------ types ------------ */
@@ -227,12 +227,12 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
                 <CardPrice title="MOT (Class 4)" price={garage.pricing.mot} />
                 <CardPrice
                   title="Interim Service"
-                  price={`from ${garage.pricing.interimFrom ?? "£—"}`}
+                  price={`from ${garage.pricing.interimFrom ?? "Â£â€”"}`}
                   subtitle="Oil & filter, checks"
                 />
                 <CardPrice
                   title="Full Service"
-                  price={`from ${garage.pricing.fullFrom ?? "£—"}`}
+                  price={`from ${garage.pricing.fullFrom ?? "Â£â€”"}`}
                   subtitle="Manufacturer schedule"
                 />
               </div>
@@ -278,8 +278,8 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {garage.reviews.slice(0, 3).map((r, i) => (
                 <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-5">
-                  <p className="italic">"{r.quote}â€</p>
-                  <p className="mt-3 text-sm text-white/80">— {r.author}</p>
+                  <p className="italic">"{r.quote}Ã¢â‚¬Â</p>
+                  <p className="mt-3 text-sm text-white/80">â€” {r.author}</p>
                 </div>
               ))}
             </div>
@@ -388,17 +388,17 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
       <footer className="py-10 bg-neutral-50 border-t">
         <div className="container mx-auto px-4 text-center">
           <div className="flex gap-4 justify-center text-sm text-neutral-600">
-            <span>ðŸ”’ SSL Secured</span>
-            <span>ðŸ‡¬ðŸ‡§ UK Support</span>
-            <span>âš¡ Fast Hosting</span>
-            <span>âœ… No Hidden Fees</span>
+            <span>Ã°Å¸â€â€™ SSL Secured</span>
+            <span>Ã°Å¸â€¡Â¬Ã°Å¸â€¡Â§ UK Support</span>
+            <span>Ã¢Å¡Â¡ Fast Hosting</span>
+            <span>Ã¢Å“â€¦ No Hidden Fees</span>
           </div>
           <p className="mt-6 text-neutral-500 text-sm">
-            Built for independent garages — everything you need to win bookings and look
+            Built for independent garages â€” everything you need to win bookings and look
             world-class online.
           </p>
           <p className="mt-2 text-neutral-400 text-xs">
-            Â© {new Date().getFullYear()} <span className="font-semibold">TorqueSites</span>.
+            Ã‚© {new Date().getFullYear()} <span className="font-semibold">TorqueSites</span>.
             All rights reserved.
           </p>
         </div>
@@ -446,7 +446,7 @@ function CardPrice({
       style={{ borderColor: "rgba(0,0,0,0.06)" }}
     >
       <div className="text-sm text-neutral-500">{title}</div>
-      <div className="mt-2 text-3xl font-extrabold">{price ?? "£—"}</div>
+      <div className="mt-2 text-3xl font-extrabold">{price ?? "Â£â€”"}</div>
       {subtitle && <div className="text-xs text-neutral-500 mt-1">{subtitle}</div>}
       <div className="mt-auto">
         <a
@@ -459,3 +459,4 @@ function CardPrice({
     </div>
   );
 }
+
