@@ -1,4 +1,4 @@
-﻿"use client";
+﻿"use client"; 
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -7,19 +7,12 @@ import { links } from "@/lib/links";
 
 export default function PartnershipPage() {
   const [greeting, setGreeting] = useState("");
-  // Hydration-safe hrefs
-  const [starterHref, setStarterHref] = useState("#");
-  const [buyoutHref, setBuyoutHref] = useState("#");
 
   useEffect(() => {
     const hour = new Date().getHours();
     if (hour < 12) setGreeting("Good morning, welcome to TorqueSites.");
     else if (hour < 18) setGreeting("Good afternoon, welcome to TorqueSites.");
     else setGreeting("Good evening, welcome to TorqueSites.");
-
-    // Set real links after mount (prevents SSR/CSR mismatch)
-    setStarterHref(links.partnerStarter || "#");
-    setBuyoutHref(links.partnerBuyout || "#");
   }, []);
 
   return (
@@ -85,7 +78,9 @@ export default function PartnershipPage() {
               <li>✓ Ongoing support</li>
             </ul>
             <motion.a
-              href={starterHref}
+              href={links.partnerStarter}
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ y: -2 }}
               className="mt-8 block w-full text-center rounded-2xl bg-gradient-to-r from-pink-500 to-pink-600 text-white font-semibold py-3 shadow-md hover:shadow-pink-500/50 transition"
             >
@@ -106,7 +101,9 @@ export default function PartnershipPage() {
               <li>✓ Priority maintenance available</li>
             </ul>
             <motion.a
-              href={buyoutHref}
+              href={links.partnerBuyout}
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ y: -2 }}
               className="mt-8 block w-full text-center rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold py-3 shadow-md hover:shadow-orange-500/50 transition"
             >
@@ -126,7 +123,9 @@ export default function PartnershipPage() {
         </p>
         <div className="flex justify-center gap-4">
           <motion.a
-            href={starterHref}
+            href={links.partnerStarter}
+            target="_blank"
+            rel="noopener noreferrer"
             whileHover={{ y: -2 }}
             className="rounded-2xl bg-white text-gray-900 px-8 py-3 font-semibold shadow-md hover:shadow-white/30 transition"
           >

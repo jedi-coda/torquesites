@@ -46,7 +46,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 max-w-3xl px-6">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            You've earned your reputation. <br /> Now let it shine online.
+            You&apos;ve earned your reputation. <br /> Now let it shine online.
           </h1>
           <p className="text-lg md:text-xl text-gray-200 mb-8">
             Your reputation is built in the garage. We make sure it shows online.
@@ -172,7 +172,7 @@ export default function HomePage() {
           Our Guarantee
         </motion.h2>
         <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">
-          Your site, live in days — not months. Most garages launch in 7–10 days. And if you're not fully satisfied, your setup fee is protected with our money-back promise.
+          Your site, live in days — not months. Most garages launch in 7–10 days. And if you&apos;re not fully satisfied, your setup fee is protected with our money-back promise.
         </p>
         <p className="mt-10 text-pink-400 font-medium">No risk. Just results.</p>
       </section>
@@ -239,4 +239,3 @@ function Feature({
     </motion.div>
   );
 }
-
