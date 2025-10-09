@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { brand, brandKeyFromHost, brandTokens, BrandTheme } from '@/lib/brand';
 import clsx from 'clsx';
+import GemHero from './hero/GemHero';
 
 export type HeroVariant = 'prestige' | 'customer' | 'tech';
 
@@ -62,13 +63,19 @@ function subCopy(variant: HeroVariant) {
 }
 
 export default function Hero({ garageName, brandSlug, theme, hero, contact }: HeroProps) {
+  // Determine brand
+  const brandKey = brandKeyFromHost();
+  
+  // Use GEM-specific hero for GEM brand
+  if (brandKey === 'gem') {
+    return <GemHero />;
+  }
+  
   // Persisted variant index
   const [idx, setIdx] = useState(0);
   const [animated, setAnimated] = useState(false);
   const [autoplay, setAutoplay] = useState(true);
   
-  // Determine brand
-  const brandKey = brandKeyFromHost();
   const brandTokens = brand[brandKey];
   
   // Use hero.variant and hero.images from props
