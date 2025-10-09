@@ -1,28 +1,38 @@
 // app/[slug]/page.tsx
 import { redirect } from "next/navigation";
-import garages from "@/data/garages.json";
 import GarageTemplate from "@/components/GarageTemplate";
+import { getAllGarageSlugs, loadGarage } from "@/lib/garage";
+import { decodeSlug } from "@/lib/slug";
+import { titleFor, descriptionFor, localBusinessJsonLd } from "@/lib/seo";
 
-type Garage = {
-  slug: string;
-  // ...plus whatever fields GarageTemplate expects
-  [key: string]: any;
-};
+// Types are enforced by the loader
 
 // Prebuild known demo slugs
 export const dynamic = "force-static";
 
 export function generateStaticParams() {
-  return (garages as Garage[]).map((g) => ({ slug: g.slug }));
+  return getAllGarageSlugs().map((slug) => ({ slug }));
 }
 
-export default function GaragePage({ params }: { params: { slug: string } }) {
-  const slug = decodeURIComponent(params.slug);
-  const garage = (garages as Garage[]).find((g) => g.slug === slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const garage = await loadGarage(decodeSlug(slug));
+  if (!garage) return {};
+  return { title: titleFor(garage), description: descriptionFor(garage) };
+}
 
-  // Unknown slug -> send to pricing (matches live behaviour)
+export default async function GaragePage(
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  const { slug } = await params;
+  const decoded = decodeSlug(slug);
+  const garage = await loadGarage(decoded);
   if (!garage) redirect("/pricing");
-
-  // Known demo -> render the showroom
-  return <GarageTemplate garage={garage} />;
+  const ld = localBusinessJsonLd(garage);
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <GarageTemplate garage={garage} />
+    </>
+  );
 }

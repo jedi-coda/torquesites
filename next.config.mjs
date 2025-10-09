@@ -1,7 +1,28 @@
 ﻿/** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: { ignoreDuringBuilds: true }, typescript: { ignoreBuildErrors: true },
-  // optional: if TS type *errors* ever block builds, uncomment the next line
-  // typescript: { ignoreBuildErrors: true },
+  reactStrictMode: true,
+  images: { 
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'plus.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.torquesites.co.uk',
+      },
+    ],
+  },
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: true },
 };
 export default nextConfig;

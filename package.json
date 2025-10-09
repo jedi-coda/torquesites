@@ -3,14 +3,14 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start",
-        "lint": "next lint"
+        "dev": "next dev -p 3000",
+        "dev:clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true});\" && next dev -p 3000",
+        "build": "next build"
     },
     "dependencies": {
         "@stripe/stripe-js": "^7.9.0",
         "@supabase/supabase-js": "^2.58.0",
+        "clsx": "^2.1.1",
         "framer-motion": "^12.23.22",
         "lucide-react": "^0.544.0",
         "next": "15.5.4",
@@ -24,9 +24,14 @@
         "@types/node": "^20",
         "@types/react": "^19",
         "@types/react-dom": "^19",
+        "cheerio": "^1.0.0",
+        "cross-env": "^7.0.3",
         "eslint": "^9",
         "eslint-config-next": "15.5.4",
+        "rimraf": "^5.0.5",
         "tailwindcss": "^4",
-        "typescript": "^5"
+        "ts-node": "^10.9.2",
+        "typescript": "^5",
+        "undici": "^6.19.8"
     }
 }

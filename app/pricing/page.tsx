@@ -182,15 +182,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-100 py-10 mt-16 text-center text-gray-600">
-        <p className="font-medium">
-          TorqueSites — World-class websites for UK garages
-        </p>
-        <p className="text-sm mt-2">
-          &copy; {new Date().getFullYear()} TorqueSites. All rights reserved.
-        </p>
-      </footer>
+      {/* Footer removed: global Footer renders via app/layout.tsx */}
     </div>
   );
 }

@@ -38,6 +38,20 @@ export const links = {
   partnerBuyout:  PARTNER_BUYOUT,
 };
 
+export function telLink(phone?: string): string {
+  if (!phone) return "#contact";
+  return `tel:${phone.replace(/\s+/g, "")}`;
+}
+
+export function mailtoLink(email?: string): string {
+  if (!email) return "#contact";
+  return `mailto:${email}`;
+}
+
+export function stripeLink(url?: string): string {
+  return url && /^https?:\/\//.test(url) ? url : "#enquiry";
+}
+
 // Optional: dev console warning if any env is missing (helps future you)
 if (process.env.NODE_ENV !== "production") {
   [

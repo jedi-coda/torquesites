@@ -12,6 +12,7 @@ export default function EnquiryForm({
   brandPrimary?: string;   // used for button colour
 }) {
   const [submitting, setSubmitting] = useState(false);
+  const [ok, setOk] = useState<null | boolean>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -20,16 +21,27 @@ export default function EnquiryForm({
     const form = e.currentTarget;
     const fd = new FormData(form);
     const data = Object.fromEntries(fd.entries());
-
-    // Minimal "works nowâ€ behaviour: open mailto
-    const subject = encodeURIComponent(`New enquiry — ${garageName}`);
-    const body = encodeURIComponent(
-      `Name: ${data.name ?? ""}\nPhone: ${data.phone ?? ""}\nEmail: ${data.email ?? ""}\nService: ${data.service ?? ""}\nNotes: ${data.notes ?? ""}`
-    );
-    window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
-
-    setSubmitting(false);
-    form.reset();
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name,
+          phone: data.phone,
+          email: data.email,
+          service: data.service,
+          message: data.notes,
+          slug: (typeof window !== "undefined" ? window.location.pathname.split("/")[1] : "") || "",
+          honeypot: (data as any).company || "",
+        }),
+      });
+      setOk(res.ok);
+      if (res.ok) form.reset();
+    } catch {
+      setOk(false);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -37,6 +49,8 @@ export default function EnquiryForm({
       <input name="name" className="w-full rounded-lg border px-3 py-2" placeholder="Your name" />
       <input name="phone" className="w-full rounded-lg border px-3 py-2" placeholder="Phone" />
       <input name="email" className="w-full rounded-lg border px-3 py-2" placeholder="Email (optional)" />
+      {/* Honeypot */}
+      <input name="company" className="hidden" tabIndex={-1} autoComplete="off" />
       <select name="service" className="w-full rounded-lg border px-3 py-2" defaultValue="MOT">
         <option value="MOT">MOT</option>
         <option value="Interim Service">Interim Service</option>
@@ -52,6 +66,8 @@ export default function EnquiryForm({
       >
         {submitting ? "Sending…" : "Send enquiry"}
       </button>
+      {ok === true && <div className="text-green-600 text-sm">Thanks — we\'ll be in touch shortly.</div>}
+      {ok === false && <div className="text-red-600 text-sm">Sorry, something went wrong. Please call or try again.</div>}
     </form>
   );
 }
