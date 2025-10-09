@@ -59,8 +59,8 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
     : undefined;
 
   return (
-            <BrandTheme garage={garage}>
-              <main className="pb-28 md:pb-32">
+    <BrandTheme garage={garage}>
+      <main className={`pb-28 md:pb-32 ${garage.slug === 'gem' ? 'brand-gem' : ''}`}>
                 <div className="min-h-screen bg-white text-neutral-900 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
       {/* Partner banner */}
       <div className="w-full text-xs sm:text-sm bg-neutral-900 text-white py-2 text-center">

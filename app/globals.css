@@ -28,6 +28,17 @@
   }
 }
 
+/* GEM brand tokens */
+.brand-gem {
+  --brand-from: #0b0b0b;
+  --brand-to: #1a1a1a;
+  --brand-accent: #d6a84a;
+  --cta-from: #c9962a;
+  --cta-to: #f0c75e;
+  --dot-inactive: #c8cbd1;
+  --dot-active: var(--brand-accent);
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
