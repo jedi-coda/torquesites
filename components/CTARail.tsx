@@ -1,21 +1,42 @@
+'use client';
+import { brand, brandKeyFromHost } from '@/lib/brand';
+
 export default function CTARail({ garage }:{ garage:any }) {
+  const brandKey = brandKeyFromHost();
+  const brandTokens = brand[brandKey];
+  
+  const gradientStyle = {
+    background: `linear-gradient(135deg, ${brandTokens.gradient.from}, ${brandTokens.gradient.via}, ${brandTokens.gradient.to})`
+  };
+
   return (
-    <section className="py-8 md:py-10" style={{ backgroundImage: 'linear-gradient(90deg, var(--ts-accent), var(--ts-accent))' }}>
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-        <h3 className="text-white text-xl md:text-2xl font-semibold">Ready to book your MOT?</h3>
-        <div className="flex gap-3">
-          <a 
-            href="#booking" 
-            className="rounded-lg bg-white text-slate-900 px-4 py-2 font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/70"
-          >
-            Book MOT now
-          </a>
-          <a 
-            href={`tel:${garage?.contact?.phone || ''}`} 
-            className="rounded-lg border border-white/70 text-white px-4 py-2 font-medium hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/70"
-          >
-            Call {garage?.contact?.shortPhone || garage?.contact?.phone}
-          </a>
+    <section className="py-10 md:py-12">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-2xl p-8 md:p-12 text-center" style={gradientStyle}>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Ready to book?</h2>
+          <p className="text-white/90 mb-6 max-w-[70ch] mx-auto">
+            Book your MOT online or call us directly. Same-day slots available.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="#booking"
+              className="inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold text-white shadow-md hover:brightness-95 focus-visible:outline-2 focus-visible:outline-white/80"
+              style={{ 
+                background: `linear-gradient(135deg, ${brandTokens.gradient.from}, ${brandTokens.gradient.via}, ${brandTokens.gradient.to})`,
+                color: brandTokens.solid.onPrimary
+              }}
+            >
+              Book MOT now
+            </a>
+            {garage.contact?.phone && (
+              <a
+                href={`tel:${garage.contact.phone.replace(/\s+/g, '')}`}
+                className="inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold border border-white/20 text-white hover:bg-white/18 focus-visible:outline-2 focus-visible:outline-white/80"
+              >
+                Call {garage.contact.phone}
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </section>

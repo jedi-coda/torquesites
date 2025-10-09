@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { brandGradient, brandGradients, BrandTheme, brandKeyFromHost, heroOverlay } from '@/lib/brand';
+import { brand, brandKeyFromHost, brandTokens, BrandTheme } from '@/lib/brand';
 import clsx from 'clsx';
 
 export type HeroVariant = 'prestige' | 'customer' | 'tech';
@@ -29,10 +29,6 @@ type HeroProps = {
     phone?: string;
   };
 };
-
-// Default copy for fallback
-const defaultTitle = 'Book your MOT today';
-const defaultSub = 'Trusted experts in MOTs, servicing & full vehicle care.';
 
 // Dynamic greeting by time
 function getGreeting(): string {
@@ -69,6 +65,11 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
   // Persisted variant index
   const [idx, setIdx] = useState(0);
   const [animated, setAnimated] = useState(false);
+  const [autoplay, setAutoplay] = useState(true);
+  
+  // Determine brand
+  const brandKey = brandKeyFromHost();
+  const brandTokens = brand[brandKey];
   
   // Use hero.variant and hero.images from props
   const isImageVariant = hero?.variant === 'image';
@@ -78,43 +79,28 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
   // Defensive: if any slide lacks src, fall back to first available image
   const safeImages = heroImages.filter(img => img && img.src);
   
-  // Enforce exactly 4 slides per brand
-  const slides = safeImages.length >= 4 ? safeImages.slice(0, 4) : [
-    ...safeImages,
-    ...Array(4 - safeImages.length).fill(null).map((_, i) => ({
-      id: `${brandSlug}-fallback-${i}`,
-      src: safeImages[0]?.src || '/hero/prestige.jpg',
-      alt: `${garageName} service`,
+  // Enforce exactly 4 slides per brand - first slide is gradient canvas
+  const slides = [
+    // First slide: gradient canvas (no image)
+    {
+      id: `${brandSlug}-gradient`,
+      src: null,
+      alt: '',
       variant: 'prestige' as HeroVariant,
-      objectPosition: '65% center'
-    }))
+      objectPosition: 'center'
+    },
+    // Subsequent slides: images
+    ...(safeImages.length >= 3 ? safeImages.slice(0, 3) : [
+      ...safeImages,
+      ...Array(3 - safeImages.length).fill(null).map((_, i) => ({
+        id: `${brandSlug}-fallback-${i}`,
+        src: safeImages[0]?.src || '/hero/prestige.jpg',
+        alt: `${garageName} service`,
+        variant: 'prestige' as HeroVariant,
+        objectPosition: '70% 50%'
+      }))
+    ])
   ];
-  
-  if (safeImages.length === 0 && heroImages.length > 0) {
-    if (process.env.NODE_ENV === 'development') {
-      console.warn(`[Hero] All slides missing src for ${brandSlug}, falling back to gradient`);
-    }
-  }
-  
-  // If no slides with images, render gradient-only fallback
-  if (!hasImages || slides.length === 0) {
-    return (
-      <section className="relative h-[60vh] sm:h-[70vh] md:h-[80vh]">
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: `linear-gradient(135deg, ${theme.primary}, ${theme.secondary ?? theme.primary})`
-          }}
-        />
-        <div className="relative z-10 mx-auto max-w-6xl px-6 pt-24">
-          <h1 className="text-white text-5xl font-extrabold leading-tight">
-            {defaultTitle}
-          </h1>
-          <p className="mt-4 text-white/80 text-xl">{defaultSub}</p>
-        </div>
-      </section>
-    );
-  }
   
   // Guard window usage in effects
   useEffect(() => {
@@ -127,18 +113,35 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
       setAnimated(true);
+      setAutoplay(false);
     } else {
       setTimeout(() => setAnimated(true), 50);
     }
   }, [slides.length]);
 
+  // Autoplay effect
+  useEffect(() => {
+    if (!autoplay) return;
+    
+    const interval = setInterval(() => {
+      setIdx((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [autoplay, slides.length]);
+
   const currentSlide = slides[clamp(idx, 0, slides.length - 1)];
   const currentVariant: HeroVariant = currentSlide?.variant ?? 'prestige';
   const isFirstSlide = idx === 0;
 
-  const gradient = brandGradient(theme);
-  const brandKey = brandKeyFromHost();
-  const overlayGradient = heroOverlay(brandKey);
+  // Gradient styles
+  const gradientStyle = {
+    background: `linear-gradient(135deg, ${brandTokens.gradient.from}, ${brandTokens.gradient.via}, ${brandTokens.gradient.to})`
+  };
+
+  const overlayStyle = {
+    background: `linear-gradient(90deg, rgba(12,13,16,.72) 0%, rgba(12,13,16,.55) 35%, rgba(12,13,16,0) 60%)`
+  };
 
   // --- Accessibility & keyboard controls for dots ---
   const onDotKey = (e: React.KeyboardEvent<HTMLButtonElement>, i: number) => {
@@ -161,15 +164,19 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
     <section
       className="relative overflow-visible min-h-[56svh] md:min-h-[70svh]"
       aria-label={`${garageName} hero`}
+      onMouseEnter={() => setAutoplay(false)}
+      onMouseLeave={() => setAutoplay(true)}
+      onFocus={() => setAutoplay(false)}
+      onBlur={() => setAutoplay(true)}
     >
       {/* Background gradient for depth */}
       <div 
         className="absolute inset-0"
-        style={gradient.cssVars}
+        style={gradientStyle}
       />
       
-      {/* Image layer */}
-      {currentSlide?.src && (
+      {/* Image layer (only for non-first slides) */}
+      {!isFirstSlide && currentSlide?.src && (
         <div className="absolute inset-0">
           <Image
             key={currentSlide.id ?? idx}
@@ -179,7 +186,7 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
             priority
             sizes="100vw"
             className="object-cover transition-opacity duration-500 ease-out"
-            style={{ objectPosition: '65% center' }}
+            style={{ objectPosition: '70% 50%' }}
             onError={() => {
               // Safety: if an image fails, fallback to first slide
               if (slides.length > 0) {
@@ -193,7 +200,7 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
           {/* Brand gradient overlay L→R for legibility */}
           <div 
             className="absolute inset-0"
-            style={{ background: overlayGradient }}
+            style={overlayStyle}
           />
         </div>
       )}
@@ -211,7 +218,7 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
               )}
               style={{ transitionDelay: animated ? '0ms' : '0ms' }}
             >
-              <h1 className="font-extrabold leading-tight text-balance break-keep text-[clamp(34px,5.5vw,56px)] max-w-[18ch]">
+              <h1 className="font-semibold leading-tight tracking-tight text-[clamp(32px,6vw,64px)] max-w-[18ch]">
                 {headlineCopy(currentVariant, garageName, isFirstSlide)}
               </h1>
             </div>
@@ -219,7 +226,7 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
             {/* Subhead */}
             <p 
               className={clsx(
-                'mt-3 text-white/90 text-[clamp(16px,2.1vw,20px)] max-w-[720px] transition-all duration-500 ease-out',
+                'mt-3 text-white/90 text-[clamp(18px,2vw,22px)] max-w-[60ch] transition-all duration-500 ease-out',
                 animated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               )}
               style={{ transitionDelay: animated ? '120ms' : '0ms' }}
@@ -238,8 +245,11 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
               {contact?.phone && (
                 <a
                   href={`tel:${contact.phone.replace(/\s+/g, '')}`}
-                  className="inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold text-white shadow-md"
-                  style={{ backgroundColor: theme.primary }}
+                  className="inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold text-white shadow-md hover:brightness-95 focus-visible:outline-2 focus-visible:outline-white/80"
+                  style={{ 
+                    background: `linear-gradient(135deg, ${brandTokens.gradient.from}, ${brandTokens.gradient.via}, ${brandTokens.gradient.to})`,
+                    color: brandTokens.solid.onPrimary
+                  }}
                 >
                   Call {contact.phone}
                 </a>
@@ -247,14 +257,14 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
               
               <a
                 href="#reviews"
-                className="inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold bg-white/10 text-white border border-white/30 backdrop-blur"
+                className="inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold bg-white/12 border border-white/20 text-white hover:bg-white/18 focus-visible:outline-2 focus-visible:outline-white/80"
               >
                 Read reviews
               </a>
               
               <a
                 href={`/partnership?garage=${encodeURIComponent(brandSlug)}`}
-                className="inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold bg-white text-neutral-900 border border-neutral-200"
+                className="inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold bg-white/12 border border-white/20 text-white hover:bg-white/18 focus-visible:outline-2 focus-visible:outline-white/80"
               >
                 Secure partner slot
               </a>
@@ -270,14 +280,14 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
                   key={i}
                   role="tab"
                   aria-selected={active}
-                  aria-label={`Show slide ${i + 1} of ${slides.length}`}
+                  aria-label={`Show slide ${i + 1} of 4`}
                   onClick={() => handleDot(i)}
                   onKeyDown={(e) => onDotKey(e, i)}
                   className={clsx(
                     'h-3 w-3 rounded-full outline-none ring-offset-2 focus:ring-2 focus:ring-white/70 transition-colors',
                     active ? 'bg-white' : 'bg-neutral-400'
                   )}
-                  style={{ backgroundColor: active ? theme.primary : undefined }}
+                  style={{ backgroundColor: active ? brandTokens.dotActive : brandTokens.dotIdle }}
                 />
               );
             })}
