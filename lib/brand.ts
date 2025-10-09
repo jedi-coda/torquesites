@@ -1,10 +1,32 @@
 // lib/brand.ts
+export type BrandKey = 'newtown' | 'gem' | 'swift';
 export type BrandTheme = {
   primary: string;   // hex like #0a4bff
   secondary?: string; // optional secondary stop
   textOnPrimary?: 'light' | 'dark';
   heroGradient?: string; // Tailwind gradient class
 };
+
+export function brandKeyFromHost(host?: string): BrandKey {
+  const h = (host || '').toLowerCase();
+  if (h.includes('gem')) return 'gem';
+  if (h.includes('swift')) return 'swift';
+  return 'newtown';
+}
+
+export function brandTokens(brand: BrandKey) {
+  switch (brand) {
+    case 'gem':   return { primary: '#CFA23A', bg: '#0B0B0B' };
+    case 'swift': return { primary: '#CFA23A', bg: '#0B0B0B' };
+    default:      return { primary: '#1D4ED8', bg: '#0B0B0B' };
+  }
+}
+
+// Gradient overlay from brand primary to page bg
+export function heroOverlay(brand: BrandKey) {
+  const { primary, bg } = brandTokens(brand);
+  return `linear-gradient(90deg, ${primary}CC 0%, ${primary}99 35%, ${bg}F0 100%)`;
+}
 
 export function brandGradient(theme: BrandTheme) {
   // Derive a tasteful, deep gradient from primary → a darkened mix

@@ -162,7 +162,7 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
       </section>
 
                 {/* BOOKING + WHY CHOOSE */}
-                <section className="py-12 md:py-16">
+                <section className="py-10 md:py-12">
                   <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left: Why Choose */}
@@ -177,17 +177,23 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
 
             {garage.chips && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                {garage.chips.map((c, i) => (
+                {garage.chips.slice(0, 6).map((c, i) => (
                   <AccentCard key={i} garage={garage} className="p-5 md:p-6">
                     <div className="flex items-start gap-3">
                       <BadgeCheck className="h-5 w-5" style={{ color: 'var(--ts-accent)' }} />
                       <div>
-                        <h3 className="font-semibold">{c}</h3>
+                        <h3 className="font-semibold truncate" title={c}>{c}</h3>
                         <p className="text-sm text-slate-600">Trusted expertise</p>
                       </div>
                     </div>
                   </AccentCard>
                 ))}
+                {/* hidden for microsite polish */}
+                {garage.chips.length > 6 && (
+                  <div className="col-span-full text-center text-sm text-neutral-500 py-4">
+                    +{garage.chips.length - 6} more services available
+                  </div>
+                )}
               </div>
             )}
 
@@ -196,7 +202,10 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
               <>
                 <h3 className="text-2xl md:text-3xl font-bold mt-10 mb-6">Our Services</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                  {(garage.content?.services?.length ? garage.content.services : garage.services)!.map((s, i) => (
+                  {(garage.content?.services?.length ? garage.content.services : garage.services)!
+                    .filter(s => ['MOT', 'Servicing', 'Diagnostics', 'EV/Hybrid'].includes(s) || s.includes('Tyres'))
+                    .slice(0, 4)
+                    .map((s, i) => (
                     <AccentCard key={i} garage={garage} className="p-5 md:p-6">
                       <div className="flex items-start gap-3">
                         <Wrench className="h-5 w-5" style={{ color: 'var(--ts-accent)' }} />
@@ -274,7 +283,7 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
 
                 {/* Reviews */}
                 {garage.reviews && garage.reviews.length > 0 && (
-                  <section className="py-12 md:py-16">
+                  <section className="py-10 md:py-12">
                     <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
                       <h3 className="text-2xl md:text-3xl font-bold mb-6">What Our Customers Say</h3>
                       <ReviewsCarousel
@@ -286,7 +295,7 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
                 )}
 
                 {/* Branches + Map */}
-                <section className="py-12 md:py-16">
+                <section className="py-10 md:py-12">
                   <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
                     <h3 className="text-2xl md:text-3xl font-bold mb-6">Find Us</h3>
 
@@ -314,12 +323,6 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
                           Call {b.phone}
                         </a>
                       )}
-                      <a
-                        href="#booking"
-                        className="rounded-lg px-3 py-1.5 text-sm border hover:bg-black/5"
-                      >
-                        Book MOT
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -338,7 +341,7 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
                 <CTARail garage={garage} />
 
                 {/* Contact band (dark) with client form */}
-                <section className="py-12 md:py-16">
+                <section className="py-10 md:py-12">
                   <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-8">
           <div className="rounded-2xl p-6 bg-black/20 border border-white/10">

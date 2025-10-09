@@ -61,7 +61,7 @@ if (process.env.NODE_ENV !== "production") {
     ["NEXT_PUBLIC_STRIPE_LINK_PARTNER_BUYOUT", ENV_PARTNER_BUYOUT],
   ].forEach(([key, val]) => {
     if (!val) {
-      // eslint-disable-next-line no-console
+       
       console.warn(`[links] Missing ${key}; using hardcoded fallback.`);
     }
   });

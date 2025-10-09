@@ -21,17 +21,17 @@ export function PricingCards({ items, garage }:{ items: Array<{title:string, pri
           <div className="text-3xl font-bold mt-2">{p.price}</div>
           {p.note && <p className="text-sm text-slate-600 mt-1">{p.note}</p>}
           
-          {/* Primary button */}
+          {/* Primary button - solid brand */}
           <button 
             className="mt-4 inline-flex justify-center rounded-lg px-4 py-2 font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2"
-            style={{ backgroundColor: 'var(--ts-accent)', color: 'var(--ts-contrast)' }}
+            style={{ backgroundColor: 'var(--ts-accent)', color: 'white' }}
           >
             Book now
           </button>
           
-          {/* Secondary outline button */}
+          {/* Secondary button - soft outline */}
           <button 
-            className="mt-2 inline-flex justify-center rounded-lg px-4 py-2 font-medium border border-black/10 hover:border-black/20 focus:outline-none focus:ring-2 focus:ring-offset-2"
+            className="mt-2 inline-flex justify-center rounded-lg px-4 py-2 font-medium border border-white/20 dark:border-neutral-900/15 hover:border-black/20 focus:outline-none focus:ring-2 focus:ring-offset-2"
             style={{ color: 'var(--ts-accent)' }}
           >
             Learn more

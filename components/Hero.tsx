@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { brandGradient, brandGradients, BrandTheme } from '@/lib/brand';
+import { brandGradient, brandGradients, BrandTheme, brandKeyFromHost, heroOverlay } from '@/lib/brand';
 import clsx from 'clsx';
 
 export type HeroVariant = 'prestige' | 'customer' | 'tech';
@@ -34,8 +34,20 @@ type HeroProps = {
 const defaultTitle = 'Book your MOT today';
 const defaultSub = 'Trusted experts in MOTs, servicing & full vehicle care.';
 
+// Dynamic greeting by time
+function getGreeting(): string {
+  const hour = new Date().getHours();
+  if (hour >= 0 && hour < 12) return 'morning';
+  if (hour >= 12 && hour < 18) return 'afternoon';
+  return 'evening';
+}
+
 // Headline microcopy by variant
-function headlineCopy(variant: HeroVariant, garage: string) {
+function headlineCopy(variant: HeroVariant, garage: string, isFirstSlide: boolean = false) {
+  if (isFirstSlide) {
+    return `Good ${getGreeting()}, welcome to ${garage}`;
+  }
+  
   switch (variant) {
     case 'prestige':  return `Book your MOT at ${garage}`;
     case 'customer':  return `Friendly, fair & fast at ${garage}`;
@@ -54,6 +66,10 @@ function subCopy(variant: HeroVariant) {
 }
 
 export default function Hero({ garageName, brandSlug, theme, hero, contact }: HeroProps) {
+  // Persisted variant index
+  const [idx, setIdx] = useState(0);
+  const [animated, setAnimated] = useState(false);
+  
   // Use hero.variant and hero.images from props
   const isImageVariant = hero?.variant === 'image';
   const heroImages = hero?.images ?? [];
@@ -61,6 +77,19 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
   
   // Defensive: if any slide lacks src, fall back to first available image
   const safeImages = heroImages.filter(img => img && img.src);
+  
+  // Enforce exactly 4 slides per brand
+  const slides = safeImages.length >= 4 ? safeImages.slice(0, 4) : [
+    ...safeImages,
+    ...Array(4 - safeImages.length).fill(null).map((_, i) => ({
+      id: `${brandSlug}-fallback-${i}`,
+      src: safeImages[0]?.src || '/hero/prestige.jpg',
+      alt: `${garageName} service`,
+      variant: 'prestige' as HeroVariant,
+      objectPosition: '65% center'
+    }))
+  ];
+  
   if (safeImages.length === 0 && heroImages.length > 0) {
     if (process.env.NODE_ENV === 'development') {
       console.warn(`[Hero] All slides missing src for ${brandSlug}, falling back to gradient`);
@@ -68,7 +97,7 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
   }
   
   // If no slides with images, render gradient-only fallback
-  if (!hasImages || safeImages.length === 0) {
+  if (!hasImages || slides.length === 0) {
     return (
       <section className="relative h-[60vh] sm:h-[70vh] md:h-[80vh]">
         <div 
@@ -86,17 +115,13 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
       </section>
     );
   }
-
-  // Persisted variant index
-  const [idx, setIdx] = useState(0);
-  const [animated, setAnimated] = useState(false);
   
   // Guard window usage in effects
   useEffect(() => {
     if (typeof window === 'undefined') return;
     
     const saved = Number(localStorage.getItem('heroVariantIndex') || '0');
-    setIdx(Number.isFinite(saved) ? clamp(saved, 0, Math.max(0, safeImages.length)) : 0);
+    setIdx(Number.isFinite(saved) ? clamp(saved, 0, Math.max(0, slides.length)) : 0);
     
     // Animation effect with reduced motion respect
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -105,13 +130,15 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
     } else {
       setTimeout(() => setAnimated(true), 50);
     }
-  }, [safeImages.length]);
+  }, [slides.length]);
 
-  const currentSlide = safeImages[clamp(idx, 0, safeImages.length - 1)];
+  const currentSlide = slides[clamp(idx, 0, slides.length - 1)];
   const currentVariant: HeroVariant = currentSlide?.variant ?? 'prestige';
+  const isFirstSlide = idx === 0;
 
   const gradient = brandGradient(theme);
-  const brandGradientClass = brandGradients[brandSlug as keyof typeof brandGradients] || brandGradients['arundel-road-garage'];
+  const brandKey = brandKeyFromHost();
+  const overlayGradient = heroOverlay(brandKey);
 
   // --- Accessibility & keyboard controls for dots ---
   const onDotKey = (e: React.KeyboardEvent<HTMLButtonElement>, i: number) => {
@@ -120,7 +147,7 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
       handleDot(i);
     }
     if (e.key === 'ArrowLeft') handleDot(Math.max(0, (idx || 0) - 1));
-    if (e.key === 'ArrowRight') handleDot(Math.min(safeImages.length - 1, (idx || 0) + 1));
+    if (e.key === 'ArrowRight') handleDot(Math.min(slides.length - 1, (idx || 0) + 1));
   };
 
   const handleDot = (i: number) => {
@@ -129,8 +156,6 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
       localStorage.setItem('heroVariantIndex', String(i));
     }
   };
-
-  const imgObjPos = currentSlide?.objectPosition ?? 'center right';
 
   return (
     <section
@@ -149,15 +174,15 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
           <Image
             key={currentSlide.id ?? idx}
             src={currentSlide.src}
-            alt={currentSlide.alt ?? ''}
+            alt={currentSlide.alt || `${garageName} ${currentVariant} service`}
             fill
             priority
             sizes="100vw"
             className="object-cover transition-opacity duration-500 ease-out"
-            style={{ objectPosition: imgObjPos }}
+            style={{ objectPosition: '65% center' }}
             onError={() => {
               // Safety: if an image fails, fallback to first slide
-              if (safeImages.length > 0) {
+              if (slides.length > 0) {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('heroVariantIndex', '0');
                 }
@@ -166,7 +191,10 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
             }}
           />
           {/* Brand gradient overlay L→R for legibility */}
-          <div className={`absolute inset-0 ${brandGradientClass}`} />
+          <div 
+            className="absolute inset-0"
+            style={{ background: overlayGradient }}
+          />
         </div>
       )}
 
@@ -181,10 +209,10 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
                 'text-white transition-all duration-500 ease-out',
                 animated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               )}
-              style={{ transitionDelay: animated ? '50ms' : '0ms' }}
+              style={{ transitionDelay: animated ? '0ms' : '0ms' }}
             >
               <h1 className="font-extrabold leading-tight text-balance break-keep text-[clamp(34px,5.5vw,56px)] max-w-[18ch]">
-                {headlineCopy(currentVariant, garageName)}
+                {headlineCopy(currentVariant, garageName, isFirstSlide)}
               </h1>
             </div>
 
@@ -194,7 +222,7 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
                 'mt-3 text-white/90 text-[clamp(16px,2.1vw,20px)] max-w-[720px] transition-all duration-500 ease-out',
                 animated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               )}
-              style={{ transitionDelay: animated ? '170ms' : '0ms' }}
+              style={{ transitionDelay: animated ? '120ms' : '0ms' }}
             >
               {subCopy(currentVariant)}
             </p>
@@ -205,7 +233,7 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
                 'mt-6 flex flex-wrap gap-3 transition-all duration-500 ease-out',
                 animated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               )}
-              style={{ transitionDelay: animated ? '290ms' : '0ms' }}
+              style={{ transitionDelay: animated ? '200ms' : '0ms' }}
             >
               {contact?.phone && (
                 <a
@@ -233,29 +261,27 @@ export default function Hero({ garageName, brandSlug, theme, hero, contact }: He
             </div>
           </div>
 
-          {/* Dots pagination */}
-          {safeImages.length > 1 && (
-            <div className="absolute right-12 bottom-12 flex gap-2" role="tablist" aria-label="Hero slides">
-              {safeImages.map((_, i) => {
-                const active = i === idx;
-                return (
-                  <button
-                    key={i}
-                    role="tab"
-                    aria-selected={active}
-                    aria-label={`Show slide ${i + 1} of ${safeImages.length}`}
-                    onClick={() => handleDot(i)}
-                    onKeyDown={(e) => onDotKey(e, i)}
-                    className={clsx(
-                      'h-3 w-3 rounded-full outline-none ring-offset-2 focus:ring-2 focus:ring-white/70 transition-colors',
-                      active ? 'bg-white' : 'bg-neutral-400'
-                    )}
-                    style={{ backgroundColor: active ? theme.primary : undefined }}
-                  />
-                );
-              })}
-            </div>
-          )}
+          {/* Dots pagination - always render 4 */}
+          <div className="absolute right-12 bottom-12 flex gap-2" role="tablist" aria-label="Hero slides">
+            {Array.from({ length: 4 }, (_, i) => {
+              const active = i === idx;
+              return (
+                <button
+                  key={i}
+                  role="tab"
+                  aria-selected={active}
+                  aria-label={`Show slide ${i + 1} of ${slides.length}`}
+                  onClick={() => handleDot(i)}
+                  onKeyDown={(e) => onDotKey(e, i)}
+                  className={clsx(
+                    'h-3 w-3 rounded-full outline-none ring-offset-2 focus:ring-2 focus:ring-white/70 transition-colors',
+                    active ? 'bg-white' : 'bg-neutral-400'
+                  )}
+                  style={{ backgroundColor: active ? theme.primary : undefined }}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

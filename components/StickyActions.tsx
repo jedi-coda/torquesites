@@ -19,8 +19,8 @@ export default function StickyActions(props: { slug: string; phone?: string; bra
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-4 bottom-4 md:bottom-6 z-40 pointer-events-none">
-      <div className="pointer-events-auto bg-white/80 shadow-lg ring-1 ring-black/5 rounded-2xl px-4 py-3 flex items-center gap-3">
+    <div className="fixed inset-x-4 bottom-4 md:bottom-6 z-30 pointer-events-none">
+      <div className="pointer-events-auto backdrop-blur-0 bg-neutral-950/8 dark:bg-white/6 border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,.08)] rounded-2xl px-4 py-3 flex items-center gap-3">
         <button
           onClick={() => {
             if (href && href !== "#enquiry") {

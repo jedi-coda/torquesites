@@ -20,10 +20,13 @@ export default function ReviewsCarousel({ reviews, garage }:{ reviews: Array<{qu
     return () => { stop(); el.removeEventListener('mouseenter', stop); el.removeEventListener('mouseleave', tick); };
   }, []);
 
+  // Limit to max 2 items on desktop, 1 on mobile
+  const displayReviews = reviews.slice(0, 2);
+
   return (
-    <div className="rounded-2xl p-4 md:p-5" style={{ background: '#0f172a', boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.08)' }}>
-      <div ref={ref} className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory">
-        {reviews.map((r, i) => (
+    <div className="rounded-2xl p-4 md:p-5 bg-neutral-900 border border-white/10">
+      <div ref={ref} className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory">
+        {displayReviews.map((r, i) => (
           <figure key={i} className="snap-start min-w-[320px] md:min-w-[420px] rounded-xl border border-white/10 bg-black/20 p-4">
             <blockquote className="text-white/90 italic">"{r.quote}"</blockquote>
             <figcaption className="mt-3 text-white/70 text-sm">— {r.author}</figcaption>
