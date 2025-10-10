@@ -1,6 +1,5 @@
 ﻿"use client";
 
-import { motion } from "framer-motion";
 import {
   Wrench,
   Smartphone,
@@ -73,15 +72,9 @@ export default function HomePage() {
 
       {/* FEATURES */}
       <section className="py-24 px-6 bg-white">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold text-center"
-        >
+        <h2 className="text-3xl md:text-4xl font-bold text-center">
           Built for garages. Focused on results.
-        </motion.h2>
+        </h2>
         <div className="mt-14 grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
           <Feature
             icon={<Smartphone size={28} strokeWidth={2} />}
@@ -118,25 +111,13 @@ export default function HomePage() {
 
       {/* PRICING TEASER */}
       <section className="py-24 px-6 bg-gray-50 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold"
-        >
+        <h2 className="text-3xl md:text-4xl font-bold">
           Clear pricing. No surprises.
-        </motion.h2>
+        </h2>
         <p className="mt-4 text-lg text-gray-600">
           Get started with a simple one-time setup fee.
         </p>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mt-10 max-w-sm mx-auto border rounded-2xl shadow-lg p-8 bg-white"
-        >
+        <div className="mt-10 max-w-sm mx-auto border rounded-2xl shadow-lg p-8 bg-white">
           <h3 className="text-xl font-bold">Starter Package</h3>
           <p className="mt-2 text-4xl font-extrabold text-gray-900">£999</p>
           <p className="text-sm text-gray-500">+ £99/mo all-in</p>
@@ -157,20 +138,14 @@ export default function HomePage() {
           >
             See Full Pricing &rarr;
           </Link>
-        </motion.div>
+        </div>
       </section>
 
       {/* GUARANTEE */}
       <section className="py-24 px-6 bg-gray-900 text-white text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold"
-        >
+        <h2 className="text-3xl md:text-4xl font-bold">
           Our Guarantee
-        </motion.h2>
+        </h2>
         <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">
           Your site, live in days — not months. Most garages launch in 7–10 days. And if you&apos;re not fully satisfied, your setup fee is protected with our money-back promise.
         </p>
@@ -179,15 +154,9 @@ export default function HomePage() {
 
       {/* FINAL CTA */}
       <section className="py-24 px-6 bg-gradient-to-r from-pink-600 to-pink-700 text-center text-white">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold"
-        >
+        <h2 className="text-3xl md:text-4xl font-bold">
           Ready to shine online?
-        </motion.h2>
+        </h2>
         <p className="mt-4 text-lg text-pink-100 max-w-2xl mx-auto">
           Give your garage the website it deserves — modern, trusted, and built
           to win customers.
@@ -224,18 +193,12 @@ function Feature({
   text: string;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-      className="flex flex-col items-center text-center p-6 border rounded-2xl shadow-sm hover:shadow-lg transition"
-    >
+    <div className="flex flex-col items-center text-center p-6 border rounded-2xl shadow-sm hover:shadow-lg transition">
       <div className="w-14 h-14 flex items-center justify-center rounded-full bg-pink-100 text-pink-600 mb-4">
         {icon}
       </div>
       <h3 className="font-semibold text-lg">{title}</h3>
       <p className="mt-2 text-gray-600">{text}</p>
-    </motion.div>
+    </div>
   );
 }

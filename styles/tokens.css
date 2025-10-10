@@ -1,0 +1,22 @@
+/* Brand-scoped vars for GEM */
+.brand-gem {
+  /* Core palette */
+  --c-bg: #0b0b0b;            /* near-black */
+  --c-bg-2: #0f1116;          /* deep neutral */
+  --c-fg: #ffffff;
+  --c-muted: #b7bec7;
+
+  /* GEM golds */
+  --c-gold-500: #D7A34B;      /* primary gold */
+  --c-gold-400: #E6B873;      /* secondary gold */
+  --c-gold-600: #b8842e;      /* hover/active */
+
+  /* Surfaces */
+  --c-surface: rgba(255,255,255,0.04);
+  --c-surface-2: rgba(255,255,255,0.06);
+
+  /* Gradients */
+  --g-hero: radial-gradient(1200px 600px at 25% -10%, rgba(255,255,255,0.06) 0%, transparent 55%), 
+            linear-gradient(135deg, #0c0c0c 0%, #0a0a0a 55%, #070707 100%);
+  --g-btn: linear-gradient(135deg, var(--c-gold-500) 0%, var(--c-gold-400) 100%);
+}

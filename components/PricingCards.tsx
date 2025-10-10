@@ -1,5 +1,4 @@
 'use client';
-import { motion } from 'framer-motion';
 import { brand, brandKeyFromHost } from '@/lib/brand';
 
 export function PricingCards({ items, garage }:{ items: Array<{title:string, price:string, note?:string, badge?:string, include?:string[] }>; garage:any }) {
@@ -13,9 +12,7 @@ export function PricingCards({ items, garage }:{ items: Array<{title:string, pri
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
       {items.map((p, i) => (
-        <motion.div key={i}
-          initial={{ y: 12, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true }} transition={{ duration: 0.3, delay: i*0.05 }}
+        <div key={i}
           className="rounded-2xl bg-white border border-black/5 shadow-sm hover:shadow-md transition-shadow p-5 md:p-6 flex flex-col"
         >
           {/* Brand top rule */}
@@ -30,12 +27,12 @@ export function PricingCards({ items, garage }:{ items: Array<{title:string, pri
           {p.note && <p className="text-sm text-slate-600 mt-1">{p.note}</p>}
           
           {/* Primary button - gradient */}
-          <button className={`mt-4 inline-flex justify-center ${btnPrimary}`}>
+          <button className={garage.slug === 'gem' ? "btn btn--primary mt-4" : `mt-4 inline-flex justify-center ${btnPrimary}`}>
             Book now
           </button>
           
           {/* Secondary button - soft outline */}
-          <button className={`mt-2 inline-flex justify-center ${btnSecondary}`}>
+          <button className={garage.slug === 'gem' ? "btn btn--ghost-dark mt-2" : `mt-2 inline-flex justify-center ${btnSecondary}`}>
             Learn more
           </button>
           
@@ -47,7 +44,7 @@ export function PricingCards({ items, garage }:{ items: Array<{title:string, pri
               </ul>
             </details>
           ) : null}
-        </motion.div>
+        </div>
       ))}
     </div>
   );

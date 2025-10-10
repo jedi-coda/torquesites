@@ -1,7 +1,6 @@
 ﻿"use client"; 
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { links } from "@/lib/links";
 
@@ -19,46 +18,25 @@ export default function PartnershipPage() {
     <main className="font-sans text-gray-900">
       {/* HERO */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="absolute inset-0 pointer-events-none"
-          aria-hidden
-        >
+        <div className="absolute inset-0 pointer-events-none" aria-hidden>
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: "url('/porsche-hero.jpg')" }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/90" />
-        </motion.div>
+        </div>
 
         <div className="relative z-10 text-center text-white px-6">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur text-pink-200/90 tracking-widest uppercase text-xs md:text-sm shadow-sm mb-3"
-          >
+          <p className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur text-pink-200/90 tracking-widest uppercase text-xs md:text-sm shadow-sm mb-3">
             {greeting}
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.5 }}
-            className="text-4xl md:text-6xl font-bold leading-tight mb-4"
-          >
+          </p>
+          <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-4">
             Torque 100 Partnership
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.7 }}
-            className="max-w-2xl mx-auto text-lg md:text-xl text-gray-200"
-          >
+          </h1>
+          <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-200">
             An exclusive invite-only offer for garages that want world-class
             design, hosting, and lifetime partner pricing.
-          </motion.p>
+          </p>
         </div>
       </section>
 
@@ -77,15 +55,14 @@ export default function PartnershipPage() {
               <li>✓ Booking/contact form</li>
               <li>✓ Ongoing support</li>
             </ul>
-            <motion.a
+            <a
               href={links.partnerStarter}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ y: -2 }}
               className="mt-8 block w-full text-center rounded-2xl bg-gradient-to-r from-pink-500 to-pink-600 text-white font-semibold py-3 shadow-md hover:shadow-pink-500/50 transition"
             >
               Join as Partner
-            </motion.a>
+            </a>
           </div>
 
           {/* Partner Pro (Buy Out) */}
@@ -100,15 +77,14 @@ export default function PartnershipPage() {
               <li>✓ Advanced SEO setup</li>
               <li>✓ Priority maintenance available</li>
             </ul>
-            <motion.a
+            <a
               href={links.partnerBuyout}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ y: -2 }}
               className="mt-8 block w-full text-center rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold py-3 shadow-md hover:shadow-orange-500/50 transition"
             >
               Choose Pro Package
-            </motion.a>
+            </a>
           </div>
         </div>
       </section>
@@ -122,15 +98,14 @@ export default function PartnershipPage() {
           Secure your Torque 100 Partner slot today before they&apos;re gone.
         </p>
         <div className="flex justify-center gap-4">
-          <motion.a
+          <a
             href={links.partnerStarter}
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ y: -2 }}
             className="rounded-2xl bg-white text-gray-900 px-8 py-3 font-semibold shadow-md hover:shadow-white/30 transition"
           >
             Become a Partner
-          </motion.a>
+          </a>
           <Link
             href="/contact"
             className="rounded-2xl bg-gray-900 border border-white px-8 py-3 font-semibold text-white hover:bg-gray-800 transition"

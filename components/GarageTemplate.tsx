@@ -2,6 +2,7 @@
 import EnquiryForm from "./EnquiryForm";
 import GarageMap from "./GarageMap";
 import Hero from "@/components/Hero";
+import GemHero from "@/components/hero/GemHero";
 import Section from "@/components/Section";
 import BrandTheme from "@/components/BrandTheme";
 import { AccentCard } from "@/components/ui/AccentCard";
@@ -74,49 +75,53 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
         </Link>
       </div>
 
-              <Hero 
-                garageName={garage.name}
-                brandSlug={garage.slug}
-                theme={{
-                  primary: garage.theme?.accent || garage.brand?.primary || '#0a4bff',
-                  secondary: garage.theme?.accent2 || garage.brand?.dark,
-                  textOnPrimary: 'light'
-                }}
-                hero={{
-                  variant: 'image',
-                  images: [
-                    {
-                      id: `${garage.slug}-prestige`,
-                      src: '/hero/prestige.jpg',
-                      alt: `${garage.name} prestige service`,
-                      variant: 'prestige',
-                      objectPosition: 'center right'
-                    },
-                    {
-                      id: `${garage.slug}-customer`,
-                      src: '/hero/customer.jpg',
-                      alt: `${garage.name} customer service`,
-                      variant: 'customer',
-                      objectPosition: 'center right'
-                    },
-                    {
-                      id: `${garage.slug}-tech`,
-                      src: '/hero/tech.jpg',
-                      alt: `${garage.name} diagnostics`,
-                      variant: 'tech',
-                      objectPosition: 'center right'
-                    },
-                    {
-                      id: `${garage.slug}-solid`,
-                      src: '/hero/prestige.jpg',
-                      alt: `${garage.name} service`,
-                      variant: 'prestige',
-                      objectPosition: 'center right'
-                    }
-                  ]
-                }}
-                contact={garage.contact}
-              />
+              {garage.slug === 'gem' ? (
+                <GemHero />
+              ) : (
+                <Hero 
+                  garageName={garage.name}
+                  brandSlug={garage.slug}
+                  theme={{
+                    primary: garage.theme?.accent || garage.brand?.primary || '#0a4bff',
+                    secondary: garage.theme?.accent2 || garage.brand?.dark,
+                    textOnPrimary: 'light'
+                  }}
+                  hero={{
+                    variant: 'image',
+                    images: [
+                      {
+                        id: `${garage.slug}-prestige`,
+                        src: '/hero/prestige.jpg',
+                        alt: `${garage.name} prestige service`,
+                        variant: 'prestige',
+                        objectPosition: 'center right'
+                      },
+                      {
+                        id: `${garage.slug}-customer`,
+                        src: '/hero/customer.jpg',
+                        alt: `${garage.name} customer service`,
+                        variant: 'customer',
+                        objectPosition: 'center right'
+                      },
+                      {
+                        id: `${garage.slug}-tech`,
+                        src: '/hero/tech.jpg',
+                        alt: `${garage.name} diagnostics`,
+                        variant: 'tech',
+                        objectPosition: 'center right'
+                      },
+                      {
+                        id: `${garage.slug}-solid`,
+                        src: '/hero/prestige.jpg',
+                        alt: `${garage.name} service`,
+                        variant: 'prestige',
+                        objectPosition: 'center right'
+                      }
+                    ]
+                  }}
+                  contact={garage.contact}
+                />
+              )}
 
       {/* SWIFT-STYLE UTILITY BAR */}
       <section className="bg-white border-b border-neutral-200">
@@ -152,8 +157,8 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
           {garage.contact?.phone && (
             <a
               href={phoneHref}
-              className="text-sm font-semibold px-3 py-1 rounded-full"
-              style={{ backgroundColor: accent, color: "#fff" }}
+              className={garage.slug === 'gem' ? "btn btn--primary text-sm px-3 py-1" : "text-sm font-semibold px-3 py-1 rounded-full"}
+              style={garage.slug === 'gem' ? {} : { backgroundColor: accent, color: "#fff" }}
             >
               {garage.contact.phone}
             </a>
@@ -177,17 +182,31 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
 
             {garage.chips && (
               <div className="max-w-[70ch]">
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {garage.chips.slice(0, 6).map((c, i) => (
-                    <li key={i} className="flex gap-3 items-start">
-                      <BadgeCheck className="mt-1 size-5" style={{ color: 'var(--ts-accent)' }} />
-                      <div>
-                        <p className="font-medium">{c}</p>
-                        <p className="text-muted-foreground text-sm">Trusted expertise</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                {garage.slug === 'gem' ? (
+                  <ul className="space-y-4">
+                    {garage.chips.slice(0, 6).map((c, i) => (
+                      <li key={i} className="flex gap-3 items-start">
+                        <BadgeCheck className="mt-1 size-5" style={{ color: 'var(--c-gold-500)' }} />
+                        <div>
+                          <p className="font-medium text-white">{c}</p>
+                          <p className="text-white/70 text-sm">Trusted expertise</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {garage.chips.slice(0, 6).map((c, i) => (
+                      <li key={i} className="flex gap-3 items-start">
+                        <BadgeCheck className="mt-1 size-5" style={{ color: 'var(--ts-accent)' }} />
+                        <div>
+                          <p className="font-medium">{c}</p>
+                          <p className="text-muted-foreground text-sm">Trusted expertise</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 {/* hidden for microsite polish */}
                 {garage.chips.length > 6 && (
                   <div className="text-center text-sm text-neutral-500 py-4">
@@ -201,20 +220,40 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
             {(garage.content?.services?.length ? garage.content.services : garage.services)?.length && (
               <>
                 <h3 className="text-2xl md:text-3xl font-bold mt-10 mb-6">Our Services</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                  {['MOT Testing', 'Servicing', 'Diagnostics', 'EV & Hybrid']
-                    .map((service, i) => (
-                    <div key={i} className="rounded-2xl border border-white/10 bg-white/2 dark:bg-white/[0.02] hover:bg-white/5 transition-shadow shadow-sm hover:shadow-md p-6">
-                      <div className="flex items-start gap-3">
-                        <Wrench className="h-5 w-5" style={{ color: 'var(--ts-accent)' }} />
-                        <div>
-                          <h3 className="font-semibold">{service}</h3>
-                          <p className="text-sm text-slate-600">Professional service</p>
+                {garage.slug === 'gem' ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                    {['MOT Testing', 'Servicing', 'Diagnostics', 'EV & Hybrid', 'Brake Service', 'Engine Repair']
+                      .map((service, i) => (
+                      <div key={i} className="card">
+                        <div className="flex items-start gap-3 mb-4">
+                          <Wrench className="h-5 w-5" style={{ color: 'var(--c-gold-500)' }} />
+                          <div>
+                            <h3 className="font-semibold text-white">{service}</h3>
+                            <p className="text-sm text-white/70">Professional service</p>
+                          </div>
+                        </div>
+                        <a href="#booking" className="btn btn--primary w-full">
+                          Book {service}
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                    {['MOT Testing', 'Servicing', 'Diagnostics', 'EV & Hybrid']
+                      .map((service, i) => (
+                      <div key={i} className="rounded-2xl border border-white/10 bg-white/2 dark:bg-white/[0.02] hover:bg-white/5 transition-shadow shadow-sm hover:shadow-md p-6">
+                        <div className="flex items-start gap-3">
+                          <Wrench className="h-5 w-5" style={{ color: 'var(--ts-accent)' }} />
+                          <div>
+                            <h3 className="font-semibold">{service}</h3>
+                            <p className="text-sm text-slate-600">Professional service</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </>
             )}
 
@@ -281,13 +320,24 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
 
                 {/* Reviews */}
                 {garage.reviews && garage.reviews.length > 0 && (
-                  <section className="py-14 md:py-16">
+                  <section className={garage.slug === 'gem' ? "py-14 md:py-16 bg-black/20" : "py-14 md:py-16"}>
                     <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
                       <h3 className="text-2xl md:text-3xl font-bold mb-6">What Our Customers Say</h3>
-                      <ReviewsCarousel
-                        reviews={garage.reviews.map((r: any) => ({ quote: r.quote, author: r.author }))}
-                        garage={garage}
-                      />
+                      {garage.slug === 'gem' ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                          {garage.reviews.slice(0, 2).map((review: any, i: number) => (
+                            <div key={i} className="card">
+                              <p className="text-white/90 italic mb-4">"{review.quote}"</p>
+                              <p className="font-semibold" style={{ color: 'var(--c-gold-500)' }}>— {review.author}</p>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <ReviewsCarousel
+                          reviews={garage.reviews.map((r: any) => ({ quote: r.quote, author: r.author }))}
+                          garage={garage}
+                        />
+                      )}
                     </div>
                   </section>
                 )}
@@ -298,7 +348,16 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
                     <h3 className="text-2xl md:text-3xl font-bold mb-6">Find Us</h3>
 
                     {garage.mapEmbed && (
-                      <GarageMap src={garage.mapEmbed} borderColor="var(--ts-border)" height={400} />
+                      <div className="space-y-6">
+                        <GarageMap src={garage.mapEmbed} borderColor="var(--ts-border)" height={400} />
+                        {garage.slug === 'gem' && (
+                          <div className="text-center">
+                            <a href="#booking" className="btn btn--primary">
+                              Book Your Visit
+                            </a>
+                          </div>
+                        )}
+                      </div>
                     )}
                   </div>
                 </section>
@@ -319,8 +378,8 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
               {garage.contact?.phone && (
                 <a
                   href={phoneHref}
-                  className="rounded-lg px-5 py-3 font-semibold"
-                  style={{ backgroundColor: 'var(--ts-accent)', color: 'var(--ts-contrast)' }}
+                  className={garage.slug === 'gem' ? "btn btn--primary" : "rounded-lg px-5 py-3 font-semibold"}
+                  style={garage.slug === 'gem' ? {} : { backgroundColor: 'var(--ts-accent)', color: 'var(--ts-contrast)' }}
                 >
                   {garage.contact.phone}
                 </a>
@@ -328,7 +387,7 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
               {garage.contact?.email && (
                 <a
                   href={mailtoLink(garage.contact.email)}
-                  className="rounded-lg px-5 py-3 font-semibold bg-white text-neutral-900"
+                  className={garage.slug === 'gem' ? "btn btn--secondary" : "rounded-lg px-5 py-3 font-semibold bg-white text-neutral-900"}
                 >
                   Email Us
                 </a>

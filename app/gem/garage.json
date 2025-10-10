@@ -7,7 +7,7 @@
   "stripeLinks": { "starter": "", "buyout": "" },
   "mapEmbed": "",
   "branches": [ { "name": "", "address": "", "hours": "", "phone": "" } ],
-  "theme": { "accent": "#0a4bff", "accent2": "#091c4f" },
+  "theme": { "accent": "#D7A34B", "accent2": "#E6B873" },
   "hero": {
     "defaultVariant": "solid"
   },

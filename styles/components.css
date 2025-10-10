@@ -1,0 +1,22 @@
+/* Buttons */
+.brand-gem .btn {
+  @apply inline-flex items-center justify-center rounded-full px-5 py-3 text-base font-semibold transition-all duration-200;
+}
+.brand-gem .btn--primary { background: var(--g-btn); color: var(--c-bg); }
+.brand-gem .btn--primary:hover { filter: brightness(0.95); }
+.brand-gem .btn--secondary { @apply border border-white/20 bg-white/5 text-white; }
+.brand-gem .btn--secondary:hover { @apply bg-white/10; }
+.brand-gem .btn--ghost { @apply bg-transparent text-white border border-white/15; }
+.brand-gem .btn--ghost:hover { @apply border-white/30; }
+.brand-gem .btn--cta { background: var(--g-btn); color: var(--c-bg); @apply shadow-[0_8px_30px_rgba(215,163,75,0.25)]; }
+
+/* Cards */
+.brand-gem .card { @apply rounded-2xl border border-white/10 bg-white/5 p-5; }
+.brand-gem .card:hover { @apply bg-white/10; }
+
+/* Hero dots */
+.brand-gem .dots { @apply flex gap-3 items-center; }
+.brand-gem .dot {
+  @apply h-3 w-3 rounded-full bg-white/35 transition-all duration-200 cursor-pointer;
+}
+.brand-gem .dot[aria-current="true"] { background: var(--c-gold-500); @apply scale-110; }

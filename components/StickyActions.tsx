@@ -30,15 +30,15 @@ export default function StickyActions(props: { slug: string; phone?: string; bra
               el?.scrollIntoView({ behavior: "smooth", block: "start" });
             }
           }}
-          className="rounded-full px-5 py-3 font-semibold shadow-md hover:brightness-95 focus-visible:outline-2 focus-visible:outline-white/80"
-          style={{ backgroundColor: 'var(--ts-accent)', color: 'var(--ts-contrast)' }}
+          className={slug === 'gem' ? "btn btn--cta" : "rounded-full px-5 py-3 font-semibold shadow-md hover:brightness-95 focus-visible:outline-2 focus-visible:outline-white/80"}
+          style={slug === 'gem' ? {} : { backgroundColor: 'var(--ts-accent)', color: 'var(--ts-contrast)' }}
         >
           Book MOT now
         </button>
         {phone && (
           <a
             href={telLink(phone)}
-            className="rounded-full px-5 py-3 font-semibold border border-white/20 dark:border-white/10 text-white hover:bg-white/18 focus-visible:outline-2 focus-visible:outline-white/80"
+            className={slug === 'gem' ? "btn btn--secondary" : "rounded-full px-5 py-3 font-semibold border border-white/20 dark:border-white/10 text-white hover:bg-white/18 focus-visible:outline-2 focus-visible:outline-white/80"}
           >
             Call {phone}
           </a>

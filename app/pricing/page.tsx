@@ -1,6 +1,5 @@
 ﻿"use client";
 
-import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 
 export default function PricingPage() {
@@ -10,14 +9,9 @@ export default function PricingPage() {
       <section className="relative bg-gradient-to-r from-pink-600 to-pink-500 text-white py-32 text-center px-6">
         <div className="absolute inset-0 bg-gradient-to-br from-black/30 to-black/10" />
         <div className="relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6"
-          >
+          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6">
             Simple, Clear Pricing
-          </motion.h1>
+          </h1>
           <p className="text-lg sm:text-xl max-w-2xl mx-auto text-gray-100">
             Choose the plan that works for your garage. No hidden fees. Built to
             help you win bookings and look professional online.
@@ -28,10 +22,7 @@ export default function PricingPage() {
       {/* Pricing Cards */}
       <section className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-3 gap-10">
         {/* Starter */}
-        <motion.div
-          whileHover={{ scale: 1.03 }}
-          className="border rounded-2xl p-8 shadow-lg bg-white flex flex-col relative hover:shadow-xl transition"
-        >
+        <div className="border rounded-2xl p-8 shadow-lg bg-white flex flex-col relative hover:shadow-xl transition">
           <h3 className="text-2xl font-bold mb-4 text-pink-600">
             Starter Package
           </h3>
@@ -69,13 +60,10 @@ export default function PricingPage() {
           >
             Get Starter Package
           </a>
-        </motion.div>
+        </div>
 
         {/* Pro (was Buy Out) */}
-        <motion.div
-          whileHover={{ scale: 1.03 }}
-          className="border rounded-2xl p-8 shadow-lg bg-white flex flex-col relative hover:shadow-xl transition"
-        >
+        <div className="border rounded-2xl p-8 shadow-lg bg-white flex flex-col relative hover:shadow-xl transition">
           <div className="absolute top-0 right-0 bg-pink-600 text-white text-sm font-medium px-3 py-1 rounded-bl-lg rounded-tr-2xl">
             Most Popular
           </div>
@@ -112,13 +100,10 @@ export default function PricingPage() {
           >
             Get Pro Package
           </a>
-        </motion.div>
+        </div>
 
         {/* Custom Build */}
-        <motion.div
-          whileHover={{ scale: 1.03 }}
-          className="border rounded-2xl p-8 shadow-lg bg-white flex flex-col hover:shadow-xl transition"
-        >
+        <div className="border rounded-2xl p-8 shadow-lg bg-white flex flex-col hover:shadow-xl transition">
           <h3 className="text-2xl font-bold mb-4 text-gray-900">Custom Build</h3>
           <p className="text-4xl font-extrabold">By Quotation</p>
           <p className="text-lg mb-6 text-gray-600">for larger sites &amp; groups</p>
@@ -146,7 +131,7 @@ export default function PricingPage() {
           >
             Contact Us
           </a>
-        </motion.div>
+        </div>
       </section>
 
       {/* FAQ */}

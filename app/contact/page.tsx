@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { User, Mail, MessageSquare, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 
@@ -42,12 +41,7 @@ export default function ContactPage() {
     <div className="min-h-screen flex flex-col bg-[#0B1120] text-white">
       {/* Hero Section with Porsche */}
       <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
-          className="absolute inset-0"
-        >
+        <div className="absolute inset-0">
           <Image
             src="/porsche-hero.jpg"
             alt="Porsche"
@@ -57,15 +51,10 @@ export default function ContactPage() {
             style={{ objectPosition: "center 40%" }} // drop the image slightly, like homepage
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#0B1120]" />
-        </motion.div>
+        </div>
 
         {/* Hero Copy — Option A */}
-        <motion.div
-          initial={{ y: 18, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="relative z-10 text-center px-6"
-        >
+        <div className="relative z-10 text-center px-6">
           {/* invite-only pill */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/90 text-xs md:text-sm mb-3">
             <span className="inline-block h-2 w-2 rounded-full bg-pink-500" />
@@ -82,19 +71,14 @@ export default function ContactPage() {
             Claim your <span className="font-semibold">Torque&nbsp;100</span> slot — we’ll reply within{" "}
             <span className="font-semibold">24 hours</span>.
           </p>
-        </motion.div>
+        </div>
       </section>
 
       {/* Form / Thank-you Section */}
       <section className="flex-1 flex items-center justify-center py-16 px-6 bg-gradient-to-b from-[#0B1120] to-[#111827]">
         {success ? (
           // Personalized thank-you (replaces form)
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="w-full max-w-xl bg-[#1B2337]/90 p-8 rounded-2xl shadow-2xl border border-white/10 text-center"
-          >
+          <div className="w-full max-w-xl bg-[#1B2337]/90 p-8 rounded-2xl shadow-2xl border border-white/10 text-center">
             <div className="flex items-center justify-center mb-4">
               <CheckCircle2 className="h-10 w-10 text-green-400" />
             </div>
@@ -105,14 +89,11 @@ export default function ContactPage() {
               We’ve received your request. A member of the TorqueSites team will be in touch within{" "}
               <span className="font-semibold">24 hours</span>.
             </p>
-          </motion.div>
+          </div>
         ) : (
           // Form
-          <motion.form
+          <form
             onSubmit={handleSubmit}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
             className="w-full max-w-lg bg-[#1B2337]/90 p-8 rounded-2xl shadow-2xl border border-white/10 space-y-6"
           >
             {/* Name */}
@@ -158,16 +139,14 @@ export default function ContactPage() {
             </div>
 
             {/* Button */}
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            <button
               type="submit"
               disabled={loading}
               className="w-full py-3 font-semibold text-white rounded-xl bg-gradient-to-r from-pink-500 to-orange-500 shadow-lg hover:opacity-90 transition"
             >
               {loading ? "Sending..." : "Request Partnership"}
-            </motion.button>
-          </motion.form>
+            </button>
+          </form>
         )}
       </section>
     </div>
