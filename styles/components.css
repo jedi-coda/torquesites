@@ -1,22 +1,60 @@
-/* Buttons */
-.brand-gem .btn {
-  @apply inline-flex items-center justify-center rounded-full px-5 py-3 text-base font-semibold transition-all duration-200;
-}
-.brand-gem .btn--primary { background: var(--g-btn); color: var(--c-bg); }
-.brand-gem .btn--primary:hover { filter: brightness(0.95); }
-.brand-gem .btn--secondary { @apply border border-white/20 bg-white/5 text-white; }
-.brand-gem .btn--secondary:hover { @apply bg-white/10; }
-.brand-gem .btn--ghost { @apply bg-transparent text-white border border-white/15; }
-.brand-gem .btn--ghost:hover { @apply border-white/30; }
-.brand-gem .btn--cta { background: var(--g-btn); color: var(--c-bg); @apply shadow-[0_8px_30px_rgba(215,163,75,0.25)]; }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Cards */
-.brand-gem .card { @apply rounded-2xl border border-white/10 bg-white/5 p-5; }
-.brand-gem .card:hover { @apply bg-white/10; }
-
-/* Hero dots */
-.brand-gem .dots { @apply flex gap-3 items-center; }
-.brand-gem .dot {
-  @apply h-3 w-3 rounded-full bg-white/35 transition-all duration-200 cursor-pointer;
+@layer utilities {
+  .container-page { 
+    max-width: var(--page-max); 
+    margin-inline: auto; 
+  }
+  .px-fluid { 
+    padding-inline: clamp(16px, 3vw, 32px); 
+  }
+  .full-bleed { 
+    width: 100vw; 
+    margin-left: 50%; 
+    transform: translateX(-50%); 
+  }
+  .object-center { 
+    object-position: center center; 
+  }
+  
+  .section {
+    /* vertical rhythm that scales with viewport but has ceilings */
+    padding-block: clamp(2rem, 4vw, 4rem);
+  }
+  
+  .h1-hero {
+    /* scales nicely between mobile and desktop */
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+  
+  .h2-title {
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  
+  .p-base {
+    font-size: clamp(1rem, 1.6vw, 1.125rem);
+    line-height: 1.6;
+  }
+  
+  .btn { 
+    @apply inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition; 
+  }
+  .btn-primary { 
+    @apply btn bg-[var(--brand-accent)] text-black hover:brightness-110; 
+  }
+  .btn-secondary { 
+    @apply btn border border-white/20 bg-white/5 text-white hover:bg-white/10; 
+  }
+  .btn-ghost { 
+    @apply btn border border-white/10 bg-transparent text-white hover:bg-white/5; 
+  }
+  .card-premium { 
+    @apply rounded-2xl bg-white/5 ring-1 ring-white/10 shadow-xl backdrop-blur; 
+  }
 }
-.brand-gem .dot[aria-current="true"] { background: var(--c-gold-500); @apply scale-110; }

@@ -40,7 +40,7 @@ export default function GemHero() {
   const { i, setI, pause, resume } = useAutoPlay(slides.length)
 
   return (
-    <section className="relative overflow-hidden min-h-[68svh] md:min-h-[76svh]">
+    <section className="full-bleed h-[clamp(420px,60vh,860px)] relative overflow-hidden">
       {/* Slides */}
       <div className="absolute inset-0">
         {slides.map((s, idx) => (
@@ -49,7 +49,7 @@ export default function GemHero() {
               <div className="h-full w-full" style={{ background: 'var(--g-hero)' }} />
             ) : (
               <div className="absolute inset-0">
-                <Image src={s.src!} alt={s.alt ?? ''} fill priority className="object-cover" />
+                <Image src={s.src!} alt={s.alt ?? ''} fill priority sizes="100vw" className="object-cover object-center" />
                 <div className="absolute inset-0 bg-gradient-to-br from-black/55 via-black/45 to-black/65" />
               </div>
             )}
@@ -58,35 +58,37 @@ export default function GemHero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 md:px-10 py-16 md:py-24 text-white" onMouseEnter={pause} onMouseLeave={resume}>
-        {/* Copy tailored by first slide vs others */}
-        <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-6xl/tight font-extrabold tracking-tight">
-            {i === 0 ? 'Good afternoon, welcome to GEM UK Garage' : (i === 1 ? 'Friendly, fair & fast at GEM UK Garage' : i === 2 ? 'Book your MOT at GEM UK Garage' : 'Dealer-level diagnostics at GEM UK Garage')}
-          </h1>
-          <p className="mt-6 text-lg md:text-xl text-white/85">
-            Performance servicing & MOTs. Same-day slots available.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <a href="tel:01903999999" className="btn btn--primary">Call 01903 999999</a>
-            <a href="#reviews" className="btn btn--secondary">Read reviews</a>
-            <a href="#partners" className="btn btn--ghost">Secure partner slot</a>
+      <div className="relative z-10 h-full flex items-center" onMouseEnter={pause} onMouseLeave={resume}>
+        <div className="container-page px-fluid text-white">
+          {/* Copy tailored by first slide vs others */}
+          <div className="max-w-3xl">
+            <h1 className="text-[clamp(28px,4vw,56px)] font-bold text-white leading-tight">
+              {i === 0 ? 'Good afternoon, welcome to GEM UK Garage' : (i === 1 ? 'Friendly, fair & fast at GEM UK Garage' : i === 2 ? 'Book your MOT at GEM UK Garage' : 'Dealer-level diagnostics at GEM UK Garage')}
+            </h1>
+            <p className="mt-6 p-base text-white/85">
+              Performance servicing & MOTs. Same-day slots available.
+            </p>
+            <div className="mt-6 md:mt-8 flex flex-wrap gap-4">
+            <a href="tel:01903999999" className="btn-primary">Call 01903 999999</a>
+            <a href="#reviews" className="btn-secondary">Read reviews</a>
+            <a href="/partnership" className="btn-ghost">Secure partner slot</a>
+            </div>
           </div>
-        </div>
 
-        {/* Dots */}
-        <div className="absolute bottom-6 right-8">
-          <div role="tablist" aria-label="Hero slides" className="dots">
-            {slides.map((_, idx) => (
-              <button
-                key={idx}
-                role="tab"
-                aria-label={`Show slide ${idx + 1}`}
-                aria-current={i === idx}
-                className="dot"
-                onClick={() => setI(idx)}
-              />
-            ))}
+          {/* Dots */}
+          <div className="absolute bottom-6 right-6">
+            <div role="tablist" aria-label="Hero slides" className="dots">
+              {slides.map((_, idx) => (
+                <button
+                  key={idx}
+                  role="tab"
+                  aria-label={`Show slide ${idx + 1}`}
+                  aria-current={i === idx}
+                  className="dot"
+                  onClick={() => setI(idx)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

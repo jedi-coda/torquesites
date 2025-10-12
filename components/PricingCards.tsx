@@ -27,12 +27,12 @@ export function PricingCards({ items, garage }:{ items: Array<{title:string, pri
           {p.note && <p className="text-sm text-slate-600 mt-1">{p.note}</p>}
           
           {/* Primary button - gradient */}
-          <button className={garage.slug === 'gem' ? "btn btn--primary mt-4" : `mt-4 inline-flex justify-center ${btnPrimary}`}>
+          <button className={garage.slug === 'gem' ? "btn-primary mt-4" : `mt-4 inline-flex justify-center ${btnPrimary}`}>
             Book now
           </button>
           
           {/* Secondary button - soft outline */}
-          <button className={garage.slug === 'gem' ? "btn btn--ghost-dark mt-2" : `mt-2 inline-flex justify-center ${btnSecondary}`}>
+          <button className={garage.slug === 'gem' ? "btn-ghost mt-2" : `mt-2 inline-flex justify-center ${btnSecondary}`}>
             Learn more
           </button>
           

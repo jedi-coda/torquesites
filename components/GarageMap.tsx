@@ -10,7 +10,7 @@ type Props = {
   lng?: number;
 };
 
-export default function GarageMap({ src, borderColor, height = 400, lat, lng }: Props) {
+export default function GarageMap({ src, borderColor, height = 350, lat, lng }: Props) {
   const [inView, setInView] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
 

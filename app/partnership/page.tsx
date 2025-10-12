@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { links } from "@/lib/links";
+import { STRIPE } from "@/lib/stripeLinks";
 
 export default function PartnershipPage() {
   const [greeting, setGreeting] = useState("");
@@ -55,14 +56,21 @@ export default function PartnershipPage() {
               <li>✓ Booking/contact form</li>
               <li>✓ Ongoing support</li>
             </ul>
-            <a
-              href={links.partnerStarter}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 block w-full text-center rounded-2xl bg-gradient-to-r from-pink-500 to-pink-600 text-white font-semibold py-3 shadow-md hover:shadow-pink-500/50 transition"
-            >
-              Join as Partner
-            </a>
+            {STRIPE.PARTNER_STARTER ? (
+              <a
+                href={STRIPE.PARTNER_STARTER}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 block w-full text-center rounded-2xl bg-gradient-to-r from-pink-500 to-pink-600 text-white font-semibold py-3 shadow-md hover:shadow-pink-500/50 transition"
+              >
+                Join as Partner
+              </a>
+            ) : (
+              <div className="mt-8 p-4 bg-gray-100 rounded-lg">
+                <p className="text-sm text-gray-600">Contact us to get started</p>
+                <Link href="/contact" className="text-pink-600 hover:underline">Get in touch</Link>
+              </div>
+            )}
           </div>
 
           {/* Partner Pro (Buy Out) */}
@@ -77,14 +85,65 @@ export default function PartnershipPage() {
               <li>✓ Advanced SEO setup</li>
               <li>✓ Priority maintenance available</li>
             </ul>
-            <a
-              href={links.partnerBuyout}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 block w-full text-center rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold py-3 shadow-md hover:shadow-orange-500/50 transition"
-            >
-              Choose Pro Package
-            </a>
+            {STRIPE.PARTNER_PRO ? (
+              <a
+                href={STRIPE.PARTNER_PRO}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 block w-full text-center rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold py-3 shadow-md hover:shadow-orange-500/50 transition"
+              >
+                Choose Pro Package
+              </a>
+            ) : (
+              <div className="mt-8 p-4 bg-gray-100 rounded-lg">
+                <p className="text-sm text-gray-600">Contact us to get started</p>
+                <Link href="/contact" className="text-orange-600 hover:underline">Get in touch</Link>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Limited monthly slots callout */}
+        <div className="mt-12 max-w-2xl mx-auto">
+          <div className="bg-gradient-to-r from-pink-50 to-orange-50 border border-pink-200 rounded-2xl p-6">
+            <h4 className="text-lg font-semibold text-gray-900 mb-3">Limited monthly slots</h4>
+            <p className="text-gray-700 mb-4">Secure your Torque 100 Partner slot today before they're gone.</p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              {STRIPE.PARTNER_STARTER ? (
+                <a
+                  href={STRIPE.PARTNER_STARTER}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg bg-pink-600 text-white px-6 py-2 font-medium hover:bg-pink-700 transition"
+                >
+                  Start (Starter)
+                </a>
+              ) : (
+                <Link
+                  href="/contact"
+                  className="rounded-lg bg-pink-600 text-white px-6 py-2 font-medium hover:bg-pink-700 transition"
+                >
+                  Contact us
+                </Link>
+              )}
+              {STRIPE.PARTNER_PRO ? (
+                <a
+                  href={STRIPE.PARTNER_PRO}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg bg-orange-600 text-white px-6 py-2 font-medium hover:bg-orange-700 transition"
+                >
+                  Go Pro
+                </a>
+              ) : (
+                <Link
+                  href="/contact"
+                  className="rounded-lg bg-orange-600 text-white px-6 py-2 font-medium hover:bg-orange-700 transition"
+                >
+                  Contact us
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </section>

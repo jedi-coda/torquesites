@@ -1,0 +1,9 @@
+// lib/stripeLinks.ts
+
+export const STRIPE = {
+  PUBLIC_STARTER: process.env.NEXT_PUBLIC_STRIPE_LINK_PUBLIC_STARTER ?? "",
+  PARTNER_STARTER: process.env.NEXT_PUBLIC_STRIPE_LINK_PARTNER_STARTER ?? "",
+  PUBLIC_PRO: process.env.NEXT_PUBLIC_STRIPE_LINK_PUBLIC_PRO ?? "",
+  PARTNER_PRO: process.env.NEXT_PUBLIC_STRIPE_LINK_PARTNER_PRO ?? "",
+};
+

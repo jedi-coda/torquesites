@@ -37,7 +37,7 @@ export default function ReviewsCarousel({ reviews, garage }:{ reviews: Array<{qu
       <div className="rounded-2xl p-4 md:p-5">
         <div ref={ref} className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory">
           {displayReviews.map((r, i) => (
-            <figure key={i} className="snap-start min-w-[320px] md:min-w-[420px] rounded-xl border border-white/10 bg-black/20 p-4">
+            <figure key={i} className="snap-start min-w-[280px] md:min-w-[420px] rounded-xl border border-white/10 bg-black/20 p-4">
               <blockquote className="text-white/90 italic">"{r.quote}"</blockquote>
               <figcaption className="mt-3 text-white/70 text-sm">— {r.author}</figcaption>
             </figure>

@@ -61,8 +61,8 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
 
   return (
     <BrandTheme garage={garage}>
-      <main className={`pb-28 md:pb-32 ${garage.slug === 'gem' ? 'brand-gem' : ''}`}>
-                <div className="min-h-screen bg-white text-neutral-900 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+      <main className={`${garage.slug === 'gem' ? 'brand-gem w-full bg-neutral-950 text-white' : ''}`}>
+                <div className={garage.slug === 'gem' ? "w-full" : "bg-white text-neutral-900 container-page"}>
       {/* Partner banner */}
       <div className="w-full text-xs sm:text-sm bg-neutral-900 text-white py-2 text-center">
         <span className="font-semibold">Partner 10:</span>{" "}
@@ -76,7 +76,288 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
       </div>
 
               {garage.slug === 'gem' ? (
-                <GemHero />
+                <>
+                  <section className="space-y-12 md:space-y-16">
+                    <GemHero />
+
+                    {/* SWIFT-STYLE UTILITY BAR */}
+                    <section className="bg-white border-b border-neutral-200 py-12 md:py-16">
+          <div className="px-fluid py-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-wrap gap-2 items-center">
+              {garage.hours && (
+                <span
+                  className="text-sm px-3 py-1 rounded-full border"
+                  style={{ borderColor: accent }}
+                >
+                  {garage.hours}
+                </span>
+              )}
+              {garage.contact?.email && (
+                <a
+                  href={mailtoLink(garage.contact.email)}
+                  className="text-sm px-3 py-1 rounded-full border hover:bg-neutral-50"
+                >
+                  {garage.contact.email}
+                </a>
+              )}
+              {garage.contact?.whatsapp && (
+                <a
+                  href={whatsappHref}
+                  target="_blank"
+                  className="text-sm px-3 py-1 rounded-full border hover:bg-neutral-50"
+                >
+                  WhatsApp us
+                </a>
+              )}
+            </div>
+
+            {garage.contact?.phone && (
+              <a
+                href={phoneHref}
+                className={garage.slug === 'gem' ? "btn-primary text-sm px-3 py-1" : "text-sm font-semibold px-3 py-1 rounded-full"}
+                style={garage.slug === 'gem' ? {} : { backgroundColor: accent, color: "#fff" }}
+              >
+                {garage.contact.phone}
+              </a>
+            )}
+          </div>
+        </section>
+
+                    {/* BOOKING + WHY CHOOSE */}
+                    <section className="px-fluid py-12 md:py-16">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            {/* Left: Why Choose */}
+            <div>
+              <h2 className="h2-title font-bold mb-6">
+                Why Choose {garage.name.split(" ")[0]}?
+              </h2>
+              <p className="text-neutral-600 mb-8 max-w-[70ch]">
+                {garage.content?.aboutBlurb?.trim() ||
+                  "With over 25 years' experience, our team delivers honest, transparent care for any make, any model."}
+              </p>
+
+              <div className="max-w-[70ch]">
+                {garage.slug === 'gem' ? (
+                  <ul className="space-y-4">
+                    {[
+                      "Dealer-level diagnostics for every model.",
+                      "Transparent pricing. No surprises.",
+                      "Same-day slots available.",
+                      "Work guaranteed & DVSA approved.",
+                      "Friendly team with 25+ years' experience."
+                    ].map((line, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <BadgeCheck className="mt-1 h-5 w-5 text-[--accent] flex-shrink-0" />
+                        <span className="leading-relaxed text-[--text]">{line}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : garage.chips ? (
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {garage.chips.slice(0, 6).map((c, i) => (
+                      <li key={i} className="flex gap-3 items-start">
+                        <BadgeCheck className="mt-1 size-5" style={{ color: 'var(--ts-accent)' }} />
+                        <div>
+                          <p className="font-medium">{c}</p>
+                          <p className="text-muted-foreground text-sm">Trusted expertise</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+
+              {/* Services */}
+              {(garage.content?.services?.length ? garage.content.services : garage.services)?.length && (
+                <>
+                  <h3 className="h2-title font-bold mt-10 mb-6">Our Services</h3>
+                  {garage.slug === 'gem' ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                      {['MOT Testing', 'Servicing', 'Diagnostics', 'EV & Hybrid', 'Brake Service', 'Engine Repair']
+                        .map((service, i) => (
+                        <div key={i} className="card">
+                          <div className="flex items-start gap-3 mb-4">
+                            <Wrench className="h-5 w-5" style={{ color: 'var(--c-gold-500)' }} />
+                            <div>
+                              <h3 className="font-semibold text-white">{service}</h3>
+                              <p className="text-sm text-white/70">Professional service</p>
+                            </div>
+                          </div>
+                          <a href="#booking" className="btn-primary w-full">
+                            Book {service}
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                      {['MOT Testing', 'Servicing', 'Diagnostics', 'EV & Hybrid']
+                        .map((service, i) => (
+                        <div key={i} className="rounded-2xl border border-white/10 bg-white/2 dark:bg-white/[0.02] hover:bg-white/5 transition-shadow shadow-sm hover:shadow-md p-6">
+                          <div className="flex items-start gap-3">
+                            <Wrench className="h-5 w-5" style={{ color: 'var(--ts-accent)' }} />
+                            <div>
+                              <h3 className="font-semibold">{service}</h3>
+                              <p className="text-sm text-slate-600">Professional service</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
+
+              {/* Pricing */}
+              {garage.pricing && (
+                <>
+                  <h3 className="text-2xl md:text-3xl font-bold mt-10 mb-6">
+                    Straightforward pricing
+                  </h3>
+                  <PricingCards 
+                    items={[
+                      { 
+                        title: "MOT (Class 4)", 
+                        price: garage.pricing.mot || "£54.85", 
+                        badge: "DVSA Approved",
+                        include: ["Full inspection", "Certificate", "Free re-test if needed"]
+                      },
+                      { 
+                        title: "Interim Service", 
+                        price: `from ${garage.pricing.interimFrom ?? "£89"}`,
+                        note: "Oil & filter, checks",
+                        include: ["Oil change", "Filter replacement", "Basic checks"]
+                      },
+                      { 
+                        title: "Full Service", 
+                        price: `from ${garage.pricing.fullFrom ?? "£149"}`,
+                        note: "Manufacturer schedule",
+                        include: ["Complete service", "All filters", "Comprehensive checks"]
+                      }
+                    ]} 
+                    garage={garage} 
+                  />
+                </>
+              )}
+            </div>
+
+          {/* Right: Booking (client form inside) */}
+          <aside id="booking">
+            <div
+              className="rounded-2xl bg-white border border-black/10 shadow-sm sticky top-6 p-5 md:p-6"
+            >
+              <h3 className="font-semibold text-lg mb-3">Quick booking</h3>
+
+              <EnquiryForm
+                garageName={garage.name}
+                toEmail={garage.contact?.email ?? ""}
+                brandPrimary="var(--ts-accent)"
+                garageSlug={garage.slug}
+              />
+
+              {garage.contact?.phone && (
+                <p className="text-xs text-black/60 mt-2">
+                  Or call:{" "}
+                  <a className="underline" href={phoneHref}>
+                    {garage.contact.phone}
+                  </a>
+                </p>
+              )}
+            </div>
+                    </aside>
+                  </div>
+                  </section>
+
+                  {/* Reviews */}
+                  {garage.reviews && garage.reviews.length > 0 && (
+                    <section className={garage.slug === 'gem' ? "px-fluid py-12 md:py-16 bg-black/20" : "px-fluid py-12 md:py-16"}>
+                      <h3 className="h2-title font-bold mb-6">What Our Customers Say</h3>
+                        {garage.slug === 'gem' ? (
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {garage.reviews.slice(0, 2).map((review: any, i: number) => (
+                              <div key={i} className="card">
+                                <p className="text-white/90 italic mb-4">"{review.quote}"</p>
+                                <p className="font-semibold" style={{ color: 'var(--c-gold-500)' }}>— {review.author}</p>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <ReviewsCarousel
+                            reviews={garage.reviews.map((r: any) => ({ quote: r.quote, author: r.author }))}
+                            garage={garage}
+                          />
+                        )}
+                    </section>
+                  )}
+
+                  {/* Branches + Map */}
+                    <section className="px-fluid py-12 md:py-16">
+                      <h3 className="text-2xl md:text-3xl font-bold mb-6">Find Us</h3>
+
+                      {garage.mapEmbed && (
+                        <div className="space-y-6">
+                          <GarageMap src={garage.mapEmbed} borderColor="var(--ts-border)" />
+                          {garage.slug === 'gem' && (
+                            <div className="text-center">
+                              <a href="#booking" className="btn-primary">
+                                Book Your Visit
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                  </section>
+
+                  {/* CTA Rail */}
+                  <CTARail garage={garage} />
+
+                  {/* Contact band (dark) with client form */}
+                    <section className="px-fluid py-12 md:py-16">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="rounded-2xl p-6 bg-black/20 border border-white/10">
+              <h4 className="text-xl font-bold mb-3">Call or Email</h4>
+              <p className="text-white/80 mb-4">
+                Fastest way to book your MOT, service or repair.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                {garage.contact?.phone && (
+                  <a
+                    href={phoneHref}
+                    className={garage.slug === 'gem' ? "btn-primary" : "rounded-lg px-5 py-3 font-semibold"}
+                    style={garage.slug === 'gem' ? {} : { backgroundColor: 'var(--ts-accent)', color: 'var(--ts-contrast)' }}
+                  >
+                    {garage.contact.phone}
+                  </a>
+                )}
+                {garage.contact?.email && (
+                  <a
+                    href={mailtoLink(garage.contact.email)}
+                    className={garage.slug === 'gem' ? "btn-secondary" : "rounded-lg px-5 py-3 font-semibold bg-white text-neutral-900"}
+                  >
+                    Email Us
+                  </a>
+                )}
+              </div>
+              {garage.branches?.[0]?.address && (
+                <p className="mt-4 text-sm text-white/80">
+                  {garage.branches[0].address}
+                </p>
+              )}
+            </div>
+
+            <div className="rounded-2xl p-6 bg-black/20 border border-white/10">
+              <h4 className="text-xl font-bold mb-3">Quick Enquiry</h4>
+
+              <EnquiryForm
+                garageName={garage.name}
+                toEmail={garage.contact?.email ?? ""}
+                brandPrimary="var(--ts-accent)"
+              />
+            </div>
+          </div>
+        </section>
+                  </section>
+                </>
               ) : (
                 <Hero 
                   garageName={garage.name}
@@ -122,296 +403,6 @@ export default function GarageTemplate({ garage }: { garage: Garage }) {
                   contact={garage.contact}
                 />
               )}
-
-      {/* SWIFT-STYLE UTILITY BAR */}
-      <section className="bg-white border-b border-neutral-200">
-        <div className="container mx-auto px-4 py-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap gap-2 items-center">
-            {garage.hours && (
-              <span
-                className="text-sm px-3 py-1 rounded-full border"
-                style={{ borderColor: accent }}
-              >
-                {garage.hours}
-              </span>
-            )}
-            {garage.contact?.email && (
-              <a
-                href={mailtoLink(garage.contact.email)}
-                className="text-sm px-3 py-1 rounded-full border hover:bg-neutral-50"
-              >
-                {garage.contact.email}
-              </a>
-            )}
-            {garage.contact?.whatsapp && (
-              <a
-                href={whatsappHref}
-                target="_blank"
-                className="text-sm px-3 py-1 rounded-full border hover:bg-neutral-50"
-              >
-                WhatsApp us
-              </a>
-            )}
-          </div>
-
-          {garage.contact?.phone && (
-            <a
-              href={phoneHref}
-              className={garage.slug === 'gem' ? "btn btn--primary text-sm px-3 py-1" : "text-sm font-semibold px-3 py-1 rounded-full"}
-              style={garage.slug === 'gem' ? {} : { backgroundColor: accent, color: "#fff" }}
-            >
-              {garage.contact.phone}
-            </a>
-          )}
-        </div>
-      </section>
-
-                {/* BOOKING + WHY CHOOSE */}
-                <section className="py-14 md:py-16">
-                  <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left: Why Choose */}
-          <div className="lg:col-span-2">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6">
-              Why Choose {garage.name.split(" ")[0]}?
-            </h2>
-            <p className="text-neutral-600 mb-8 max-w-[70ch]">
-              {garage.content?.aboutBlurb?.trim() ||
-                "With over 25 years' experience, our team delivers honest, transparent care for any make, any model."}
-            </p>
-
-            {garage.chips && (
-              <div className="max-w-[70ch]">
-                {garage.slug === 'gem' ? (
-                  <ul className="space-y-4">
-                    {garage.chips.slice(0, 6).map((c, i) => (
-                      <li key={i} className="flex gap-3 items-start">
-                        <BadgeCheck className="mt-1 size-5" style={{ color: 'var(--c-gold-500)' }} />
-                        <div>
-                          <p className="font-medium text-white">{c}</p>
-                          <p className="text-white/70 text-sm">Trusted expertise</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {garage.chips.slice(0, 6).map((c, i) => (
-                      <li key={i} className="flex gap-3 items-start">
-                        <BadgeCheck className="mt-1 size-5" style={{ color: 'var(--ts-accent)' }} />
-                        <div>
-                          <p className="font-medium">{c}</p>
-                          <p className="text-muted-foreground text-sm">Trusted expertise</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                {/* hidden for microsite polish */}
-                {garage.chips.length > 6 && (
-                  <div className="text-center text-sm text-neutral-500 py-4">
-                    +{garage.chips.length - 6} more services available
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Services */}
-            {(garage.content?.services?.length ? garage.content.services : garage.services)?.length && (
-              <>
-                <h3 className="text-2xl md:text-3xl font-bold mt-10 mb-6">Our Services</h3>
-                {garage.slug === 'gem' ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                    {['MOT Testing', 'Servicing', 'Diagnostics', 'EV & Hybrid', 'Brake Service', 'Engine Repair']
-                      .map((service, i) => (
-                      <div key={i} className="card">
-                        <div className="flex items-start gap-3 mb-4">
-                          <Wrench className="h-5 w-5" style={{ color: 'var(--c-gold-500)' }} />
-                          <div>
-                            <h3 className="font-semibold text-white">{service}</h3>
-                            <p className="text-sm text-white/70">Professional service</p>
-                          </div>
-                        </div>
-                        <a href="#booking" className="btn btn--primary w-full">
-                          Book {service}
-                        </a>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                    {['MOT Testing', 'Servicing', 'Diagnostics', 'EV & Hybrid']
-                      .map((service, i) => (
-                      <div key={i} className="rounded-2xl border border-white/10 bg-white/2 dark:bg-white/[0.02] hover:bg-white/5 transition-shadow shadow-sm hover:shadow-md p-6">
-                        <div className="flex items-start gap-3">
-                          <Wrench className="h-5 w-5" style={{ color: 'var(--ts-accent)' }} />
-                          <div>
-                            <h3 className="font-semibold">{service}</h3>
-                            <p className="text-sm text-slate-600">Professional service</p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </>
-            )}
-
-            {/* Pricing */}
-            {garage.pricing && (
-              <>
-                <h3 className="text-2xl md:text-3xl font-bold mt-10 mb-6">
-                  Straightforward pricing
-                </h3>
-                <PricingCards 
-                  items={[
-                    { 
-                      title: "MOT (Class 4)", 
-                      price: garage.pricing.mot || "£54.85", 
-                      badge: "DVSA Approved",
-                      include: ["Full inspection", "Certificate", "Free re-test if needed"]
-                    },
-                    { 
-                      title: "Interim Service", 
-                      price: `from ${garage.pricing.interimFrom ?? "£89"}`,
-                      note: "Oil & filter, checks",
-                      include: ["Oil change", "Filter replacement", "Basic checks"]
-                    },
-                    { 
-                      title: "Full Service", 
-                      price: `from ${garage.pricing.fullFrom ?? "£149"}`,
-                      note: "Manufacturer schedule",
-                      include: ["Complete service", "All filters", "Comprehensive checks"]
-                    }
-                  ]} 
-                  garage={garage} 
-                />
-              </>
-            )}
-          </div>
-
-        {/* Right: Booking (client form inside) */}
-        <aside id="booking" className="lg:col-span-1">
-          <div
-            className="rounded-2xl bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/60 border shadow-sm sticky top-6 p-5 md:p-6"
-            style={{ borderColor: 'var(--ts-border)', borderWidth: 1 }}
-          >
-            <h3 className="text-xl font-bold mb-4">Quick booking</h3>
-
-            <EnquiryForm
-              garageName={garage.name}
-              toEmail={garage.contact?.email ?? ""}
-              brandPrimary="var(--ts-accent)"
-            />
-
-            {garage.contact?.phone && (
-              <p className="text-xs text-neutral-500 mt-2">
-                Or call:{" "}
-                <a className="underline" href={phoneHref}>
-                  {garage.contact.phone}
-                </a>
-              </p>
-            )}
-          </div>
-                  </aside>
-                </div>
-                  </div>
-                </section>
-
-                {/* Reviews */}
-                {garage.reviews && garage.reviews.length > 0 && (
-                  <section className={garage.slug === 'gem' ? "py-14 md:py-16 bg-black/20" : "py-14 md:py-16"}>
-                    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-                      <h3 className="text-2xl md:text-3xl font-bold mb-6">What Our Customers Say</h3>
-                      {garage.slug === 'gem' ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                          {garage.reviews.slice(0, 2).map((review: any, i: number) => (
-                            <div key={i} className="card">
-                              <p className="text-white/90 italic mb-4">"{review.quote}"</p>
-                              <p className="font-semibold" style={{ color: 'var(--c-gold-500)' }}>— {review.author}</p>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <ReviewsCarousel
-                          reviews={garage.reviews.map((r: any) => ({ quote: r.quote, author: r.author }))}
-                          garage={garage}
-                        />
-                      )}
-                    </div>
-                  </section>
-                )}
-
-                {/* Branches + Map */}
-                <section className="py-14 md:py-16">
-                  <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-                    <h3 className="text-2xl md:text-3xl font-bold mb-6">Find Us</h3>
-
-                    {garage.mapEmbed && (
-                      <div className="space-y-6">
-                        <GarageMap src={garage.mapEmbed} borderColor="var(--ts-border)" height={400} />
-                        {garage.slug === 'gem' && (
-                          <div className="text-center">
-                            <a href="#booking" className="btn btn--primary">
-                              Book Your Visit
-                            </a>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </section>
-
-                {/* CTA Rail */}
-                <CTARail garage={garage} />
-
-                {/* Contact band (dark) with client form */}
-                <section className="py-14 md:py-16">
-                  <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="rounded-2xl p-6 bg-black/20 border border-white/10">
-            <h4 className="text-xl font-bold mb-3">Call or Email</h4>
-            <p className="text-white/80 mb-4">
-              Fastest way to book your MOT, service or repair.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              {garage.contact?.phone && (
-                <a
-                  href={phoneHref}
-                  className={garage.slug === 'gem' ? "btn btn--primary" : "rounded-lg px-5 py-3 font-semibold"}
-                  style={garage.slug === 'gem' ? {} : { backgroundColor: 'var(--ts-accent)', color: 'var(--ts-contrast)' }}
-                >
-                  {garage.contact.phone}
-                </a>
-              )}
-              {garage.contact?.email && (
-                <a
-                  href={mailtoLink(garage.contact.email)}
-                  className={garage.slug === 'gem' ? "btn btn--secondary" : "rounded-lg px-5 py-3 font-semibold bg-white text-neutral-900"}
-                >
-                  Email Us
-                </a>
-              )}
-            </div>
-            {garage.branches?.[0]?.address && (
-              <p className="mt-4 text-sm text-white/80">
-                {garage.branches[0].address}
-              </p>
-            )}
-          </div>
-
-          <div className="rounded-2xl p-6 bg-black/20 border border-white/10">
-            <h4 className="text-xl font-bold mb-3">Quick Enquiry</h4>
-
-            <EnquiryForm
-              garageName={garage.name}
-              toEmail={garage.contact?.email ?? ""}
-              brandPrimary="var(--ts-accent)"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
 
     <StickyActions slug={garage.slug} phone={garage.contact?.phone} brand={garage.brand ?? {}} starterHref={garage.stripeLinks?.starter} />
       </div>

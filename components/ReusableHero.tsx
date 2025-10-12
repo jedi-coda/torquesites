@@ -161,7 +161,7 @@ export default function ReusableHero({
               {/* Primary CTA */}
               <a
                 href={primaryCTA.href}
-                className="btn btn--primary"
+                className="btn-primary"
               >
                 {primaryCTA.text}
               </a>
@@ -171,7 +171,7 @@ export default function ReusableHero({
                 <a
                   key={index}
                   href={cta.href}
-                  className="btn btn--ghost-dark"
+                  className="btn-ghost"
                 >
                   {cta.text}
                 </a>

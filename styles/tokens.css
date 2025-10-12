@@ -1,3 +1,9 @@
+:root {
+  --brand-accent: #d8a24a;
+  --brand-bg: #0b0b0b;
+  --page-max: 1280px;
+}
+
 /* Brand-scoped vars for GEM */
 .brand-gem {
   /* Core palette */

@@ -10,7 +10,10 @@
         "dev:port": "node -e \"const p=process.env.PORT||3001; console.log('Starting on port',p);\" && next dev -p %PORT%",
         "predev:port": "node -e \"const p=process.env.PORT||3001; console.log('Killing port',p);\" && npx kill-port %PORT% || exit 0",
         "dev:clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true});\" && next dev -p 3000",
-        "build": "next build"
+        "build": "next build",
+        "start": "next start -p 3001",
+        "lint": "next lint",
+        "typecheck": "tsc --noEmit"
     },
     "dependencies": {
         "@stripe/stripe-js": "^7.9.0",
