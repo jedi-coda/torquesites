@@ -1,0 +1,9 @@
+.env
+.env.*
+node_modules
+.next
+.vercel
+.vscode
+supabase/.branches
+supabase/.temp
+**/secrets/**
