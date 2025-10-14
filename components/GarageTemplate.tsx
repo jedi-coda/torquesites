@@ -1,445 +1,62 @@
-﻿import Link from "next/link";
-import EnquiryForm from "./EnquiryForm";
-import GarageMap from "./GarageMap";
-import Hero from "@/components/Hero";
-import GemHero from "@/components/hero/GemHero";
-import Section from "@/components/Section";
-import BrandTheme from "@/components/BrandTheme";
-import { AccentCard } from "@/components/ui/AccentCard";
-import { PricingCards } from "@/components/PricingCards";
-import ReviewsCarousel from "@/components/ReviewsCarousel";
-import CTARail from "@/components/CTARail";
-import { Wrench, BadgeCheck, Fuel, Zap, Shield, Clock } from "lucide-react";
-import type { Garage } from "@/lib/garage";
-import { telLink, mailtoLink } from "@/lib/links";
-import StickyActions from "@/components/StickyActions";
+﻿import { type Garage } from "@/lib/garage";
+import GarageHero from "@/components/GarageHero";
+import EnquiryForm from "@/components/EnquiryForm";
+import ContactDetails from "@/components/ui/ContactDetails";
+import OpeningHours from "@/components/ui/OpeningHours";
+import Reviews from "@/components/ui/Reviews";
+import PricingCards from "@/components/PricingCards";
 
-/* ------------ types ------------ */
+type Props = {
+  garage: Garage;
+};
 
-// Types now imported from lib/garage
+export default function GarageTemplate({ garage }: Props) {
+  // ✅ Insert at the top of GarageTemplate.tsx
+  console.log("🚧 Garage object received by GarageTemplate:", garage);
+  
+  // ✅ Confirms garage was loaded
+  console.log("🚦 Loaded garage for slug [newtown-garage]:", garage);
 
-/* ------------ helpers (no client state) ------------ */
+  // ✅ Confirms if pricing data is available
+  if (!garage) {
+    console.warn("❌ No garage object returned — check slug in garages.json");
+  } else if (!garage.pricing) {
+    console.warn("⚠️ No pricing found for garage [newtown-garage]");
+  } else {
+    console.log("✅ Pricing found:", garage.pricing);
+  }
 
-function greeting() {
-  const h = new Date().getHours();
-  if (h < 12) return "Good morning";
-  if (h < 18) return "Good afternoon";
-  return "Good evening";
-}
+  console.log("📦 Garage object at render time:", garage);
 
-function safeColor(hex?: string, fallback = "#1F4FC9") {
-  if (!hex) return fallback;
-  const ok = /^#([0-9A-Fa-f]{3}){1,2}$/.test(hex);
-  return ok ? hex : fallback;
-}
-
-function softFromHex(hex: string, alpha = 0.12) {
-  const h = hex.replace("#", "");
-  const r = parseInt(h.substring(0, 2), 16);
-  const g = parseInt(h.substring(2, 4), 16);
-  const b = parseInt(h.substring(4, 6), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
-
-/* ------------ component (server) ------------ */
-
-export default function GarageTemplate({ garage }: { garage: Garage }) {
-  const accent = safeColor(garage.brand?.primary);
-  const dark = safeColor(garage.brand?.dark, "#0B0B0C");
-  const accentSoft = softFromHex(accent);
-
-  const bgStyle =
-    garage.hero?.background === "gradient"
-      ? { background: `linear-gradient(135deg, ${accent} 0%, ${dark} 100%)` }
-      : { backgroundColor: dark };
-
-  const phoneHref = telLink(garage.contact?.phone) || undefined;
-
-  const whatsappHref = garage.contact?.whatsapp
-    ? `https://wa.me/${garage.contact.whatsapp.replace(/\D/g, "")}`
-    : undefined;
+  if (!garage || !garage.pricing) {
+    console.warn("⏳ Garage or pricing not ready yet");
+    return <div className="text-yellow-500">⏳ Loading garage details...</div>;
+  }
 
   return (
-    <BrandTheme garage={garage}>
-      <main className={`${garage.slug === 'gem' ? 'brand-gem w-full bg-neutral-950 text-white' : ''}`}>
-                <div className={garage.slug === 'gem' ? "w-full" : "bg-white text-neutral-900 container-page"}>
-      {/* Partner banner */}
-      <div className="w-full text-xs sm:text-sm bg-neutral-900 text-white py-2 text-center">
-        <span className="font-semibold">Partner 10:</span>{" "}
-        10 Partner slots available this month.{" "}
-        <Link
-          href="/partnership"
-          className="underline decoration-2 underline-offset-2"
-        >
-          Secure yours today.
-        </Link>
-      </div>
+    <div className="space-y-10">
+      <GarageHero garage={garage} />
 
-              {garage.slug === 'gem' ? (
-                <>
-                  <section className="space-y-12 md:space-y-16">
-                    <GemHero />
+      {/* ✅ Directly before the PricingCards render line */}
+      <>
+        <div className="text-green-500">✅ PricingCards prop passed</div>
+        <PricingCards pricing={garage.pricing} />
+      </>
 
-                    {/* SWIFT-STYLE UTILITY BAR */}
-                    <section className="bg-white border-b border-neutral-200 py-12 md:py-16">
-          <div className="px-fluid py-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-wrap gap-2 items-center">
-              {garage.hours && (
-                <span
-                  className="text-sm px-3 py-1 rounded-full border"
-                  style={{ borderColor: accent }}
-                >
-                  {garage.hours}
-                </span>
-              )}
-              {garage.contact?.email && (
-                <a
-                  href={mailtoLink(garage.contact.email)}
-                  className="text-sm px-3 py-1 rounded-full border hover:bg-neutral-50"
-                >
-                  {garage.contact.email}
-                </a>
-              )}
-              {garage.contact?.whatsapp && (
-                <a
-                  href={whatsappHref}
-                  target="_blank"
-                  className="text-sm px-3 py-1 rounded-full border hover:bg-neutral-50"
-                >
-                  WhatsApp us
-                </a>
-              )}
-            </div>
+      <EnquiryForm 
+        garageName={garage.name} 
+        toEmail={garage.contact?.email || ""}
+        garageSlug={garage.slug}
+      />
 
-            {garage.contact?.phone && (
-              <a
-                href={phoneHref}
-                className={garage.slug === 'gem' ? "btn-primary text-sm px-3 py-1" : "text-sm font-semibold px-3 py-1 rounded-full"}
-                style={garage.slug === 'gem' ? {} : { backgroundColor: accent, color: "#fff" }}
-              >
-                {garage.contact.phone}
-              </a>
-            )}
-          </div>
-        </section>
-
-                    {/* BOOKING + WHY CHOOSE */}
-                    <section className="px-fluid py-12 md:py-16">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-            {/* Left: Why Choose */}
-            <div>
-              <h2 className="h2-title font-bold mb-6">
-                Why Choose {garage.name.split(" ")[0]}?
-              </h2>
-              <p className="text-neutral-600 mb-8 max-w-[70ch]">
-                {garage.content?.aboutBlurb?.trim() ||
-                  "With over 25 years' experience, our team delivers honest, transparent care for any make, any model."}
-              </p>
-
-              <div className="max-w-[70ch]">
-                {garage.slug === 'gem' ? (
-                  <ul className="space-y-4">
-                    {[
-                      "Dealer-level diagnostics for every model.",
-                      "Transparent pricing. No surprises.",
-                      "Same-day slots available.",
-                      "Work guaranteed & DVSA approved.",
-                      "Friendly team with 25+ years' experience."
-                    ].map((line, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <BadgeCheck className="mt-1 h-5 w-5 text-[--accent] flex-shrink-0" />
-                        <span className="leading-relaxed text-[--text]">{line}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : garage.chips ? (
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {garage.chips.slice(0, 6).map((c, i) => (
-                      <li key={i} className="flex gap-3 items-start">
-                        <BadgeCheck className="mt-1 size-5" style={{ color: 'var(--ts-accent)' }} />
-                        <div>
-                          <p className="font-medium">{c}</p>
-                          <p className="text-muted-foreground text-sm">Trusted expertise</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </div>
-
-              {/* Services */}
-              {(garage.content?.services?.length ? garage.content.services : garage.services)?.length && (
-                <>
-                  <h3 className="h2-title font-bold mt-10 mb-6">Our Services</h3>
-                  {garage.slug === 'gem' ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                      {['MOT Testing', 'Servicing', 'Diagnostics', 'EV & Hybrid', 'Brake Service', 'Engine Repair']
-                        .map((service, i) => (
-                        <div key={i} className="card">
-                          <div className="flex items-start gap-3 mb-4">
-                            <Wrench className="h-5 w-5" style={{ color: 'var(--c-gold-500)' }} />
-                            <div>
-                              <h3 className="font-semibold text-white">{service}</h3>
-                              <p className="text-sm text-white/70">Professional service</p>
-                            </div>
-                          </div>
-                          <a href="#booking" className="btn-primary w-full">
-                            Book {service}
-                          </a>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                      {['MOT Testing', 'Servicing', 'Diagnostics', 'EV & Hybrid']
-                        .map((service, i) => (
-                        <div key={i} className="rounded-2xl border border-white/10 bg-white/2 dark:bg-white/[0.02] hover:bg-white/5 transition-shadow shadow-sm hover:shadow-md p-6">
-                          <div className="flex items-start gap-3">
-                            <Wrench className="h-5 w-5" style={{ color: 'var(--ts-accent)' }} />
-                            <div>
-                              <h3 className="font-semibold">{service}</h3>
-                              <p className="text-sm text-slate-600">Professional service</p>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </>
-              )}
-
-              {/* Pricing */}
-              {garage.pricing && (
-                <>
-                  <h3 className="text-2xl md:text-3xl font-bold mt-10 mb-6">
-                    Straightforward pricing
-                  </h3>
-                  <PricingCards 
-                    items={[
-                      { 
-                        title: "MOT (Class 4)", 
-                        price: garage.pricing.mot || "£54.85", 
-                        badge: "DVSA Approved",
-                        include: ["Full inspection", "Certificate", "Free re-test if needed"]
-                      },
-                      { 
-                        title: "Interim Service", 
-                        price: `from ${garage.pricing.interimFrom ?? "£89"}`,
-                        note: "Oil & filter, checks",
-                        include: ["Oil change", "Filter replacement", "Basic checks"]
-                      },
-                      { 
-                        title: "Full Service", 
-                        price: `from ${garage.pricing.fullFrom ?? "£149"}`,
-                        note: "Manufacturer schedule",
-                        include: ["Complete service", "All filters", "Comprehensive checks"]
-                      }
-                    ]} 
-                    garage={garage} 
-                  />
-                </>
-              )}
-            </div>
-
-          {/* Right: Booking (client form inside) */}
-          <aside id="booking">
-            <div
-              className="rounded-2xl bg-white border border-black/10 shadow-sm sticky top-6 p-5 md:p-6"
-            >
-              <h3 className="font-semibold text-lg mb-3">Quick booking</h3>
-
-              <EnquiryForm
-                garageName={garage.name}
-                toEmail={garage.contact?.email ?? ""}
-                brandPrimary="var(--ts-accent)"
-                garageSlug={garage.slug}
-              />
-
-              {garage.contact?.phone && (
-                <p className="text-xs text-black/60 mt-2">
-                  Or call:{" "}
-                  <a className="underline" href={phoneHref}>
-                    {garage.contact.phone}
-                  </a>
-                </p>
-              )}
-            </div>
-                    </aside>
-                  </div>
-                  </section>
-
-                  {/* Reviews */}
-                  {garage.reviews && garage.reviews.length > 0 && (
-                    <section className={garage.slug === 'gem' ? "px-fluid py-12 md:py-16 bg-black/20" : "px-fluid py-12 md:py-16"}>
-                      <h3 className="h2-title font-bold mb-6">What Our Customers Say</h3>
-                        {garage.slug === 'gem' ? (
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {garage.reviews.slice(0, 2).map((review: any, i: number) => (
-                              <div key={i} className="card">
-                                <p className="text-white/90 italic mb-4">"{review.quote}"</p>
-                                <p className="font-semibold" style={{ color: 'var(--c-gold-500)' }}>— {review.author}</p>
-                              </div>
-                            ))}
-                          </div>
-                        ) : (
-                          <ReviewsCarousel
-                            reviews={garage.reviews.map((r: any) => ({ quote: r.quote, author: r.author }))}
-                            garage={garage}
-                          />
-                        )}
-                    </section>
-                  )}
-
-                  {/* Branches + Map */}
-                    <section className="px-fluid py-12 md:py-16">
-                      <h3 className="text-2xl md:text-3xl font-bold mb-6">Find Us</h3>
-
-                      {garage.mapEmbed && (
-                        <div className="space-y-6">
-                          <GarageMap src={garage.mapEmbed} borderColor="var(--ts-border)" />
-                          {garage.slug === 'gem' && (
-                            <div className="text-center">
-                              <a href="#booking" className="btn-primary">
-                                Book Your Visit
-                              </a>
-                            </div>
-                          )}
-                        </div>
-                      )}
-                  </section>
-
-                  {/* CTA Rail */}
-                  <CTARail garage={garage} />
-
-                  {/* Contact band (dark) with client form */}
-                    <section className="px-fluid py-12 md:py-16">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="rounded-2xl p-6 bg-black/20 border border-white/10">
-              <h4 className="text-xl font-bold mb-3">Call or Email</h4>
-              <p className="text-white/80 mb-4">
-                Fastest way to book your MOT, service or repair.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                {garage.contact?.phone && (
-                  <a
-                    href={phoneHref}
-                    className={garage.slug === 'gem' ? "btn-primary" : "rounded-lg px-5 py-3 font-semibold"}
-                    style={garage.slug === 'gem' ? {} : { backgroundColor: 'var(--ts-accent)', color: 'var(--ts-contrast)' }}
-                  >
-                    {garage.contact.phone}
-                  </a>
-                )}
-                {garage.contact?.email && (
-                  <a
-                    href={mailtoLink(garage.contact.email)}
-                    className={garage.slug === 'gem' ? "btn-secondary" : "rounded-lg px-5 py-3 font-semibold bg-white text-neutral-900"}
-                  >
-                    Email Us
-                  </a>
-                )}
-              </div>
-              {garage.branches?.[0]?.address && (
-                <p className="mt-4 text-sm text-white/80">
-                  {garage.branches[0].address}
-                </p>
-              )}
-            </div>
-
-            <div className="rounded-2xl p-6 bg-black/20 border border-white/10">
-              <h4 className="text-xl font-bold mb-3">Quick Enquiry</h4>
-
-              <EnquiryForm
-                garageName={garage.name}
-                toEmail={garage.contact?.email ?? ""}
-                brandPrimary="var(--ts-accent)"
-              />
-            </div>
-          </div>
-        </section>
-                  </section>
-                </>
-              ) : (
-                <Hero 
-                  garageName={garage.name}
-                  brandSlug={garage.slug}
-                  theme={{
-                    primary: garage.theme?.accent || garage.brand?.primary || '#0a4bff',
-                    secondary: garage.theme?.accent2 || garage.brand?.dark,
-                    textOnPrimary: 'light'
-                  }}
-                  hero={{
-                    variant: 'image',
-                    images: [
-                      {
-                        id: `${garage.slug}-prestige`,
-                        src: '/hero/prestige.jpg',
-                        alt: `${garage.name} prestige service`,
-                        variant: 'prestige',
-                        objectPosition: 'center right'
-                      },
-                      {
-                        id: `${garage.slug}-customer`,
-                        src: '/hero/customer.jpg',
-                        alt: `${garage.name} customer service`,
-                        variant: 'customer',
-                        objectPosition: 'center right'
-                      },
-                      {
-                        id: `${garage.slug}-tech`,
-                        src: '/hero/tech.jpg',
-                        alt: `${garage.name} diagnostics`,
-                        variant: 'tech',
-                        objectPosition: 'center right'
-                      },
-                      {
-                        id: `${garage.slug}-solid`,
-                        src: '/hero/prestige.jpg',
-                        alt: `${garage.name} service`,
-                        variant: 'prestige',
-                        objectPosition: 'center right'
-                      }
-                    ]
-                  }}
-                  contact={garage.contact}
-                />
-              )}
-
-    <StickyActions slug={garage.slug} phone={garage.contact?.phone} brand={garage.brand ?? {}} starterHref={garage.stripeLinks?.starter} />
-      </div>
-    </main>
-  </BrandTheme>
-  );
-}
-
-/* ------------ simple pricing card (no event handlers) ------------ */
-
-function CardPrice({
-  title,
-  price,
-  subtitle,
-}: {
-  title: string;
-  price?: string;
-  subtitle?: string;
-}) {
-  return (
-    <div
-      className="rounded-2xl border bg-white p-6 flex flex-col"
-      style={{ borderColor: "rgba(0,0,0,0.06)" }}
-    >
-      <div className="text-sm text-neutral-500">{title}</div>
-      <div className="mt-2 text-3xl font-extrabold">{price ?? "£—"}</div>
-      {subtitle && <div className="text-xs text-neutral-500 mt-1">{subtitle}</div>}
-      <div className="mt-auto">
-        <a
-          href="#booking"
-          className="inline-flex mt-4 rounded-lg px-4 py-2 font-semibold text-white bg-neutral-900"
-        >
-          Book now
-        </a>
+      <div className="space-y-10"> {/* Updated from grid to vertical stacking */}
+        <ContactDetails 
+          phone={garage.contact?.phone} 
+          email={garage.contact?.email} 
+        />
+        <OpeningHours />
+        <Reviews />
       </div>
     </div>
   );
 }
-
-

@@ -47,29 +47,31 @@ export default function EnquiryForm({
   }
 
   return (
-    <form className="space-y-3" onSubmit={onSubmit}>
-      <input name="name" className="w-full rounded-lg border border-black/10 px-4 py-2.5 text-sm placeholder:text-black/40 focus:ring-2 focus:ring-black/10" placeholder="Your name" />
-      <input name="phone" className="w-full rounded-lg border border-black/10 px-4 py-2.5 text-sm placeholder:text-black/40 focus:ring-2 focus:ring-black/10" placeholder="Phone" />
-      <input name="email" className="w-full rounded-lg border border-black/10 px-4 py-2.5 text-sm placeholder:text-black/40 focus:ring-2 focus:ring-black/10" placeholder="Email (optional)" />
-      {/* Honeypot */}
-      <input name="company" className="hidden" tabIndex={-1} autoComplete="off" />
-      <select name="service" className="w-full rounded-lg border border-black/10 px-4 py-2.5 text-sm focus:ring-2 focus:ring-black/10" defaultValue="MOT">
-        <option value="MOT">MOT</option>
-        <option value="Interim Service">Interim Service</option>
-        <option value="Full Service">Full Service</option>
-        <option value="Diagnostics">Diagnostics</option>
-      </select>
-      <textarea name="notes" className="w-full rounded-lg border border-black/10 px-4 py-2.5 text-sm placeholder:text-black/40 focus:ring-2 focus:ring-black/10" placeholder="Notes (optional)" rows={4} />
-      <button
-        type="submit"
-        disabled={submitting}
-        className={garageSlug === 'gem' ? "btn-primary w-full" : "w-full rounded-lg px-4 py-2.5 font-medium text-white"}
-        style={garageSlug === 'gem' ? {} : { backgroundColor: brandPrimary }}
-      >
-        {submitting ? "Sending…" : "Send enquiry"}
-      </button>
-      {ok === true && <div className="text-green-600 text-sm">Thanks — we\'ll be in touch shortly.</div>}
-      {ok === false && <div className="text-red-600 text-sm">Sorry, something went wrong. Please call or try again.</div>}
-    </form>
+    <div id="enquiry" className="rounded-2xl p-6 md:p-8 bg-white/3 dark:bg-black/30 backdrop-blur ring-subtle elev lift">
+      <form className="space-y-3" onSubmit={onSubmit}>
+        <input name="name" className="w-full rounded-xl h-11 border border-gray-300 dark:border-white/20 bg-white/50 dark:bg-white/10 px-4 text-sm text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-white/60 focus:ring-2 focus:ring-blue-500 dark:focus:ring-white/40" placeholder="Your name" />
+        <input name="phone" className="w-full rounded-xl h-11 border border-gray-300 dark:border-white/20 bg-white/50 dark:bg-white/10 px-4 text-sm text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-white/60 focus:ring-2 focus:ring-blue-500 dark:focus:ring-white/40" placeholder="Phone" />
+        <input name="email" className="w-full rounded-xl h-11 border border-gray-300 dark:border-white/20 bg-white/50 dark:bg-white/10 px-4 text-sm text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-white/60 focus:ring-2 focus:ring-blue-500 dark:focus:ring-white/40" placeholder="Email (optional)" />
+        {/* Honeypot */}
+        <input name="company" className="hidden" tabIndex={-1} autoComplete="off" />
+        <select name="service" className="w-full rounded-xl h-11 border border-gray-300 dark:border-white/20 bg-white/50 dark:bg-white/10 px-4 text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-white/40" defaultValue="MOT">
+          <option value="MOT">MOT</option>
+          <option value="Interim Service">Interim Service</option>
+          <option value="Full Service">Full Service</option>
+          <option value="Diagnostics">Diagnostics</option>
+        </select>
+        <textarea name="notes" className="w-full rounded-xl border border-gray-300 dark:border-white/20 bg-white/50 dark:bg-white/10 px-4 py-3 text-sm text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-white/60 focus:ring-2 focus:ring-blue-500 dark:focus:ring-white/40" placeholder="Notes (optional)" rows={4} />
+        <button
+          type="submit"
+          disabled={submitting}
+          className={garageSlug === 'gem' ? "btn-primary-gradient w-full" : "w-full rounded-lg px-4 py-2.5 font-medium text-white"}
+          style={garageSlug === 'gem' ? {} : { backgroundColor: brandPrimary }}
+        >
+          {submitting ? "Sending…" : "Send enquiry"}
+        </button>
+        {ok === true && <div className="text-green-600 text-sm">Thanks — we\'ll be in touch shortly.</div>}
+        {ok === false && <div className="text-red-600 text-sm">Sorry, something went wrong. Please call or try again.</div>}
+      </form>
+    </div>
   );
 }

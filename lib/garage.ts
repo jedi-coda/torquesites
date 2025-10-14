@@ -7,7 +7,22 @@ import path from "path";
 export type Brand = { primary?: string; dark?: string };
 export type Contact = { phone?: string; email?: string; whatsapp?: string };
 export type Branch = { name?: string; address?: string; hours?: string; phone?: string };
-export type Pricing = { mot?: string; interimFrom?: string; fullFrom?: string };
+export type PricingEntry = {
+  title: string;
+  description: string;
+  price: string;
+  features?: string[];
+  cta?: {
+    text: string;
+    href: string;
+  } | null;
+  cta1?: {
+    text: string;
+    href: string;
+  } | null;
+};
+
+export type Pricing = { mot?: string; interimFrom?: string; fullFrom?: string } | PricingEntry[];
 export type StripeLinks = { starter?: string; buyout?: string };
 
 export type Garage = {
@@ -202,17 +217,34 @@ export function getAllGarageSlugs(): string[] {
 }
 
 export async function loadGarage(slug: string): Promise<Garage | undefined> {
-  const basePath = path.join(repoRoot, "data", "garages.json");
-  const arr = readJsonSafe(basePath);
-  if (!Array.isArray(arr)) return undefined;
-  const baseRaw = arr.find((g: any) => g && g.slug === slug);
-  const base = validateAndNormalize(baseRaw);
+  const garages = await import("../data/garages.json");
+  const garagesArray = garages.default || garages;
+  
+  console.log("🧠 Full garages object keys:", Object.keys(garages));
+  console.log("🧠 Garages array length:", Array.isArray(garagesArray) ? garagesArray.length : "Not an array");
+  
+  const garage = Array.isArray(garagesArray) 
+    ? garagesArray.find((g: any) => g && g.slug === slug)
+    : undefined;
+
+  console.log(`🚦 Loaded garage for slug [${slug}]:`, garage);
+
+  if (!garage) {
+    console.warn(`❌ No garage found for slug: ${slug}`);
+    return undefined;
+  } else if (!garage.pricing) {
+    console.warn(`⚠️ No pricing found for slug: ${slug}`);
+  } else {
+    console.log(`✅ Pricing found for slug: ${slug}`, garage.pricing);
+  }
+
+  const base = validateAndNormalize(garage);
   if (!base) return undefined;
 
   // Optional overlay from app/<slug>/garage.json
   const overlayPath = path.join(repoRoot, "app", slug, "garage.json");
   const overrideRaw = readJsonSafe(overlayPath);
-  const mergedRaw = overlay({ ...baseRaw }, overrideRaw || undefined);
+  const mergedRaw = overlay({ ...garage }, overrideRaw || undefined);
   let validated = validateAndNormalize(mergedRaw) || base;
 
   // Final normalization pass for colors

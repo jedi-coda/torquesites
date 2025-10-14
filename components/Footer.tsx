@@ -3,9 +3,9 @@ import { Lock, Headset, Zap, BadgeCheck } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-50 border-t border-gray-200 text-center text-sm text-gray-600 py-10">
+    <footer className="bg-gray-50 border-t border-white/10 text-center text-sm text-gray-600 py-10">
       {/* Trust strip */}
-      <div className="flex justify-center flex-wrap gap-6 text-gray-700 mb-8 text-sm">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 opacity-80 hover:opacity-100 transition justify-center text-gray-700 mb-8 text-sm">
         <span className="flex items-center gap-2">
           <Lock size={16} aria-hidden="true" /> SSL Secured
         </span>

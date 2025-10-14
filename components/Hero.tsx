@@ -1,310 +1,164 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { brand, brandKeyFromHost, brandTokens, BrandTheme } from '@/lib/brand';
 import clsx from 'clsx';
-import GemHero from './hero/GemHero';
 
-export type HeroVariant = 'prestige' | 'customer' | 'tech';
+export type HeroVariant = 'customer' | 'tech' | 'prestige';
 
-type HeroSlide = {
-  id?: string;
-  src?: string;
-  alt?: string;
+interface HeroProps {
   title?: string;
-  sub?: string;
-  variant?: 'prestige' | 'customer' | 'tech';
-  objectPosition?: string;
+  subtitle?: string;
+  variant?: HeroVariant;
+  imageUrl?: string;
+  ctaText?: string;
+  ctaLink?: string;
+  secondaryText?: string;
+  secondaryLink?: string;
+  overlay?: boolean;
+
+  /** New, optional controls */
+  height?: 'screen' | 'lg' | 'md' | 'sm';     // visual height presets
+  objectPosition?: string;                    // e.g. "center", "50% 40%", "top"
+  overlayFrom?: 't' | 'tr' | 'r' | 'br' | 'b' | 'bl' | 'l' | 'tl'; // gradient direction
+  overlayStrength?: number;                   // 0..1 for start stop opacity
+  priority?: boolean;                         // pass true on above-the-fold pages
+  className?: string;                         // extra classes from parent
+}
+
+const overlayClassFrom = (dir: Required<HeroProps>['overlayFrom']) => {
+  switch (dir) {
+    case 't': return 'from-black/70 via-black/50 to-black/20';
+    case 'tr': return 'from-black/70 via-black/50 to-black/20';
+    case 'r': return 'from-black/70 via-black/50 to-black/20';
+    case 'br': return 'from-black/70 via-black/50 to-black/20';
+    case 'b': return 'from-black/70 via-black/50 to-black/20';
+    case 'bl': return 'from-black/70 via-black/50 to-black/20';
+    case 'l': return 'from-black/70 via-black/50 to-black/20';
+    case 'tl': return 'from-black/70 via-black/50 to-black/20';
+    default: return 'from-black/70 via-black/50 to-black/20';
+  }
 };
 
-type HeroProps = {
-  garageName: string;
-  brandSlug: string;
-  theme: BrandTheme;
-  hero?: {
-    variant?: 'image' | 'gradient';
-    images?: HeroSlide[];
-  };
-  contact?: {
-    phone?: string;
-  };
-};
+export default function Hero({
+  title = 'Premium MOT Testing in Chesham',
+  subtitle = 'Book online 24/7 with qualified technicians and quality service guaranteed',
+  variant = 'customer',
+  imageUrl,
+  ctaText = 'Book Now',
+  ctaLink = '#booking',
+  secondaryText = 'View Services',
+  secondaryLink = '#services',
+  overlay = true,
 
-// Dynamic greeting by time
-function getGreeting(): string {
-  const hour = new Date().getHours();
-  if (hour >= 0 && hour < 12) return 'morning';
-  if (hour >= 12 && hour < 18) return 'afternoon';
-  return 'evening';
-}
+  height = 'screen',
+  objectPosition = 'center',
+  overlayFrom = 'b',
+  overlayStrength = 1, // scales the default gradient
+  priority = true,
+  className,
+}: HeroProps) {
+  const finalImageUrl = imageUrl || `/hero/${variant}.jpg`;
 
-// Headline microcopy by variant
-function headlineCopy(variant: HeroVariant, garage: string, isFirstSlide: boolean = false) {
-  if (isFirstSlide) {
-    return `Good ${getGreeting()}, welcome to ${garage}`;
-  }
-  
-  switch (variant) {
-    case 'prestige':  return `Book your MOT at ${garage}`;
-    case 'customer':  return `Friendly, fair & fast at ${garage}`;
-    case 'tech':      return `Dealer-level diagnostics at ${garage}`;
-    default:         return `Book your MOT at ${garage}`;
-  }
-}
+  const heightClass =
+    height === 'screen'
+      ? 'min-h-[calc(100vh-48px)] sm:min-h-[calc(100vh-56px)]'
+      : height === 'lg'
+      ? 'min-h-[80vh]'
+      : height === 'md'
+      ? 'min-h-[60vh]'
+      : 'min-h-[45vh]';
 
-function subCopy(variant: HeroVariant) {
-  switch (variant) {
-    case 'prestige':  return 'Performance servicing & MOTs. Same-day slots available.';
-    case 'customer':  return 'Trusted service, clear pricing, local team.';
-    case 'tech':      return 'Same-day MOTs. Transparent checklist & free re-test.';
-    default:         return 'Performance servicing & MOTs. Same-day slots available.';
-  }
-}
-
-export default function Hero({ garageName, brandSlug, theme, hero, contact }: HeroProps) {
-  // Determine brand
-  const brandKey = brandKeyFromHost();
-  
-  // Use GEM-specific hero for GEM brand
-  if (brandKey === 'gem') {
-    return <GemHero />;
-  }
-  
-  // Persisted variant index
-  const [idx, setIdx] = useState(0);
-  const [animated, setAnimated] = useState(false);
-  const [autoplay, setAutoplay] = useState(true);
-  
-  const brandTokens = brand[brandKey];
-  
-  // Use hero.variant and hero.images from props
-  const isImageVariant = hero?.variant === 'image';
-  const heroImages = hero?.images ?? [];
-  const hasImages = isImageVariant && heroImages.length >= 1;
-  
-  // Defensive: if any slide lacks src, fall back to first available image
-  const safeImages = heroImages.filter(img => img && img.src);
-  
-  // Enforce exactly 4 slides per brand - first slide is gradient canvas
-  const slides = [
-    // First slide: gradient canvas (no image)
-    {
-      id: `${brandSlug}-gradient`,
-      src: null,
-      alt: '',
-      variant: 'prestige' as HeroVariant,
-      objectPosition: 'center'
-    },
-    // Subsequent slides: images
-    ...(safeImages.length >= 3 ? safeImages.slice(0, 3) : [
-      ...safeImages,
-      ...Array(3 - safeImages.length).fill(null).map((_, i) => ({
-        id: `${brandSlug}-fallback-${i}`,
-        src: safeImages[0]?.src || '/hero/prestige.jpg',
-        alt: `${garageName} service`,
-        variant: 'prestige' as HeroVariant,
-        objectPosition: '70% 50%'
-      }))
-    ])
-  ];
-  
-  // Guard window usage in effects
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    const saved = Number(localStorage.getItem('heroVariantIndex') || '0');
-    setIdx(Number.isFinite(saved) ? clamp(saved, 0, Math.max(0, slides.length)) : 0);
-    
-    // Animation effect with reduced motion respect
-    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
-      setAnimated(true);
-      setAutoplay(false);
-    } else {
-      setTimeout(() => setAnimated(true), 50);
-    }
-  }, [slides.length]);
-
-  // Autoplay effect
-  useEffect(() => {
-    if (!autoplay) return;
-    
-    const interval = setInterval(() => {
-      setIdx((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    
-    return () => clearInterval(interval);
-  }, [autoplay, slides.length]);
-
-  const currentSlide = slides[clamp(idx, 0, slides.length - 1)];
-  const currentVariant: HeroVariant = currentSlide?.variant ?? 'prestige';
-  const isFirstSlide = idx === 0;
-
-  // Gradient styles
-  const gradientStyle = {
-    background: `linear-gradient(135deg, ${brandTokens.gradient.from}, ${brandTokens.gradient.via}, ${brandTokens.gradient.to})`
-  };
-
-  const overlayStyle = {
-    background: `linear-gradient(90deg, rgba(12,13,16,.72) 0%, rgba(12,13,16,.55) 35%, rgba(12,13,16,0) 60%)`
-  };
-
-  // --- Accessibility & keyboard controls for dots ---
-  const onDotKey = (e: React.KeyboardEvent<HTMLButtonElement>, i: number) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      handleDot(i);
-    }
-    if (e.key === 'ArrowLeft') handleDot(Math.max(0, (idx || 0) - 1));
-    if (e.key === 'ArrowRight') handleDot(Math.min(slides.length - 1, (idx || 0) + 1));
-  };
-
-  const handleDot = (i: number) => {
-    setIdx(i);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('heroVariantIndex', String(i));
-    }
-  };
+  // Strength scaling: we apply via inline opacity variable used in extra overlay veil
+  const veilOpacity = Math.max(0, Math.min(1, overlayStrength));
 
   return (
     <section
-      className="relative overflow-visible min-h-[56svh] md:min-h-[70svh]"
-      aria-label={`${garageName} hero`}
-      onMouseEnter={() => setAutoplay(false)}
-      onMouseLeave={() => setAutoplay(true)}
-      onFocus={() => setAutoplay(false)}
-      onBlur={() => setAutoplay(true)}
+      className={clsx(
+        'relative w-full overflow-hidden flex items-center justify-center',
+        heightClass,
+        className
+      )}
+      aria-label="Hero section"
     >
-      {/* Background gradient for depth */}
-      <div 
-        className="absolute inset-0"
-        style={gradientStyle}
-      />
-      
-      {/* Image layer (only for non-first slides) */}
-      {!isFirstSlide && currentSlide?.src && (
-        <div className="absolute inset-0">
-          <Image
-            key={currentSlide.id ?? idx}
-            src={currentSlide.src}
-            alt={currentSlide.alt || `${garageName} ${currentVariant} service`}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover transition-opacity duration-500 ease-out"
-            style={{ objectPosition: '70% 50%' }}
-            onError={() => {
-              // Safety: if an image fails, fallback to first slide
-              if (slides.length > 0) {
-                if (typeof window !== 'undefined') {
-                  localStorage.setItem('heroVariantIndex', '0');
-                }
-                setIdx(0);
-              }
-            }}
+      {/* Background Image */}
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src={finalImageUrl}
+          alt={`${variant} hero image`}
+          fill
+          sizes="100vw"
+          priority={priority}
+          className="object-cover"
+          style={{ objectPosition }}
+        />
+      </div>
+
+      {/* Gradient Overlay */}
+      {overlay && (
+        <>
+          <div
+            className={clsx(
+              'absolute inset-0 -z-0 bg-gradient-to-b',
+              // direction (we keep it simple but flexible with a single util)
+              overlayFrom === 't' && 'bg-gradient-to-b',
+              overlayFrom === 'tr' && 'bg-gradient-to-bl',
+              overlayFrom === 'r' && 'bg-gradient-to-l',
+              overlayFrom === 'br' && 'bg-gradient-to-tl',
+              overlayFrom === 'b' && 'bg-gradient-to-t',
+              overlayFrom === 'bl' && 'bg-gradient-to-tr',
+              overlayFrom === 'l' && 'bg-gradient-to-r',
+              overlayFrom === 'tl' && 'bg-gradient-to-br',
+              overlayClassFrom(overlayFrom)
+            )}
+            style={{ opacity: veilOpacity }}
           />
-          {/* Brand gradient overlay L→R for legibility */}
-          <div 
-            className="absolute inset-0"
-            style={overlayStyle}
-          />
-        </div>
+          {/* Very subtle global veil to aid text legibility */}
+          <div className="absolute inset-0 -z-0 bg-black/20 md:bg-black/10 pointer-events-none" />
+        </>
       )}
 
       {/* Content */}
-      <div className="relative z-10 flex h-full w-full">
-        <div className="flex w-full flex-col justify-center gap-4 px-5 sm:px-8 md:px-10 pt-16 pb-24 md:pb-28">
-          {/* Text left column */}
-          <div className="max-w-[720px]">
-            {/* Headline */}
-            <div
-              className={clsx(
-                'text-white transition-all duration-500 ease-out',
-                animated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              )}
-              style={{ transitionDelay: animated ? '0ms' : '0ms' }}
-            >
-              <h1 className="font-semibold leading-tight tracking-tight text-[clamp(32px,6vw,64px)] max-w-[18ch]">
-                {headlineCopy(currentVariant, garageName, isFirstSlide)}
-              </h1>
-            </div>
+      <div className="relative z-10 flex h-full w-full items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-5xl mx-auto">
+          <h1
+            className="text-white font-extrabold tracking-tight mb-4"
+            style={{
+              fontSize: 'clamp(2.25rem, 6vw, 4.25rem)',
+              lineHeight: 1.1,
+              textShadow: '2px 2px 4px rgba(0,0,0,0.55)',
+            }}
+          >
+            {title}
+          </h1>
 
-            {/* Subhead */}
-            <p 
-              className={clsx(
-                'mt-3 text-white/90 text-[clamp(18px,2vw,22px)] max-w-[60ch] transition-all duration-500 ease-out',
-                animated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              )}
-              style={{ transitionDelay: animated ? '120ms' : '0ms' }}
-            >
-              {subCopy(currentVariant)}
-            </p>
+          <p
+            className="text-white/90 text-base sm:text-lg lg:text-2xl mb-8 mx-auto max-w-3xl"
+            style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.5)', lineHeight: 1.45 }}
+          >
+            {subtitle}
+          </p>
 
-            {/* CTAs */}
-            <div 
-              className={clsx(
-                'mt-6 flex flex-wrap gap-3 transition-all duration-500 ease-out',
-                animated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              )}
-              style={{ transitionDelay: animated ? '200ms' : '0ms' }}
-            >
-              {contact?.phone && (
-                <a
-                  href={`tel:${contact.phone.replace(/\s+/g, '')}`}
-                  className="inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold text-white shadow-md hover:brightness-95 focus-visible:outline-2 focus-visible:outline-white/80"
-                  style={{ 
-                    background: `linear-gradient(135deg, ${brandTokens.gradient.from}, ${brandTokens.gradient.via}, ${brandTokens.gradient.to})`,
-                    color: brandTokens.solid.onPrimary
-                  }}
-                >
-                  Call {contact.phone}
-                </a>
-              )}
-              
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            {!!ctaText && !!ctaLink && (
               <a
-                href="#reviews"
-                className="inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold bg-white/12 border border-white/20 text-white hover:bg-white/18 focus-visible:outline-2 focus-visible:outline-white/80"
+                href={ctaLink}
+                className="inline-flex items-center justify-center px-7 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md hover:shadow-lg transition"
               >
-                Read reviews
+                {ctaText}
               </a>
-              
+            )}
+            {!!secondaryText && !!secondaryLink && (
               <a
-                href={`/partnership?garage=${encodeURIComponent(brandSlug)}`}
-                className="inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold bg-white/12 border border-white/20 text-white hover:bg-white/18 focus-visible:outline-2 focus-visible:outline-white/80"
+                href={secondaryLink}
+                className="inline-flex items-center justify-center px-7 py-3 rounded-full border border-white/25 bg-white/10 backdrop-blur hover:bg-white/20 text-white font-semibold transition"
               >
-                Secure partner slot
+                {secondaryText}
               </a>
-            </div>
-          </div>
-
-          {/* Dots pagination - always render 4 */}
-          <div className="absolute right-12 bottom-12 flex gap-2" role="tablist" aria-label="Hero slides">
-            {Array.from({ length: 4 }, (_, i) => {
-              const active = i === idx;
-              return (
-                <button
-                  key={i}
-                  role="tab"
-                  aria-selected={active}
-                  aria-label={`Show slide ${i + 1} of 4`}
-                  onClick={() => handleDot(i)}
-                  onKeyDown={(e) => onDotKey(e, i)}
-                  className={clsx(
-                    'h-3 w-3 rounded-full outline-none ring-offset-2 focus:ring-2 focus:ring-white/70 transition-colors',
-                    active ? 'bg-white' : 'bg-neutral-400'
-                  )}
-                  style={{ backgroundColor: active ? brandTokens.dotActive : brandTokens.dotIdle }}
-                />
-              );
-            })}
+            )}
           </div>
         </div>
       </div>
     </section>
   );
-}
-
-function clamp(n: number, min: number, max: number) {
-  return Math.max(min, Math.min(max, n));
 }

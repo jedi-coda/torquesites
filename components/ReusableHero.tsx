@@ -85,7 +85,7 @@ export default function ReusableHero({
   return (
     <section
       className={clsx(
-        'relative overflow-hidden min-h-[68svh] md:min-h-[76svh]',
+        'relative overflow-hidden min-h-[58vh] md:min-h-[64vh] lg:min-h-[68vh] xl:min-h-[72vh]',
         className
       )}
       aria-label="Hero carousel"
@@ -105,8 +105,8 @@ export default function ReusableHero({
             }}
           />
         ) : (
-          // Other slides: image with dark overlay
-          <>
+          // Other slides: image with gradient overlay
+          <div className="relative">
             <Image
               src={currentSlideData.src!}
               alt={currentSlideData.alt}
@@ -116,15 +116,15 @@ export default function ReusableHero({
               className="object-cover transition-opacity duration-500 ease-out"
               style={{ objectPosition: currentSlideData.objectPosition || 'center' }}
             />
-            {/* Neutral dark overlay */}
-            <div className="absolute inset-0 bg-black/60" />
-          </>
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-black/30 to-transparent" />
+          </div>
         )}
       </div>
 
       {/* Content */}
       <div className="relative z-10 flex h-full w-full">
-        <div className="flex w-full flex-col justify-center gap-4 px-5 sm:px-8 md:px-10 pt-16 pb-24 md:pb-28">
+        <div className="flex w-full flex-col justify-center gap-4 px-5 sm:px-8 md:px-10 pt-16">
           {/* Text content */}
           <div className="max-w-[720px]">
             {/* Headline */}
@@ -134,7 +134,7 @@ export default function ReusableHero({
                 isAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               )}
             >
-              <h1 className="font-semibold leading-tight tracking-tight text-[clamp(32px,6vw,64px)] max-w-[18ch]">
+              <h1 className="font-semibold text-[clamp(28px,5.5vw,56px)] leading-[1.05] max-w-[18ch]">
                 {currentSlideData.title}
               </h1>
             </div>
@@ -142,7 +142,7 @@ export default function ReusableHero({
             {/* Subtitle */}
             <p 
               className={clsx(
-                'mt-3 text-white/90 text-[clamp(18px,2vw,22px)] max-w-[60ch] transition-all duration-500 ease-out',
+                'mt-3 text-white text-[clamp(14px,1.7vw,18px)] opacity-90 max-w-[60ch] transition-all duration-500 ease-out',
                 isAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               )}
               style={{ transitionDelay: isAnimated ? '120ms' : '0ms' }}

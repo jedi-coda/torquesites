@@ -14,10 +14,8 @@ export default function GemLayout({
   return (
     <>
       <GemBrandSetup />
-      <main className="px-fluid" style={{ backgroundColor: 'var(--brand-bg)' }}>
-        <div className="container-page">
-          {children}
-        </div>
+      <main style={{ backgroundColor: 'var(--brand-bg)' }}>
+        {children}
       </main>
     </>
   )
