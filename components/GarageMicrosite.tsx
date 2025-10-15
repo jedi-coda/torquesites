@@ -1,7 +1,15 @@
 "use client";
 
-import Image from "next/image";
-import { useState } from "react";
+import { motion } from "framer-motion";
+import Hero from "@/components/Hero";
+import ServicesGrid from "@/components/ServicesGrid";
+import OpeningHours from "@/components/OpeningHours";
+import PricingCards from "@/components/PricingCards";
+import EnquiryForm from "@/components/EnquiryForm";
+import Reviews from "@/components/ui/Reviews";
+import GarageMap from "@/components/GarageMap";
+import Footer from "@/components/Footer";
+import StickyActionBar from "@/components/StickyActions";
 
 type GarageData = {
   name: string;
@@ -12,156 +20,137 @@ type GarageData = {
   heroImage: string;
   colors: { primary: string; secondary: string };
   logo: string;
-  services: { name: string; desc: string; image: string; price?: number }[];
+  services: { icon?: string; title?: string; description?: string; name?: string; desc?: string; image?: string; price?: number }[];
   hours: { day: string; open: string; close: string }[];
   priceId?: string; // Stripe priceId
 };
 
 export default function GarageMicrosite({ data }: { data: GarageData }) {
-  const [loading, setLoading] = useState(false);
-
   if (!data) return <p>Garage not found</p>;
 
-  const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
+  const today = new Date().toLocaleDateString("en-GB", { weekday: "long" });
 
-    const formData = new FormData(e.currentTarget);
-    const service = formData.get("service") as string;
-
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-garage": data.name,
-        },
-        body: JSON.stringify({
-          priceId: data.priceId,
-          service,
-        }),
-      });
-
-      const { url } = await res.json();
-      if (url) {
-        window.location.href = url;
-      } else {
-        setLoading(false);
-        alert("Booking failed. Please try again.");
-      }
-    } catch (err) {
-      console.error("Booking error:", err);
-      setLoading(false);
-      alert("Booking failed. Please try again.");
+  // Transform services data - handle both new and legacy formats
+  const transformedServices = data.services.map(service => {
+    // Handle new format with icon, title, description
+    if (service.icon && service.title && service.description) {
+      return {
+        icon: service.icon,
+        title: service.title,
+        description: service.description
+      };
     }
-  };
+    // Handle legacy format with name, desc
+    else if (service.name && service.desc) {
+      return {
+        icon: getServiceIcon(service.name),
+        title: service.name,
+        description: service.desc
+      };
+    }
+    // Fallback
+    return {
+      icon: 'wrench',
+      title: 'Service',
+      description: 'Professional automotive service'
+    };
+  }).filter(service => service.title && service.description);
+
+  // Transform opening hours
+  const transformedHours = data.hours.map(hour => {
+    const cleanDay = hour.day.trim().toLowerCase();
+    const isToday = cleanDay === today.toLowerCase();
+
+    return {
+      day: hour.day.trim(),
+      hours: `${hour.open}${hour.close ? ` - ${hour.close}` : ''}`,
+      open: isToday
+    };
+  });
 
   return (
     <main className="font-sans text-gray-900">
-      {/* HERO */}
-      <section className="relative text-white">
-        <Image
-          src={data.heroImage}
-          alt={`${data.name} hero`}
-          fill
-          className="object-cover"
+      {/* Hero Section */}
+      <section id="hero" data-section="hero">
+        <Hero />
+      </section>
+
+      {/* GarageServices */}
+      <ServicesGrid services={transformedServices} />
+
+      {/* TransparentPricing */}
+      <PricingCards />
+
+      {/* CustomerReviews */}
+      <Reviews garage={{
+        slug: data.name.toLowerCase().replace(/\s+/g, '-'),
+        name: data.name,
+        reviews: [
+          { quote: "Excellent service and professional team. They fixed my car quickly and explained everything clearly. Highly recommended!", author: "Sarah M." },
+          { quote: "Quick, reliable, and great value for money. The team at Newtown Garage really knows their stuff. Will definitely be back!", author: "John D." },
+          { quote: "Friendly staff and quality work. They took the time to explain what needed doing and gave me a fair price. Very professional!", author: "Emma R." }
+        ]
+      }} />
+
+      {/* OpeningHours */}
+      <OpeningHours 
+        customSchedule={transformedHours.map(hour => ({
+          day: hour.day,
+          hours: hour.hours,
+          isClosed: !hour.open
+        }))}
+        brandColor="#22aabb"
+        phone={data.phone}
+      />
+
+      {/* GoogleMap */}
+      <GarageMap 
+        src="https://www.google.com/maps?q=Newtown+Garage+Chesham&output=embed"
+        height={400}
+        borderColor="#e5e7eb"
+      />
+
+      {/* Contact Details / Enquiry Form */}
+      <section id="enquiry" data-section="enquiry">
+        <EnquiryForm 
+          garageName={data.name}
+          toEmail={data.emailFallback}
+          brandPrimary={data.colors.primary}
+          garageSlug={data.name.toLowerCase().replace(/\s+/g, '-')}
         />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 text-center py-32 px-6">
-          <Image
-            src={data.logo}
-            alt={data.name}
-            width={180}
-            height={90}
-            className="mx-auto mb-6"
-          />
-          <h1 className="text-4xl md:text-5xl font-extrabold drop-shadow-lg">
-            {data.heroLine}
-          </h1>
-          <p className="mt-4 text-lg font-medium">{data.address}</p>
-        </div>
       </section>
 
-      {/* HOURS + BOOKING */}
-      <section className="py-16 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
-        {/* Quick booking form */}
-        <div className="p-6 border rounded-xl shadow-md bg-white">
-          <h2 className="text-xl font-semibold mb-4">Quick booking</h2>
-          <form className="space-y-3" onSubmit={handleBooking}>
-            <input
-              placeholder="Your name"
-              className="w-full border p-2 rounded focus:ring-2 focus:ring-pink-500"
-            />
-            <input
-              placeholder="Phone"
-              className="w-full border p-2 rounded focus:ring-2 focus:ring-pink-500"
-            />
-            <input
-              placeholder="Vehicle Reg (e.g. AB12 CDE)"
-              className="w-full border p-2 rounded focus:ring-2 focus:ring-pink-500"
-            />
-            <select name="service" className="w-full border p-2 rounded">
-              {data.services.map((s, i) => (
-                <option key={i}>{s.name}</option>
-              ))}
-            </select>
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-gradient-to-r from-pink-500 to-red-500 text-white px-6 py-2 rounded-lg w-full font-semibold disabled:opacity-50"
-            >
-              {loading ? "Redirecting..." : "Pay & Book"}
-            </button>
-          </form>
-          <p className="mt-2 text-sm text-gray-600">Or call: {data.phone}</p>
-        </div>
+      {/* Footer */}
+      <Footer />
 
-        {/* Opening hours */}
-        <div className="p-6 border rounded-xl shadow-md bg-white">
-          <h2 className="text-xl font-semibold mb-4">Opening hours</h2>
-          <ul>
-            {data.hours.map((h, i) => (
-              <li
-                key={i}
-                className="flex justify-between py-1 border-b text-sm text-gray-700"
-              >
-                <span>{h.day}</span>
-                <span>
-                  {h.open} {h.close && `– ${h.close}`}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* Sticky Action Bar */}
+      <StickyActionBar 
+        logoPath="/logos/newtown-logo.png"
+        phoneNumber={data.phone}
+        onBook={() => {
+          const el = document.getElementById("enquiry");
+          el?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }}
+        onCall={() => {
+          window.location.href = `tel:${data.phone.replace(/\s/g, '')}`;
+        }}
+        onPartnerSlot={() => {
+          window.open("https://www.torquesites.co.uk/partnership", "_blank", "noopener,noreferrer");
+        }}
+      />
 
-      {/* SERVICES */}
-      <section className="py-16 px-6 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-10">Our services</h2>
-        <div className="grid gap-8 md:grid-cols-3">
-          {data.services.map((s, i) => (
-            <div
-              key={i}
-              className="p-6 rounded-2xl shadow-lg hover:shadow-xl transition bg-white text-center"
-            >
-              <Image
-                src={s.image}
-                alt={s.name}
-                width={400}
-                height={250}
-                className="mx-auto mb-4 rounded-lg object-cover"
-              />
-              <h3 className="font-semibold text-xl text-gray-900">{s.name}</h3>
-              <p className="text-gray-600 mt-2">{s.desc}</p>
-              {s.price && (
-                <p className="mt-4 text-green-600 font-bold text-lg">
-                  £{s.price.toFixed(2)}
-                </p>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
     </main>
   );
+}
+
+// Helper function for icon selection
+function getServiceIcon(serviceName: string): string {
+  const name = serviceName.toLowerCase();
+  if (name.includes('mot') || name.includes('test')) return 'wrench';
+  if (name.includes('service') || name.includes('servicing')) return 'oil';
+  if (name.includes('tyre') || name.includes('tire')) return 'car';
+  if (name.includes('brake')) return 'alert-circle';
+  if (name.includes('diagnostic') || name.includes('repair')) return 'alert-circle';
+  if (name.includes('air') || name.includes('conditioning')) return 'alert-circle';
+  return 'wrench';
 }

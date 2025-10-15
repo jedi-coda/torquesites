@@ -7,6 +7,7 @@ import path from "path";
 export type Brand = { primary?: string; dark?: string };
 export type Contact = { phone?: string; email?: string; whatsapp?: string };
 export type Branch = { name?: string; address?: string; hours?: string; phone?: string };
+export type Service = { icon: string; title: string; description: string };
 export type PricingEntry = {
   title: string;
   description: string;
@@ -47,7 +48,7 @@ export type Garage = {
     }>;
   };
   chips?: string[];
-  services?: string[];
+  services?: Service[];
   pricing?: Pricing;
   branches?: Branch[];
   reviews?: { quote: string; author: string }[];
@@ -167,7 +168,9 @@ function validateAndNormalize(input: any): Garage | null {
     hours: typeof input.hours === "string" ? input.hours : undefined,
     hero,
     chips: Array.isArray(input.chips) ? input.chips.filter((x: unknown) => typeof x === "string") : undefined,
-    services: Array.isArray(input.services) ? input.services.filter((x: unknown) => typeof x === "string") : undefined,
+    services: Array.isArray(input.services) 
+      ? input.services.filter((x: any) => x && typeof x === "object" && typeof x.icon === "string" && typeof x.title === "string" && typeof x.description === "string")
+      : undefined,
     pricing: input.pricing && typeof input.pricing === "object" ? {
       mot: typeof input.pricing.mot === "string" ? input.pricing.mot : undefined,
       interimFrom: typeof input.pricing.interimFrom === "string" ? input.pricing.interimFrom : undefined,
@@ -185,8 +188,8 @@ function validateAndNormalize(input: any): Garage | null {
       ? input.reviews
           .filter((r: any) => r && typeof r === "object")
           .map((r: any) => ({
-            quote: String(r.quote ?? ""),
-            author: String(r.author ?? ""),
+            quote: String(r.quote ?? r.text ?? ""),
+            author: String(r.author ?? r.name ?? ""),
           }))
       : undefined,
     logoPath,

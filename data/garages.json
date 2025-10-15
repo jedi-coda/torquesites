@@ -43,7 +43,7 @@
     "tier": "pro",
     "tagline": "Your one stop shop for all your motoring needs. Get the best advice from the best technicians using the best parts.",
     "contact": {
-      "phone": "01494 123456",
+      "phone": "01494 772277",
       "email": "info@newtown-garage.example"
     },
     "address": "Unit A3, Alma Road Industrial Estate, Chesham, Buckinghamshire, HP5 3HB",
@@ -56,7 +56,13 @@
       "Courtesy cars",
       "Trusted team"
     ],
-    "services": ["MOT Testing", "Servicing", "Repairs", "EV & Hybrid"],
+    "services": [
+      { "icon": "wrench", "title": "MOT", "description": "Fast, hassle-free MOT tests" },
+      { "icon": "oil", "title": "Servicing", "description": "Keep your car running at its best" },
+      { "icon": "settings", "title": "Repairs", "description": "Mechanical and bodywork repairs" },
+      { "icon": "alert-circle", "title": "Diagnostics", "description": "Clear fault code scanning and diagnosis" },
+      { "icon": "car", "title": "Tyres", "description": "Affordable, fitted fast" }
+    ],
     "openingHours": [
       { "day": "Mon – Fri", "hours": "08:00 – 18:00", "open": true },
       { "day": "Saturday", "hours": "08:00 – 13:00", "open": true },
