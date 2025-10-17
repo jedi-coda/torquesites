@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .container-page { 
+    width: 100%;
+    max-width: 90rem;       /* ~1440px */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .px-fluid { 
+    padding-inline: clamp(16px, 3vw, 32px); 
+  }
+  .full-bleed { 
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+  .object-center { 
+    object-position: center center; 
+  }
+  
+  .section {
+    /* vertical rhythm that scales with viewport but has ceilings */
+    padding-block: clamp(2rem, 4vw, 4rem);
+  }
+  
+  .section-page {
+    /* consistent section spacing for GEM pages */
+    padding-block: 4rem;
+  }
+  
+  @media (min-width: 768px) {
+    .section-page {
+      padding-block: 6rem;
+    }
+  }
+  
+  .h1-hero {
+    /* scales nicely between mobile and desktop */
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+  
+  .h2-title {
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  
+  .p-base {
+    font-size: clamp(1rem, 1.6vw, 1.125rem);
+    line-height: 1.6;
+  }
+  
+  .btn { 
+    @apply inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition; 
+  }
+  .btn-primary { 
+    @apply bg-[var(--brand-gold)] text-black rounded-full px-5 py-2.5 font-medium shadow-sm hover:shadow-md hover:brightness-110 active:brightness-95 focus:outline-none focus:ring-2 focus:ring-white/30; 
+  }
+  .btn-secondary { 
+    @apply btn border border-white/20 bg-white/5 text-white hover:bg-white/10; 
+  }
+  .btn-ghost { 
+    @apply bg-white/0 text-white/90 ring-1 ring-white/20 hover:bg-white/5 active:bg-white/10 rounded-full px-5 py-2.5 font-medium focus:outline-none focus:ring-2 focus:ring-white/30; 
+  }
+  .btn-primary-gradient { 
+    @apply inline-flex items-center justify-center rounded-full px-5 py-2.5 font-semibold text-black bg-gradient-to-b from-amber-400 via-amber-500 to-amber-600 shadow-[0_6px_20px_rgba(245,158,11,0.28)] transition hover:opacity-95 active:translate-y-[1px]; 
+  }
+  .card-premium { 
+    @apply rounded-2xl bg-white/5 ring-1 ring-white/10 shadow-xl backdrop-blur; 
+  }
+  
+  /* Interaction utilities */
+  .lift {
+    transition: transform 200ms ease-out;
+    will-change: transform;
+  }
+  .lift:hover {
+    transform: translateY(-2px);
+  }
+  .lift:active {
+    transform: translateY(0);
+  }
+  
+  .elev {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 200ms ease-out;
+  }
+  .elev:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.16);
+  }
+  
+  .ring-subtle {
+    @apply ring-1 ring-white/10;
+  }
+}

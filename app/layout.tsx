@@ -1,10 +1,11 @@
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata = {
-  title: "TorqueSites - Modern Websites for UK Garages",
-  description: "Professional websites for independent garages. Live in 7 days.",
+  title: "TorqueSites",
+  description: "Book MOTs smarter",
 };
 
 export default function RootLayout({
@@ -13,13 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen flex flex-col font-sans">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-      </body>
+    <html lang="en" className={inter.variable}>
+      <body className="font-sans">{children}</body>
     </html>
   );
 }
-

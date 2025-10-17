@@ -1,6 +1,5 @@
 ﻿"use client";
 
-import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 
 export default function PricingPage() {
@@ -10,14 +9,9 @@ export default function PricingPage() {
       <section className="relative bg-gradient-to-r from-pink-600 to-pink-500 text-white py-32 text-center px-6">
         <div className="absolute inset-0 bg-gradient-to-br from-black/30 to-black/10" />
         <div className="relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6"
-          >
+          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6">
             Simple, Clear Pricing
-          </motion.h1>
+          </h1>
           <p className="text-lg sm:text-xl max-w-2xl mx-auto text-gray-100">
             Choose the plan that works for your garage. No hidden fees. Built to
             help you win bookings and look professional online.
@@ -28,169 +22,210 @@ export default function PricingPage() {
       {/* Pricing Cards */}
       <section className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-3 gap-10">
         {/* Starter */}
-        <motion.div
-          whileHover={{ scale: 1.03 }}
-          className="border rounded-2xl p-8 shadow-lg bg-white flex flex-col relative hover:shadow-xl transition"
-        >
+        <div className="border rounded-2xl p-8 shadow-lg bg-white flex flex-col relative hover:shadow-xl transition">
           <h3 className="text-2xl font-bold mb-4 text-pink-600">
             Starter Package
           </h3>
-          <p className="text-4xl font-extrabold">£999</p>
-          <p className="text-lg mb-6 text-gray-600">+ £99/month (all-in)</p>
-          <ul className="text-gray-700 flex-1 space-y-3 mb-6 text-left">
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Custom branded microsite</span>
+          <div className="mb-6">
+            <div className="text-4xl font-extrabold text-gray-900 mb-2">£999</div>
+            <div className="text-sm text-gray-500">One-time setup</div>
+            <div className="text-lg font-semibold text-green-600">+ £99/mo</div>
+          </div>
+
+          <ul className="space-y-4 mb-8 flex-1">
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Professional website design</span>
             </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Mobile-friendly, fast design</span>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Mobile-optimized layout</span>
             </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Hosting &amp; SSL included</span>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Booking system integration</span>
             </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Booking/contact form</span>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Basic SEO optimization</span>
             </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Basic SEO setup</span>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Hosting & maintenance</span>
             </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Ongoing updates &amp; support</span>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Email support</span>
             </li>
           </ul>
+
           <a
-            href="https://buy.stripe.com/fZuaEZcyH8CheM09b0eQM0b"
-            className="rounded-2xl bg-gradient-to-r from-pink-500 to-pink-600 text-white px-8 py-4 text-lg font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-transform text-center"
+            href="/contact"
+            className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 px-6 rounded-lg text-center transition"
           >
-            Get Starter Package
+            Get Started
           </a>
-        </motion.div>
+        </div>
 
         {/* Pro (was Buy Out) */}
-        <motion.div
-          whileHover={{ scale: 1.03 }}
-          className="border rounded-2xl p-8 shadow-lg bg-white flex flex-col relative hover:shadow-xl transition"
-        >
-          <div className="absolute top-0 right-0 bg-pink-600 text-white text-sm font-medium px-3 py-1 rounded-bl-lg rounded-tr-2xl">
-            Most Popular
+        <div className="border rounded-2xl p-8 shadow-lg bg-white flex flex-col relative hover:shadow-xl transition">
+          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+            <span className="bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+              Most Popular
+            </span>
           </div>
-          <h3 className="text-2xl font-bold mb-4 text-gray-900">
+          <h3 className="text-2xl font-bold mb-4 text-orange-600">
             Pro Package
           </h3>
-          <p className="text-4xl font-extrabold">£1499</p>
-          <p className="text-lg mb-6 text-gray-600">+ £49/month optional</p>
-          <ul className="text-gray-700 flex-1 space-y-3 mb-6 text-left">
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Full site ownership</span>
+          <div className="mb-6">
+            <div className="text-4xl font-extrabold text-gray-900 mb-2">£1,999</div>
+            <div className="text-sm text-gray-500">One-time setup</div>
+            <div className="text-lg font-semibold text-green-600">+ £149/mo</div>
+          </div>
+
+          <ul className="space-y-4 mb-8 flex-1">
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Everything in Starter</span>
             </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Same features as Starter</span>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Custom branding & colors</span>
             </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Hosting optional (add £49/mo)</span>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Advanced SEO optimization</span>
             </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Advanced SEO setup</span>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Social media integration</span>
             </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Updates &amp; maintenance available</span>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Customer reviews system</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Priority support</span>
             </li>
           </ul>
+
           <a
-            href="https://buy.stripe.com/8x28wReGP5q5bzO2MCeQM03"
-            className="rounded-2xl bg-gray-900 text-white px-8 py-4 text-lg font-semibold hover:bg-gray-800 hover:shadow-lg transition text-center"
+            href="/contact"
+            className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg text-center transition"
           >
-            Get Pro Package
+            Choose Pro
           </a>
-        </motion.div>
+        </div>
 
         {/* Custom Build */}
-        <motion.div
-          whileHover={{ scale: 1.03 }}
-          className="border rounded-2xl p-8 shadow-lg bg-white flex flex-col hover:shadow-xl transition"
-        >
-          <h3 className="text-2xl font-bold mb-4 text-gray-900">Custom Build</h3>
-          <p className="text-4xl font-extrabold">By Quotation</p>
-          <p className="text-lg mb-6 text-gray-600">for larger sites &amp; groups</p>
-          <ul className="text-gray-700 flex-1 space-y-3 mb-6 text-left">
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Tailored design &amp; branding</span>
+        <div className="border rounded-2xl p-8 shadow-lg bg-white flex flex-col hover:shadow-xl transition">
+          <h3 className="text-2xl font-bold mb-4 text-gray-600">
+            Custom Build
+          </h3>
+          <div className="mb-6">
+            <div className="text-4xl font-extrabold text-gray-900 mb-2">Custom</div>
+            <div className="text-sm text-gray-500">Quote on request</div>
+            <div className="text-lg font-semibold text-green-600">+ £199/mo</div>
+          </div>
+
+          <ul className="space-y-4 mb-8 flex-1">
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Everything in Pro</span>
             </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Advanced SEO &amp; integrations</span>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Fully custom design</span>
             </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Multi-site or franchise options</span>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Advanced integrations</span>
             </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle2 className="mt-1 h-5 w-5 text-green-600" />
-              <span>Conversion-first UX for bookings</span>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Custom functionality</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>Dedicated project manager</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>White-label options</span>
             </li>
           </ul>
+
           <a
-            href="https://buy.stripe.com/aFa4gBdCL2dT5bq4UKeQM09"
-            className="rounded-2xl bg-gradient-to-r from-pink-500 to-orange-500 text-white px-8 py-4 text-lg font-semibold shadow-md hover:shadow-xl hover:scale-105 transition-transform text-center"
+            href="/contact"
+            className="w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg text-center transition"
           >
-            Contact Us
+            Discuss Custom
           </a>
-        </motion.div>
+        </div>
       </section>
 
-      {/* FAQ */}
-      <section className="max-w-4xl mx-auto px-6 py-20">
-        <h2 className="text-3xl font-bold mb-8 text-center">
-          Frequently Asked Questions
-        </h2>
-        <div className="space-y-6 text-gray-700">
-          <div>
-            <h3 className="font-semibold text-lg">
-              Do I really need to pay monthly?
-            </h3>
-            <p>
-              Yes — the monthly fee covers hosting, SSL, updates, and ongoing
-              support so your site always performs at its best.
-            </p>
-          </div>
-          <div>
-            <h3 className="font-semibold text-lg">Can I upgrade later?</h3>
-            <p>
-              Absolutely. You can start on the Starter package and move to Pro
-              or Custom when your business is ready.
-            </p>
-          </div>
-          <div>
-            <h3 className="font-semibold text-lg">What's included in support?</h3>
-            <p>
-              Support includes technical help, small content updates, and
-              performance checks to make sure your site is always live and
-              optimised.
-            </p>
+      {/* Guarantee Section */}
+      <section className="bg-gray-50 py-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-6">Our Guarantee</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div>
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle2 className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">7-Day Launch</h3>
+              <p className="text-gray-600">
+                Your site goes live within 7 days of approval, or we refund your setup fee.
+              </p>
+            </div>
+            <div>
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle2 className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">30-Day Money Back</h3>
+              <p className="text-gray-600">
+                Not satisfied? Get a full refund within 30 days, no questions asked.
+              </p>
+            </div>
+            <div>
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle2 className="w-8 h-8 text-purple-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Lifetime Support</h3>
+              <p className="text-gray-600">
+                Ongoing support and updates included with your monthly plan.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-100 py-10 mt-16 text-center text-gray-600">
-        <p className="font-medium">
-          TorqueSites — World-class websites for UK garages
-        </p>
-        <p className="text-sm mt-2">
-          &copy; {new Date().getFullYear()} TorqueSites. All rights reserved.
-        </p>
-      </footer>
+      {/* CTA Section */}
+      <section className="bg-gradient-to-r from-pink-600 to-pink-500 text-white py-20 text-center px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Ready to Get Started?
+          </h2>
+          <p className="text-lg text-pink-100 mb-8 max-w-2xl mx-auto">
+            Join hundreds of garages who've transformed their online presence with TorqueSites.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/contact"
+              className="bg-white text-pink-600 hover:bg-gray-100 font-semibold px-8 py-3 rounded-lg transition"
+            >
+              Book a Call
+            </a>
+            <a
+              href="/partnership"
+              className="border border-white text-white hover:bg-white/10 font-semibold px-8 py-3 rounded-lg transition"
+            >
+              View Partnership
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

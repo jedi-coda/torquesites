@@ -1,0 +1,286 @@
+import 'server-only'
+import fs from "fs";
+import path from "path";
+
+// ---------- Types ----------
+
+export type Brand = { primary?: string; dark?: string };
+export type Contact = { phone?: string; email?: string; whatsapp?: string };
+export type Branch = { name?: string; address?: string; hours?: string; phone?: string };
+export type Service = { icon: string; title: string; description: string };
+export type PricingEntry = {
+  title: string;
+  description: string;
+  price: string;
+  features?: string[];
+  cta?: {
+    text: string;
+    href: string;
+  } | null;
+  cta1?: {
+    text: string;
+    href: string;
+  } | null;
+};
+
+export type Pricing = { mot?: string; interimFrom?: string; fullFrom?: string } | PricingEntry[];
+export type StripeLinks = { starter?: string; buyout?: string };
+
+export type Garage = {
+  slug: string;
+  name: string;
+  tagline?: string;
+  brand?: Brand;
+  contact?: Contact;
+  hours?: string;
+  hero?: {
+    greeting?: boolean;
+    background?: "solid" | "gradient";
+    defaultVariant?: string;
+    variants?: Array<{
+      key: string;
+      label: string;
+      type: "solid" | "image";
+      src?: string;
+      alt?: string;
+      headline?: string;
+      sub?: string;
+    }>;
+  };
+  chips?: string[];
+  services?: Service[];
+  pricing?: Pricing;
+  branches?: Branch[];
+  reviews?: { quote: string; author: string }[];
+  logoPath?: string;
+  stripeLinks?: StripeLinks;
+  mapEmbed?: string;
+  geo?: { lat?: number; lng?: number };
+  theme?: {
+    accent?: string;
+    accent2?: string;
+    primary?: string;
+    secondary?: string;
+    textOnPrimary?: 'light' | 'dark';
+  };
+  content?: {
+    heroHeadline?: string;
+    heroSub?: string;
+    badges?: string[];
+    aboutBlurb?: string;
+    services?: string[];
+    ctaPrimaryText?: string;
+    ctaSecondaryText?: string;
+    footerTagline?: string;
+    reviews?: Array<{
+      author: string;
+      rating: number;
+      text: string;
+      date?: string;
+      sourceUrl?: string;
+    }>;
+  };
+};
+
+// ---------- Helpers ----------
+
+function isHexColor(v: unknown): boolean {
+  return typeof v === "string" && /^#([0-9A-Fa-f]{3}){1,2}$/.test(v);
+}
+
+function normalizeStripe(value: string | undefined): string | undefined {
+  if (!value) return value;
+  const s = value.trim();
+  if (!s) return undefined;
+  return s.startsWith("stripe:") ? `https://buy.stripe.com/${s.slice(7)}` : s;
+}
+
+function overlay<T extends object>(base: T, add?: Partial<T> | null): T {
+  if (!add) return base;
+  const out: any = Array.isArray(base) ? [...(base as any)] : { ...base };
+  for (const [k, v] of Object.entries(add)) {
+    if (v === undefined || v === null) continue;
+    if (typeof v === "string" && v.trim() === "") continue; // ignore empty strings in overlays
+    if (Array.isArray(v)) {
+      (out as any)[k] = v.length > 0 ? v : (out as any)[k];
+    } else if (typeof v === "object") {
+      (out as any)[k] = overlay((out as any)[k] ?? {}, v as any);
+    } else {
+      (out as any)[k] = v;
+    }
+  }
+  return out;
+}
+
+function validateAndNormalize(input: any): Garage | null {
+  if (!input || typeof input !== "object") return null;
+  const slug = typeof input.slug === "string" ? input.slug.trim() : "";
+  const name = typeof input.name === "string" ? input.name.trim() : "";
+  if (!slug || !name) return null;
+
+  const brand: Brand | undefined = input.brand && typeof input.brand === "object" ? {
+    primary: isHexColor(input.brand.primary) ? input.brand.primary : input.brand?.primary ? "#1F4FC9" : undefined,
+    dark: isHexColor(input.brand.dark) ? input.brand.dark : input.brand?.dark ? "#0B0B0C" : undefined,
+  } : undefined;
+
+  const contact: Contact | undefined = input.contact && typeof input.contact === "object" ? {
+    phone: typeof input.contact.phone === "string" ? input.contact.phone : undefined,
+    email: typeof input.contact.email === "string" ? input.contact.email : undefined,
+    whatsapp: typeof input.contact.whatsapp === "string" ? input.contact.whatsapp : undefined,
+  } : undefined;
+
+  const stripeLinks: StripeLinks | undefined = input.stripeLinks && typeof input.stripeLinks === "object" ? {
+    starter: normalizeStripe(input.stripeLinks.starter),
+    buyout: normalizeStripe(input.stripeLinks.buyout),
+  } : undefined;
+
+  const mapEmbed = typeof input.mapEmbed === "string" ? input.mapEmbed : undefined;
+  const logoPath = typeof input.logoPath === "string" ? input.logoPath : undefined;
+
+  const hero = input.hero && typeof input.hero === "object" ? {
+    greeting: typeof input.hero.greeting === "boolean" ? input.hero.greeting : undefined,
+    background: input.hero.background === "gradient" || input.hero.background === "solid" ? input.hero.background : undefined,
+    defaultVariant: typeof input.hero.defaultVariant === "string" ? input.hero.defaultVariant : undefined,
+    variants: Array.isArray(input.hero.variants)
+      ? input.hero.variants.filter(Boolean).map((v: any) => ({
+          key: typeof v?.key === "string" ? v.key : "",
+          label: typeof v?.label === "string" ? v.label : "",
+          type: v?.type === "image" ? "image" : "solid",
+          src: typeof v?.src === "string" ? v.src : undefined,
+          alt: typeof v?.alt === "string" ? v.alt : undefined,
+          headline: typeof v?.headline === "string" ? v.headline : undefined,
+          sub: typeof v?.sub === "string" ? v.sub : undefined,
+        })).filter((v: any) => v.key)
+      : undefined,
+  } : undefined;
+
+  const geo = input.geo && typeof input.geo === "object" ? {
+    lat: typeof input.geo.lat === "number" ? input.geo.lat : undefined,
+    lng: typeof input.geo.lng === "number" ? input.geo.lng : undefined,
+  } : undefined;
+
+  return {
+    slug,
+    name,
+    tagline: typeof input.tagline === "string" ? input.tagline : undefined,
+    brand,
+    contact,
+    hours: typeof input.hours === "string" ? input.hours : undefined,
+    hero,
+    chips: Array.isArray(input.chips) ? input.chips.filter((x: unknown) => typeof x === "string") : undefined,
+    services: Array.isArray(input.services) 
+      ? input.services.filter((x: any) => x && typeof x === "object" && typeof x.icon === "string" && typeof x.title === "string" && typeof x.description === "string")
+      : undefined,
+    pricing: input.pricing && typeof input.pricing === "object" ? {
+      mot: typeof input.pricing.mot === "string" ? input.pricing.mot : undefined,
+      interimFrom: typeof input.pricing.interimFrom === "string" ? input.pricing.interimFrom : undefined,
+      fullFrom: typeof input.pricing.fullFrom === "string" ? input.pricing.fullFrom : undefined,
+    } : undefined,
+    branches: Array.isArray(input.branches)
+      ? input.branches.map((b: any) => ({
+          name: typeof b?.name === "string" ? b.name : undefined,
+          address: typeof b?.address === "string" ? b.address : undefined,
+          hours: typeof b?.hours === "string" ? b.hours : undefined,
+          phone: typeof b?.phone === "string" ? b.phone : undefined,
+        }))
+      : undefined,
+    reviews: Array.isArray(input.reviews)
+      ? input.reviews
+          .filter((r: any) => r && typeof r === "object")
+          .map((r: any) => ({
+            quote: String(r.quote ?? r.text ?? ""),
+            author: String(r.author ?? r.name ?? ""),
+          }))
+      : undefined,
+    logoPath,
+    stripeLinks,
+    mapEmbed,
+    geo,
+  };
+}
+
+// ---------- Loaders ----------
+
+function readJsonSafe(filePath: string): any | null {
+  try {
+    const buf = fs.readFileSync(filePath, "utf8");
+    return JSON.parse(buf);
+  } catch {
+    return null;
+  }
+}
+
+const repoRoot = process.cwd();
+
+export function getAllGarageSlugs(): string[] {
+  const basePath = path.join(repoRoot, "data", "garages.json");
+  const arr = readJsonSafe(basePath);
+  if (!Array.isArray(arr)) return [];
+  return arr.map((g: any) => String(g?.slug || "")).filter(Boolean);
+}
+
+export async function loadGarage(slug: string): Promise<Garage | undefined> {
+  const garages = await import("../data/garages.json");
+  const garagesArray = garages.default || garages;
+  
+  console.log("🧠 Full garages object keys:", Object.keys(garages));
+  console.log("🧠 Garages array length:", Array.isArray(garagesArray) ? garagesArray.length : "Not an array");
+  
+  const garage = Array.isArray(garagesArray) 
+    ? garagesArray.find((g: any) => g && g.slug === slug)
+    : undefined;
+
+  console.log(`🚦 Loaded garage for slug [${slug}]:`, garage);
+
+  if (!garage) {
+    console.warn(`❌ No garage found for slug: ${slug}`);
+    return undefined;
+  } else if (!garage.pricing) {
+    console.warn(`⚠️ No pricing found for slug: ${slug}`);
+  } else {
+    console.log(`✅ Pricing found for slug: ${slug}`, garage.pricing);
+  }
+
+  const base = validateAndNormalize(garage);
+  if (!base) return undefined;
+
+  // Optional overlay from app/<slug>/garage.json
+  const overlayPath = path.join(repoRoot, "app", slug, "garage.json");
+  const overrideRaw = readJsonSafe(overlayPath);
+  const mergedRaw = overlay({ ...garage }, overrideRaw || undefined);
+  let validated = validateAndNormalize(mergedRaw) || base;
+
+  // Final normalization pass for colors
+  if (validated.brand) {
+    if (validated.brand.primary && !isHexColor(validated.brand.primary)) validated.brand.primary = "#1F4FC9";
+    if (validated.brand.dark && !isHexColor(validated.brand.dark)) validated.brand.dark = "#0B0B0C";
+  }
+
+  // Hero variants: use explicitly defined variants from garage.json
+  const ensureHero = validated.hero || {};
+  const variants: any[] = Array.isArray(ensureHero.variants) ? [...ensureHero.variants] : [];
+  const solidExists = variants.some((v) => v.key === "solid");
+  const town = validated.branches?.[0]?.address?.split(",")?.[1]?.trim() || validated.branches?.[0]?.address || "your area";
+  if (!solidExists) {
+    variants.unshift({
+      key: "solid",
+      label: "Brand",
+      type: "solid",
+      headline: `MOTs in ${town} — same-day slots.`,
+      sub: "DVSA-approved testers. No hidden fees.",
+    });
+  }
+  validated = {
+    ...validated,
+    hero: {
+      greeting: validated.hero?.greeting,
+      background: validated.hero?.background,
+      defaultVariant: validated.hero?.defaultVariant || "solid",
+      variants,
+    },
+  };
+
+  return validated;
+}
+
+
