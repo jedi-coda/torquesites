@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Clock, Phone } from 'lucide-react'
 
@@ -14,7 +14,8 @@ interface OpeningHoursProps {
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 export default function OpeningHours({ hours }: OpeningHoursProps) {
-  const today = new Date().toLocaleString('en-GB', { weekday: 'long' })
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const today = currentTime.toLocaleString('en-GB', { weekday: 'long' })
 
   useEffect(() => {
     const interval = setInterval(() => setCurrentTime(new Date()), 60000)
