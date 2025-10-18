@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Hero from "@/components/Hero";
 import ServicesGrid from "@/components/ServicesGrid";
 import OpeningHours from "@/components/OpeningHours";

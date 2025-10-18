@@ -32,7 +32,13 @@ export type Garage = {
   tagline?: string;
   brand?: Brand;
   contact?: Contact;
+  address?: string;
   hours?: string;
+  openingHours?: Array<{
+    day: string;
+    hours: string;
+    open: boolean;
+  }>;
   hero?: {
     greeting?: boolean;
     background?: "solid" | "gradient";
@@ -165,7 +171,11 @@ function validateAndNormalize(input: any): Garage | null {
     tagline: typeof input.tagline === "string" ? input.tagline : undefined,
     brand,
     contact,
+    address: typeof input.address === "string" ? input.address : undefined,
     hours: typeof input.hours === "string" ? input.hours : undefined,
+    openingHours: Array.isArray(input.openingHours)
+      ? input.openingHours.filter((h: any) => h && typeof h === "object" && typeof h.day === "string" && typeof h.hours === "string" && typeof h.open === "boolean")
+      : undefined,
     hero,
     chips: Array.isArray(input.chips) ? input.chips.filter((x: unknown) => typeof x === "string") : undefined,
     services: Array.isArray(input.services) 

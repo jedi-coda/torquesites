@@ -1,9 +1,10 @@
-﻿import { type Garage } from "@/lib/garage";
+﻿﻿import { type Garage } from "@/lib/garage";
 import Hero from "@/components/Hero";
 import ServicesGrid from "@/components/ServicesGrid";
 import EnquiryForm from "@/components/EnquiryForm";
 import ContactDetails from "@/components/ui/ContactDetails";
-import OpeningHours from "@/components/ui/OpeningHours";
+import OpeningHours from "@/components/OpeningHours";
+import MapEmbed from "@/components/MapEmbed";
 import Reviews from "@/components/ui/Reviews";
 import PricingCards from "@/components/PricingCards";
 import { getSafeGarage, getSafeContact } from "@/lib/fallbackGarage";
@@ -22,13 +23,18 @@ export default function GarageTemplate({ garage }: Props) {
   const safeGarage = getSafeGarage(garage);
   const safeContact = getSafeContact(garage);
   
-  console.log("🚧 GarageTemplate received garage:", garage);
-  console.log("🛡️ GarageTemplate using safe garage:", safeGarage);
+  console.log("GarageTemplate rendering with", garage);
+  console.log("OpeningHours data:", garage?.openingHours);
+  console.log("MapEmbed props:", {
+    name: safeGarage.name,
+    address: safeGarage.branches?.[0]?.address,
+    mapUrl: safeGarage.mapEmbed
+  });
 
   // Always render - no early returns that could cause blank pages
   return (
     <div className="min-h-screen bg-black">
-      <Hero garage={safeGarage} />
+      <Hero />
       {safeGarage.services && <ServicesGrid services={safeGarage.services} />}
       <PricingCards pricing={safeGarage.pricing} />
       <EnquiryForm 
@@ -37,9 +43,18 @@ export default function GarageTemplate({ garage }: Props) {
         brandPrimary={safeGarage.brand?.primary || "#1A1A1A"}
         garageSlug={safeGarage.slug}
       />
+      {safeGarage.openingHours && safeGarage.openingHours.length > 0 && (
+        <OpeningHours hours={safeGarage.openingHours} />
+      )}
       <ContactDetails 
         phone={safeContact.phone} 
         email={safeContact.email} 
+      />
+      <MapEmbed 
+        name={safeGarage.name}
+        address={(garage as any)?.address || safeGarage.branches?.[0]?.address || "Address not available"}
+        mapUrl={safeGarage.mapEmbed}
+        garage={garage}
       />
       <Reviews garage={safeGarage} />
     </div>

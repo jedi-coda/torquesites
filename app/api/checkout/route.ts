@@ -1,12 +1,29 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-06-20",
-});
+export const runtime = 'nodejs';
+
+// Initialize Stripe only if secret key is available
+let stripe: Stripe | null = null;
+if (process.env.STRIPE_SECRET_KEY) {
+  try {
+    stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+      apiVersion: "2024-06-20",
+    });
+  } catch (error) {
+    console.warn("Stripe initialization failed:", error);
+  }
+}
 
 export async function POST(req: Request) {
   try {
+    if (!stripe) {
+      return NextResponse.json(
+        { error: "Stripe not configured. Please set STRIPE_SECRET_KEY environment variable." },
+        { status: 500 }
+      );
+    }
+
     const body = await req.json();
 
     const { garage, service, amount, customer } = body;

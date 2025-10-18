@@ -28,6 +28,15 @@ export const fallbackGarage: Garage = {
     email: newtownGarageBrand.contact.email
   },
   hours: "Mon–Fri 8:00–18:00, Sat 8:00–13:00",
+  openingHours: [
+    { day: "Monday", hours: "08:00 – 18:00", open: true },
+    { day: "Tuesday", hours: "08:00 – 18:00", open: true },
+    { day: "Wednesday", hours: "08:00 – 18:00", open: true },
+    { day: "Thursday", hours: "08:00 – 18:00", open: true },
+    { day: "Friday", hours: "08:00 – 18:00", open: true },
+    { day: "Saturday", hours: "08:00 – 13:00", open: true },
+    { day: "Sunday", hours: "Closed", open: false }
+  ],
   hero: {
     greeting: true,
     background: "gradient",
@@ -77,6 +86,7 @@ export const fallbackGarage: Garage = {
       phone: "01234 567890"
     }
   ],
+  mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2472.112204883971!2d-0.615266606199233!3d51.712689699305876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48765d057ffc1b21%3A0x3808012303af4373!2sNewtown%20Garage%20Chesham!5e0!3m2!1sen!2suk!4v1759496050521!5m2!1sen!2suk",
   reviews: newtownGarageBrand.testimonials.map(t => ({ quote: t.quote, author: t.author }))
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { Phone } from 'lucide-react';
 
 interface StickyActionBarProps {
@@ -86,9 +87,11 @@ export default function StickyActionBar({
 
           {/* Logo - Right Corner */}
           <div className="w-20 sm:w-24 flex items-center justify-end flex-shrink-0">
-            <img 
+            <Image 
               src={logoPath}
               alt="Newtown Garage logo"
+              width={96}
+              height={64}
               className="w-20 sm:w-24 h-auto opacity-90 hover:opacity-100 transition-opacity duration-200 filter brightness-110 contrast-125 dark:brightness-125"
               loading="lazy"
               onError={(e) => {

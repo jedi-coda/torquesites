@@ -4,10 +4,6 @@ import { useState } from "react";
 import { premiumTheme } from "@/lib/fallbackGarage";
 
 export default function EnquiryForm({
-  garageName,
-  toEmail,
-  brandPrimary = premiumTheme.brandColor,
-  garageSlug,
 }: {
   garageName: string;
   toEmail: string;         // where you want the email to go

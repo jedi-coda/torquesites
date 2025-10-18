@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from 'next/image';
 import { motion } from "framer-motion";
 import { CheckCircle2, XCircle } from "lucide-react";
 import Pricing from "@/components/Pricing";
@@ -90,9 +91,11 @@ export default function GaragesPage() {
       {/* COMPARISON */}
       <section className="relative py-28 bg-gray-50 overflow-hidden">
         {/* Porsche watermark */}
-        <img
+        <Image
           src="/images/porsche-911.jpg"
           alt="Porsche 911"
+          width={600}
+          height={400}
           className="absolute right-0 bottom-0 w-[600px] opacity-10 pointer-events-none hidden lg:block"
         />
 
