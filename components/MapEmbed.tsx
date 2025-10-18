@@ -1,4 +1,5 @@
 'use client'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { MapPin } from 'lucide-react'
 
@@ -14,6 +15,12 @@ interface MapEmbedProps {
 }
 
 export default function MapEmbed({ name, address, mapUrl, garage }: MapEmbedProps) {
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   if (!name) return null
 
   // Safely resolve address using comprehensive fallback logic
@@ -37,8 +44,8 @@ export default function MapEmbed({ name, address, mapUrl, garage }: MapEmbedProp
   // Check if address is available for clickable link
   const hasValidAddress = resolvedAddress && resolvedAddress !== "Address not available";
 
-  // LocalBusiness JSON-LD schema for SEO
-  const schema = typeof window !== 'undefined' ? {
+  // LocalBusiness JSON-LD schema for SEO - only create on client side
+  const schema = isClient ? {
     "@context": "https://schema.org",
     "@type": "AutoRepair",
     "name": name,
@@ -123,7 +130,7 @@ export default function MapEmbed({ name, address, mapUrl, garage }: MapEmbedProp
         </motion.div>
 
         {/* LocalBusiness JSON-LD Schema for SEO */}
-        {schema && (
+        {isClient && schema && (
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schema, null, 2) }}
