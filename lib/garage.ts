@@ -245,19 +245,18 @@ export async function loadGarage(slug: string): Promise<Garage | undefined> {
   if (!garage) {
     console.warn(`❌ No garage found for slug: ${slug}`);
     return undefined;
-  } else if (!garage.pricing) {
-    console.warn(`⚠️ No pricing found for slug: ${slug}`);
-  } else {
-    console.log(`✅ Pricing found for slug: ${slug}`, garage.pricing);
   }
 
-  const base = validateAndNormalize(garage);
+  // Transform garages.json data structure to match Garage type
+  const transformedGarage = transformGarageData(garage);
+  
+  const base = validateAndNormalize(transformedGarage);
   if (!base) return undefined;
 
   // Optional overlay from app/<slug>/garage.json
   const overlayPath = path.join(repoRoot, "app", slug, "garage.json");
   const overrideRaw = readJsonSafe(overlayPath);
-  const mergedRaw = overlay({ ...garage }, overrideRaw || undefined);
+  const mergedRaw = overlay({ ...transformedGarage }, overrideRaw || undefined);
   let validated = validateAndNormalize(mergedRaw) || base;
 
   // Final normalization pass for colors
@@ -291,6 +290,77 @@ export async function loadGarage(slug: string): Promise<Garage | undefined> {
   };
 
   return validated;
+}
+
+// Transform garages.json data structure to match Garage type
+function transformGarageData(garage: any): any {
+  const transformed = { ...garage };
+  
+  // Transform services array if it contains strings instead of objects
+  if (Array.isArray(garage.services)) {
+    transformed.services = garage.services.map((service: any) => {
+      if (typeof service === 'string') {
+        // Convert string service to object with icon, title, description
+        return {
+          icon: getServiceIcon(service),
+          title: service,
+          description: getServiceDescription(service)
+        };
+      }
+      return service;
+    });
+  }
+  
+  // Transform reviews if they have 'name' instead of 'author'
+  if (Array.isArray(garage.reviews)) {
+    transformed.reviews = garage.reviews.map((review: any) => ({
+      quote: review.quote || review.text || '',
+      author: review.author || review.name || 'Customer'
+    }));
+  }
+  
+  // Ensure logoPath is set if not present
+  if (!transformed.logoPath) {
+    transformed.logoPath = `/logos/${garage.slug}.png`;
+  }
+  
+  return transformed;
+}
+
+// Helper function to get appropriate icon for service
+function getServiceIcon(service: string): string {
+  const iconMap: Record<string, string> = {
+    'MOT Testing': 'shield-check',
+    'Servicing': 'wrench',
+    'Diagnostics': 'settings',
+    'Repairs': 'tool',
+    'Tyres': 'circle',
+    'Brakes': 'square',
+    'Air Con': 'wind',
+    'Exhausts': 'pipe',
+    'Batteries': 'battery',
+    'EV & Hybrid': 'zap',
+    'EV & Hybrids': 'zap'
+  };
+  return iconMap[service] || 'wrench';
+}
+
+// Helper function to get appropriate description for service
+function getServiceDescription(service: string): string {
+  const descMap: Record<string, string> = {
+    'MOT Testing': 'Fast, certified MOT testing',
+    'Servicing': 'Keep your car running smoothly',
+    'Diagnostics': 'Clear fault code scanning',
+    'Repairs': 'Mechanical and bodywork repairs',
+    'Tyres': 'Affordable tyres fitted fast',
+    'Brakes': 'Brake inspection and repair',
+    'Air Con': 'Air conditioning service',
+    'Exhausts': 'Exhaust fitting and repair',
+    'Batteries': 'Battery testing and replacement',
+    'EV & Hybrid': 'Electric and hybrid vehicle service',
+    'EV & Hybrids': 'Electric and hybrid vehicle service'
+  };
+  return descMap[service] || 'Professional automotive service';
 }
 
 

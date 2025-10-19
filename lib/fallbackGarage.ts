@@ -1,6 +1,40 @@
 import { type Garage } from "./garage";
 import { newtownGarageBrand } from "../brands/newtownGarageBrand";
 
+// Helper function to get appropriate icon for service
+function getServiceIcon(service: string): string {
+  const iconMap: Record<string, string> = {
+    'MOT Testing': 'shield-check',
+    'Full Vehicle Servicing': 'wrench',
+    'Interim Service': 'wrench',
+    'Hybrid & EV Repairs': 'zap',
+    'Diagnostics & Repairs': 'settings',
+    'Brake Service': 'square',
+    'Exhaust Systems': 'pipe',
+    'Air Conditioning': 'wind',
+    'Tyres & Wheels': 'circle',
+    'Battery Service': 'battery'
+  };
+  return iconMap[service] || 'wrench';
+}
+
+// Helper function to get appropriate description for service
+function getServiceDescription(service: string): string {
+  const descMap: Record<string, string> = {
+    'MOT Testing': 'Fast, certified MOT testing',
+    'Full Vehicle Servicing': 'Comprehensive vehicle maintenance',
+    'Interim Service': 'Essential service checks',
+    'Hybrid & EV Repairs': 'Expert electric vehicle service',
+    'Diagnostics & Repairs': 'Advanced fault diagnosis',
+    'Brake Service': 'Brake inspection and repair',
+    'Exhaust Systems': 'Exhaust fitting and repair',
+    'Air Conditioning': 'Air conditioning service',
+    'Tyres & Wheels': 'Tyre fitting and wheel alignment',
+    'Battery Service': 'Battery testing and replacement'
+  };
+  return descMap[service] || 'Professional automotive service';
+}
+
 /**
  * Shared fallback garage data for consistent defaults across all components
  * This ensures 100% safe rendering when garage props are null/undefined
@@ -72,7 +106,11 @@ export const fallbackGarage: Garage = {
     ]
   },
   chips: newtownGarageBrand.usps,
-  services: newtownGarageBrand.services,
+  services: newtownGarageBrand.services.map(service => ({
+    icon: getServiceIcon(service),
+    title: service,
+    description: getServiceDescription(service)
+  })),
   pricing: {
     mot: "£54.85",
     interimFrom: "£179",
