@@ -6,7 +6,10 @@ import ContactDetails from "@/components/ui/ContactDetails";
 import OpeningHours from "@/components/OpeningHours";
 import MapEmbed from "@/components/MapEmbed";
 import Reviews from "@/components/ui/Reviews";
+import ReviewsCarousel from "@/components/ReviewsCarousel";
 import PricingCards from "@/components/PricingCards";
+import StickyActions from "@/components/StickyActions";
+import Footer from "@/components/Footer";
 import { getSafeGarage, getSafeContact } from "@/lib/fallbackGarage";
 
 type Props = {
@@ -57,6 +60,22 @@ export default function GarageTemplate({ garage }: Props) {
         garage={garage}
       />
       <Reviews garage={safeGarage} />
+      {safeGarage.reviews && <ReviewsCarousel reviews={safeGarage.reviews} />}
+      <Footer />
+      <StickyActions 
+        logoPath={safeGarage.logoPath}
+        phoneNumber={safeContact.phone}
+        onBook={() => {
+          const el = document.getElementById("enquiry");
+          el?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }}
+        onCall={() => {
+          window.location.href = `tel:${safeContact.phone?.replace(/\s/g, '')}`;
+        }}
+        onPartnerSlot={() => {
+          window.open("https://www.torquesites.co.uk/partnership", "_blank", "noopener,noreferrer");
+        }}
+      />
     </div>
   );
 }
