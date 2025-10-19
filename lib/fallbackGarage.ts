@@ -93,9 +93,30 @@ export const fallbackGarage: Garage = {
 /**
  * Helper function to safely get garage data with fallback
  * Usage: const safeGarage = getSafeGarage(garage);
+ * Only uses fallback when garage is null/undefined, otherwise preserves actual data
  */
 export function getSafeGarage(garage?: Garage | null): Garage {
-  return garage || fallbackGarage;
+  if (!garage) {
+    return fallbackGarage;
+  }
+  
+  // Merge actual garage data with fallback for missing fields only
+  return {
+    ...fallbackGarage,
+    ...garage,
+    // Preserve actual garage's nested objects
+    brand: garage.brand || fallbackGarage.brand,
+    contact: garage.contact || fallbackGarage.contact,
+    hero: garage.hero || fallbackGarage.hero,
+    theme: garage.theme || fallbackGarage.theme,
+    // Preserve actual garage's arrays
+    chips: garage.chips || fallbackGarage.chips,
+    services: garage.services || fallbackGarage.services,
+    pricing: garage.pricing || fallbackGarage.pricing,
+    branches: garage.branches || fallbackGarage.branches,
+    reviews: garage.reviews || fallbackGarage.reviews,
+    openingHours: garage.openingHours || fallbackGarage.openingHours,
+  };
 }
 
 /**
@@ -121,8 +142,12 @@ export function getSafePricing(garage?: Garage | null) {
  * Usage: const contact = getSafeContact(garage);
  */
 export function getSafeContact(garage?: Garage | null) {
-  const safeGarage = getSafeGarage(garage);
-  return safeGarage.contact || fallbackGarage.contact!;
+  if (!garage) {
+    return fallbackGarage.contact!;
+  }
+  
+  // Use actual garage contact data, fall back to default only if missing
+  return garage.contact || fallbackGarage.contact!;
 }
 
 /**

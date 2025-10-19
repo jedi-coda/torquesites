@@ -89,7 +89,7 @@ export default function StickyActionBar({
           <div className="w-20 sm:w-24 flex items-center justify-end flex-shrink-0">
             <Image 
               src={logoPath}
-              alt="Newtown Garage logo"
+              alt={`${logoPath?.includes('gem') ? 'GEM UK Garage' : logoPath?.includes('swift') ? 'Swift Motors' : 'Garage'} logo`}
               width={96}
               height={64}
               className="w-20 sm:w-24 h-auto opacity-90 hover:opacity-100 transition-opacity duration-200 filter brightness-110 contrast-125 dark:brightness-125"

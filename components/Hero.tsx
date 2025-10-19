@@ -2,8 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { type Garage } from '@/lib/garage'
 
-export default function Hero() {
+interface HeroProps {
+  garage?: Garage | null;
+}
+
+export default function Hero({ garage }: HeroProps) {
   const [greeting, setGreeting] = useState('Good day')
 
   useEffect(() => {
@@ -17,6 +22,11 @@ export default function Hero() {
     }
   }, [])
 
+  // Use garage data or fallback to defaults
+  const garageName = garage?.name || 'Newtown Garage'
+  const garageLocation = garage?.branches?.[0]?.address?.split(',')[1]?.trim() || 'Chesham'
+  const garagePhone = garage?.contact?.phone || '01494 772277'
+
   return (
     <section className="relative flex flex-col items-center justify-center h-[50vh] bg-gradient-to-b from-[#0f172a] to-[#111827] text-white text-center px-4">
       <div className="z-10 py-16">
@@ -28,11 +38,11 @@ export default function Hero() {
           <p className="text-md md:text-lg font-medium mb-3 text-white">{greeting},</p>
 
           <h1 className="text-3xl md:text-5xl font-extrabold mb-4 text-white">
-            Welcome to Newtown Garage
+            Welcome to {garageName}
           </h1>
 
           <p className="text-sm md:text-base text-gray-300 mb-8">
-            Your trusted local garage in Chesham.
+            Your trusted local garage in {garageLocation}.
           </p>
         </motion.div>
 
@@ -47,10 +57,10 @@ export default function Hero() {
           </button>
 
           <a
-            href="tel:01494772277"
+            href={`tel:${garagePhone.replace(/\s/g, '')}`}
             className="border border-white text-white font-semibold px-6 py-2 rounded-full hover:scale-105 transition"
           >
-            Call 01494 772277
+            Call {garagePhone}
           </a>
 
           <a

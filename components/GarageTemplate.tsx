@@ -37,7 +37,7 @@ export default function GarageTemplate({ garage }: Props) {
   // Always render - no early returns that could cause blank pages
   return (
     <div className="min-h-screen bg-black">
-      <Hero />
+      <Hero garage={garage} />
       {safeGarage.services && <ServicesGrid services={safeGarage.services} />}
       <PricingCards pricing={safeGarage.pricing} />
       <EnquiryForm 
