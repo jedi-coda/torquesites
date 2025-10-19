@@ -18,6 +18,8 @@ body {
   background: var(--color-gray);
   color: #171717;
   line-height: 1.6;
+  /* Add scroll margin to prevent content from being hidden behind sticky actions */
+  scroll-padding-bottom: 5rem;
 }
 
 /* ===== Headings ===== */

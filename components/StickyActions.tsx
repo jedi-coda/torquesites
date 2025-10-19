@@ -46,7 +46,7 @@ export default function StickyActionBar({
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-black/40 backdrop-blur-sm border-t border-white/20 shadow-2xl z-50">
+    <div className="fixed bottom-0 left-0 right-0 bg-black/40 backdrop-blur-sm border-t border-white/20 shadow-2xl z-50" style={{ marginBottom: 'env(safe-area-inset-bottom)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
