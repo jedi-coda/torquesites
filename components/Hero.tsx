@@ -14,7 +14,7 @@ const trackClick = (event: string, location: string) => {
 
 export default function Hero() {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0a0a0f] to-[#1b1b1f]">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0E0E0E] to-[#1A1A1A]">
       {/* Content - Centered and Vertically Balanced */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 md:py-32 lg:py-40 flex items-center h-full">
         <motion.div
@@ -28,10 +28,10 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#FF6B00]/10 backdrop-blur-sm rounded-full border border-[#FF6B00]/20 mb-8"
           >
-            <ShieldCheck className="w-4 h-4 text-pink-400" />
-            <span className="text-sm font-medium text-white" style={{ fontFamily: 'Inter, sans-serif' }}>Design that drives results — built for real UK garages</span>
+            <ShieldCheck className="w-4 h-4 text-[#FF6B00]" />
+            <span className="text-sm font-medium text-white" style={{ fontFamily: 'Inter, sans-serif' }}>Performance-driven design — engineered for UK garages</span>
           </motion.div>
 
           {/* Main Headline */}
@@ -44,8 +44,8 @@ export default function Hero() {
           >
             You&apos;ve earned your reputation.
             <br />
-            <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent">
-              Now let it shine online.
+            <span className="bg-gradient-to-r from-[#FF6B00] to-[#FF9500] bg-clip-text text-transparent">
+              Now let it perform online.
             </span>
           </motion.h1>
 
@@ -54,10 +54,10 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0"
+            className="text-lg md:text-xl text-[#D1D1D1] mb-8 max-w-2xl mx-auto lg:mx-0"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
-            Professional, DVSA-ready websites built for UK garages — designed to turn searches into bookings.
+            Precision-engineered, DVSA-ready websites built for UK garages — designed to accelerate bookings and drive performance.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -72,17 +72,17 @@ export default function Hero() {
               href={links.publicStarter}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackClick('get_started', 'hero')}
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-600 to-pink-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+              onClick={() => trackClick('launch_site', 'hero')}
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#FF6B00] to-[#FF9500] text-white font-semibold rounded-xl shadow-lg hover:shadow-[0_0_15px_#FF6B00]/50 hover:scale-105 transition-all duration-200"
             >
-              Get Started (£999)
+              Launch Your Site (£999)
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
             </a>
 
             <Link
               href="/contact"
               onClick={() => trackClick('book_call', 'hero')}
-              className="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 hover:border-white/50 transition-all duration-200"
+              className="inline-flex items-center justify-center px-8 py-4 border-2 border-[#FF6B00]/30 text-white font-semibold rounded-xl hover:bg-[#FF6B00]/10 hover:border-[#FF6B00]/50 transition-all duration-200"
             >
               Book a Call
             </Link>
@@ -93,18 +93,18 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-12 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-gray-400"
+            className="mt-12 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-[#D1D1D1]"
           >
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+              <div className="w-2 h-2 bg-[#3AFF5C] rounded-full"></div>
               <span>DVSA Compliant</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+              <div className="w-2 h-2 bg-[#FF6B00] rounded-full"></div>
               <span>UK Hosting</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+              <div className="w-2 h-2 bg-[#C4FF00] rounded-full"></div>
               <span>SSL Secure</span>
             </div>
           </motion.div>
