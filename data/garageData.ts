@@ -9,11 +9,20 @@ export interface GarageData {
   brandColor: string;
   tagline?: string;
   services?: string[];
-  pricing?: {
-    mot?: string;
-    interimFrom?: string;
-    fullFrom?: string;
-  };
+  pricing?:
+    | {
+        mot?: string;
+        interimFrom?: string;
+        fullFrom?: string;
+      }
+    | Array<{
+        title: string;
+        subtitle?: string;
+        price: string;
+        badge?: string;
+        features?: string[];
+        cta?: string;
+      }>;
   hours?: string;
   reviews?: Array<{
     quote: string;
@@ -41,11 +50,42 @@ export const garageData: Record<string, GarageData> = {
       "Brake Service",
       "Air Conditioning"
     ],
-    pricing: {
-      mot: "£54.85",
-      interimFrom: "£149",
-      fullFrom: "£199"
-    },
+    pricing: [
+      {
+        title: "MOT Test",
+        subtitle: "DVSA-approved MOT testing",
+        price: "£54.85",
+        features: [
+          "DVSA-approved",
+          "Comprehensive inspection",
+          "Free re-test"
+        ],
+        cta: "Book Now"
+      },
+      {
+        title: "Interim Service",
+        subtitle: "Essential maintenance service",
+        price: "From £149",
+        badge: "Most Popular",
+        features: [
+          "Oil and filter change",
+          "Visual safety checks",
+          "Fluid level checks"
+        ],
+        cta: "Book Now"
+      },
+      {
+        title: "Full Service",
+        subtitle: "Comprehensive service covering all major components",
+        price: "From £199",
+        features: [
+          "Complete oil and filter change",
+          "Air filter replacement",
+          "Full vehicle inspection"
+        ],
+        cta: "Book Now"
+      }
+    ],
     hours: "Mon–Fri 8:00–18:00, Sat 8:00–16:00",
     reviews: [
       {
