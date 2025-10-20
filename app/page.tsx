@@ -16,6 +16,7 @@ import Link from "next/link";
 import { links } from "@/lib/links";
 import Hero from "@/components/Hero";
 import PrecisionSection from "@/components/PrecisionSection";
+import VIPSection from "@/components/VIPSection";
 
 // Analytics tracking placeholder
 const trackClick = (event: string, location: string) => {
@@ -375,73 +376,8 @@ export default function HomePage() {
         <p className="mt-10 text-pink-400 font-medium">No risk. Just results.</p>
       </section>
 
-      {/* PARTNER CTA */}
-      <section className="py-20 px-6 bg-gradient-to-br from-[#fff6d9] to-[#ffefb3] text-center">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative"
-          >
-            {/* Gold Badge */}
-            <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-              <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-yellow-900 px-6 py-3 rounded-full text-sm font-bold shadow-lg animate-pulse">
-                🏆 17 / 100 slots claimed
-              </div>
-            </div>
-            
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 pt-8">
-              Join our Torque 100 Partner Programme
-            </h2>
-            <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
-              Lock lifetime pricing and secure your spot in our exclusive partner network. 
-              Launch in 10 days — or your money back.
-            </p>
-            
-            <div className="bg-white rounded-2xl shadow-xl p-8 border border-yellow-200">
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div className="text-left">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">Partner Benefits</h3>
-                  <ul className="space-y-3">
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
-                      Lifetime pricing lock
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
-                      Priority support queue
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
-                      Exclusive partner resources
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
-                      Referral commission program
-                    </li>
-                  </ul>
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl font-extrabold text-yellow-600 mb-2">£999</div>
-                  <p className="text-gray-600 mb-6">One-time partner fee</p>
-                  <a
-                    suppressHydrationWarning
-                    href={links.publicStarter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackClick('secure_partner_slot', 'partner_cta')}
-                    className="inline-block bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
-                  >
-                    Secure Partner Slot
-                  </a>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* VIP SECTION */}
+      <VIPSection />
 
       {/* FINAL CTA */}
       <section className="py-16 md:py-20 px-6 bg-gradient-to-r from-pink-600 to-pink-700 text-center text-white">
