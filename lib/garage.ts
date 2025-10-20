@@ -5,7 +5,7 @@ import path from "path";
 // ---------- Types ----------
 
 export type Brand = { primary?: string; dark?: string };
-export type Contact = { phone?: string; email?: string; whatsapp?: string };
+export type Contact = { phone?: string; email?: string; whatsapp?: string; facebook?: string; instagram?: string; tiktok?: string };
 export type Branch = { name?: string; address?: string; hours?: string; phone?: string };
 export type Service = { icon: string; title: string; description: string };
 export type PricingEntry = {
@@ -181,11 +181,21 @@ function validateAndNormalize(input: any): Garage | null {
     services: Array.isArray(input.services) 
       ? input.services.filter((x: any) => x && typeof x === "object" && typeof x.icon === "string" && typeof x.title === "string" && typeof x.description === "string")
       : undefined,
-    pricing: input.pricing && typeof input.pricing === "object" ? {
-      mot: typeof input.pricing.mot === "string" ? input.pricing.mot : undefined,
-      interimFrom: typeof input.pricing.interimFrom === "string" ? input.pricing.interimFrom : undefined,
-      fullFrom: typeof input.pricing.fullFrom === "string" ? input.pricing.fullFrom : undefined,
-    } : undefined,
+    pricing: Array.isArray(input.pricing)
+      ? input.pricing
+          .filter((p: any) => p && typeof p === "object")
+          .map((p: any) => ({
+            title: typeof p.title === "string" ? p.title : "",
+            description: typeof p.description === "string" ? p.description : (typeof p.subtitle === "string" ? p.subtitle : undefined),
+            price: typeof p.price === "string" ? p.price : "",
+            features: Array.isArray(p.features) ? p.features.filter((x: any) => typeof x === "string") : undefined,
+            cta1: p.cta1 && typeof p.cta1 === "object" && typeof p.cta1.text === "string" && typeof p.cta1.href === "string" ? { text: p.cta1.text, href: p.cta1.href } : undefined,
+          }))
+      : (input.pricing && typeof input.pricing === "object" ? {
+          mot: typeof input.pricing.mot === "string" ? input.pricing.mot : undefined,
+          interimFrom: typeof input.pricing.interimFrom === "string" ? input.pricing.interimFrom : undefined,
+          fullFrom: typeof input.pricing.fullFrom === "string" ? input.pricing.fullFrom : undefined,
+        } : undefined),
     branches: Array.isArray(input.branches)
       ? input.branches.map((b: any) => ({
           name: typeof b?.name === "string" ? b.name : undefined,

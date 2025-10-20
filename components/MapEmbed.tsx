@@ -109,9 +109,6 @@ export default function MapEmbed({ name, address, mapUrl, garage }: MapEmbedProp
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              onError={() => {
-                console.warn('Map iframe failed to load, using fallback');
-              }}
             />
             <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/5 to-transparent" />
           </div>

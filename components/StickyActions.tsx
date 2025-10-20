@@ -94,14 +94,6 @@ export default function StickyActionBar({
               height={64}
               className="w-20 sm:w-24 h-auto opacity-90 hover:opacity-100 transition-opacity duration-200 filter brightness-110 contrast-125 dark:brightness-125"
               loading="lazy"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.style.display = 'none';
-                const parent = target.parentElement as HTMLElement;
-                if (parent) {
-                  parent.innerHTML = '<div class="w-20 sm:w-24 h-16 bg-gray-800 dark:bg-gray-800 bg-gray-200 rounded-lg flex items-center justify-center text-white dark:text-white text-gray-800 text-xs font-bold">LOGO</div>';
-                }
-              }}
             />
           </div>
         </div>

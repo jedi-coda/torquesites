@@ -61,7 +61,7 @@ export default function GarageTemplate({ garage }: Props) {
       />
       <Reviews garage={safeGarage} />
       {safeGarage.reviews && <ReviewsCarousel reviews={safeGarage.reviews} />}
-      <Footer />
+      <Footer garage={garage} />
       <StickyActionsClient 
         logoPath={safeGarage.logoPath}
         phoneNumber={safeContact.phone}
