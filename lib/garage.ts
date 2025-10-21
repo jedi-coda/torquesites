@@ -10,8 +10,11 @@ export type Branch = { name?: string; address?: string; hours?: string; phone?: 
 export type Service = { icon: string; title: string; description: string };
 export type PricingEntry = {
   title: string;
-  description: string;
+  description?: string;
+  tagline?: string;
   price: string;
+  monthly?: string;
+  launchTime?: string;
   features?: string[];
   cta?: {
     text: string;

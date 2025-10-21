@@ -111,11 +111,63 @@ export const fallbackGarage: Garage = {
     title: service,
     description: getServiceDescription(service)
   })),
-  pricing: {
-    mot: "£54.85",
-    interimFrom: "£179",
-    fullFrom: "£249"
-  },
+  pricing: [
+    {
+      title: "🏁 Turbo — Launch Ready",
+      tagline: "Built for speed — your garage online, fast.",
+      price: "£999",
+      monthly: "£99/mo",
+      launchTime: "5 days",
+      features: [
+        "Lightning-fast, SEO-optimised microsite",
+        "Polished TorqueSites layout — proven to convert",
+        "WhatsApp chat + booking form integration",
+        "Google Map embedded for instant directions",
+        "Mobile-first design for every device",
+        "Clear contact info and sticky call-to-action bar",
+        "\"Powered by TorqueSites\" footer for early-adopter credibility",
+        "Go live in 5 days"
+      ],
+      cta: { text: "Join Turbo", href: "#" }
+    },
+    {
+      title: "⚡ Supercharged — Branded Power",
+      tagline: "Boost your bookings — engineered for conversion.",
+      price: "£1,999",
+      monthly: "£149/mo",
+      launchTime: "10 days",
+      features: [
+        "Everything in Turbo, plus:",
+        "Full colour scheme & brand integration",
+        "Upgraded hero section with garage-specific imagery",
+        "Facebook or Google reviews embedded for social proof",
+        "Stripe-powered online payments (MOT, servicing, etc.)",
+        "Trust badges + Google Map integration",
+        "Priority updates & premium support",
+        "Live in 10 days"
+      ],
+      cta: { text: "Join Supercharged", href: "#" }
+    },
+    {
+      title: "🧠 Hyper Mode — Flagship Edition",
+      tagline: "Enter Hyper Mode — where performance meets prestige.",
+      price: "£2,999",
+      monthly: "£199/mo",
+      launchTime: "20 days",
+      features: [
+        "Everything in Supercharged, plus:",
+        "Cinematic hero section with motion and video integration",
+        "Custom animations + Framer Motion effects",
+        "Advanced SEO + analytics setup",
+        "Tailored on-brand copywriting & messaging",
+        "Dedicated design collaboration with our creative team",
+        "Enhanced performance tuning & speed optimisation",
+        "Exclusive early-access features before public release",
+        "Live in 20 days"
+      ],
+      cta: { text: "Join Hyper Mode", href: "#" }
+    }
+  ],
   branches: [
     {
       name: "Main Branch",

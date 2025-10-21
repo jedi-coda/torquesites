@@ -12,48 +12,60 @@ const trackClick = (event: string, location: string) => {
   // gtag('event', event, { location });
 };
 
+// Container variants for stagger animation
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.1,
+      staggerChildren: 0.1
+    }
+  }
+};
+
+// Child variants for stagger animation
+const childVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
 export default function Hero() {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0E0E0E] to-[#1A1A1A]">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-dark-bg to-card-surface">
       {/* Content - Centered and Vertically Balanced */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 md:py-32 lg:py-40 flex items-center h-full">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
           className="text-center lg:text-left"
         >
           {/* Pill Badge */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-[#FF6B00]/10 backdrop-blur-sm rounded-full border border-[#FF6B00]/20 mb-8"
+            variants={childVariants}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-torque-orange/10 backdrop-blur-sm rounded-full border border-torque-orange/20 mb-8"
           >
-            <ShieldCheck className="w-4 h-4 text-[#FF6B00]" />
+            <ShieldCheck className="w-4 h-4 text-torque-orange" />
             <span className="text-sm font-medium text-white" style={{ fontFamily: 'Inter, sans-serif' }}>Performance-driven design — engineered for UK garages</span>
           </motion.div>
 
           {/* Main Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            variants={childVariants}
             className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight"
             style={{ fontFamily: 'Poppins, sans-serif' }}
           >
             You&apos;ve earned your reputation.
             <br />
-            <span className="bg-gradient-to-r from-[#FF6B00] to-[#FF9500] bg-clip-text text-transparent">
+            <span className="text-[#C4FF00]">
               Now let it perform online.
             </span>
           </motion.h1>
 
           {/* Subheadline */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            variants={childVariants}
             className="text-lg md:text-xl text-[#D1D1D1] mb-8 max-w-2xl mx-auto lg:mx-0"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
@@ -62,9 +74,7 @@ export default function Hero() {
 
           {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            variants={childVariants}
             className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
           >
             <a
@@ -73,16 +83,18 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackClick('launch_site', 'hero')}
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#FF6B00] to-[#FF9500] text-white font-semibold rounded-xl shadow-lg hover:shadow-[0_0_15px_#FF6B00]/50 hover:scale-105 transition-all duration-200"
+              aria-label="Get started with TorqueSites for £999"
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-[var(--torque-orange)] hover:bg-[#C4FF00] hover:shadow-[0_0_15px_#C4FF00]/40 transition-all duration-200 text-black font-semibold rounded-xl focus-visible:outline-[#C4FF00]"
             >
-              Launch Your Site (£999)
+              Get Started £999
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
             </a>
 
             <Link
               href="/contact"
               onClick={() => trackClick('book_call', 'hero')}
-              className="inline-flex items-center justify-center px-8 py-4 border-2 border-[#FF6B00]/30 text-white font-semibold rounded-xl hover:bg-[#FF6B00]/10 hover:border-[#FF6B00]/50 transition-all duration-200"
+              aria-label="Book a call with our team"
+              className="inline-flex items-center justify-center px-8 py-4 border-2 border-torque-orange/30 text-white font-semibold rounded-xl hover:border-[#C4FF00] hover:shadow-[0_0_10px_#C4FF00]/30 transition-all duration-200 focus-visible:outline-[#C4FF00]"
             >
               Book a Call
             </Link>
@@ -90,21 +102,19 @@ export default function Hero() {
 
           {/* Trust Indicators */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            variants={childVariants}
             className="mt-12 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-[#D1D1D1]"
           >
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-[#3AFF5C] rounded-full"></div>
+              <div className="w-2 h-2 bg-success-pulse rounded-full"></div>
               <span>DVSA Compliant</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-[#FF6B00] rounded-full"></div>
+              <div className="w-2 h-2 bg-torque-orange rounded-full"></div>
               <span>UK Hosting</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-[#C4FF00] rounded-full"></div>
+              <div className="w-2 h-2 bg-lime-accent rounded-full"></div>
               <span>SSL Secure</span>
             </div>
           </motion.div>

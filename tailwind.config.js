@@ -11,6 +11,13 @@ module.exports = {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       colors: {
+        'torque-orange': '#FF6B00',
+        'torque-gradient-end': '#FF9500',
+        'lime-accent': '#C4FF00',
+        'dark-bg': '#0E0E0E',
+        'card-surface': '#1A1A1A',
+        'success-pulse': '#3AFF5C',
+        // Legacy brand colors for backward compatibility
         brand: {
           primary: "#FF6B00",     // Torque Orange (Main CTAs, links, gradients)
           gradientEnd: "#FF9500", // Warm amber finish

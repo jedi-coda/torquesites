@@ -2,7 +2,7 @@
 
 import React from "react";
 import { type Pricing, type PricingEntry } from "@/lib/garage";
-import { premiumTheme } from "@/lib/fallbackGarage";
+import { fallbackGarage } from "@/lib/fallbackGarage";
 
 type Props = {
   pricing?: Pricing | null;
@@ -15,184 +15,113 @@ type Props = {
 // ✅ Ready for 1000+ dynamic garage microsites
 
 export default function PricingCards({ pricing }: Props) {
-  // Use fallback pricing directly since we're only getting pricing data
-  const safePricing = pricing || {
-    mot: "£54.85",
-    interimFrom: "£149", 
-    fullFrom: "£199"
-  };
-  
-  console.log("🧪 PricingCards received pricing prop:", pricing);
-  console.log("🛡️ PricingCards using safe pricing:", safePricing);
+  // Use pricing from prop or fallback to fallbackGarage pricing
+  const pricingTiers = Array.isArray(pricing) ? pricing : fallbackGarage.pricing as any[];
 
-  const isArrayFormat = Array.isArray(safePricing);
-  
-  if (!safePricing || (isArrayFormat && safePricing.length === 0)) {
-    console.warn("⚠️ PricingCards: No pricing data available, using fallback.");
-  } else {
-    const tierCount = isArrayFormat ? safePricing.length : 
-      ((safePricing as { mot?: string; interimFrom?: string; fullFrom?: string })?.mot ? 1 : 0) +
-      ((safePricing as { mot?: string; interimFrom?: string; fullFrom?: string })?.interimFrom ? 1 : 0) +
-      ((safePricing as { mot?: string; interimFrom?: string; fullFrom?: string })?.fullFrom ? 1 : 0);
-    console.log(`✅ PricingCards: Rendering ${tierCount} tiers.`);
-  }
-
-  // Convert to array format for consistent rendering
-  let pricingArray: PricingEntry[] = [];
-  
-  if (isArrayFormat) {
-    pricingArray = safePricing as PricingEntry[];
-  } else {
-    // Convert legacy object format to array format
-    const legacyPricing = safePricing as { mot?: string; interimFrom?: string; fullFrom?: string };
-    if (legacyPricing.mot) {
-      pricingArray.push({
-        title: "MOT Test",
-        description: "DVSA-approved MOT testing",
-        price: legacyPricing.mot,
-        features: ["DVSA-approved", "Comprehensive inspection", "Free re-test"]
-      });
-    }
-    if (legacyPricing.interimFrom) {
-      pricingArray.push({
-        title: "Interim Service", 
-        description: "Essential maintenance service",
-        price: `From ${legacyPricing.interimFrom}`,
-        features: ["Oil and filter change", "Visual safety checks", "Fluid level checks"]
-      });
-    }
-    if (legacyPricing.fullFrom) {
-      pricingArray.push({
-        title: "Full Service",
-        description: "Comprehensive service covering all major components", 
-        price: `From ${legacyPricing.fullFrom}`,
-        features: ["Complete oil and filter change", "Air filter replacement", "Full vehicle inspection"]
-      });
-    }
-  }
-
-  // Ensure we always have at least one pricing tier
-  if (pricingArray.length === 0) {
-    pricingArray.push({
-      title: "MOT Test",
-      description: "DVSA-approved MOT testing",
-      price: "£54.85",
-      features: ["DVSA-approved", "Comprehensive inspection", "Free re-test"]
-    });
-  }
+  console.log("🧪 PricingCards: Rendering", pricingTiers.length, "pricing tiers");
 
   return (
-    <div className="space-y-8 py-16 bg-black">
+    <div className="space-y-8 py-16 bg-dark-bg">
       <div className="text-center mb-12">
-        <div 
-          className="inline-block px-4 py-2 border rounded-full mb-4"
-          style={{ 
-            backgroundColor: `${premiumTheme.accentColor}20`,
-            borderColor: `${premiumTheme.accentColor}30`
-          }}
-        >
-          <span 
-            className="text-sm font-medium tracking-wide"
-            style={{ color: premiumTheme.accentColor }}
-          >
+        <div className="inline-block px-4 py-2 border border-torque-orange/30 rounded-full mb-4 bg-torque-orange/20">
+          <span className="text-sm font-medium tracking-wide text-torque-orange">
             TRANSPARENT PRICING
           </span>
         </div>
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-          Fair <span style={{ color: premiumTheme.accentColor }}>Transparent</span> Pricing
+          TorqueSites <span className="text-torque-orange">Pricing</span>
         </h2>
-        <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-          No hidden fees. No surprises. Just exceptional service at fair prices for all makes and models.
+        <p className="text-xl text-neutral-400 max-w-2xl mx-auto">
+          Choose your performance level. All plans include hosting, SSL, and DVSA-aligned designs.
         </p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
-        {pricingArray.map((tier, index) => {
-          const isPopular = index === 1; // Make middle tier popular
+        {pricingTiers.map((tier, index) => {
+          const isPopular = tier.isPopular || (pricingTiers.length === 3 && index === 1);
+          
+          // Extract icon from title (first emoji)
+          const icon = tier.title?.match(/^[\u{1F300}-\u{1F9FF}]/u)?.[0] || "🛞";
           return (
             <div 
               key={index} 
               className={`relative p-8 rounded-2xl shadow-2xl hover:scale-[1.02] transition-all duration-300 ${
                 isPopular 
-                  ? 'bg-gradient-to-br border-2' 
-                  : 'bg-gray-900/50 border border-gray-700/50'
+                  ? 'bg-gradient-to-br from-torque-orange/10 to-torque-orange/5 border-2 border-torque-orange/50' 
+                  : 'bg-card-surface border border-neutral-700/50'
               }`}
-              style={isPopular ? {
-                background: `linear-gradient(135deg, ${premiumTheme.accentColor}10, ${premiumTheme.accentColor}05)`,
-                borderColor: `${premiumTheme.accentColor}50`
-              } : {}}
             >
               {isPopular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div 
-                    className="text-white px-4 py-2 rounded-full text-sm font-bold"
-                    style={{ backgroundColor: premiumTheme.accentColor }}
-                  >
+                  <div className="text-white px-4 py-2 rounded-full text-sm font-bold bg-torque-orange">
                     MOST POPULAR
                   </div>
                 </div>
               )}
               
               <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-white mb-2">{tier.title}</h3>
-                <p className="text-gray-300 mb-4">{tier.description}</p>
-                <div 
-                  className="text-4xl font-bold mb-2"
-                  style={{ color: premiumTheme.accentColor }}
-                >
-                  {tier.price}
+                <h3 className="text-2xl font-bold text-white mb-2 flex items-center justify-center gap-2">
+                  <span className="text-3xl">{icon}</span>
+                  <span>{tier.title || "Service"}</span>
+                </h3>
+                {tier.tagline && (
+                  <p className="text-sm italic text-neutral-400 mb-4">{tier.tagline}</p>
+                )}
+                {tier.description && !tier.tagline && (
+                  <p className="text-sm italic text-neutral-400 mb-4">{tier.description}</p>
+                )}
+                <div className="text-4xl font-bold mb-2 text-torque-orange">
+                  {tier.price || "POA"}
                 </div>
+                {tier.monthly && (
+                  <div className="text-lg text-neutral-400 mb-2">
+                    {tier.monthly}
+                  </div>
+                )}
+                {tier.launchTime && (
+                  <div className="text-sm text-neutral-500 mb-2">
+                    Launch in {tier.launchTime}
+                  </div>
+                )}
                 {isPopular && (
-                  <p 
-                    className="text-sm"
-                    style={{ color: premiumTheme.accentColor }}
-                  >
-                    Best Value
+                  <p className="text-sm text-torque-orange">
+                    Most Popular
                   </p>
                 )}
               </div>
               
               <ul className="mb-8 space-y-3">
-                {tier.features?.map((feature, i) => (
-                  <li key={i} className="flex items-center text-gray-300">
-                    <div 
-                      className="w-2 h-2 rounded-full mr-3 flex-shrink-0"
-                      style={{ backgroundColor: premiumTheme.accentColor }}
-                    ></div>
+                {tier.features?.map((feature: string, i: number) => (
+                  <li key={i} className="flex items-center text-neutral-400">
+                    <div className="w-2 h-2 rounded-full mr-3 flex-shrink-0 bg-torque-orange"></div>
                     {feature}
                   </li>
                 ))}
               </ul>
               
-              {tier.cta1?.href && tier.cta1?.text ? (
+              {tier.cta?.href && tier.cta?.text ? (
+                <a
+                  href={tier.cta.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`block w-full text-center py-4 px-6 rounded-lg font-semibold transition-all duration-300 ${
+                    isPopular
+                      ? 'bg-torque-orange text-white transform hover:scale-105 hover:bg-lime-accent shadow-lg'
+                      : 'bg-card-surface text-white border border-torque-orange/50 hover:bg-torque-orange/10'
+                  }`}
+                >
+                  {tier.cta.text}
+                </a>
+              ) : tier.cta1?.href && tier.cta1?.text ? (
                 <a
                   href={tier.cta1.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`block w-full text-center py-4 px-6 rounded-lg font-semibold transition-all duration-300 ${
                     isPopular
-                      ? 'text-white transform hover:scale-105 shadow-lg'
-                      : 'bg-gray-800 text-white border hover:bg-opacity-10'
+                      ? 'bg-torque-orange text-white transform hover:scale-105 hover:bg-lime-accent shadow-lg'
+                      : 'bg-card-surface text-white border border-torque-orange/50 hover:bg-torque-orange/10'
                   }`}
-                  style={isPopular ? {
-                    backgroundColor: premiumTheme.accentColor
-                  } : {
-                    borderColor: `${premiumTheme.accentColor}50`
-                  }}
-                  onMouseEnter={(e) => {
-                    if (isPopular) {
-                      e.currentTarget.style.backgroundColor = premiumTheme.brandColor;
-                    } else {
-                      e.currentTarget.style.backgroundColor = `${premiumTheme.accentColor}10`;
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (isPopular) {
-                      e.currentTarget.style.backgroundColor = premiumTheme.accentColor;
-                    } else {
-                      e.currentTarget.style.backgroundColor = 'rgb(31 41 55)';
-                    }
-                  }}
                 >
                   {tier.cta1.text}
                 </a>
@@ -200,30 +129,13 @@ export default function PricingCards({ pricing }: Props) {
                 <button 
                   className={`block w-full text-center py-4 px-6 rounded-lg font-semibold transition-all duration-300 ${
                     isPopular
-                      ? 'text-white transform hover:scale-105 shadow-lg'
-                      : 'bg-gray-800 text-white border hover:bg-opacity-10'
+                      ? 'bg-torque-orange text-white transform hover:scale-105 hover:bg-lime-accent shadow-lg'
+                      : 'bg-card-surface text-white border border-torque-orange/50 hover:bg-torque-orange/10'
                   }`}
-                  style={isPopular ? {
-                    backgroundColor: premiumTheme.accentColor
-                  } : {
-                    borderColor: `${premiumTheme.accentColor}50`
-                  }}
-                  onMouseEnter={(e) => {
-                    if (isPopular) {
-                      e.currentTarget.style.backgroundColor = premiumTheme.brandColor;
-                    } else {
-                      e.currentTarget.style.backgroundColor = `${premiumTheme.accentColor}10`;
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (isPopular) {
-                      e.currentTarget.style.backgroundColor = premiumTheme.accentColor;
-                    } else {
-                      e.currentTarget.style.backgroundColor = 'rgb(31 41 55)';
-                    }
-                  }}
                 >
-                  Book Now
+                  {tier.title?.includes('Turbo') ? 'Join Turbo' : 
+                   tier.title?.includes('Supercharged') ? 'Join Supercharged' :
+                   tier.title?.includes('Hyper') ? 'Join Hyper Mode' : 'Book Now'}
                 </button>
               )}
             </div>
@@ -232,8 +144,8 @@ export default function PricingCards({ pricing }: Props) {
       </div>
       
       <div className="text-center mt-12">
-        <p className="text-gray-400 text-sm">
-          All prices include VAT. Free re-test within 10 working days if required.
+        <p className="text-neutral-400 text-sm">
+          All plans include UK hosting, SSL, and DVSA-aligned designs. Setup fees are one-time only.
         </p>
       </div>
     </div>

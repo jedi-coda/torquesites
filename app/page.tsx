@@ -38,13 +38,13 @@ export default function HomePage() {
           <div className="flex gap-6">
             <Link
               href="/pricing"
-              className="text-gray-700 hover:text-[#FF6B00] font-medium transition"
+              className="text-gray-700 hover:text-torque-orange font-medium transition"
             >
               Pricing
             </Link>
             <Link
               href="/contact"
-              className="text-gray-700 hover:text-[#FF6B00] font-medium transition"
+              className="text-gray-700 hover:text-torque-orange font-medium transition"
             >
               Book a Call
             </Link>
@@ -59,7 +59,7 @@ export default function HomePage() {
       <PrecisionSection />
 
       {/* FEATURES */}
-      <section className="py-16 md:py-20 px-6 bg-[#0E0E0E]">
+      <section className="py-16 md:py-20 px-6 bg-dark-bg">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -189,14 +189,14 @@ export default function HomePage() {
               "Since launching our TorqueSite, we've seen a 27% increase in MOT bookings in just 3 months. 
               The professional look builds trust, and the booking system works perfectly."
             </blockquote>
-            <cite className="text-[#FF6B00] font-semibold">
+            <cite className="text-torque-orange font-semibold">
               — Newtown Garage, Chesham
             </cite>
           </motion.div>
         </div>
       </section>
       {/* PRICING */}
-      <section className="py-16 md:py-20 px-6 bg-[#0E0E0E] text-center">
+      <section className="py-16 md:py-20 px-6 bg-dark-bg text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -217,7 +217,7 @@ export default function HomePage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="bg-[#1A1A1A] rounded-2xl shadow-lg p-8 border border-[#FF6B00]/20 hover:shadow-[0_0_15px_#FF6B00]/20 transition-all duration-300"
+            className="bg-card-surface rounded-2xl shadow-lg p-8 border border-torque-orange/20 hover:shadow-[0_0_15px_#FF6B00]/20 transition-all duration-300"
           >
             <h3 className="text-xl font-bold mb-2 text-white">Standard</h3>
             <div className="mb-4">
@@ -227,19 +227,19 @@ export default function HomePage() {
             <p className="text-sm text-[#D1D1D1] mb-6">+ £99/mo all-in</p>
             <ul className="text-left space-y-3 mb-8">
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-[#FF6B00] rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-torque-orange rounded-full mr-3"></div>
                 Professional design
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-[#FF6B00] rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-torque-orange rounded-full mr-3"></div>
                 Mobile-optimised
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-[#FF6B00] rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-torque-orange rounded-full mr-3"></div>
                 Booking system
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-[#FF6B00] rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-torque-orange rounded-full mr-3"></div>
                 Basic SEO
               </li>
             </ul>
@@ -249,7 +249,7 @@ export default function HomePage() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackClick('launch_site', 'pricing_standard')}
-              className="block w-full bg-gradient-to-r from-[#FF6B00] to-[#FF9500] hover:shadow-[0_0_15px_#FF6B00]/50 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-all duration-200 text-center"
+              className="block w-full bg-gradient-to-r from-torque-orange to-torque-gradient-end hover:shadow-[0_0_15px_#FF6B00]/50 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-all duration-200 text-center"
             >
               Launch Your Site (£999)
             </a>
@@ -261,10 +261,10 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-[#1A1A1A] rounded-2xl shadow-xl p-8 border-2 border-[#FF6B00] relative hover:shadow-[0_0_15px_#FF6B00]/30 transition-all duration-300"
+            className="bg-card-surface rounded-2xl shadow-xl p-8 border-2 border-torque-orange relative hover:shadow-[0_0_15px_#FF6B00]/30 transition-all duration-300"
           >
             <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-              <div className="bg-gradient-to-r from-[#FF6B00] to-[#FF9500] text-white px-4 py-2 rounded-full text-sm font-bold">
+              <div className="bg-gradient-to-r from-torque-orange to-torque-gradient-end text-white px-4 py-2 rounded-full text-sm font-bold">
                 Most Popular
               </div>
             </div>
@@ -276,23 +276,23 @@ export default function HomePage() {
             <p className="text-sm text-[#D1D1D1] mb-6">+ £149/mo all-in</p>
             <ul className="text-left space-y-3 mb-8">
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-[#FF6B00] rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-torque-orange rounded-full mr-3"></div>
                 Everything in Standard
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-[#FF6B00] rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-torque-orange rounded-full mr-3"></div>
                 Advanced SEO
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-[#FF6B00] rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-torque-orange rounded-full mr-3"></div>
                 Priority support
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-[#FF6B00] rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-torque-orange rounded-full mr-3"></div>
                 Custom branding
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-[#FF6B00] rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-torque-orange rounded-full mr-3"></div>
                 Stripe-enabled booking links
               </li>
             </ul>
@@ -302,7 +302,7 @@ export default function HomePage() {
             target="_blank"
             rel="noopener noreferrer"
               onClick={() => trackClick('launch_site', 'pricing_premium')}
-              className="block w-full bg-gradient-to-r from-[#FF6B00] to-[#FF9500] hover:shadow-[0_0_15px_#FF6B00]/50 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-all duration-200 text-center"
+              className="block w-full bg-gradient-to-r from-torque-orange to-torque-gradient-end hover:shadow-[0_0_15px_#FF6B00]/50 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-all duration-200 text-center"
             >
               Launch Your Site (£1,499)
             </a>
@@ -314,7 +314,7 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-[#1A1A1A] rounded-2xl shadow-lg p-8 border border-[#FF6B00]/20 hover:shadow-[0_0_15px_#FF6B00]/20 transition-all duration-300"
+            className="bg-card-surface rounded-2xl shadow-lg p-8 border border-torque-orange/20 hover:shadow-[0_0_15px_#FF6B00]/20 transition-all duration-300"
           >
             <h3 className="text-xl font-bold mb-2 text-white">Custom</h3>
             <div className="mb-4">
@@ -323,26 +323,26 @@ export default function HomePage() {
             <p className="text-sm text-[#D1D1D1] mb-6">Tailored pricing</p>
             <ul className="text-left space-y-3 mb-8">
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-[#FF6B00] rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-torque-orange rounded-full mr-3"></div>
                 Everything in Premium
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-[#FF6B00] rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-torque-orange rounded-full mr-3"></div>
                 Custom integrations
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-[#FF6B00] rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-torque-orange rounded-full mr-3"></div>
                 Dedicated account manager
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-[#FF6B00] rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-torque-orange rounded-full mr-3"></div>
                 White-label options
               </li>
             </ul>
             <Link
               href="/contact"
               onClick={() => trackClick('contact_us', 'pricing_custom')}
-              className="block w-full bg-[#1A1A1A] hover:bg-[#FF6B00] text-white border border-[#FF6B00] hover:border-[#FF9500] font-semibold px-6 py-3 rounded-xl shadow-lg transition-all duration-200 text-center"
+              className="block w-full bg-card-surface hover:bg-torque-orange text-white border border-torque-orange hover:border-torque-gradient-end font-semibold px-6 py-3 rounded-xl shadow-lg transition-all duration-200 text-center"
             >
               Contact Us
             </Link>
@@ -352,7 +352,7 @@ export default function HomePage() {
         <div className="mt-12">
           <Link
             href="/pricing"
-            className="text-[#FF6B00] hover:underline font-medium"
+            className="text-torque-orange hover:underline font-medium"
           >
             See Full Pricing &rarr;
           </Link>
@@ -360,7 +360,7 @@ export default function HomePage() {
       </section>
 
       {/* GUARANTEE */}
-      <section className="py-16 md:py-20 px-6 bg-[#0E0E0E] text-white text-center">
+      <section className="py-16 md:py-20 px-6 bg-dark-bg text-white text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -373,14 +373,14 @@ export default function HomePage() {
         <p className="mt-4 text-lg text-[#D1D1D1] max-w-2xl mx-auto">
           Your site, live in days — not months. Most garages launch in 7–10 days. And if you&apos;re not fully satisfied, your setup fee is protected with our money-back promise.
         </p>
-        <p className="mt-10 text-[#FF6B00] font-medium">No risk. Just performance.</p>
+        <p className="mt-10 text-torque-orange font-medium">No risk. Just performance.</p>
       </section>
 
       {/* VIP SECTION */}
       <VIPSection />
 
       {/* FINAL CTA */}
-      <section className="py-16 md:py-20 px-6 bg-gradient-to-r from-[#FF6B00] to-[#FF9500] text-center text-white">
+      <section className="py-16 md:py-20 px-6 bg-gradient-to-r from-torque-orange to-torque-gradient-end text-center text-white">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -400,13 +400,13 @@ export default function HomePage() {
             href={links.publicStarter}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white text-[#FF6B00] hover:bg-[#FF9500] hover:text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-all duration-200"
+            className="bg-white text-torque-orange hover:bg-torque-gradient-end hover:text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-all duration-200"
           >
             Launch Your Site (£999)
           </a>
           <Link
             href="/contact"
-            className="bg-[#0E0E0E] border border-white text-white hover:bg-[#1A1A1A] font-semibold px-6 py-3 rounded-xl shadow transition-all duration-200"
+            className="bg-dark-bg border border-white text-white hover:bg-card-surface font-semibold px-6 py-3 rounded-xl shadow transition-all duration-200"
           >
             Book a Call
           </Link>
@@ -414,7 +414,7 @@ export default function HomePage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-[#0E0E0E] py-12 px-6 text-white">
+      <footer className="bg-dark-bg py-12 px-6 text-white">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Logo Section */}
@@ -441,7 +441,7 @@ export default function HomePage() {
                 href="https://instagram.com/torquesites"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-full bg-[#1A1A1A] hover:bg-gradient-to-r hover:from-purple-500 hover:to-[#FF6B00] transition-all duration-200 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/30"
+                className="p-2 rounded-full bg-card-surface hover:bg-gradient-to-r hover:from-purple-500 hover:to-torque-orange transition-all duration-200 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/30"
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5 text-[#D1D1D1] hover:text-white transition-colors duration-200" fill="currentColor" viewBox="0 0 24 24">
@@ -452,7 +452,7 @@ export default function HomePage() {
                 href="https://tiktok.com/@torquesites"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-full bg-[#1A1A1A] hover:bg-black transition-all duration-200 hover:scale-110 hover:shadow-lg hover:shadow-gray-500/30"
+                className="p-2 rounded-full bg-card-surface hover:bg-black transition-all duration-200 hover:scale-110 hover:shadow-lg hover:shadow-gray-500/30"
                 aria-label="TikTok"
               >
                 <svg className="w-5 h-5 text-[#D1D1D1] hover:text-white transition-colors duration-200" viewBox="0 0 24 24" fill="currentColor">
@@ -463,7 +463,7 @@ export default function HomePage() {
           </div>
 
           {/* Copyright and MOTgenie */}
-          <div className="mt-8 pt-8 border-t border-[#1A1A1A] text-center">
+          <div className="mt-8 pt-8 border-t border-card-surface text-center">
             <p className="text-[#D1D1D1] text-sm mb-2">
               © 2025 TorqueSites. Registered in England & Wales • All rights reserved.
             </p>
@@ -495,15 +495,15 @@ function Feature({
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       whileHover={{ scale: 1.02 }}
-      className="group flex flex-col items-center text-center p-8 border border-[#FF6B00]/20 rounded-2xl shadow-sm hover:shadow-[0_0_15px_#FF6B00]/20 transition-all duration-300 bg-[#1A1A1A] hover:bg-gradient-to-br hover:from-[#FF6B00]/5 hover:to-[#1A1A1A]"
+      className="group flex flex-col items-center text-center p-8 border border-torque-orange/20 rounded-2xl shadow-sm hover:shadow-[0_0_15px_#FF6B00]/20 transition-all duration-300 bg-card-surface hover:bg-gradient-to-br hover:from-torque-orange/5 hover:to-card-surface"
     >
       <div className="relative">
-        <div className="w-16 h-16 flex items-center justify-center rounded-full bg-[#FF6B00]/10 text-[#FF6B00] mb-6 group-hover:bg-[#FF6B00]/20 group-hover:scale-110 transition-all duration-300">
+        <div className="w-16 h-16 flex items-center justify-center rounded-full bg-torque-orange/10 text-torque-orange mb-6 group-hover:bg-torque-orange/20 group-hover:scale-110 transition-all duration-300">
         {icon}
       </div>
         {isDvsa && (
-          <div className="absolute -top-2 -right-2 w-6 h-6 bg-[#C4FF00] rounded-full flex items-center justify-center">
-            <svg className="w-3 h-3 text-[#0E0E0E]" viewBox="0 0 24 24" fill="currentColor">
+          <div className="absolute -top-2 -right-2 w-6 h-6 bg-lime-accent rounded-full flex items-center justify-center">
+            <svg className="w-3 h-3 text-dark-bg" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2L2 7L12 12L22 7L12 2Z" />
               <path d="M2 17L12 22L22 17" />
               <path d="M2 12L12 17L22 12" />
