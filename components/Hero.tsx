@@ -1,122 +1,153 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
-import { links } from '@/lib/links';
-
-// Analytics tracking placeholder
-const trackClick = (event: string, location: string) => {
-  console.log(`Analytics: ${event} clicked from ${location}`);
-  // TODO: Replace with actual analytics tracking
-  // gtag('event', event, { location });
-};
-
-// Container variants for stagger animation
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      delayChildren: 0.1,
-      staggerChildren: 0.1
-    }
-  }
-};
-
-// Child variants for stagger animation
-const childVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
-};
 
 export default function Hero() {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-dark-bg to-card-surface">
-      {/* Content - Centered and Vertically Balanced */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 md:py-32 lg:py-40 flex items-center h-full">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-          className="text-center lg:text-left"
+    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Gradient */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          background: 'linear-gradient(165deg, #000000 0%, #0E0E0E 40%, #1A1A1A 100%)',
+          backgroundImage: `
+            repeating-linear-gradient(
+              -45deg,
+              transparent,
+              transparent 80px,
+              rgba(255, 140, 66, 0.02) 80px,
+              rgba(255, 140, 66, 0.02) 82px
+            )
+          `,
+        }}
+      />
+
+      {/* Radial Glow Accent */}
+      <div 
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] pointer-events-none z-0"
+        style={{
+          background: 'radial-gradient(circle, rgba(255,140,66,0.08) 0%, transparent 70%)',
+        }}
+      />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-32 text-center">
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+          className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
+          style={{
+            fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+            letterSpacing: '-0.02em',
+            maxWidth: '900px',
+            margin: '0 auto',
+          }}
         >
-          {/* Pill Badge */}
-          <motion.div
-            variants={childVariants}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-torque-orange/10 backdrop-blur-sm rounded-full border border-torque-orange/20 mb-8"
+          You've earned your reputation.{' '}
+          <motion.span
+            initial="initial"
+            animate="animate"
+            variants={{
+              initial: { textShadow: '0 0 0px rgba(255, 140, 66, 0)' },
+              animate: {
+                textShadow: [
+                  '0 0 0px rgba(255, 140, 66, 0)',
+                  '0 0 20px rgba(255, 140, 66, 0.3)',
+                  '0 0 0px rgba(255, 140, 66, 0)',
+                ],
+                transition: {
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                },
+              },
+            }}
+            className="text-[#FF8C42] hover:text-[#D0FF00] transition-all duration-500 cursor-default inline-block"
+            style={{
+              transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+            whileHover={{
+              textShadow: '0 0 24px rgba(208, 255, 0, 0.4)',
+            }}
           >
-            <ShieldCheck className="w-4 h-4 text-torque-orange" />
-            <span className="text-sm font-medium text-white" style={{ fontFamily: 'Inter, sans-serif' }}>Performance-driven design — engineered for UK garages</span>
+            Now let it shine online.
+          </motion.span>
+        </motion.h1>
+
+        {/* Subheadline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+          className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed"
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            letterSpacing: '0.005em',
+            maxWidth: '680px',
+          }}
+        >
+          Professional, DVSA-ready websites that turn local searches into booked MOTs and services.
+        </motion.p>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: [0.4, 0, 0.2, 1] }}
+          className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center"
+        >
+          {/* Primary CTA */}
+          <Link
+            href="/launch"
+            className="group relative inline-flex items-center justify-center bg-gradient-to-br from-[#FF8C42] to-[#FF9147] text-white hover:from-[#D0FF00] hover:to-[#C4FF00] hover:text-[#0E0E0E] rounded-xl px-8 py-4 font-semibold tracking-wider text-sm uppercase shadow-lg shadow-[#FF8C42]/30 hover:shadow-[0_6px_24px_rgba(208,255,0,0.5)] transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-0.5"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+            }}
+          >
+            Launch Your Site (£999)
+          </Link>
+
+          {/* Secondary CTA */}
+          <Link
+            href="/book"
+            className="inline-flex items-center justify-center border-2 border-white/20 text-white hover:border-[#D0FF00] hover:text-[#D0FF00] hover:shadow-[0_0_20px_rgba(208,255,0,0.2)] rounded-xl px-8 py-4 font-semibold tracking-wider text-sm uppercase transition-all duration-300 ease-out"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+            }}
+          >
+            Book a Call
+          </Link>
+        </motion.div>
+
+        {/* Trust Signals Row */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-12 flex flex-wrap gap-6 md:gap-8 justify-center text-sm text-gray-300 font-medium"
+          style={{
+            fontFamily: "'Inter', sans-serif",
+          }}
+        >
+          {/* DVSA Compliant */}
+          <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }} className="flex items-center gap-2 cursor-default">
+            <span className="inline-block w-[18px] h-[18px] rounded-full bg-[#3AFF5C]" role="img" aria-label="DVSA compliant" />
+            <span>DVSA Compliant</span>
           </motion.div>
 
-          {/* Main Headline */}
-          <motion.h1
-            variants={childVariants}
-            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight"
-            style={{ fontFamily: 'Poppins, sans-serif' }}
-          >
-            You&apos;ve earned your reputation.
-            <br />
-            <span className="text-[#C4FF00]">
-              Now let it perform online.
-            </span>
-          </motion.h1>
-
-          {/* Subheadline */}
-          <motion.p
-            variants={childVariants}
-            className="text-lg md:text-xl text-[#D1D1D1] mb-8 max-w-2xl mx-auto lg:mx-0"
-            style={{ fontFamily: 'Inter, sans-serif' }}
-          >
-            Precision-engineered, DVSA-ready websites built for UK garages — designed to accelerate bookings and drive performance.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            variants={childVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-          >
-            <a
-              suppressHydrationWarning
-              href={links.publicStarter}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackClick('launch_site', 'hero')}
-              aria-label="Get started with TorqueSites for £999"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-[var(--torque-orange)] hover:bg-[#C4FF00] hover:shadow-[0_0_15px_#C4FF00]/40 transition-all duration-200 text-black font-semibold rounded-xl focus-visible:outline-[#C4FF00]"
-            >
-              Get Started £999
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-            </a>
-
-            <Link
-              href="/contact"
-              onClick={() => trackClick('book_call', 'hero')}
-              aria-label="Book a call with our team"
-              className="inline-flex items-center justify-center px-8 py-4 border-2 border-torque-orange/30 text-white font-semibold rounded-xl hover:border-[#C4FF00] hover:shadow-[0_0_10px_#C4FF00]/30 transition-all duration-200 focus-visible:outline-[#C4FF00]"
-            >
-              Book a Call
-            </Link>
+          {/* UK Hosting */}
+          <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }} className="flex items-center gap-2 cursor-default">
+            <span className="inline-block w-[18px] h-[18px] rounded-full bg-[#FF8C42]" role="img" aria-label="UK hosting" />
+            <span>UK Hosting</span>
           </motion.div>
 
-          {/* Trust Indicators */}
-          <motion.div
-            variants={childVariants}
-            className="mt-12 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-[#D1D1D1]"
-          >
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-success-pulse rounded-full"></div>
-              <span>DVSA Compliant</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-torque-orange rounded-full"></div>
-              <span>UK Hosting</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-lime-accent rounded-full"></div>
-              <span>SSL Secure</span>
-            </div>
+          {/* SSL Secure */}
+          <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }} className="flex items-center gap-2 cursor-default">
+            <span className="inline-block w-[18px] h-[18px] rounded-full bg-[#D0FF00]" role="img" aria-label="SSL secure" />
+            <span>SSL Secure</span>
           </motion.div>
         </motion.div>
       </div>
