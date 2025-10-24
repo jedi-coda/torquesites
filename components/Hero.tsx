@@ -14,30 +14,15 @@ const trackClick = (event: string, location: string) => {
 export default function Hero() {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0E0E0E] to-[#1A1A1A]">
-      {/* Ambient Radial Background Glow */}
-      <motion.div
-        className="absolute inset-0 -z-10"
-        style={{
-          background: 'radial-gradient(circle at center, rgba(255,149,0,0.15) 0%, rgba(0,0,0,0.9) 100%)'
-        }}
-        animate={{ 
-          scale: [1, 1.015, 1], 
-          opacity: [0.6, 0.9, 0.6] 
-        }}
-        transition={{ 
-          duration: 12, 
-          repeat: Infinity, 
-          ease: 'easeInOut' 
-        }}
-      />
+      {/* Background Glow Layer */}
+      <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,#ff6b00_0%,#0b0b0c_70%)] opacity-50 blur-3xl"></div>
       
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 md:py-32 lg:py-40">
+      <div className="relative z-20 text-center max-w-6xl mx-auto px-6 py-20 md:py-32 lg:py-40">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center"
         >
           {/* Main Headline */}
           <motion.h1
