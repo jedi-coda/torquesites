@@ -65,6 +65,31 @@
   animation: bounceLimited 0.8s ease-out 3;
 }
 
+/* Porsche Hero Shine Gradient */
+.shine-gradient {
+  background: linear-gradient(to right, #FF9500, #C4FF00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: softPulse 12s ease-in-out infinite;
+  font-weight: bold;
+}
+
+@keyframes softPulse {
+  0%, 100% { 
+    opacity: 0.85; 
+    transform: scale(1); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.02); 
+  }
+}
+
+.animate-softPulse {
+  animation: softPulse 12s ease-in-out infinite;
+}
+
 /* ===== Typography ===== */
 :root {
   --font-heading: var(--font-poppins), 'Poppins', system-ui, sans-serif;

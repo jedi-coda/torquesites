@@ -12,14 +12,21 @@ export default function Header() {
   if (isDemo) return null;
 
   return (
-    <header className="w-full bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b">
-      <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="font-extrabold text-xl text-pink-600">
-          TorqueSites
+    <header className="w-full bg-black/80 backdrop-blur-md sticky top-0 z-40 border-b border-white/10">
+      <nav className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+        <Link href="/" className="text-2xl font-bold">
+          <div>
+            <span className="text-[#C4FF00] font-semibold drop-shadow-[0_0_6px_rgba(196,255,0,0.6)]">
+              TorqueSites
+            </span>
+            <p className="text-xs text-[#FF9500]/80 tracking-wide">
+              Performance websites for UK garages
+            </p>
+          </div>
         </Link>
-        <div className="flex gap-6">
-          <Link href="/pricing" className="hover:opacity-70">Pricing</Link>
-          <Link href="/contact" className="hover:opacity-70">Contact</Link>
+        <div className="flex gap-8">
+          <Link href="#pricing" className="text-white hover:text-[#C4FF00] transition-colors duration-200 font-medium">Pricing</Link>
+          <Link href="#contact" className="text-white hover:text-[#C4FF00] transition-colors duration-200 font-medium">Book a Call</Link>
         </div>
       </nav>
     </header>
