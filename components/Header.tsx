@@ -19,7 +19,7 @@ export default function Header() {
             <span className="text-[#C4FF00] font-semibold drop-shadow-[0_0_6px_rgba(196,255,0,0.5)]">
               TorqueSites
             </span>
-            <p className="text-xs text-[#999] tracking-wide">
+            <p className="text-xs text-[#c4ff00] tracking-wide mt-1">
               Performance websites for garages
             </p>
           </div>

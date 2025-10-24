@@ -15,10 +15,10 @@ export default function Hero() {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0E0E0E] to-[#1A1A1A]">
       {/* Background Glow Layer */}
-      <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,#ff6b00_0%,#0b0b0c_70%)] opacity-50 blur-3xl"></div>
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,#ff6b00_0%,#0b0b0c_80%)] opacity-25 blur-2xl"></div>
       
       {/* Content */}
-      <div className="relative z-20 text-center max-w-6xl mx-auto px-6 py-20 md:py-32 lg:py-40">
+      <div className="relative z-10 text-center max-w-6xl mx-auto px-6 py-20 md:py-32 lg:py-40">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -34,16 +34,11 @@ export default function Hero() {
           >
             You&apos;ve earned your reputation.
             <br />
-            <motion.span 
-              className="headline-gradient-shine"
-              whileHover={{ 
-                backgroundImage: 'linear-gradient(to right, #FF9500, #C4FF00)',
-                textShadow: '0 0 12px rgba(196,255,0,0.7)'
-              }}
-              transition={{ duration: 0.3 }}
+            <span
+              className="transition-colors duration-700 text-[#ff9500] hover:text-[#c4ff00] drop-shadow-[0_0_6px_rgba(255,149,0,0.4)]"
             >
               Now let it shine online.
-            </motion.span>
+            </span>
           </motion.h1>
 
           {/* Subheadline */}
