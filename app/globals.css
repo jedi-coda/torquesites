@@ -2,31 +2,100 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Animations */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.animate-bounce-slow {
+  animation: bounce-slow 2s infinite;
+}
+
+@keyframes fade-in-once {
+  0% { opacity: 0; transform: scale(0.8); }
+  60% { opacity: 1; transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+.animate-fade-in-once {
+  animation: fade-in-once 1.8s ease-out forwards;
+}
+
+@keyframes bulbPulseFade {
+  0% {
+    filter: brightness(0.8);
+  }
+  50% {
+    filter: brightness(1.2) drop-shadow(0 0 6px #facc15);
+  }
+  100% {
+    filter: brightness(0.8);
+  }
+}
+
+@keyframes bounceLimited {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-8px);
+  }
+  60% {
+    transform: translateY(4px);
+  }
+}
+
+.bulb-animated {
+  display: inline-block;
+  font-size: 2.25rem;
+  animation: bulbPulseFade 3s ease-in-out 3;
+  animation-fill-mode: forwards;
+}
+
+/* After animation ends, ensure soft glow remains */
+.bulb-animated::after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  filter: drop-shadow(0 0 4px #facc15);
+}
+
+.bounce-3 {
+  display: inline-block;
+  animation: bounceLimited 0.8s ease-out 3;
+}
+
 /* ===== Typography ===== */
 :root {
   --font-heading: var(--font-poppins), 'Poppins', system-ui, sans-serif;
   --font-body: var(--font-inter), 'Inter', system-ui, sans-serif;
 
-  /* Torque Orange Brand System */
+  /* McLaren-Level Brand System */
+  --torque-orange: #FF6B00;
+  --torque-gradient-end: #FF9500;
+  --lime-accent: #C4FF00;
+  --dark-bg: #0E0E0E;
+  --card-surface: #1A1A1A;
+  --success-pulse: #3AFF5C;
+  --text-primary: #FFFFFF;
+  --text-secondary: #D1D1D1;
+  
+  /* Legacy variables for backward compatibility */
   --brand-primary: #FF6B00;
   --brand-gradient-end: #FF9500;
   --brand-accent: #C4FF00;
   --brand-dark: #0E0E0E;
   --brand-surface: #1A1A1A;
-  --text-primary: #FFFFFF;
-  --text-secondary: #D1D1D1;
   --brand-success: #3AFF5C;
-  
-  /* Legacy variables for backward compatibility */
-  --color-primary: #FF6B00;  /* Torque Orange for CTAs */
-  --color-dark: #0E0E0E;     /* Graphite carbon */
+  --color-primary: #FF6B00;
+  --color-dark: #0E0E0E;
   --color-light: #FFFFFF;
   --color-gray: #1A1A1A;
 }
 
 body {
   font-family: var(--font-body);
-  background: var(--brand-dark);
+  background: var(--dark-bg);
   color: var(--text-primary);
   line-height: 1.6;
   /* Add scroll margin to prevent content from being hidden behind sticky actions */
@@ -43,7 +112,7 @@ h1, h2, h3, h4 {
 
 /* ===== Buttons ===== */
 .btn-primary {
-  @apply bg-gradient-to-r from-[#FF6B00] to-[#FF9500] hover:from-[#EA580C] hover:to-[#C2410C] text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200;
+  @apply bg-gradient-to-r from-torque-orange to-torque-gradient-end hover:from-[#EA580C] hover:to-[#C2410C] text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200;
 }
 
 .btn-primary:hover {
@@ -51,12 +120,12 @@ h1, h2, h3, h4 {
 }
 
 .btn-secondary {
-  @apply bg-[#1A1A1A] text-white border border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200;
+  @apply bg-card-surface text-white border border-torque-orange hover:bg-torque-orange hover:text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200;
 }
 
 /* ===== Cards ===== */
 .card {
-  @apply bg-[#1A1A1A] shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-[#1A1A1A];
+  @apply bg-card-surface shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-card-surface;
 }
 
 .card:hover {
