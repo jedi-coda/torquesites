@@ -12,23 +12,23 @@ export default function Header() {
   if (isDemo) return null;
 
   return (
-    <header className="w-full bg-black/80 backdrop-blur-sm sticky top-0 z-40 border-b border-white/10" style={{ backdropFilter: 'blur(6px)', boxShadow: '0 0 12px rgba(0,0,0,0.25)' }}>
-      <nav className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold">
-          <div>
-            <span className="text-[#C4FF00] font-semibold drop-shadow-[0_0_6px_rgba(196,255,0,0.5)]">
-              TorqueSites
-            </span>
-            <p className="text-xs text-[#c4ff00] tracking-wide mt-1">
-              Performance websites for garages
-            </p>
-          </div>
-        </Link>
-        <div className="flex gap-8">
-          <Link href="#pricing" className="text-white hover:text-[#C4FF00] transition-colors duration-200 font-medium">Pricing</Link>
-          <Link href="#contact" className="text-white hover:text-[#C4FF00] transition-colors duration-200 font-medium">Book a Call</Link>
+    <header className="site-header refined-header">
+      <div className="header-container">
+        {/* Brand */}
+        <div className="header-brand">
+          <span className="brand-glow-bg"></span>
+          <Link href="/" className="brand-name hover-transition">TorqueSites</Link>
+          <span className="brand-tagline refined-tagline">
+            Performance websites for garages
+          </span>
         </div>
-      </nav>
+
+        {/* Navigation */}
+        <nav className="header-nav">
+          <Link href="#pricing" className="nav-link refined-nav">Pricing</Link>
+          <Link href="#contact" className="nav-link nav-link-cta refined-nav">Book a Call</Link>
+        </nav>
+      </div>
     </header>
   );
 }
