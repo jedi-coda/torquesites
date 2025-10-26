@@ -19,46 +19,47 @@ export default function PrecisionSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
               transition={{ duration: 0.8 }}
+              className="mb-12"
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">
                 Design that drives results — built for real UK garages
               </h2>
-              <p className="text-lg text-gray-600 mb-16">
+              <p className="text-lg md:text-xl text-zinc-600">
                 Professional, DVSA-aligned websites built to turn searches into bookings.
               </p>
             </motion.div>
 
             {/* Feature Blocks */}
             <div className="space-y-8">
-              <div>
-                <h3 className="text-xl font-bold text-gray-900">Every pixel serves a purpose</h3>
-                <p className="text-gray-600">
+              <div className="space-y-3">
+                <h3 className="text-2xl font-bold text-gray-900 leading-tight">Every pixel serves a purpose</h3>
+                <p className="text-base text-zinc-600 leading-relaxed">
                   From the moment a customer lands on your site, every element guides them toward booking.
                   Clean layouts, intuitive navigation, and strategic placement of CTAs create a seamless
                   journey from interest to action.
                 </p>
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-gray-900">Built for British garages</h3>
-                <p className="text-gray-600">
+              <div className="space-y-3">
+                <h3 className="text-2xl font-bold text-gray-900 leading-tight">Built for British garages</h3>
+                <p className="text-base text-zinc-600 leading-relaxed">
                   We understand the UK garage industry. Our designs incorporate DVSA compliance, local SEO
                   optimization, and trust-building elements that resonate with British customers.
                 </p>
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-gray-900">Mobile-first precision</h3>
-                <p className="text-gray-600">
+              <div className="space-y-3">
+                <h3 className="text-2xl font-bold text-gray-900 leading-tight">Mobile-first precision</h3>
+                <p className="text-base text-zinc-600 leading-relaxed">
                   Most customers discover garages on their phones. Our designs prioritize mobile experience
                   while ensuring desktop users get the full premium experience they expect.
                 </p>
               </div>
 
               {/* Features Summary */}
-              <div className="flex flex-wrap gap-6 pt-4 text-sm">
-                <span className="text-orange-500">• DVSA Compliant</span>
-                <span className="text-green-500">• SEO Ready</span>
-                <span className="text-blue-500">• Mobile Optimized</span>
-                <span className="text-purple-500">• Fast Loading</span>
+              <div className="flex flex-wrap gap-6 pt-4 text-sm text-zinc-600">
+                <span>• DVSA Compliant</span>
+                <span>• SEO Ready</span>
+                <span>• Mobile Optimized</span>
+                <span>• Fast Loading</span>
               </div>
             </div>
           </div>
