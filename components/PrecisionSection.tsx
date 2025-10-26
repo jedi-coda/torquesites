@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import './PrecisionSection.css';
 
 export default function PrecisionSection() {
   const ref = useRef(null);
@@ -144,15 +145,32 @@ export default function PrecisionSection() {
               }}
             />
 
-            {/* Porsche Image */}
-            <Image
-              src="/images/porsche-precision.jpg"
-              alt="Precision Crafted Performance"
-              width={640}
-              height={400}
-              className="rounded-xl relative z-10 w-full shadow-2xl"
-              priority
-            />
+            {/* Porsche Image with Motion */}
+            <div className="precision-image-wrapper">
+              <div className="image-ambient-glow absolute -inset-4 rounded-xl pointer-events-none z-0"></div>
+              <motion.div
+                animate={{
+                  x: [0, 2, 0],
+                  scale: [1, 1.015, 1],
+                }}
+                transition={{
+                  duration: 7,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                  repeatType: "loop",
+                }}
+                className="relative z-10"
+              >
+                <Image
+                  src="/images/porsche-precision.jpg"
+                  alt="Precision Crafted Performance"
+                  width={640}
+                  height={400}
+                  className="precision-image rounded-xl w-full shadow-2xl"
+                  priority
+                />
+              </motion.div>
+            </div>
 
             {/* Animated Overlay Badges - 4 corners */}
             <motion.div
