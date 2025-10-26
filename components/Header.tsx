@@ -12,7 +12,7 @@ export default function Header() {
   if (isDemo) return null;
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-gradient-to-b from-[#0E0E0E] to-[#1A1A1A] backdrop-blur-md border-b border-white/10">
+    <header className="sticky top-0 z-50 w-full bg-black/70 backdrop-blur-md border-b border-white/10">
       <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold">
           <span className="text-[#C4FF00] font-semibold drop-shadow-[0_0_6px_rgba(196,255,0,0.5)]">

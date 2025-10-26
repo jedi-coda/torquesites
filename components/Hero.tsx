@@ -14,6 +14,14 @@ const trackClick = (event: string, location: string) => {
 export default function Hero() {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0E0E0E] to-[#1A1A1A]">
+      {/* Diagonal Line Texture */}
+      <div 
+        className="absolute inset-0 z-0 pointer-events-none opacity-10"
+        style={{
+          backgroundImage: 'repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.015) 0px, rgba(255, 255, 255, 0.015) 1px, transparent 1px, transparent 48px)'
+        }}
+      />
+      
       {/* Background Glow Layer */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,#ff6b00_0%,#0b0b0c_80%)] opacity-25 blur-2xl"></div>
       
