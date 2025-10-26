@@ -12,28 +12,20 @@ export default function Header() {
   if (isDemo) return null;
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-gradient-to-b from-[#0a0a0a] to-[#111111] backdrop-blur-md opacity-95">
-      <div className="flex justify-between items-center max-w-7xl mx-auto px-6 py-4">
-        
-        {/* Brand */}
-        <div className="flex flex-col gap-1">
-          <Link href="/" className="text-[#C4FF00] font-bold text-lg hover:text-[#FF9500] transition duration-300">
+    <header className="fixed top-0 w-full z-50 bg-gradient-to-b from-[#0E0E0E] to-[#1A1A1A] backdrop-blur-md border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+        <Link href="/" className="text-2xl font-bold">
+          <span className="text-[#C4FF00] font-semibold drop-shadow-[0_0_6px_rgba(196,255,0,0.5)]">
             TorqueSites
-          </Link>
-          <span className="text-sm text-neutral-400 hover:text-[#C4FF00] transition duration-200">
-            Performance websites for garages
           </span>
+          <p className="text-xs text-neutral-400 tracking-wide">
+            Performance websites for garages
+          </p>
+        </Link>
+        <div className="flex gap-8">
+          <Link href="#pricing" className="text-white hover:text-[#C4FF00] transition-colors duration-200 font-medium">Pricing</Link>
+          <Link href="#contact" className="text-white hover:text-[#C4FF00] transition-colors duration-200 font-medium">Book a Call</Link>
         </div>
-
-        {/* Navigation */}
-        <nav className="flex gap-6">
-          <Link href="#pricing" className="text-[#f5f5f5] hover:text-[#C4FF00] hover:drop-shadow-[0_0_6px_rgba(196,255,0,0.4)] transition duration-200">
-            Pricing
-          </Link>
-          <Link href="#contact" className="text-[#f5f5f5] hover:text-[#C4FF00] hover:drop-shadow-[0_0_6px_rgba(196,255,0,0.4)] transition duration-200">
-            Book a Call
-          </Link>
-        </nav>
       </div>
     </header>
   );
