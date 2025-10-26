@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { links } from "@/lib/links";
+import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import DesignPhilosophy from "@/components/DesignPhilosophy";
 import PrecisionSection from "@/components/PrecisionSection";
@@ -32,6 +33,9 @@ export default function HomePage() {
   return (
     <div className="bg-gradient-to-b from-[#0E0E0E] to-[#1A1A1A] backdrop-blur-md min-h-screen">
     <main className="font-sans text-white">
+      {/* HEADER */}
+      <Header />
+
       {/* HERO */}
       <Hero />
 
