@@ -9,6 +9,11 @@ export default function PrecisionSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  const badgeVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1 }
+  };
+
   return (
     <section ref={ref} className="relative bg-white py-20 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
@@ -83,34 +88,70 @@ export default function PrecisionSection() {
 
             {/* Porsche Image */}
             <Image
-              src="/images/porsche.jpg"
-              alt="Porsche Targa driving on road"
+              src="/images/porsche-precision.jpg"
+              alt="Precision Crafted Performance"
               width={640}
               height={400}
               className="rounded-xl relative z-10 w-full shadow-xl"
               priority
             />
 
-            {/* Labels */}
-            <div className="absolute top-3 left-3 z-20 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded">
+            {/* Animated Overlay Badges */}
+            <motion.div
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              variants={badgeVariants}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="absolute top-3 left-3 z-20 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded"
+            >
               Precision Crafted
-            </div>
-            <div className="absolute top-3 right-3 z-20 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded">
+            </motion.div>
+            
+            <motion.div
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              variants={badgeVariants}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="absolute top-3 right-3 z-20 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded"
+            >
               2.1s Load Time
-            </div>
-            <div className="absolute bottom-3 left-3 z-20 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded">
+            </motion.div>
+            
+            <motion.div
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              variants={badgeVariants}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="absolute bottom-3 left-3 z-20 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded"
+            >
               99% Uptime
-            </div>
+            </motion.div>
+            
+            <motion.div
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              variants={badgeVariants}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="absolute bottom-3 right-3 z-20 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded"
+            >
+              Engineering Excellence
+            </motion.div>
           </div>
         </div>
 
         {/* Quote */}
-        <p className="mt-16 italic text-center text-gray-600 text-sm">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-16 italic text-center text-gray-600 text-sm"
+        >
           "In the same way Porsche engineers obsess over aerodynamics and performance,
           we obsess over user experience and conversion optimization."
           <br />
           <span className="block mt-2">— TorqueSites Design Team</span>
-        </p>
+        </motion.p>
       </div>
     </section>
   );
