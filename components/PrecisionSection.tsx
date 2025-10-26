@@ -162,18 +162,27 @@ export default function PrecisionSection() {
         </div>
 
         {/* Quote */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-16 italic text-center text-zinc-400 text-sm max-w-3xl mx-auto"
-        >
-          "In the same way Porsche engineers obsess over aerodynamics and performance,
-          we obsess over user experience and conversion optimization."
-          <br />
-          <span className="block mt-2">— TorqueSites Design Team</span>
-        </motion.p>
+        <figure className="mt-16 max-w-3xl mx-auto">
+          <motion.blockquote
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="text-lg md:text-xl leading-relaxed text-center italic font-medium text-zinc-300"
+          >
+            "In the same way Porsche engineers obsess over aerodynamics and performance,
+            we obsess over user experience and conversion optimization."
+          </motion.blockquote>
+          <motion.figcaption
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="mt-8 text-center text-sm text-gray-400 hover:text-[#C4FF00] transition-colors duration-300"
+          >
+            — TorqueSites Design Team
+          </motion.figcaption>
+        </figure>
       </div>
     </section>
   );
