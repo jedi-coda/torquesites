@@ -21,7 +21,7 @@ export default function PrecisionSection() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight text-balance">
             Design that drives results — built for independent UK garages
@@ -32,22 +32,38 @@ export default function PrecisionSection() {
           
           {/* Trust Badges */}
           <div className="flex flex-wrap gap-4 justify-center mt-6">
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10">
+            <motion.div
+              whileHover={{ scale: 1.05, boxShadow: "0 0 12px rgba(249, 115, 22, 0.4)" }}
+              transition={{ duration: 0.2 }}
+              className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10 cursor-pointer"
+            >
               <div className="w-2 h-2 rounded-full bg-orange-500"></div>
               <span className="text-sm text-zinc-300">DVSA Compliant</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10">
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, boxShadow: "0 0 12px rgba(168, 85, 247, 0.4)" }}
+              transition={{ duration: 0.2 }}
+              className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10 cursor-pointer"
+            >
               <div className="w-2 h-2 rounded-full bg-purple-500"></div>
               <span className="text-sm text-zinc-300">Mobile Optimized</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10">
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, boxShadow: "0 0 12px rgba(34, 197, 94, 0.4)" }}
+              transition={{ duration: 0.2 }}
+              className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10 cursor-pointer"
+            >
               <div className="w-2 h-2 rounded-full bg-green-500"></div>
               <span className="text-sm text-zinc-300">SEO Ready</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10">
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, boxShadow: "0 0 12px rgba(59, 130, 246, 0.4)" }}
+              transition={{ duration: 0.2 }}
+              className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10 cursor-pointer"
+            >
               <div className="w-2 h-2 rounded-full bg-blue-500"></div>
               <span className="text-sm text-zinc-300">Fast Loading</span>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
@@ -58,36 +74,56 @@ export default function PrecisionSection() {
           <div>
             {/* Feature Blocks */}
             <div className="space-y-8">
-              <div className="space-y-3">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="space-y-3"
+              >
                 <h3 className="text-2xl font-bold text-white leading-tight">Every pixel serves a purpose</h3>
                 <p className="text-base text-zinc-300 leading-relaxed">
                   From the moment a customer lands on your site, every element guides them toward booking.
                   Clean layouts, intuitive navigation, and strategic placement of CTAs create a seamless
                   journey from interest to action.
                 </p>
-              </div>
-              <div className="space-y-3">
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="space-y-3"
+              >
                 <h3 className="text-2xl font-bold text-white leading-tight">Built for British garages</h3>
                 <p className="text-base text-zinc-300 leading-relaxed">
                   We understand the UK garage industry. Our designs incorporate DVSA compliance, local SEO
                   optimization, and trust-building elements that resonate with British customers.
                 </p>
-              </div>
-              <div className="space-y-3">
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="space-y-3"
+              >
                 <h3 className="text-2xl font-bold text-white leading-tight">Mobile-first precision</h3>
                 <p className="text-base text-zinc-300 leading-relaxed">
                   Most customers discover garages on their phones. Our designs prioritize mobile experience
                   while ensuring desktop users get the full premium experience they expect.
                 </p>
-              </div>
+              </motion.div>
 
               {/* Features Summary */}
-              <div className="flex flex-wrap gap-6 pt-4 text-sm text-zinc-400">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="flex flex-wrap gap-6 pt-4 text-sm text-zinc-400"
+              >
                 <span>• DVSA Compliant</span>
                 <span>• SEO Ready</span>
                 <span>• Mobile Optimized</span>
                 <span>• Fast Loading</span>
-              </div>
+              </motion.div>
             </div>
           </div>
 
@@ -178,7 +214,7 @@ export default function PrecisionSection() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="mt-8 text-center text-sm text-gray-400 hover:text-[#C4FF00] transition-colors duration-300"
+            className="mt-8 text-center text-sm text-gray-400 hover:text-[#C4FF00] transition-colors duration-300 cursor-pointer"
           >
             TorqueSites Design Team
           </motion.figcaption>
