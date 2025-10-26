@@ -15,7 +15,7 @@ export default function PrecisionSection() {
   };
 
   return (
-    <section ref={ref} className="relative bg-white py-20 md:py-32">
+    <section ref={ref} className="relative bg-zinc-950 py-20 md:py-32 text-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Text Block */}
@@ -26,10 +26,10 @@ export default function PrecisionSection() {
               transition={{ duration: 0.8 }}
               className="mb-12"
             >
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 leading-tight">
                 Design that drives results — built for real UK garages
               </h2>
-              <p className="text-lg md:text-xl text-zinc-600">
+              <p className="text-lg md:text-xl text-zinc-300">
                 Professional, DVSA-aligned websites built to turn searches into bookings.
               </p>
             </motion.div>
@@ -37,30 +37,30 @@ export default function PrecisionSection() {
             {/* Feature Blocks */}
             <div className="space-y-8">
               <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-gray-900 leading-tight">Every pixel serves a purpose</h3>
-                <p className="text-base text-zinc-600 leading-relaxed">
+                <h3 className="text-2xl font-bold text-white leading-tight">Every pixel serves a purpose</h3>
+                <p className="text-base text-zinc-300 leading-relaxed">
                   From the moment a customer lands on your site, every element guides them toward booking.
                   Clean layouts, intuitive navigation, and strategic placement of CTAs create a seamless
                   journey from interest to action.
                 </p>
               </div>
               <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-gray-900 leading-tight">Built for British garages</h3>
-                <p className="text-base text-zinc-600 leading-relaxed">
+                <h3 className="text-2xl font-bold text-white leading-tight">Built for British garages</h3>
+                <p className="text-base text-zinc-300 leading-relaxed">
                   We understand the UK garage industry. Our designs incorporate DVSA compliance, local SEO
                   optimization, and trust-building elements that resonate with British customers.
                 </p>
               </div>
               <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-gray-900 leading-tight">Mobile-first precision</h3>
-                <p className="text-base text-zinc-600 leading-relaxed">
+                <h3 className="text-2xl font-bold text-white leading-tight">Mobile-first precision</h3>
+                <p className="text-base text-zinc-300 leading-relaxed">
                   Most customers discover garages on their phones. Our designs prioritize mobile experience
                   while ensuring desktop users get the full premium experience they expect.
                 </p>
               </div>
 
               {/* Features Summary */}
-              <div className="flex flex-wrap gap-6 pt-4 text-sm text-zinc-600">
+              <div className="flex flex-wrap gap-6 pt-4 text-sm text-zinc-400">
                 <span>• DVSA Compliant</span>
                 <span>• SEO Ready</span>
                 <span>• Mobile Optimized</span>
@@ -71,13 +71,13 @@ export default function PrecisionSection() {
 
           {/* Porsche Image Block */}
           <div className="relative w-full max-w-xl mx-auto">
-            {/* Heartbeat Glow */}
+            {/* Heartbeat Glow Effect */}
             <motion.div
-              className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[70%] h-[20%] rounded-full blur-2xl bg-lime-400/20 pointer-events-none z-0"
+              className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[70%] h-[20%] rounded-full blur-2xl bg-orange-500/30 pointer-events-none z-0"
               style={{ mixBlendMode: "screen" }}
               animate={{
-                opacity: [0.2, 0.85, 0.3, 0.75, 0.2],
-                scale: [1, 1.04, 1, 1.03, 1],
+                opacity: [0.2, 0.8, 0.3, 0.75, 0.2],
+                scale: [1, 1.05, 1, 1.04, 1],
               }}
               transition={{
                 duration: 3.6,
@@ -92,17 +92,17 @@ export default function PrecisionSection() {
               alt="Precision Crafted Performance"
               width={640}
               height={400}
-              className="rounded-xl relative z-10 w-full shadow-xl"
+              className="rounded-xl relative z-10 w-full shadow-2xl"
               priority
             />
 
-            {/* Animated Overlay Badges */}
+            {/* Animated Overlay Badges - 4 corners */}
             <motion.div
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               variants={badgeVariants}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="absolute top-3 left-3 z-20 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded"
+              className="absolute top-3 left-3 z-20 bg-black/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10"
             >
               Precision Crafted
             </motion.div>
@@ -112,7 +112,7 @@ export default function PrecisionSection() {
               animate={isInView ? "visible" : "hidden"}
               variants={badgeVariants}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="absolute top-3 right-3 z-20 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded"
+              className="absolute top-3 right-3 z-20 bg-black/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10"
             >
               2.1s Load Time
             </motion.div>
@@ -122,7 +122,7 @@ export default function PrecisionSection() {
               animate={isInView ? "visible" : "hidden"}
               variants={badgeVariants}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="absolute bottom-3 left-3 z-20 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded"
+              className="absolute bottom-3 left-3 z-20 bg-black/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10"
             >
               99% Uptime
             </motion.div>
@@ -132,7 +132,7 @@ export default function PrecisionSection() {
               animate={isInView ? "visible" : "hidden"}
               variants={badgeVariants}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="absolute bottom-3 right-3 z-20 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded"
+              className="absolute bottom-3 right-3 z-20 bg-black/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10"
             >
               Engineering Excellence
             </motion.div>
@@ -145,7 +145,7 @@ export default function PrecisionSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-16 italic text-center text-gray-600 text-sm"
+          className="mt-16 italic text-center text-zinc-400 text-sm max-w-3xl mx-auto"
         >
           "In the same way Porsche engineers obsess over aerodynamics and performance,
           we obsess over user experience and conversion optimization."
