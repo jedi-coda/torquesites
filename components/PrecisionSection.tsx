@@ -16,44 +16,46 @@ export default function PrecisionSection() {
 
   return (
     <section ref={ref} className="relative bg-zinc-950 py-20 md:py-32 text-white">
+      {/* Full-width centered header */}
+      <div className="text-center w-full max-w-5xl mx-auto px-4 mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight text-balance">
+            Design that drives results — built for independent UK garages
+          </h2>
+          <p className="text-lg md:text-xl text-zinc-300 mx-auto max-w-2xl">
+            Professional, DVSA-aligned websites built to turn searches into bookings.
+          </p>
+          
+          {/* Trust Badges */}
+          <div className="flex flex-wrap gap-4 justify-center mt-6">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10">
+              <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+              <span className="text-sm text-zinc-300">DVSA Compliant</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10">
+              <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+              <span className="text-sm text-zinc-300">Mobile Optimized</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10">
+              <div className="w-2 h-2 rounded-full bg-green-500"></div>
+              <span className="text-sm text-zinc-300">SEO Ready</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10">
+              <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+              <span className="text-sm text-zinc-300">Fast Loading</span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Text Block */}
           <div>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
-              transition={{ duration: 0.8 }}
-              className="mb-12"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 leading-tight text-center">
-                Design that drives results — built for independent UK garages
-              </h2>
-              <p className="text-lg md:text-xl text-zinc-300 text-center">
-                Professional, DVSA-aligned websites built to turn searches into bookings.
-              </p>
-              
-              {/* Trust Badges */}
-              <div className="flex flex-wrap gap-4 justify-center mt-6">
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10">
-                  <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-                  <span className="text-sm text-zinc-300">DVSA Compliant</span>
-                </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10">
-                  <div className="w-2 h-2 rounded-full bg-purple-500"></div>
-                  <span className="text-sm text-zinc-300">Mobile Optimized</span>
-                </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10">
-                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                  <span className="text-sm text-zinc-300">SEO Ready</span>
-                </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10">
-                  <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                  <span className="text-sm text-zinc-300">Fast Loading</span>
-                </div>
-              </div>
-            </motion.div>
-
             {/* Feature Blocks */}
             <div className="space-y-8">
               <div className="space-y-3">
