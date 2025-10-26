@@ -180,7 +180,7 @@ export default function PrecisionSection() {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="mt-8 text-center text-sm text-gray-400 hover:text-[#C4FF00] transition-colors duration-300"
           >
-            — TorqueSites Design Team
+            TorqueSites Design Team
           </motion.figcaption>
         </figure>
       </div>
