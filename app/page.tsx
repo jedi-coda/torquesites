@@ -30,30 +30,8 @@ const trackClick = (event: string, location: string) => {
 
 export default function HomePage() {
   return (
-    <main className="font-sans text-gray-900">
-      {/* NAV */}
-      <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-          <Link href="/" className="font-bold text-xl text-gray-900">
-            TorqueSites
-          </Link>
-          <div className="flex gap-6">
-            <Link
-              href="/pricing"
-              className="text-gray-700 hover:text-torque-orange font-medium transition"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/contact"
-              className="text-gray-700 hover:text-torque-orange font-medium transition"
-            >
-              Book a Call
-            </Link>
-          </div>
-        </div>
-      </nav>
-
+    <div className="bg-gradient-to-b from-[#0E0E0E] to-[#1A1A1A] backdrop-blur-md min-h-screen">
+    <main className="font-sans text-white">
       {/* HERO */}
       <Hero />
 
@@ -343,6 +321,7 @@ export default function HomePage() {
         </div>
       </footer>
     </main>
+    </div>
   );
 }
 
