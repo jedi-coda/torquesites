@@ -35,7 +35,7 @@ export default function Hero() {
             You&apos;ve earned your reputation.
             <br />
             <span
-              className="transition-colors duration-700 text-[#ff9500] hover:text-[#c4ff00] drop-shadow-[0_0_6px_rgba(255,149,0,0.4)]"
+              className="transition-colors duration-700 text-[#ff9500] hover:text-[#c4ff00] drop-shadow-[0_0_0.3rem_#C4FF00]"
             >
               Now let it shine online.
             </span>
@@ -62,7 +62,7 @@ export default function Hero() {
             <motion.button
               onClick={() => trackClick('start_engine', 'hero')}
               whileHover={{ scale: 1.03 }}
-              className="btn-start-engine-porsche"
+              className="btn-start-engine-porsche inline-flex items-center"
             >
               START YOUR ENGINE →
               <ArrowRight className="w-5 h-5 ml-2" />
