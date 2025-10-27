@@ -26,10 +26,10 @@ export default function PrecisionSection() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight text-balance">
-            Design that drives results — built for independent UK garages
+            Design that drives results.
           </h2>
           <p className="text-lg md:text-xl text-zinc-300 mx-auto max-w-2xl">
-            Professional, DVSA-aligned websites built to turn searches into bookings.
+            Smart, SEO-optimised sites built to convert searches into bookings.
           </p>
           
           {/* Trust Badges */}
