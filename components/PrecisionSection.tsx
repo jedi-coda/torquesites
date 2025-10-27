@@ -30,42 +30,6 @@ export default function PrecisionSection() {
           <p className="text-lg md:text-xl text-zinc-300 mx-auto max-w-2xl">
             Professional, DVSA-aligned websites built to turn searches into bookings.
           </p>
-          
-          {/* Trust Badges */}
-          <div className="flex flex-wrap gap-4 justify-center mt-6">
-            <motion.div
-              whileHover={{ scale: 1.05, boxShadow: "0 0 12px rgba(249, 115, 22, 0.4)" }}
-              transition={{ duration: 0.2 }}
-              className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10 cursor-pointer"
-            >
-              <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-              <span className="text-sm text-zinc-300">DVSA Compliant</span>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05, boxShadow: "0 0 12px rgba(168, 85, 247, 0.4)" }}
-              transition={{ duration: 0.2 }}
-              className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10 cursor-pointer"
-            >
-              <div className="w-2 h-2 rounded-full bg-purple-500"></div>
-              <span className="text-sm text-zinc-300">Mobile Optimized</span>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05, boxShadow: "0 0 12px rgba(34, 197, 94, 0.4)" }}
-              transition={{ duration: 0.2 }}
-              className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10 cursor-pointer"
-            >
-              <div className="w-2 h-2 rounded-full bg-green-500"></div>
-              <span className="text-sm text-zinc-300">SEO Ready</span>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05, boxShadow: "0 0 12px rgba(59, 130, 246, 0.4)" }}
-              transition={{ duration: 0.2 }}
-              className="flex items-center gap-2 px-3 py-1.5 bg-black/40 rounded-full border border-white/10 cursor-pointer"
-            >
-              <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-              <span className="text-sm text-zinc-300">Fast Loading</span>
-            </motion.div>
-          </div>
         </motion.div>
       </div>
 
