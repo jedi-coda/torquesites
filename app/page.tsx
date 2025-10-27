@@ -179,10 +179,17 @@ export default function HomePage() {
           {/* v1.2.2-results-polish — scroll animation, hover glow, testimonial fade-in */}
         </div>
       </section>
+      
+      {/* Divider */}
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
+      
       {/* PRICING */}
       <section id="pricing" className="py-20">
         <HomepagePricingCards />
       </section>
+
+      {/* Divider */}
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
 
       {/* GUARANTEE */}
       <section className="py-16 md:py-20 px-6 bg-dark-bg text-white text-center">
@@ -201,10 +208,16 @@ export default function HomePage() {
         <p className="mt-10 text-torque-orange font-medium">No risk. Just performance.</p>
       </section>
 
+      {/* Divider */}
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
+
       {/* VIP SECTION */}
       <section id="partner100" className="py-20">
         <VIPSection />
       </section>
+
+      {/* Divider */}
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
 
       {/* FINAL CTA */}
       <section className="py-16 md:py-20 px-6 bg-gradient-to-r from-torque-orange to-torque-gradient-end text-center text-white">
