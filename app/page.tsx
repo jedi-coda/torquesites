@@ -99,18 +99,11 @@ export default function HomePage() {
         className="py-20 px-6 bg-[#0a0a0f] text-white"
       >
         <div className="max-w-6xl mx-auto text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl md:text-4xl font-bold mb-4"
-          >
-            <span className="bulb-animated text-yellow-400">💡</span> One extra MOT per week covers your TorqueSite.
-          </motion.h2>
-          <p className="text-lg text-gray-300 mb-12 max-w-2xl mx-auto">
+          <h2 className="text-5xl sm:text-6xl font-bold text-white text-center">
+            One extra MOT per week covers your TorqueSite.
+          </h2>
+          <p className="mt-4 text-center text-lg sm:text-xl font-medium text-[#C4FF00]">
             Real results for independent garages. See how TorqueSites turns online presence into booked MOTs and services.
-            {/* v1.2.1-results-section-copy — updated for precision targeting and conversion focus */}
           </p>
           
           {/* Stats */}
