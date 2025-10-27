@@ -100,7 +100,7 @@ export default function HomePage() {
               One extra MOT per week covers your TorqueSite.
             </h2>
             <p className="mt-4 text-center text-lg sm:text-xl font-medium text-lime-400" style={{ textShadow: '0 0 8px rgba(200,255,0,0.3)' }}>
-              Real performance, proven by data. Every TorqueSite turns online presence into booked MOTs and services.
+              Real performance, proven by data. TorqueSites turns online searches into booked MOTs, calls, and loyal customers.
             </p>
           </div>
           
