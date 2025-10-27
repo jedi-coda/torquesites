@@ -62,10 +62,12 @@ export default function PrecisionSection() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="space-y-3"
+                className="group mb-6"
               >
-                <h3 className="text-2xl font-bold text-white leading-tight">Every pixel serves a purpose</h3>
-                <p className="text-base text-zinc-300 leading-relaxed">
+                <h3 className="text-xl font-semibold text-white transition duration-300 group-hover:text-[#C4FF00] group-hover:scale-[1.03]">
+                  Every pixel serves a purpose
+                </h3>
+                <p className="text-gray-400 mt-2">
                   From the moment a customer lands on your site, every element guides them toward booking.
                   Clean layouts, intuitive navigation, and strategic placement of CTAs create a seamless
                   journey from interest to action.
@@ -75,10 +77,12 @@ export default function PrecisionSection() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="space-y-3"
+                className="group mb-6"
               >
-                <h3 className="text-2xl font-bold text-white leading-tight">Built for British garages</h3>
-                <p className="text-base text-zinc-300 leading-relaxed">
+                <h3 className="text-xl font-semibold text-white transition duration-300 group-hover:text-[#C4FF00] group-hover:scale-[1.03]">
+                  Built for British garages
+                </h3>
+                <p className="text-gray-400 mt-2">
                   We understand the UK garage industry. Our designs incorporate DVSA compliance, local SEO
                   optimization, and trust-building elements that resonate with British customers.
                 </p>
@@ -87,10 +91,12 @@ export default function PrecisionSection() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="space-y-3"
+                className="group mb-6"
               >
-                <h3 className="text-2xl font-bold text-white leading-tight">Mobile-first precision</h3>
-                <p className="text-base text-zinc-300 leading-relaxed">
+                <h3 className="text-xl font-semibold text-white transition duration-300 group-hover:text-[#C4FF00] group-hover:scale-[1.03]">
+                  Mobile-first precision
+                </h3>
+                <p className="text-gray-400 mt-2">
                   Most customers discover garages on their phones. Our designs prioritize mobile experience
                   while ensuring desktop users get the full premium experience they expect.
                 </p>
