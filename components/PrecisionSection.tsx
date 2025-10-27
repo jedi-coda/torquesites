@@ -25,10 +25,10 @@ export default function PrecisionSection() {
           animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight text-balance">
+          <h2 className="text-5xl sm:text-6xl font-bold text-white text-center">
             Design that drives results.
           </h2>
-          <p className="text-lg md:text-xl text-zinc-300 mx-auto max-w-2xl">
+          <p className="mt-4 text-lg text-[#C4FF00] text-center">
             Smart, SEO-optimised sites built to convert searches into bookings.
           </p>
           
