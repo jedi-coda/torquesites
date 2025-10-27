@@ -44,15 +44,12 @@ export default function HomePage() {
 
       {/* FEATURES */}
       <section className="py-16 md:py-20 px-6 bg-dark-bg">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold text-center text-white"
-        >
-          Performance in practice — every detail built to convert attention into action.
-        </motion.h2>
+        <h2 className="text-3xl font-bold text-white text-center sm:text-4xl">
+          Performance in practice
+        </h2>
+        <p className="mt-2 text-lg text-gray-300 text-center">
+          Every detail built to convert attention into action.
+        </p>
         <div className="mt-16 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <Feature
             icon={<Smartphone size={28} strokeWidth={2} />}
