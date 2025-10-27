@@ -17,7 +17,7 @@ export default function PrecisionSection() {
   };
 
   return (
-    <section ref={ref} className="relative bg-zinc-950 py-20 md:py-32 text-white">
+    <section ref={ref} className="relative py-20 md:py-32 text-white">
       {/* Full-width centered header */}
       <div className="text-center w-full max-w-5xl mx-auto px-4 mb-16">
         <motion.div
