@@ -51,7 +51,7 @@ export default function HomePage() {
           transition={{ duration: 0.6 }}
           className="text-3xl md:text-4xl font-bold text-center text-white"
         >
-          Built for British garages. DVSA-Aligned Designs.
+          Performance in practice — every detail built to convert attention into action.
         </motion.h2>
         <div className="mt-16 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <Feature
