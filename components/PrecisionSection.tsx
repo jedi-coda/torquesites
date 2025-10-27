@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { ShieldCheck, Search, Smartphone, GaugeCircle } from 'lucide-react';
 import './PrecisionSection.css';
 
 export default function PrecisionSection() {
@@ -33,11 +34,17 @@ export default function PrecisionSection() {
           
           {/* Trust Badges */}
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            {["DVSA Compliant", "SEO Ready", "Mobile Optimized", "Fast Loading"].map((label) => (
+            {[
+              { label: "DVSA Compliant", icon: ShieldCheck },
+              { label: "SEO Ready", icon: Search },
+              { label: "Mobile Optimized", icon: Smartphone },
+              { label: "Fast Loading", icon: GaugeCircle }
+            ].map(({ label, icon: Icon }) => (
               <span
                 key={label}
-                className="rounded-full bg-neutral-800 px-4 py-1.5 text-sm text-white"
+                className="rounded-full bg-neutral-800 px-4 py-1.5 text-sm text-white inline-flex items-center gap-2"
               >
+                <Icon className="h-4 w-4" />
                 {label}
               </span>
             ))}
