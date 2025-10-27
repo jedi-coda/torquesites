@@ -7,7 +7,7 @@ export default function VIPSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="bg-[#0E0E0E] py-24 text-center relative overflow-hidden">
+    <section ref={ref} className="py-24 text-center relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#FF6B00]/10 via-transparent to-[#C4FF00]/10"></div>
