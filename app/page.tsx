@@ -91,33 +91,26 @@ export default function HomePage() {
       </section>
 
       {/* ROI SECTION */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="py-20 px-6 bg-[#0a0a0f] text-white"
-      >
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-5xl sm:text-6xl font-bold text-white text-center">
-            One extra MOT per week covers your TorqueSite.
-          </h2>
-          <p className="mt-4 text-center text-lg sm:text-xl font-medium text-[#C4FF00]">
-            Real results for independent garages. See how TorqueSites turns online presence into booked MOTs and services.
-          </p>
+      <section className="py-24 md:py-32 bg-[#0E0E0E]">
+        <div className="space-y-16 max-w-6xl mx-auto text-center px-6">
+          <div>
+            <h2 className="text-5xl sm:text-6xl font-bold text-white text-center">
+              One extra MOT per week covers your TorqueSite.
+            </h2>
+            <p className="mt-4 text-center text-lg sm:text-xl font-medium text-[#C4FF00]">
+              Real results for independent garages. See how TorqueSites turns online presence into booked MOTs and services.
+            </p>
+          </div>
           
           {/* Stats */}
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="flex flex-wrap justify-center gap-8 mt-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              whileHover={{ 
-                scale: 1.04,
-                transition: { type: "spring", stiffness: 300, damping: 20 }
-              }}
-              className="flex flex-col items-center cursor-pointer rounded-xl bg-[#121212] p-6 hover:shadow-[0_0_20px_rgba(0,128,255,0.3)]"
+              whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
+              className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#1e1e1e] text-green-400 mb-4">
                 <TrendingUp size={32} strokeWidth={2} />
@@ -131,11 +124,8 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              whileHover={{ 
-                scale: 1.04,
-                transition: { type: "spring", stiffness: 300, damping: 20 }
-              }}
-              className="flex flex-col items-center cursor-pointer rounded-xl bg-[#121212] p-6 hover:shadow-[0_0_20px_rgba(0,128,255,0.3)]"
+              whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
+              className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#1e1e1e] text-blue-400 mb-4">
                 <Phone size={32} strokeWidth={2} />
@@ -149,11 +139,8 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              whileHover={{ 
-                scale: 1.04,
-                transition: { type: "spring", stiffness: 300, damping: 20 }
-              }}
-              className="flex flex-col items-center cursor-pointer rounded-xl bg-[#121212] p-6 hover:shadow-[0_0_20px_rgba(0,128,255,0.3)]"
+              whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
+              className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#1e1e1e] text-yellow-400 mb-4">
                 <Star size={32} strokeWidth={2} />
@@ -189,10 +176,7 @@ export default function HomePage() {
           
           {/* v1.2.2-results-polish — scroll animation, hover glow, testimonial fade-in */}
         </div>
-        
-        {/* Section Divider */}
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent my-16" />
-      </motion.section>
+      </section>
       {/* PRICING */}
       <section id="pricing" className="py-20">
         <HomepagePricingCards />
