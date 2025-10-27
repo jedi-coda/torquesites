@@ -49,7 +49,7 @@ export default function HomePage() {
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
 
       {/* FEATURES */}
-      <section className="py-16 md:py-20 px-6 bg-dark-bg">
+      <section className="py-16 md:py-20 px-6">
         <h2 className="text-5xl sm:text-6xl font-bold text-white text-center">
           Performance in practice
         </h2>
@@ -100,7 +100,7 @@ export default function HomePage() {
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
 
       {/* ROI SECTION */}
-      <section className="py-24 md:py-32 bg-[#0E0E0E]">
+      <section className="py-24 md:py-32">
         
         <div className="space-y-16 max-w-6xl mx-auto text-center px-6">
           <div>
@@ -200,7 +200,7 @@ export default function HomePage() {
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
 
       {/* GUARANTEE */}
-      <section className="py-16 md:py-20 px-6 bg-dark-bg text-white text-center">
+      <section className="py-16 md:py-20 px-6 text-white text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
