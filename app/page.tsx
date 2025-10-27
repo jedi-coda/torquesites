@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { motion } from "framer-motion";
+import CountUp from "react-countup";
 import {
   Wrench,
   Smartphone,
@@ -125,7 +126,9 @@ export default function HomePage() {
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#1e1e1e] text-green-400 mb-4">
                 <TrendingUp size={32} strokeWidth={2} />
               </div>
-              <h3 className="text-2xl font-bold text-green-400 mb-2">+47%</h3>
+              <h3 className="text-2xl font-bold text-green-400 mb-2">
+                <CountUp end={47} duration={1.5} prefix="+" suffix="%" />
+              </h3>
               <p className="text-gray-300">More Online Bookings</p>
             </motion.div>
             
@@ -140,7 +143,9 @@ export default function HomePage() {
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#1e1e1e] text-blue-400 mb-4">
                 <Phone size={32} strokeWidth={2} />
               </div>
-              <h3 className="text-2xl font-bold text-blue-400 mb-2">+23%</h3>
+              <h3 className="text-2xl font-bold text-blue-400 mb-2">
+                <CountUp end={23} duration={1.5} prefix="+" suffix="%" />
+              </h3>
               <p className="text-gray-300">More Phone Calls</p>
             </motion.div>
             
@@ -155,7 +160,9 @@ export default function HomePage() {
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#1e1e1e] text-yellow-400 mb-4">
                 <Star size={32} strokeWidth={2} />
               </div>
-              <h3 className="text-2xl font-bold text-yellow-400 mb-2">+31%</h3>
+              <h3 className="text-2xl font-bold text-yellow-400 mb-2">
+                <CountUp end={31} duration={1.5} prefix="+" suffix="%" />
+              </h3>
               <p className="text-gray-300">Better Google Rankings</p>
             </motion.div>
           </div>
