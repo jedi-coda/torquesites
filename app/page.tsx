@@ -127,7 +127,7 @@ export default function HomePage() {
                 <TrendingUp size={32} strokeWidth={2} />
               </div>
               <h3 className="text-2xl font-bold text-green-400 mb-2">
-                <CountUp end={47} duration={1.5} prefix="+" suffix="%" />
+                <CountUp end={47} duration={1.5} start={0} prefix="+" suffix="%" />
               </h3>
               <p className="text-gray-300">More Online Bookings</p>
             </motion.div>
@@ -136,7 +136,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.15 }}
+              transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
               whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
               className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
@@ -144,7 +144,7 @@ export default function HomePage() {
                 <Phone size={32} strokeWidth={2} />
               </div>
               <h3 className="text-2xl font-bold text-blue-400 mb-2">
-                <CountUp end={23} duration={1.5} prefix="+" suffix="%" />
+                <CountUp end={23} duration={2.0} start={0} prefix="+" suffix="%" />
               </h3>
               <p className="text-gray-300">More Phone Calls</p>
             </motion.div>
@@ -153,7 +153,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 1.0, delay: 0.5, ease: "easeOut" }}
               whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
               className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
@@ -161,7 +161,7 @@ export default function HomePage() {
                 <Star size={32} strokeWidth={2} />
               </div>
               <h3 className="text-2xl font-bold text-yellow-400 mb-2">
-                <CountUp end={31} duration={1.5} prefix="+" suffix="%" />
+                <CountUp end={31} duration={2.5} start={0} prefix="+" suffix="%" />
               </h3>
               <p className="text-gray-300">Better Google Rankings</p>
             </motion.div>
