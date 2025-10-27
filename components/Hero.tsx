@@ -54,20 +54,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl text-[#D1D1D1] mb-6 max-w-3xl mx-auto"
+            className="text-lg md:text-xl text-[#D1D1D1] mb-12 max-w-3xl mx-auto"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
             Professional, DVSA-aligned sites that turn local searches into booked<br />MOTs & services — launched in 5–10 days.
           </motion.p>
-
-          {/* Trust Badges */}
-          <div className="flex flex-wrap justify-center gap-3 mt-6 mb-12">
-            {["DVSA Compliant", "SEO Ready", "Mobile Optimized", "Fast Loading"].map((label) => (
-              <span key={label} className="rounded-full bg-neutral-800 px-4 py-1.5 text-sm text-white">
-                {label}
-              </span>
-            ))}
-          </div>
 
           {/* CTA Buttons */}
           <motion.div

@@ -76,6 +76,18 @@ export default function PrecisionSection() {
                   while ensuring desktop users get the full premium experience they expect.
                 </p>
               </motion.div>
+
+              {/* Trust Badges */}
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                {["DVSA Compliant", "SEO Ready", "Mobile Optimized", "Fast Loading"].map((label) => (
+                  <span
+                    key={label}
+                    className="rounded-full bg-neutral-800 px-4 py-1.5 text-sm text-white"
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
 
