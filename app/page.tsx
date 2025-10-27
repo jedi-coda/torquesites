@@ -36,11 +36,11 @@ export default function HomePage() {
       {/* HEADER */}
       <Header />
 
+      {/* PRECISION SECTION - Porsche 911 Dynamic Hero */}
+      <PrecisionSection />
+
       {/* HERO */}
       <Hero />
-
-      {/* PRECISION SECTION */}
-      <PrecisionSection />
 
       {/* FEATURES */}
       <section className="py-16 md:py-20 px-6 bg-dark-bg">
