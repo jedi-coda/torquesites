@@ -35,16 +35,16 @@ export default function PrecisionSection() {
           {/* Trust Badges */}
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             {[
-              { label: "DVSA Compliant", icon: ShieldCheck },
-              { label: "SEO Ready", icon: Search },
-              { label: "Mobile Optimized", icon: Smartphone },
-              { label: "Fast Loading", icon: GaugeCircle }
-            ].map(({ label, icon: Icon }) => (
+              { label: "DVSA Compliant", icon: ShieldCheck, color: "text-green-400" },
+              { label: "SEO Ready", icon: Search, color: "text-blue-400" },
+              { label: "Mobile Optimized", icon: Smartphone, color: "text-orange-400" },
+              { label: "Fast Loading", icon: GaugeCircle, color: "text-yellow-400" }
+            ].map(({ label, icon: Icon, color }) => (
               <span
                 key={label}
                 className="rounded-full bg-neutral-800 px-4 py-1.5 text-sm text-white inline-flex items-center gap-2"
               >
-                <Icon className="h-4 w-4" />
+                <Icon className={`h-4 w-4 ${color}`} />
                 {label}
               </span>
             ))}
