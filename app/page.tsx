@@ -44,10 +44,10 @@ export default function HomePage() {
 
       {/* FEATURES */}
       <section className="py-16 md:py-20 px-6 bg-dark-bg">
-        <h2 className="text-3xl font-bold text-white text-center sm:text-4xl">
+        <h2 className="text-5xl sm:text-6xl font-bold text-white text-center">
           Performance in practice
         </h2>
-        <p className="mt-2 text-lg text-gray-300 text-center">
+        <p className="mt-2 text-lg text-[#C4FF00] text-center">
           Every detail built to convert attention into action.
         </p>
         <div className="mt-16 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
