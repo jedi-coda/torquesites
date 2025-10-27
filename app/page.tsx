@@ -347,7 +347,7 @@ function Feature({
       className="group flex flex-col items-center text-center p-8 border border-torque-orange/20 rounded-2xl shadow-sm hover:shadow-[0_0_15px_#FF6B00]/20 transition-all duration-300 bg-card-surface hover:bg-gradient-to-br hover:from-torque-orange/5 hover:to-card-surface"
     >
       <div className="relative">
-        <div className="w-16 h-16 flex items-center justify-center rounded-full bg-torque-orange/10 text-torque-orange mb-6 group-hover:bg-torque-orange/20 group-hover:scale-110 transition-all duration-300">
+        <div className="w-16 h-16 flex items-center justify-center rounded-full bg-torque-orange/10 text-torque-orange mb-6 group-hover:bg-torque-orange/20 group-hover:scale-110 transition-all duration-300 [&>*]:group-hover:text-[#C4FF00] [&>*]:transition-colors [&>*]:duration-300">
         {icon}
       </div>
         {isDvsa && (
