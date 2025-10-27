@@ -39,8 +39,14 @@ export default function HomePage() {
       {/* HERO */}
       <Hero />
 
+      {/* Divider */}
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
+
       {/* PRECISION SECTION - Porsche 911 Dynamic Hero */}
       <PrecisionSection />
+
+      {/* Divider */}
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
 
       {/* FEATURES */}
       <section className="py-16 md:py-20 px-6 bg-dark-bg">
@@ -90,9 +96,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Divider */}
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
+
       {/* ROI SECTION */}
       <section className="py-24 md:py-32 bg-[#0E0E0E]">
-        <div className="h-[1px] w-full bg-gradient-to-r from-lime-500/20 via-lime-400/30 to-transparent mb-16" />
         
         <div className="space-y-16 max-w-6xl mx-auto text-center px-6">
           <div>
