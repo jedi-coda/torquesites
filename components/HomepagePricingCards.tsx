@@ -72,7 +72,7 @@ export default function HomepagePricingCards() {
   ];
 
   return (
-    <div className="space-y-8 py-16 bg-[#121212]">
+    <div className="space-y-8 py-16">
       <div className="text-center mb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
