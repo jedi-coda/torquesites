@@ -30,6 +30,18 @@ export default function PrecisionSection() {
           <p className="text-lg md:text-xl text-zinc-300 mx-auto max-w-2xl">
             Professional, DVSA-aligned websites built to turn searches into bookings.
           </p>
+          
+          {/* Trust Badges */}
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            {["DVSA Compliant", "SEO Ready", "Mobile Optimized", "Fast Loading"].map((label) => (
+              <span
+                key={label}
+                className="rounded-full bg-neutral-800 px-4 py-1.5 text-sm text-white"
+              >
+                {label}
+              </span>
+            ))}
+          </div>
         </motion.div>
       </div>
 
@@ -76,18 +88,6 @@ export default function PrecisionSection() {
                   while ensuring desktop users get the full premium experience they expect.
                 </p>
               </motion.div>
-
-              {/* Trust Badges */}
-              <div className="mt-8 flex flex-wrap justify-center gap-3">
-                {["DVSA Compliant", "SEO Ready", "Mobile Optimized", "Fast Loading"].map((label) => (
-                  <span
-                    key={label}
-                    className="rounded-full bg-neutral-800 px-4 py-1.5 text-sm text-white"
-                  >
-                    {label}
-                  </span>
-                ))}
-              </div>
             </div>
           </div>
 
