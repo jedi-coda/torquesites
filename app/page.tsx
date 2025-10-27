@@ -92,13 +92,15 @@ export default function HomePage() {
 
       {/* ROI SECTION */}
       <section className="py-24 md:py-32 bg-[#0E0E0E]">
+        <div className="h-[1px] w-full bg-gradient-to-r from-lime-500/20 via-lime-400/30 to-transparent mb-16" />
+        
         <div className="space-y-16 max-w-6xl mx-auto text-center px-6">
           <div>
             <h2 className="text-5xl sm:text-6xl font-bold text-white text-center">
               One extra MOT per week covers your TorqueSite.
             </h2>
-            <p className="mt-4 text-center text-lg sm:text-xl font-medium text-[#C4FF00]">
-              Real results for independent garages. See how TorqueSites turns online presence into booked MOTs and services.
+            <p className="mt-4 text-center text-lg sm:text-xl font-medium text-lime-400" style={{ textShadow: '0 0 8px rgba(200,255,0,0.3)' }}>
+              Real performance, proven by data. Every TorqueSite turns online presence into booked MOTs and services.
             </p>
           </div>
           
@@ -108,7 +110,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0 }}
               whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
               className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
@@ -123,7 +125,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
               whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
               className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
@@ -138,7 +140,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
               className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
