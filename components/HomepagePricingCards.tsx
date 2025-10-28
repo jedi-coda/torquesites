@@ -74,16 +74,6 @@ export default function HomepagePricingCards() {
   return (
     <div className="space-y-8 py-16">
       <div className="text-center mb-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-block px-4 py-2 border border-[#D0FF00]/30 rounded-full mb-4 bg-[#D0FF00]/10"
-        >
-          <span className="text-sm font-medium tracking-wide text-[#D0FF00]">
-            TRANSPARENT PRICING
-          </span>
-        </motion.div>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -91,7 +81,7 @@ export default function HomepagePricingCards() {
           className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          TorqueSites <span className="text-[#D0FF00]">Pricing</span>
+          Choose Your Performance Mode
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -100,7 +90,7 @@ export default function HomepagePricingCards() {
           className="text-xl text-gray-300 max-w-2xl mx-auto"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          Choose your performance level. All plans include hosting, SSL, and DVSA-aligned designs.
+          Three precision-engineered packages — built for speed, conversion, and reputation.
         </motion.p>
       </div>
       
