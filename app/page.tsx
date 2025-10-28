@@ -258,7 +258,13 @@ export default function HomePage() {
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
 
       {/* GUARANTEE */}
-      <section className="text-center my-16">
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="text-center my-16"
+      >
         <motion.h2
           initial={{ opacity: 0, y: 20, scale: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -275,7 +281,7 @@ export default function HomePage() {
         <p className="mt-4 text-[#FF6B00] font-medium text-center hover:drop-shadow-[0_0_10px_#FF6B00] transition-all duration-300">
           No risk. Just results.
         </p>
-      </section>
+      </motion.section>
 
       {/* Divider */}
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
