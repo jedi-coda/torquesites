@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import CountUp from "react-countup";
 import {
   Wrench,
@@ -31,6 +32,16 @@ const trackClick = (event: string, location: string) => {
 };
 
 export default function HomePage() {
+  // State to control sequential counter animation
+  const [startFirst, setStartFirst] = useState(false);
+  const [startSecond, setStartSecond] = useState(false);
+  const [startThird, setStartThird] = useState(false);
+
+  useEffect(() => {
+    // Start first counter when component mounts
+    setStartFirst(true);
+  }, []);
+
   return (
     <div className="bg-gradient-to-b from-[#0E0E0E] to-[#1A1A1A] backdrop-blur-md min-h-screen">
     <main className="font-sans text-white">
@@ -117,9 +128,8 @@ export default function HomePage() {
           <div className="flex flex-wrap justify-center gap-8 mt-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0 }}
+              animate={{ opacity: startFirst ? 1 : 0, y: startFirst ? 0 : 20 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
               className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
@@ -127,16 +137,17 @@ export default function HomePage() {
                 <TrendingUp size={32} strokeWidth={2} />
               </div>
               <h3 className="text-2xl font-bold text-green-400 mb-2">
-                <CountUp end={47} duration={1.5} start={0} prefix="+" suffix="%" />
+                {startFirst && (
+                  <CountUp end={47} duration={1.4} start={0} prefix="+" suffix="%" onEnd={() => setStartSecond(true)} />
+                )}
               </h3>
               <p className="text-gray-300">More Online Bookings</p>
             </motion.div>
             
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
+              animate={{ opacity: startSecond ? 1 : 0, y: startSecond ? 0 : 20 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
               className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
@@ -144,16 +155,17 @@ export default function HomePage() {
                 <Phone size={32} strokeWidth={2} />
               </div>
               <h3 className="text-2xl font-bold text-blue-400 mb-2">
-                <CountUp end={23} duration={2.0} start={0} prefix="+" suffix="%" />
+                {startSecond && (
+                  <CountUp end={23} duration={1.6} start={0} prefix="+" suffix="%" onEnd={() => setStartThird(true)} />
+                )}
               </h3>
               <p className="text-gray-300">More Phone Calls</p>
             </motion.div>
             
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.0, delay: 0.5, ease: "easeOut" }}
+              animate={{ opacity: startThird ? 1 : 0, y: startThird ? 0 : 20 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
               className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
@@ -161,7 +173,9 @@ export default function HomePage() {
                 <Star size={32} strokeWidth={2} />
               </div>
               <h3 className="text-2xl font-bold text-yellow-400 mb-2">
-                <CountUp end={31} duration={2.5} start={0} prefix="+" suffix="%" />
+                {startThird && (
+                  <CountUp end={31} duration={1.8} start={0} prefix="+" suffix="%" />
+                )}
               </h3>
               <p className="text-gray-300">Better Google Rankings</p>
             </motion.div>
