@@ -37,11 +37,10 @@ export default function Pricing() {
         {/* Heading */}
         <div className="mb-12 text-center">
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-brand-navy">
-            Simple, transparent pricing
+            Choose Your Performance Mode
           </h2>
           <p className="mt-3 text-brand-navy/70">
-            Early Partner pricing for the first{" "}
-            <span className="font-semibold text-brand-pink">100 garages</span> — keep your rate for life.
+            Three precision-engineered packages — built for speed, conversion, and reputation.
           </p>
         </div>
 
