@@ -1,5 +1,5 @@
 "use client";
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import CountUp from 'react-countup';
 
@@ -8,6 +8,12 @@ export default function VIPSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [startFirst, setStartFirst] = useState(false);
   const [startSecond, setStartSecond] = useState(false);
+  
+  // Uptime counter setup
+  const uptimeRef = useRef(null);
+  const uptimeInView = useInView(uptimeRef, { once: false, amount: 0.5 });
+  const motionValue = useMotionValue(0);
+  const [display, setDisplay] = useState("0.0");
 
   useEffect(() => {
     if (isInView) {
@@ -22,6 +28,21 @@ export default function VIPSection() {
       return () => clearTimeout(timer2);
     }
   }, [startFirst]);
+  
+  // Animate uptime counter
+  useEffect(() => {
+    if (uptimeInView) {
+      const controls = animate(motionValue, 99.9, {
+        duration: 1.4,
+        ease: "easeOut",
+        onUpdate: (v) => setDisplay(v.toFixed(1)),
+      });
+
+      return () => controls.stop();
+    } else {
+      setDisplay("0.0");
+    }
+  }, [uptimeInView]);
 
   return (
     <section ref={ref} className="py-24 text-center relative overflow-hidden">
@@ -158,9 +179,9 @@ export default function VIPSection() {
             </div>
             <div className="text-white text-sm">Average Launch Time</div>
           </div>
-          <div className="bg-[#0E0E0E] rounded-2xl p-6 border border-[#C4FF00]/20">
+          <div ref={uptimeRef} className="bg-[#0E0E0E] rounded-2xl p-6 border border-[#C4FF00]/20">
             <div className="text-3xl font-bold text-[#FF6B00] mb-2" data-counter data-target="99.9">
-              {startSecond ? <CountUp end={99.9} duration={2} decimals={1} suffix="%" /> : "0%"}
+              {display}%
             </div>
             <div className="text-white text-sm">Uptime Guarantee</div>
           </div>
