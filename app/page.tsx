@@ -1,7 +1,7 @@
 ﻿"use client";
 
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 import CountUp from "react-countup";
 import {
   Wrench,
@@ -36,11 +36,17 @@ export default function HomePage() {
   const [startFirst, setStartFirst] = useState(false);
   const [startSecond, setStartSecond] = useState(false);
   const [startThird, setStartThird] = useState(false);
+  
+  // ROI section scroll animation
+  const roiRef = useRef(null);
+  const roiInView = useInView(roiRef, { once: false, amount: 0.5 });
 
   useEffect(() => {
-    // Start the first card as soon as section is mounted
-    setStartFirst(true);
-  }, []);
+    // Trigger counters when ROI section enters viewport
+    if (roiInView) {
+      setStartFirst(true);
+    }
+  }, [roiInView]);
 
   return (
     <div className="bg-gradient-to-b from-[#0E0E0E] to-[#1A1A1A] backdrop-blur-md min-h-screen">
@@ -112,7 +118,7 @@ export default function HomePage() {
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
 
       {/* ROI SECTION */}
-      <section className="py-24 md:py-32">
+      <section ref={roiRef} className="py-24 md:py-32">
         
         <div className="space-y-16 max-w-6xl mx-auto text-center px-6">
           <div>
@@ -138,7 +144,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-2xl font-bold text-green-400 mb-2">
                 {startFirst ? (
-                  <CountUp start={0} end={47} duration={3} suffix="%" onEnd={() => setStartSecond(true)} />
+                  <CountUp start={0} end={47} duration={1.2} suffix="%" onEnd={() => setStartSecond(true)} />
                 ) : (
                   "0%"
                 )}
@@ -149,7 +155,7 @@ export default function HomePage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: startSecond ? 1 : 0, y: startSecond ? 0 : 20 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
               whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
               className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
@@ -158,7 +164,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-2xl font-bold text-blue-400 mb-2">
                 {startSecond ? (
-                  <CountUp start={0} end={23} duration={3} suffix="%" onEnd={() => setStartThird(true)} />
+                  <CountUp start={0} end={23} duration={1.2} suffix="%" onEnd={() => setStartThird(true)} />
                 ) : (
                   "0%"
                 )}
@@ -169,7 +175,7 @@ export default function HomePage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: startThird ? 1 : 0, y: startThird ? 0 : 20 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 1.0 }}
               whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
               className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
@@ -178,7 +184,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-2xl font-bold text-yellow-400 mb-2">
                 {startThird ? (
-                  <CountUp start={0} end={31} duration={3} suffix="%" />
+                  <CountUp start={0} end={31} duration={1.2} suffix="%" />
                 ) : (
                   "0%"
                 )}
