@@ -31,17 +31,22 @@ export default function VIPSection() {
   
   // Animate uptime counter
   useEffect(() => {
+    let controls: ReturnType<typeof animate> | undefined;
+
     if (isUptimeInView) {
-      const controls = animate(uptimeValue, 99.9, {
+      // Reset before re-animating
+      uptimeValue.set(0);
+
+      controls = animate(uptimeValue, 99.9, {
         duration: 1.5,
         ease: "easeOut",
         onUpdate: (v) => setUptimeDisplay(v.toFixed(1)),
       });
-
-      return () => controls.stop();
-    } else {
-      setUptimeDisplay("0.0");
     }
+
+    return () => {
+      if (controls) controls.stop();
+    };
   }, [isUptimeInView]);
 
   return (
