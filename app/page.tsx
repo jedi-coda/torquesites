@@ -195,7 +195,7 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
             whileHover={{ scale: 1.02 }}
-            className="mt-12 bg-[#1A1A1A] p-6 rounded-lg border border-[#333] max-w-3xl mx-auto"
+            className="mt-12 bg-[#1A1A1A] p-6 rounded-xl border border-[#FF6B00] max-w-3xl mx-auto"
           >
             <div className="flex justify-center mb-4">
                 {[...Array(5)].map((_, i) => (
@@ -206,8 +206,8 @@ export default function HomePage() {
               "Since launching our TorqueSite, we've seen a 27% increase in MOT bookings in just 3 months. 
               The professional look builds trust, and the booking system works perfectly."
             </blockquote>
-            <cite className="text-torque-orange font-semibold">
-              — Newtown Garage, Chesham
+            <cite className="font-semibold text-[#FF6B00]">
+              Newtown Garage, Chesham
             </cite>
           </motion.div>
           
