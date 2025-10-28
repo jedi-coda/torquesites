@@ -289,37 +289,34 @@ export default function HomePage() {
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
 
       {/* FINAL CTA */}
-      <section className="py-16 md:py-20 px-6 bg-gradient-to-r from-torque-orange to-torque-gradient-end text-center text-white">
-        <motion.h2
+      <section className="py-24 px-4 text-center bg-[#0E0E0E]">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold"
         >
-          Ready to accelerate online?
-        </motion.h2>
-        <p className="mt-4 text-lg text-white/90 max-w-2xl mx-auto">
-          Give your garage the website it deserves — engineered, trusted, and built
-          to dominate the market.
-        </p>
-        <div className="mt-8 flex justify-center gap-4">
-          <a
-            suppressHydrationWarning
-            href={links.publicStarter}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-torque-orange hover:bg-torque-gradient-end hover:text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-all duration-200"
-          >
-            Launch Your Site (£999)
-          </a>
-          <Link
-            href="/contact"
-            className="bg-dark-bg border border-white text-white hover:bg-card-surface font-semibold px-6 py-3 rounded-xl shadow transition-all duration-200"
-          >
-            Book a Call
-          </Link>
-        </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">
+            Ready to accelerate online?
+          </h2>
+          <p className="text-lg md:text-xl text-white text-center max-w-2xl mx-auto mb-8">
+            Give your garage the website it deserves — engineered, trusted, and built to dominate your market.
+          </p>
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+            <Link
+              href="/contact"
+              className="px-6 py-3 text-black font-semibold bg-[#C4FF00] border-2 border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white transition duration-300"
+            >
+              Book a Demo
+            </Link>
+            <Link
+              href="/#pricing"
+              className="px-6 py-3 text-white border-2 border-[#C4FF00] hover:bg-[#C4FF00] hover:text-black transition duration-300 ml-0 md:ml-4"
+            >
+              See Pricing →
+            </Link>
+          </div>
+        </motion.div>
       </section>
 
       {/* FOOTER */}
