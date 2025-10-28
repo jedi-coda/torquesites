@@ -305,13 +305,13 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row justify-center items-center gap-4">
             <Link
               href="/contact"
-              className="px-6 py-3 text-black font-semibold bg-[#C4FF00] border-2 border-[#FF6B00] hover:bg-[#FF6B00] hover:text-white transition duration-300"
+              className="px-6 py-3 border border-lime-400 text-white hover:bg-lime-400 hover:text-neutral-900 hover:shadow-lg transition ease-out duration-300"
             >
               Book a Demo
             </Link>
             <Link
               href="/#pricing"
-              className="px-6 py-3 text-white border-2 border-[#C4FF00] hover:bg-[#C4FF00] hover:text-black transition duration-300 ml-0 md:ml-4"
+              className="px-6 py-3 border border-lime-400 text-white hover:bg-lime-400 hover:text-neutral-900 hover:shadow-lg transition ease-out duration-300"
             >
               See Pricing →
             </Link>
@@ -321,17 +321,8 @@ export default function HomePage() {
 
       {/* FOOTER */}
       <footer className="mt-20 border-t border-t-lime-500/20 pt-10 text-center text-sm text-muted-foreground relative">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-4 text-lime-400 text-base"
-        >
-          🏁 Pit Stop: New features and performance updates arriving soon.
-        </motion.div>
         <div className="w-full h-px bg-gradient-to-r from-transparent via-lime-500/30 to-transparent mb-6" />
-        <p className="text-muted-foreground text-xs">
+        <p className="text-xs text-neutral-400">
           Powered by <span className="text-lime-400">TorqueSites</span>. Engineered in the UK. © 2025 TorqueSites Ltd. All rights reserved.
         </p>
       </footer>
