@@ -320,64 +320,20 @@ export default function HomePage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-dark-bg py-12 px-6 text-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            {/* Logo Section */}
-            <div className="flex items-center gap-4">
-              <div className="text-xl font-bold text-white">
-                TorqueSites
-              </div>
-            </div>
-
-            {/* Social Icons */}
-            <div className="flex items-center gap-4">
-              <a
-                href="https://facebook.com/torquesites"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-full bg-[#1A1A1A] hover:bg-blue-600 transition-all duration-200 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/30"
-                aria-label="Facebook"
-              >
-                <svg className="w-5 h-5 text-[#D1D1D1] hover:text-white transition-colors duration-200" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-              </a>
-              <a
-                href="https://instagram.com/torquesites"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-full bg-card-surface hover:bg-gradient-to-r hover:from-purple-500 hover:to-torque-orange transition-all duration-200 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/30"
-                aria-label="Instagram"
-              >
-                <svg className="w-5 h-5 text-[#D1D1D1] hover:text-white transition-colors duration-200" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.014 5.367 18.647.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.198 14.895 3.708 13.744 3.708 12.447s.49-2.448 1.297-3.323c.875-.807 2.026-1.297 3.323-1.297s2.448.49 3.323 1.297c.807.875 1.297 2.026 1.297 3.323s-.49 2.448-1.297 3.323c-.875.807-2.026 1.297-3.323 1.297zm7.83-9.281c-.49 0-.875-.385-.875-.875s.385-.875.875-.875.875.385.875.875-.385.875-.875.875z"/>
-                </svg>
-              </a>
-              <a
-                href="https://tiktok.com/@torquesites"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-full bg-card-surface hover:bg-black transition-all duration-200 hover:scale-110 hover:shadow-lg hover:shadow-gray-500/30"
-                aria-label="TikTok"
-              >
-                <svg className="w-5 h-5 text-[#D1D1D1] hover:text-white transition-colors duration-200" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          {/* Copyright and MOTgenie */}
-          <div className="mt-8 pt-8 border-t border-card-surface text-center">
-            <p className="text-[#D1D1D1] text-sm mb-2">
-              © 2025 TorqueSites. Registered in England & Wales • All rights reserved.
-            </p>
-            <p className="text-[#D1D1D1] text-xs">
-              Powered by MOTgenie · Built in the UK 🇬🇧
-            </p>
-          </div>
-        </div>
+      <footer className="mt-20 border-t border-t-lime-500/20 pt-10 text-center text-sm text-muted-foreground relative">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="mb-4 text-lime-400 text-base"
+        >
+          🏁 Pit Stop: New features and performance updates arriving soon.
+        </motion.div>
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-lime-500/30 to-transparent mb-6" />
+        <p className="text-muted-foreground text-xs">
+          Powered by <span className="text-lime-400">TorqueSites</span>. Engineered in the UK. © 2025 TorqueSites Ltd. All rights reserved.
+        </p>
       </footer>
     </main>
     </div>
