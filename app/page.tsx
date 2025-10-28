@@ -227,20 +227,20 @@ export default function HomePage() {
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
 
       {/* GUARANTEE */}
-      <section className="py-16 md:py-20 px-6 text-white text-center">
+      <section className="text-center my-16">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold"
+          className="text-3xl md:text-4xl font-bold text-white"
         >
           Our Guarantee
         </motion.h2>
-        <p className="mt-4 text-lg text-[#D1D1D1] max-w-2xl mx-auto">
+        <p className="mt-4 text-lg text-white max-w-2xl mx-auto">
           Your site, live in days — not months. Most garages launch in 7–10 days. And if you&apos;re not fully satisfied, your setup fee is protected with our money-back promise.
         </p>
-        <p className="mt-10 text-torque-orange font-medium">No risk. Just performance.</p>
+        <p className="mt-4 text-[#FF6B00] font-medium hover:drop-shadow-[0_0_10px_#FF6B00] transition-all duration-300">No risk. Just performance.</p>
       </section>
 
       {/* Divider */}
