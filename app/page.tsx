@@ -38,8 +38,9 @@ export default function HomePage() {
   const [startThird, setStartThird] = useState(false);
 
   useEffect(() => {
-    // Start first counter when component mounts
-    setStartFirst(true);
+    // Start first counter after 2s delay
+    const timer = setTimeout(() => setStartFirst(true), 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -137,8 +138,18 @@ export default function HomePage() {
                 <TrendingUp size={32} strokeWidth={2} />
               </div>
               <h3 className="text-2xl font-bold text-green-400 mb-2">
-                {startFirst && (
-                  <CountUp end={47} duration={1.4} start={0} prefix="+" suffix="%" onEnd={() => setStartSecond(true)} />
+                {startFirst ? (
+                  <CountUp
+                    end={47}
+                    duration={2.5}
+                    prefix="+"
+                    suffix="%"
+                    onEnd={() => {
+                      setTimeout(() => setStartSecond(true), 2000);
+                    }}
+                  />
+                ) : (
+                  "+0%"
                 )}
               </h3>
               <p className="text-gray-300">More Online Bookings</p>
@@ -155,8 +166,18 @@ export default function HomePage() {
                 <Phone size={32} strokeWidth={2} />
               </div>
               <h3 className="text-2xl font-bold text-blue-400 mb-2">
-                {startSecond && (
-                  <CountUp end={23} duration={1.6} start={0} prefix="+" suffix="%" onEnd={() => setStartThird(true)} />
+                {startSecond ? (
+                  <CountUp
+                    end={23}
+                    duration={2.5}
+                    prefix="+"
+                    suffix="%"
+                    onEnd={() => {
+                      setTimeout(() => setStartThird(true), 2000);
+                    }}
+                  />
+                ) : (
+                  "+0%"
                 )}
               </h3>
               <p className="text-gray-300">More Phone Calls</p>
@@ -173,8 +194,10 @@ export default function HomePage() {
                 <Star size={32} strokeWidth={2} />
               </div>
               <h3 className="text-2xl font-bold text-yellow-400 mb-2">
-                {startThird && (
-                  <CountUp end={31} duration={1.8} start={0} prefix="+" suffix="%" />
+                {startThird ? (
+                  <CountUp end={31} duration={2.5} prefix="+" suffix="%" />
+                ) : (
+                  "+0%"
                 )}
               </h3>
               <p className="text-gray-300">Better Google Rankings</p>
