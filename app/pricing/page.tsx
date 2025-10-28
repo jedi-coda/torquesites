@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function PricingPage() {
   return (
@@ -168,7 +169,19 @@ export default function PricingPage() {
       {/* Guarantee Section */}
       <section className="bg-gray-50 py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">Our Guarantee</h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              type: "spring",
+              bounce: 0.4,
+              duration: 1,
+            }}
+            viewport={{ once: true }}
+            className="text-3xl font-bold mb-6 text-orange-500"
+          >
+            Our Guarantee
+          </motion.h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div>
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
