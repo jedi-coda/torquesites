@@ -1,10 +1,27 @@
 "use client";
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import CountUp from 'react-countup';
 
 export default function VIPSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [startFirst, setStartFirst] = useState(false);
+  const [startSecond, setStartSecond] = useState(false);
+
+  useEffect(() => {
+    if (isInView) {
+      const timer1 = setTimeout(() => setStartFirst(true), 500);
+      return () => clearTimeout(timer1);
+    }
+  }, [isInView]);
+
+  useEffect(() => {
+    if (startFirst) {
+      const timer2 = setTimeout(() => setStartSecond(true), 1500);
+      return () => clearTimeout(timer2);
+    }
+  }, [startFirst]);
 
   return (
     <section ref={ref} className="py-24 text-center relative overflow-hidden">
@@ -16,29 +33,6 @@ export default function VIPSection() {
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        {/* Animated Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.9 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="inline-flex items-center gap-3 px-6 py-3 mb-8 text-sm font-bold text-white bg-gradient-to-r from-[#FF6B00] to-[#FF9500] rounded-full shadow-lg border border-[#FF6B00]/30"
-        >
-          <span className="text-lg">🏁</span>
-          <span>17 / 100 Performance Edition slots claimed</span>
-          <motion.div
-            animate={{ 
-              scale: [1, 1.2, 1],
-              opacity: [0.7, 1, 0.7]
-            }}
-            transition={{ 
-              duration: 2, 
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="w-2 h-2 bg-[#C4FF00] rounded-full shadow-sm"
-          />
-        </motion.div>
-
         {/* Title */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -59,40 +53,33 @@ export default function VIPSection() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg text-[#D1D1D1] mb-12 max-w-3xl mx-auto leading-relaxed"
         >
-          Save up to £500 on setup and 50% off monthly plans — lifetime performance pricing locked before public release. 
-          <span className="text-[#C4FF00] font-semibold"> Engineered for speed. Built for results.</span>
+          Save up to £500 on setup and 50% off monthly plans — lifetime performance pricing locked before public release.<br />
+          Launch in 7 days or your money back.<br />
+          <span className="text-[#C4FF00] font-semibold">Engineered for speed. Built for results.</span>
         </motion.p>
 
         {/* Pricing Grid */}
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Standard Performance */}
+          {/* Launch Ready */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="group bg-[#1A1A1A] rounded-3xl shadow-xl p-8 border border-[#FF6B00]/20 flex flex-col justify-between hover:border-[#FF6B00]/40 hover:shadow-[0_0_30px_#FF6B00]/20 transition-all duration-500 relative overflow-hidden"
+            className="group bg-[#1A1A1A] rounded-3xl shadow-xl p-8 border border-[#2D2D2D] flex flex-col justify-between hover:border-[#C4FF00] hover:shadow-[0_4px_15px_rgba(196,255,0,0.2)] hover:-translate-y-1 transition-all duration-300"
           >
-            {/* Card Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B00]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            
             <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#FF6B00] to-[#FF9500] rounded-xl flex items-center justify-center text-white font-bold text-lg">
-                  🥈
-                </div>
-                <h3 className="text-2xl font-bold text-white">Standard Performance</h3>
-              </div>
+              <h3 className="text-2xl font-bold text-white mb-2">Launch Ready</h3>
+              <p className="text-sm italic text-[#FF6B00] mb-6">Built for speed — get your garage online fast.</p>
               
               <p className="text-[#D1D1D1] mb-8 leading-relaxed text-left">
-                Perfect for smaller garages ready to accelerate online. Includes responsive design,
-                DVSA alignment, hosting, and SSL. <span className="text-[#C4FF00] font-semibold">Built for speed.</span>
+                Perfect for independent garages ready to launch with impact.<br />
+                Includes responsive design, DVSA alignment, hosting, and SSL.<br />
+                Proven layout. Clear call-to-action. Go live in 7 days.
               </p>
               
               <div className="space-y-3 mb-8">
                 <div className="text-4xl font-extrabold text-white">£499</div>
-                <p className="text-sm text-[#D1D1D1]">(normally £999 setup)</p>
-                <div className="text-2xl font-bold text-[#FF6B00]">£49/month</div>
-                <p className="text-sm text-[#D1D1D1]">(normally £99/month)</p>
+                <p className="text-sm text-[#D1D1D1]">setup · £49/month</p>
               </div>
             </div>
             
@@ -102,49 +89,41 @@ export default function VIPSection() {
                 whileTap={{ scale: 0.98 }}
                 className="w-full py-4 rounded-xl text-white font-bold bg-gradient-to-r from-[#FF6B00] to-[#FF9500] hover:shadow-[0_0_20px_#FF6B00]/50 transition-all duration-300 border border-[#FF6B00]/30"
               >
-                Join the Performance Edition
+                Start Your Engine →
               </motion.button>
               <p className="text-xs text-[#D1D1D1] mt-3 text-center">
-                *Includes full build and subscription plan. Cancel anytime after launch.
+                *Includes full build and subscription plan. Cancel anytime.
               </p>
             </div>
           </motion.div>
 
-          {/* Premium Performance */}
+          {/* Supercharged */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="group bg-[#1A1A1A] rounded-3xl shadow-xl p-8 border-2 border-[#FF6B00] flex flex-col justify-between hover:border-[#C4FF00] hover:shadow-[0_0_30px_#C4FF00]/20 transition-all duration-500 relative overflow-hidden"
+            className="group bg-[#1A1A1A] rounded-3xl shadow-xl p-8 border-2 border-[#FF6B00] flex flex-col justify-between hover:border-[#FF6B00] hover:shadow-[0_4px_15px_rgba(255,107,0,0.3)] hover:-translate-y-1 transition-all duration-300 relative"
           >
             {/* Premium Badge */}
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
-              <div className="bg-gradient-to-r from-[#C4FF00] to-[#FF6B00] text-[#0E0E0E] px-6 py-2 rounded-full text-sm font-bold shadow-lg">
-                ⚡ MOST POPULAR
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20 -mt-4">
+              <div className="bg-gradient-to-r from-[#C4FF00] to-[#FF6B00] text-black px-6 py-2 rounded-full text-sm font-bold shadow-lg">
+                MOST POPULAR
               </div>
             </div>
 
-            {/* Card Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#C4FF00]/5 to-[#FF6B00]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            
             <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#C4FF00] to-[#FF6B00] rounded-xl flex items-center justify-center text-[#0E0E0E] font-bold text-lg">
-                  🥇
-                </div>
-                <h3 className="text-2xl font-bold text-white">Premium Performance</h3>
-              </div>
+              <h3 className="text-2xl font-bold text-white mb-2">Supercharged</h3>
+              <p className="text-sm italic text-[#FF6B00] mb-6">Boost your bookings — engineered for conversion.</p>
               
               <p className="text-[#D1D1D1] mb-8 leading-relaxed text-left">
-                For established garages ready to dominate their market. Includes full site customization,
-                Stripe booking links, and VIP priority support. <span className="text-[#C4FF00] font-semibold">Built to dominate.</span>
+                For growing garages ready to dominate local search.<br />
+                Includes full brand integration, Stripe payments, and VIP support.<br />
+                Optimized for SEO, speed, and lead generation. Built to perform.
               </p>
               
               <div className="space-y-3 mb-8">
                 <div className="text-4xl font-extrabold text-white">£999</div>
-                <p className="text-sm text-[#D1D1D1]">(normally £1,499 setup)</p>
-                <div className="text-2xl font-bold text-[#FF6B00]">£99/month</div>
-                <p className="text-sm text-[#D1D1D1]">(normally £149/month)</p>
+                <p className="text-sm text-[#D1D1D1]">setup · £99/month</p>
               </div>
             </div>
             
@@ -154,48 +133,42 @@ export default function VIPSection() {
                 whileTap={{ scale: 0.98 }}
                 className="w-full py-4 rounded-xl text-white font-bold bg-gradient-to-r from-[#C4FF00] to-[#FF6B00] hover:shadow-[0_0_20px_#C4FF00]/50 transition-all duration-300 border border-[#C4FF00]/30"
               >
-                Join the Performance Edition
+                Shift Into Top Gear →
               </motion.button>
               <p className="text-xs text-[#D1D1D1] mt-3 text-center">
-                *Includes full build and subscription plan. Cancel anytime after launch.
+                *Includes full build and subscription plan. Cancel anytime.
               </p>
             </div>
           </motion.div>
         </div>
+
+        {/* Divider */}
+        <div className="mt-16 pt-8 border-t-[1px] border-[rgba(196,255,0,0.5)]"></div>
 
         {/* Performance Stats */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1.0 }}
-          className="mt-16 grid md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+          className="mt-8 grid md:grid-cols-3 gap-6 max-w-4xl mx-auto"
         >
-          <div className="bg-[#1A1A1A] rounded-2xl p-6 border border-[#FF6B00]/20">
-            <div className="text-3xl font-bold text-[#FF6B00] mb-2">10 Days</div>
-            <div className="text-[#D1D1D1] text-sm">Average Launch Time</div>
+          <div className="bg-[#0E0E0E] rounded-2xl p-6 border border-[#FF6B00]/20">
+            <div className="text-3xl font-bold text-[#FF6B00] mb-2" data-counter data-target="7">
+              {startFirst ? <CountUp end={7} duration={1.5} suffix=" Days" /> : "0 Days"}
+            </div>
+            <div className="text-white text-sm">Average Launch Time</div>
           </div>
-          <div className="bg-[#1A1A1A] rounded-2xl p-6 border border-[#C4FF00]/20">
-            <div className="text-3xl font-bold text-[#C4FF00] mb-2">99.9%</div>
-            <div className="text-[#D1D1D1] text-sm">Uptime Guarantee</div>
+          <div className="bg-[#0E0E0E] rounded-2xl p-6 border border-[#C4FF00]/20">
+            <div className="text-3xl font-bold text-[#FF6B00] mb-2" data-counter data-target="99.9">
+              {startSecond ? <CountUp end={99.9} duration={2} decimals={1} suffix="%" /> : "0%"}
+            </div>
+            <div className="text-white text-sm">Uptime Guarantee</div>
           </div>
-          <div className="bg-[#1A1A1A] rounded-2xl p-6 border border-[#FF6B00]/20">
-            <div className="text-3xl font-bold text-[#FF6B00] mb-2">24/7</div>
-            <div className="text-[#D1D1D1] text-sm">Performance Support</div>
+          <div className="bg-[#0E0E0E] rounded-2xl p-6 border border-[#FF6B00]/20">
+            <div className="text-3xl font-bold text-[#FF6B00] mb-2" data-counter data-target="24">24/7</div>
+            <div className="text-white text-sm">Performance Support</div>
           </div>
         </motion.div>
-
-        {/* Footer */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="text-[#D1D1D1] mt-12 text-sm max-w-2xl mx-auto leading-relaxed"
-        >
-          Only 100 Performance Edition slots available across both plans. 
-          <br />
-          <span className="text-[#C4FF00] font-semibold">Launch in 10 days or your money back.</span> 
-          No contracts. No risk. Just performance.
-        </motion.p>
       </div>
     </section>
   );
