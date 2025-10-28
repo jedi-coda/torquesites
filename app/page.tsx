@@ -32,21 +32,46 @@ const trackClick = (event: string, location: string) => {
 };
 
 export default function HomePage() {
-  // State to control sequential counter animation
-  const [startFirst, setStartFirst] = useState(false);
-  const [startSecond, setStartSecond] = useState(false);
-  const [startThird, setStartThird] = useState(false);
+  // ROI section scroll animation refs
+  const bookingRef = useRef(null);
+  const callsRef = useRef(null);
+  const rankingRef = useRef(null);
   
-  // ROI section scroll animation
-  const roiRef = useRef(null);
-  const roiInView = useInView(roiRef, { once: false, amount: 0.5 });
+  const isBookingVisible = useInView(bookingRef, { amount: 0.5, once: false });
+  const isCallsVisible = useInView(callsRef, { amount: 0.5, once: false });
+  const isRankingVisible = useInView(rankingRef, { amount: 0.5, once: false });
 
-  useEffect(() => {
-    // Trigger counters when ROI section enters viewport
-    if (roiInView) {
-      setStartFirst(true);
+  const [bookingCount, setBookingCount] = useState(0);
+  const [callsCount, setCallsCount] = useState(0);
+  const [rankingCount, setRankingCount] = useState(0);
+
+  // Count animation function
+  const animateCounter = (isVisible: boolean, setCount: (n: number) => void, target: number) => {
+    if (isVisible) {
+      let start = 0;
+      const duration = 1200; // 1.2s duration
+      const stepTime = 1000 / 60; // 60fps
+      const increment = target / (duration / stepTime);
+
+      const timer = setInterval(() => {
+        start += increment;
+        if (start >= target) {
+          start = target;
+          clearInterval(timer);
+        }
+        setCount(Math.round(start));
+      }, stepTime);
+
+      return () => clearInterval(timer);
+    } else {
+      setCount(0); // reset when out of view
     }
-  }, [roiInView]);
+  };
+
+  // Animate when each metric becomes visible
+  useEffect(() => animateCounter(isBookingVisible, setBookingCount, 47), [isBookingVisible]);
+  useEffect(() => animateCounter(isCallsVisible, setCallsCount, 23), [isCallsVisible]);
+  useEffect(() => animateCounter(isRankingVisible, setRankingCount, 31), [isRankingVisible]);
 
   return (
     <div className="bg-gradient-to-b from-[#0E0E0E] to-[#1A1A1A] backdrop-blur-md min-h-screen">
@@ -118,7 +143,7 @@ export default function HomePage() {
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
 
       {/* ROI SECTION */}
-      <section ref={roiRef} className="py-24 md:py-32">
+      <section className="py-24 md:py-32">
         
         <div className="space-y-16 max-w-6xl mx-auto text-center px-6">
           <div>
@@ -133,9 +158,13 @@ export default function HomePage() {
           {/* Stats */}
           <div className="flex flex-wrap justify-center gap-8 mt-10">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: startFirst ? 1 : 0, y: startFirst ? 0 : 20 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              ref={bookingRef}
+              animate={{ 
+                scale: isBookingVisible ? [1, 1.02, 1] : 1,
+                opacity: isBookingVisible ? 1 : 0,
+                y: isBookingVisible ? 0 : 20
+              }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
               whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
               className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
@@ -143,19 +172,19 @@ export default function HomePage() {
                 <TrendingUp size={32} strokeWidth={2} />
               </div>
               <h3 className="text-2xl font-bold text-green-400 mb-2">
-                {startFirst ? (
-                  <CountUp start={0} end={47} duration={1.2} suffix="%" onEnd={() => setStartSecond(true)} />
-                ) : (
-                  "0%"
-                )}
+                {bookingCount}%
               </h3>
               <p className="text-gray-300">More Online Bookings</p>
             </motion.div>
             
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: startSecond ? 1 : 0, y: startSecond ? 0 : 20 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
+              ref={callsRef}
+              animate={{ 
+                scale: isCallsVisible ? [1, 1.02, 1] : 1,
+                opacity: isCallsVisible ? 1 : 0,
+                y: isCallsVisible ? 0 : 20
+              }}
+              transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
               whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
               className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
@@ -163,19 +192,19 @@ export default function HomePage() {
                 <Phone size={32} strokeWidth={2} />
               </div>
               <h3 className="text-2xl font-bold text-blue-400 mb-2">
-                {startSecond ? (
-                  <CountUp start={0} end={23} duration={1.2} suffix="%" onEnd={() => setStartThird(true)} />
-                ) : (
-                  "0%"
-                )}
+                {callsCount}%
               </h3>
               <p className="text-gray-300">More Phone Calls</p>
             </motion.div>
             
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: startThird ? 1 : 0, y: startThird ? 0 : 20 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 1.0 }}
+              ref={rankingRef}
+              animate={{ 
+                scale: isRankingVisible ? [1, 1.02, 1] : 1,
+                opacity: isRankingVisible ? 1 : 0,
+                y: isRankingVisible ? 0 : 20
+              }}
+              transition={{ duration: 0.4, ease: "easeOut", delay: 0.4 }}
               whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
               className="flex flex-col items-center cursor-pointer rounded-xl bg-[#0E0E0E] p-6 w-72 text-center transition-colors border border-[#FF6B00]/30 hover:border-[#C4FF00] duration-300"
             >
@@ -183,11 +212,7 @@ export default function HomePage() {
                 <Star size={32} strokeWidth={2} />
               </div>
               <h3 className="text-2xl font-bold text-yellow-400 mb-2">
-                {startThird ? (
-                  <CountUp start={0} end={31} duration={1.2} suffix="%" />
-                ) : (
-                  "0%"
-                )}
+                {rankingCount}%
               </h3>
               <p className="text-gray-300">Better Google Rankings</p>
             </motion.div>
