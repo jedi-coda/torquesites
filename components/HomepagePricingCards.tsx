@@ -27,7 +27,7 @@ export default function HomepagePricingCards() {
         "\"Powered by TorqueSites\" footer for early-adopter credibility",
         "Go live in 5 days"
       ],
-      cta: { text: "Join Turbo", href: "#contact" },
+      cta: { text: "Start Your Engine →", href: "#contact" },
       isPopular: false
     },
     {
@@ -46,7 +46,7 @@ export default function HomepagePricingCards() {
         "Priority updates & premium support",
         "Live in 10 days"
       ],
-      cta: { text: "Join Supercharged", href: "#contact" },
+      cta: { text: "Shift into Top Gear →", href: "#contact" },
       isPopular: true
     },
     {
@@ -66,7 +66,7 @@ export default function HomepagePricingCards() {
         "Exclusive early-access features before public release",
         "Live in 20 days"
       ],
-      cta: { text: "Join Hyper Mode", href: "#contact" },
+      cta: { text: "Enter Hyper Mode →", href: "#contact" },
       isPopular: false
     }
   ];
@@ -117,7 +117,7 @@ export default function HomepagePricingCards() {
                   transition={{ duration: 0.4, delay: 0.3 }}
                   className="absolute -top-4 left-1/2 transform -translate-x-1/2"
                 >
-                  <div className="text-white px-4 py-2 rounded-full text-sm font-bold bg-[#D0FF00] text-[#0E0E0E]">
+                  <div className="text-black px-4 py-2 rounded-full text-sm font-bold bg-[#D0FF00]">
                     MOST POPULAR
                   </div>
                 </motion.div>
