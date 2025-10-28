@@ -158,7 +158,7 @@ export default function HomepagePricingCards() {
               
               <Link
                 href={tier.cta.href}
-                className="px-4 py-2 rounded-md font-semibold border border-[#FF6B00] text-[#FF6B00] bg-transparent hover:bg-[#FF6B00] hover:text-white transition-colors duration-200 w-full text-center"
+                className="mt-auto w-full text-center px-4 py-2 font-semibold text-white bg-[#FF6B00] border border-[#FF6B00] rounded-md hover:bg-[#e65f00] transition-colors duration-200"
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 {tier.cta.text}
