@@ -266,10 +266,13 @@ export default function HomePage() {
         className="text-center my-16"
       >
         <motion.h2
-          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          initial={{ opacity: 0, y: 40, scale: 0.9 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{
+            duration: 0.8,
+            ease: [0.25, 1, 0.5, 1],
+          }}
           className="text-[#FF6B00] font-bold text-3xl sm:text-4xl text-center hover:drop-shadow-[0_0_10px_#FF6B00] transition-all duration-300"
         >
           Our Guarantee
@@ -303,14 +306,14 @@ export default function HomePage() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">
-            Ready to accelerate online?
+          Ready to accelerate online?
           </h2>
           <p className="text-lg md:text-xl text-white text-center max-w-2xl mx-auto mb-8">
             Give your garage the website it deserves — engineered, trusted, and built to dominate your market.
           </p>
           <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-            <Link
-              href="/contact"
+          <Link
+            href="/contact"
               className="px-6 py-3 border border-lime-400 text-white hover:bg-lime-400 hover:text-neutral-900 hover:shadow-lg transition ease-out duration-300"
             >
               Book a Demo
@@ -320,8 +323,8 @@ export default function HomePage() {
               className="px-6 py-3 border border-lime-400 text-white hover:bg-lime-400 hover:text-neutral-900 hover:shadow-lg transition ease-out duration-300"
             >
               See Pricing →
-            </Link>
-          </div>
+          </Link>
+        </div>
         </motion.div>
       </section>
 
