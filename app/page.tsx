@@ -206,7 +206,7 @@ export default function HomePage() {
               "Since launching our TorqueSite, we've seen a 27% increase in MOT bookings in just 3 months. 
               The professional look builds trust, and the booking system works perfectly."
             </blockquote>
-            <cite className="font-semibold text-[#FF6B00]">
+            <cite className="text-white font-semibold">
               Newtown Garage, Chesham
             </cite>
           </motion.div>
