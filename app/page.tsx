@@ -233,14 +233,17 @@ export default function HomePage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold text-white"
+          className="text-[#FF6B00] font-bold text-3xl sm:text-4xl text-center hover:drop-shadow-[0_0_10px_#FF6B00] transition-all duration-300"
         >
           Our Guarantee
         </motion.h2>
-        <p className="mt-4 text-lg text-white max-w-2xl mx-auto">
-          Your site, live in days — not months. Most garages launch in 7–10 days. And if you&apos;re not fully satisfied, your setup fee is protected with our money-back promise.
+        <p className="mt-4 text-center text-white max-w-2xl mx-auto">
+          Your site, built fast — live in 5–10 days.<br />
+          If you&apos;re not 100% satisfied, your setup fee is protected by our performance-back guarantee.
         </p>
-        <p className="mt-4 text-[#FF6B00] font-medium hover:drop-shadow-[0_0_10px_#FF6B00] transition-all duration-300">No risk. Just performance.</p>
+        <p className="mt-4 text-[#FF6B00] font-medium text-center hover:drop-shadow-[0_0_10px_#FF6B00] transition-all duration-300">
+          No risk. Just results.
+        </p>
       </section>
 
       {/* Divider */}
