@@ -12,7 +12,7 @@ import Link from "next/link";
 export default function HomepagePricingCards() {
   const pricingTiers = [
     {
-      title: "🏁 Turbo — Launch Ready",
+      title: "Launch Ready",
       tagline: "Built for speed — your garage online, fast.",
       price: "£999",
       monthly: "£99/mo",
@@ -31,7 +31,7 @@ export default function HomepagePricingCards() {
       isPopular: false
     },
     {
-      title: "⚡ Supercharged — Branded Power",
+      title: "Supercharged",
       tagline: "Boost your bookings — engineered for conversion.",
       price: "£1,999",
       monthly: "£149/mo",
@@ -50,7 +50,7 @@ export default function HomepagePricingCards() {
       isPopular: true
     },
     {
-      title: "🧠 Hyper Mode — Flagship Edition",
+      title: "Hyper Mode",
       tagline: "Enter Hyper Mode — where performance meets prestige.",
       price: "£2,999",
       monthly: "£199/mo",
@@ -124,12 +124,11 @@ export default function HomepagePricingCards() {
               )}
               
               <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-white mb-2 flex items-center justify-center gap-2">
-                  <span className="text-3xl">{tier.title.split(' ')[0]}</span>
-                  <span>{tier.title.split(' — ')[1]}</span>
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  {tier.title}
                 </h3>
                 {tier.tagline && (
-                  <p className="text-sm italic text-gray-400 mb-4" style={{ fontFamily: "'Inter', sans-serif" }}>
+                  <p className="text-sm italic text-[#FF6B00] mb-4" style={{ fontFamily: "'Inter', sans-serif" }}>
                     {tier.tagline}
                   </p>
                 )}
