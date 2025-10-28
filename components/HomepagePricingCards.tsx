@@ -158,11 +158,7 @@ export default function HomepagePricingCards() {
               
               <Link
                 href={tier.cta.href}
-                className={`block w-full text-center py-4 px-6 rounded-lg font-semibold transition-all duration-300 ${
-                  isPopular
-                    ? 'bg-[#D0FF00] text-[#0E0E0E] transform hover:scale-105 hover:bg-[#C4FF00] shadow-lg hover:shadow-[0_0_20px_rgba(208,255,0,0.3)]'
-                    : 'bg-gray-900/50 text-white border border-[#D0FF00]/50 hover:bg-[#D0FF00]/10 hover:border-[#D0FF00]'
-                }`}
+                className="px-4 py-2 rounded-md font-semibold border border-[#FF6B00] text-[#FF6B00] bg-transparent hover:bg-[#FF6B00] hover:text-white transition-colors duration-200 w-full text-center"
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 {tier.cta.text}
