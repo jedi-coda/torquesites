@@ -260,10 +260,10 @@ export default function HomePage() {
       {/* GUARANTEE */}
       <section className="text-center my-16">
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-[#FF6B00] font-bold text-3xl sm:text-4xl text-center hover:drop-shadow-[0_0_10px_#FF6B00] transition-all duration-300"
         >
           Our Guarantee
@@ -321,10 +321,10 @@ export default function HomePage() {
 
       {/* FOOTER */}
       <footer className="mt-20 border-t border-t-lime-500/20 pt-10 text-center text-sm text-muted-foreground relative">
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-lime-500/30 to-transparent mb-6" />
-        <p className="text-xs text-neutral-400">
+        <p className="text-xs text-neutral-400 mb-8">
           Powered by <span className="text-lime-400">TorqueSites</span>. Engineered in the UK. © 2025 TorqueSites Ltd. All rights reserved.
         </p>
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-lime-500/30 to-transparent" />
       </footer>
     </main>
     </div>
