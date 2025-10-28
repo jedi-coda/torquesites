@@ -38,9 +38,8 @@ export default function HomePage() {
   const [startThird, setStartThird] = useState(false);
 
   useEffect(() => {
-    // Start first counter after 2s delay
-    const timer = setTimeout(() => setStartFirst(true), 2000);
-    return () => clearTimeout(timer);
+    // Start the first card as soon as section is mounted
+    setStartFirst(true);
   }, []);
 
   return (
@@ -139,17 +138,9 @@ export default function HomePage() {
               </div>
               <h3 className="text-2xl font-bold text-green-400 mb-2">
                 {startFirst ? (
-                  <CountUp
-                    end={47}
-                    duration={2.5}
-                    prefix="+"
-                    suffix="%"
-                    onEnd={() => {
-                      setTimeout(() => setStartSecond(true), 2000);
-                    }}
-                  />
+                  <CountUp start={0} end={47} duration={3} suffix="%" onEnd={() => setStartSecond(true)} />
                 ) : (
-                  "+0%"
+                  "0%"
                 )}
               </h3>
               <p className="text-gray-300">More Online Bookings</p>
@@ -167,17 +158,9 @@ export default function HomePage() {
               </div>
               <h3 className="text-2xl font-bold text-blue-400 mb-2">
                 {startSecond ? (
-                  <CountUp
-                    end={23}
-                    duration={2.5}
-                    prefix="+"
-                    suffix="%"
-                    onEnd={() => {
-                      setTimeout(() => setStartThird(true), 2000);
-                    }}
-                  />
+                  <CountUp start={0} end={23} duration={3} suffix="%" onEnd={() => setStartThird(true)} />
                 ) : (
-                  "+0%"
+                  "0%"
                 )}
               </h3>
               <p className="text-gray-300">More Phone Calls</p>
@@ -195,9 +178,9 @@ export default function HomePage() {
               </div>
               <h3 className="text-2xl font-bold text-yellow-400 mb-2">
                 {startThird ? (
-                  <CountUp end={31} duration={2.5} prefix="+" suffix="%" />
+                  <CountUp start={0} end={31} duration={3} suffix="%" />
                 ) : (
-                  "+0%"
+                  "0%"
                 )}
               </h3>
               <p className="text-gray-300">Better Google Rankings</p>
@@ -215,9 +198,9 @@ export default function HomePage() {
             className="mt-12 bg-[#1A1A1A] p-6 rounded-lg border border-[#333] max-w-3xl mx-auto"
           >
             <div className="flex justify-center mb-4">
-              {[...Array(5)].map((_, i) => (
+                {[...Array(5)].map((_, i) => (
                 <span key={i} className="bounce-3 text-yellow-400 text-xl mx-0.5">⭐</span>
-              ))}
+                ))}
             </div>
             <blockquote className="text-lg italic text-gray-200 mb-4">
               "Since launching our TorqueSite, we've seen a 27% increase in MOT bookings in just 3 months. 
@@ -265,7 +248,7 @@ export default function HomePage() {
 
       {/* VIP SECTION */}
       <section id="partner100" className="py-20">
-        <VIPSection />
+      <VIPSection />
       </section>
 
       {/* Divider */}
