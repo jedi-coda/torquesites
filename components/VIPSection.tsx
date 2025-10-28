@@ -11,9 +11,9 @@ export default function VIPSection() {
   
   // Uptime counter setup
   const uptimeRef = useRef(null);
-  const uptimeInView = useInView(uptimeRef, { once: false, amount: 0.5 });
-  const motionValue = useMotionValue(0);
-  const [display, setDisplay] = useState("0.0");
+  const isUptimeInView = useInView(uptimeRef, { once: false, amount: 0.5 });
+  const uptimeValue = useMotionValue(0);
+  const [uptimeDisplay, setUptimeDisplay] = useState("0.0");
 
   useEffect(() => {
     if (isInView) {
@@ -31,18 +31,18 @@ export default function VIPSection() {
   
   // Animate uptime counter
   useEffect(() => {
-    if (uptimeInView) {
-      const controls = animate(motionValue, 99.9, {
-        duration: 1.4,
+    if (isUptimeInView) {
+      const controls = animate(uptimeValue, 99.9, {
+        duration: 1.5,
         ease: "easeOut",
-        onUpdate: (v) => setDisplay(v.toFixed(1)),
+        onUpdate: (v) => setUptimeDisplay(v.toFixed(1)),
       });
 
       return () => controls.stop();
     } else {
-      setDisplay("0.0");
+      setUptimeDisplay("0.0");
     }
-  }, [uptimeInView]);
+  }, [isUptimeInView]);
 
   return (
     <section ref={ref} className="py-24 text-center relative overflow-hidden">
@@ -179,10 +179,15 @@ export default function VIPSection() {
             </div>
             <div className="text-white text-sm">Average Launch Time</div>
           </div>
-          <div ref={uptimeRef} className="bg-[#0E0E0E] rounded-2xl p-6 border border-[#C4FF00]/20">
-            <div className="text-3xl font-bold text-[#FF6B00] mb-2" data-counter data-target="99.9">
-              {display}%
-            </div>
+          <div className="bg-[#0E0E0E] rounded-2xl p-6 border border-[#C4FF00]/20">
+            <span 
+              ref={uptimeRef}
+              className="text-3xl font-bold text-[#FF6B00] mb-2 block" 
+              data-counter 
+              data-target="99.9"
+            >
+              {uptimeDisplay}%
+            </span>
             <div className="text-white text-sm">Uptime Guarantee</div>
           </div>
           <div className="bg-[#0E0E0E] rounded-2xl p-6 border border-[#FF6B00]/20">
