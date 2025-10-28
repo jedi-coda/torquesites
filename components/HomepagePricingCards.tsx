@@ -78,7 +78,7 @@ export default function HomepagePricingCards() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl md:text-5xl font-bold text-[#FF6B00] text-center mb-4"
+          className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#FF6B00] text-center mb-4"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           Choose Your Performance Mode
