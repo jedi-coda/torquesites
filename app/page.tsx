@@ -83,16 +83,16 @@ export default function HomePage() {
       <Hero />
 
       {/* Divider */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-16" />
 
       {/* PRECISION SECTION - Porsche 911 Dynamic Hero */}
       <PrecisionSection />
 
       {/* Divider */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-16" />
 
       {/* FEATURES */}
-      <section className="py-16 md:py-20 px-6">
+      <section className="py-12 md:py-16 px-6">
         <h2 className="text-5xl sm:text-6xl font-bold text-white text-center">
           Performance in practice
         </h2>
@@ -140,7 +140,7 @@ export default function HomePage() {
       </section>
 
       {/* Divider */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-16" />
 
       {/* ROI SECTION */}
       <section className="py-12 md:py-16">
@@ -247,7 +247,7 @@ export default function HomePage() {
       </section>
       
       {/* Divider */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-16" />
       
       {/* PRICING */}
       <section id="pricing" className="py-12 md:py-16">
@@ -255,7 +255,7 @@ export default function HomePage() {
       </section>
 
       {/* Divider */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-16" />
 
       {/* GUARANTEE */}
       <motion.section
@@ -287,15 +287,15 @@ export default function HomePage() {
       </motion.section>
 
       {/* Divider */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-16" />
 
       {/* VIP SECTION */}
-      <section id="partner100" className="py-20">
+      <section id="partner100" className="py-12 md:py-16">
       <VIPSection />
       </section>
 
       {/* Divider */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-16" />
 
       {/* FINAL CTA */}
       <section className="py-12 md:py-16 px-4 text-center bg-[#0E0E0E]">
