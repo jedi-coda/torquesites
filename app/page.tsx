@@ -266,14 +266,14 @@ export default function HomePage() {
         className="text-center py-12 md:py-16"
       >
         <motion.h2
-          initial={{ opacity: 0, y: 0 }}
-          whileInView={{ opacity: 1, y: -8 }}
-          viewport={{ once: true }}
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1.05 }}
+          viewport={{ once: false, amount: 0.6 }}
           transition={{
             type: "spring",
-            stiffness: 300,
-            damping: 15,
-            delay: 0.1,
+            stiffness: 260,
+            damping: 18,
+            duration: 0.6,
           }}
           className="text-[#FF6B00] font-bold text-3xl sm:text-4xl text-center hover:drop-shadow-[0_0_10px_#FF6B00] transition-all duration-300"
         >
