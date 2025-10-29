@@ -96,10 +96,10 @@ export default function HomePage() {
         <h2 className="text-5xl sm:text-6xl font-bold text-white text-center">
           Performance in practice
         </h2>
-        <p className="mt-2 text-lg text-[#C4FF00] text-center">
+        <p className="mt-2 text-lg text-[#C4FF00] text-center mb-8">
           Every detail built to convert attention into action.
         </p>
-        <div className="mt-16 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <Feature
             icon={<Smartphone size={28} strokeWidth={2} />}
             title="Mobile-first Design"
@@ -145,7 +145,7 @@ export default function HomePage() {
       {/* ROI SECTION */}
       <section className="py-12 md:py-16">
         
-        <div className="space-y-16 max-w-6xl mx-auto text-center px-6">
+        <div className="space-y-12 max-w-6xl mx-auto text-center px-6">
           <div>
             <h2 className="text-5xl sm:text-6xl font-bold text-white text-center">
               One extra MOT per week covers your TorqueSite.

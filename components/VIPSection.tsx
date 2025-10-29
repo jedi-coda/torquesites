@@ -50,7 +50,7 @@ export default function VIPSection() {
   }, [isUptimeInView]);
 
   return (
-    <section ref={ref} className="py-16 text-center relative overflow-hidden">
+    <section ref={ref} className="py-12 md:py-16 text-center relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#FF6B00]/10 via-transparent to-[#C4FF00]/10"></div>
@@ -180,7 +180,7 @@ export default function VIPSection() {
         </div>
 
         {/* Divider */}
-        <div className="mt-16 pt-8 border-t-[1px] border-[rgba(196,255,0,0.5)]"></div>
+        <div className="mt-12 pt-8 border-t-[1px] border-[rgba(196,255,0,0.5)]"></div>
 
         {/* Performance Stats */}
         <motion.div
