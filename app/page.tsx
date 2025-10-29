@@ -143,7 +143,7 @@ export default function HomePage() {
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
 
       {/* ROI SECTION */}
-      <section className="py-24 md:py-32">
+      <section className="py-12 md:py-16">
         
         <div className="space-y-16 max-w-6xl mx-auto text-center px-6">
           <div>
@@ -250,7 +250,7 @@ export default function HomePage() {
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
       
       {/* PRICING */}
-      <section id="pricing" className="py-20">
+      <section id="pricing" className="py-12 md:py-16">
         <HomepagePricingCards />
       </section>
 
@@ -263,7 +263,7 @@ export default function HomePage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="text-center my-16"
+        className="text-center py-12 md:py-16"
       >
         <motion.h2
           initial={{ opacity: 0, y: 40, scale: 0.9 }}
@@ -298,7 +298,7 @@ export default function HomePage() {
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-20" />
 
       {/* FINAL CTA */}
-      <section className="py-24 px-4 text-center bg-[#0E0E0E]">
+      <section className="py-12 md:py-16 px-4 text-center bg-[#0E0E0E]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

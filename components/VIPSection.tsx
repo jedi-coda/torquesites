@@ -50,7 +50,7 @@ export default function VIPSection() {
   }, [isUptimeInView]);
 
   return (
-    <section ref={ref} className="py-24 text-center relative overflow-hidden">
+    <section ref={ref} className="py-16 text-center relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#FF6B00]/10 via-transparent to-[#C4FF00]/10"></div>
@@ -59,6 +59,17 @@ export default function VIPSection() {
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
+        {/* Performance Edition Slots Counter */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="text-[#C4FF00] font-medium text-center mb-2"
+        >
+          🔥 17 / 100 Performance Edition slots already claimed
+        </motion.p>
+        
         {/* Title */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
