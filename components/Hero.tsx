@@ -81,7 +81,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.02 }}
                 className="inline-flex items-center justify-center px-8 py-4 border-2 border-[#C4FF00] text-white font-bold rounded-xl hover:bg-[#C4FF00] hover:text-black hover:shadow-[0_0_10px_rgba(196,255,0,0.4)] transition-all duration-300"
               >
-                BOOK A CALL
+                BOOK A DEMO
               </motion.button>
             </Link>
           </motion.div>
