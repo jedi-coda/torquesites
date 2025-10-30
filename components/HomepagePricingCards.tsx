@@ -12,11 +12,11 @@ import Link from "next/link";
 export default function HomepagePricingCards() {
   const pricingTiers = [
     {
-      title: "Launch Ready",
+      title: "Turbo",
       tagline: "Built for speed — your garage online, fast.",
       price: "£999",
       monthly: "£99/mo",
-      launchTime: "5 days",
+      launchTime: "7 days",
       features: [
         "Lightning-fast, SEO-optimised microsite",
         "Polished TorqueSites layout — proven to convert",
@@ -25,7 +25,7 @@ export default function HomepagePricingCards() {
         "Mobile-first design for every device",
         "Clear contact info and sticky call-to-action bar",
         "\"Powered by TorqueSites\" footer for early-adopter credibility",
-        "Go live in 5 days"
+        "Go live in 7 days"
       ],
       cta: { text: "Start Your Engine →", href: "#contact" },
       isPopular: false
@@ -35,7 +35,7 @@ export default function HomepagePricingCards() {
       tagline: "Boost your bookings — engineered for conversion.",
       price: "£1,999",
       monthly: "£149/mo",
-      launchTime: "10 days",
+      launchTime: "14 days",
       features: [
         "Everything in Turbo, plus:",
         "Full colour scheme & brand integration",
@@ -44,7 +44,7 @@ export default function HomepagePricingCards() {
         "Stripe-powered online payments (MOT, servicing, etc.)",
         "Trust badges + Google Map integration",
         "Priority updates & premium support",
-        "Live in 10 days"
+        "Live in 14 days"
       ],
       cta: { text: "Shift into Top Gear →", href: "#contact" },
       isPopular: true
@@ -54,7 +54,7 @@ export default function HomepagePricingCards() {
       tagline: "Enter Hyper Mode — where performance meets prestige.",
       price: "£2,999",
       monthly: "£199/mo",
-      launchTime: "20 days",
+      launchTime: "21 days",
       features: [
         "Everything in Supercharged, plus:",
         "Cinematic hero section with motion and video integration",
@@ -64,7 +64,7 @@ export default function HomepagePricingCards() {
         "Dedicated design collaboration with our creative team",
         "Enhanced performance tuning & speed optimisation",
         "Exclusive early-access features before public release",
-        "Live in 20 days"
+        "Live in 21 days"
       ],
       cta: { text: "Enter Hyper Mode →", href: "#contact" },
       isPopular: false
