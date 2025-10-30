@@ -254,11 +254,8 @@ export default function HomePage() {
         <HomepagePricingCards />
       </section>
 
-      {/* Divider */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-16" />
-
       {/* GUARANTEE */}
-      <section className="text-center pt-12 pb-12 mt-8 mb-8 border-t border-lime-400/20">
+      <section className="text-center pt-12 pb-10 border-b border-lime-400/10">
         <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 tracking-tight">
           Our Guarantee
         </h2>
@@ -269,9 +266,6 @@ export default function HomePage() {
         </p>
         <p className="text-orange-500 font-semibold mt-6">No risk. Just results.</p>
       </section>
-
-      {/* Divider */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-16" />
 
       {/* VIP SECTION */}
       <section id="partner100" className="py-12 md:py-16">
