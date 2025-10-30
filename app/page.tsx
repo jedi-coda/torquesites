@@ -258,36 +258,17 @@ export default function HomePage() {
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-16" />
 
       {/* GUARANTEE */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="text-center py-12 md:py-16"
-      >
-        <motion.h2
-          initial={{ opacity: 0, y: 20, scale: 0.95 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1.05 }}
-          viewport={{ once: false, amount: 0.6 }}
-          transition={{
-            type: "spring",
-            stiffness: 260,
-            damping: 18,
-            duration: 0.6,
-          }}
-          className="text-[#FF6B00] font-bold text-3xl sm:text-4xl text-center hover:drop-shadow-[0_0_10px_#FF6B00] transition-all duration-300"
-        >
+      <section className="text-center pt-12 pb-12 mt-8 mb-8 border-t border-lime-400/20">
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 tracking-tight">
           Our Guarantee
-        </motion.h2>
-        <p className="mt-4 text-center text-white max-w-2xl mx-auto">
-          Your site, engineered for performance — built fast, live in 7–21 days.<br />
-          Every TorqueSite is backed by our Performance-Back Promise.
+        </h2>
+        <p className="text-white/90 max-w-2xl mx-auto leading-relaxed">
+          Your site, engineered for performance — built fast, live in <span className="font-semibold">7–21 days.</span><br />
+          Every TorqueSite is backed by our <span className="text-lime-400 font-semibold">Performance-Back Promise</span>. 
           If you’re not completely satisfied before launch, your setup fee is protected.
         </p>
-        <p className="mt-4 text-[#FF6B00] font-medium text-center hover:drop-shadow-[0_0_10px_#FF6B00] transition-all duration-300">
-          No risk. Just results.
-        </p>
-      </motion.section>
+        <p className="text-orange-500 font-semibold mt-6">No risk. Just results.</p>
+      </section>
 
       {/* Divider */}
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-16" />
