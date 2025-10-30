@@ -57,7 +57,7 @@ export default function Hero() {
             className="text-lg md:text-xl text-[#D1D1D1] mb-12 max-w-3xl mx-auto"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
-            Professional websites built for UK garages, turning local searches into booked MOTs and services — launched in 5–10 days.
+            High-performance websites for UK garages — turning searches into MOTs and services.
           </motion.p>
 
           {/* CTA Buttons */}
