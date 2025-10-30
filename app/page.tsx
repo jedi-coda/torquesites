@@ -280,8 +280,9 @@ export default function HomePage() {
           Our Guarantee
         </motion.h2>
         <p className="mt-4 text-center text-white max-w-2xl mx-auto">
-          Your site, built fast — live in 5–10 days.<br />
-          If you&apos;re not 100% satisfied, your setup fee is protected by our performance-back guarantee.
+          Your site, engineered for performance — built fast, live in 7–21 days.<br />
+          Every TorqueSite is backed by our Performance-Back Promise.
+          If you’re not completely satisfied before launch, your setup fee is protected.
         </p>
         <p className="mt-4 text-[#FF6B00] font-medium text-center hover:drop-shadow-[0_0_10px_#FF6B00] transition-all duration-300">
           No risk. Just results.
