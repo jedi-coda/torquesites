@@ -105,7 +105,7 @@ export default function VIPSection() {
             className="group bg-[#1A1A1A] rounded-3xl shadow-xl p-8 border border-[#2D2D2D] flex flex-col justify-between hover:border-[#C4FF00] hover:shadow-[0_4px_15px_rgba(196,255,0,0.2)] hover:-translate-y-1 transition-all duration-300"
           >
             <div className="relative z-10">
-              <h3 className="text-2xl font-bold text-white mb-2">Launch Ready</h3>
+            <h3 className="text-2xl font-bold text-white mb-2">Turbo</h3>
               <p className="text-sm italic text-[#FF6B00] mb-6">Built for speed — get your garage online fast.</p>
               
               <p className="text-[#D1D1D1] mb-8 leading-relaxed text-left">
@@ -153,9 +153,7 @@ export default function VIPSection() {
               <p className="text-sm italic text-[#FF6B00] mb-6">Boost your bookings — engineered for conversion.</p>
               
               <p className="text-[#D1D1D1] mb-8 leading-relaxed text-left">
-                For growing garages ready to dominate local search.<br />
-                Includes full brand integration, Stripe payments, and VIP support.<br />
-                Optimized for SEO, speed, and lead generation. Built to perform.
+                Perfect for growing garages ready to dominate local search. Includes full brand integration, Stripe payments, VIP support, and expert setup. Optimized for SEO, speed, and lead generation. Go live in 14 days.
               </p>
               
               <div className="space-y-3 mb-8">
@@ -198,7 +196,7 @@ export default function VIPSection() {
           <div className="bg-[#0E0E0E] rounded-2xl p-6 border border-[#C4FF00]/20">
             <span 
               ref={uptimeRef}
-              className="text-3xl font-bold text-[#FF6B00] mb-2 block" 
+              className="text-3xl font-bold text-lime-400 mb-2 block" 
               data-counter 
               data-target="99.9"
             >
