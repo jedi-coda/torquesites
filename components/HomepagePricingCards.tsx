@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { handleCheckout } from "@/lib/stripe";
 
 // 🏁 HomepagePricingCards - Turbo/Supercharged/Hyper Mode tiers
 // ✅ Based on Swift-Motors design with exact layout
@@ -17,6 +17,7 @@ export default function HomepagePricingCards() {
       price: "£999",
       monthly: "£99/mo",
       launchTime: "7 days",
+      priceId: "price_1SBxjIRYCQYm7u3p5O0snKnA",
       features: [
         "Lightning-fast, SEO-optimised microsite",
         "Polished TorqueSites layout — proven to convert",
@@ -27,7 +28,7 @@ export default function HomepagePricingCards() {
         "\"Powered by TorqueSites\" footer for early-adopter credibility",
         "Go live in 7 days"
       ],
-      cta: { text: "Start Your Engine →", href: "#contact" },
+      cta: { text: "Start Your Engine →" },
       isPopular: false
     },
     {
@@ -36,6 +37,7 @@ export default function HomepagePricingCards() {
       price: "£1,999",
       monthly: "£149/mo",
       launchTime: "14 days",
+      priceId: "price_1SNvXZRYCQYm7u3SAlKCkJAG",
       features: [
         "Everything in Turbo, plus:",
         "Full colour scheme & brand integration",
@@ -46,7 +48,7 @@ export default function HomepagePricingCards() {
         "Priority updates & premium support",
         "Live in 14 days"
       ],
-      cta: { text: "Shift into Top Gear →", href: "#contact" },
+      cta: { text: "Shift into Top Gear →" },
       isPopular: true
     },
     {
@@ -55,6 +57,7 @@ export default function HomepagePricingCards() {
       price: "£2,999",
       monthly: "£199/mo",
       launchTime: "21 days",
+      priceId: "price_1SNvXkRYCQYm7u3SgW72ZKjW",
       features: [
         "Everything in Supercharged, plus:",
         "Cinematic hero section with motion and video integration",
@@ -66,7 +69,7 @@ export default function HomepagePricingCards() {
         "Exclusive early-access features before public release",
         "Live in 21 days"
       ],
-      cta: { text: "Enter Hyper Mode →", href: "#contact" },
+      cta: { text: "Enter Hyper Mode →" },
       isPopular: false
     }
   ];
@@ -156,13 +159,13 @@ export default function HomepagePricingCards() {
                 ))}
               </ul>
               
-              <Link
-                href={tier.cta.href}
+              <button
+                onClick={() => handleCheckout(tier.priceId)}
                 className="mt-auto w-full text-center px-4 py-2 font-semibold text-white bg-[#FF6B00] border border-[#FF6B00] rounded-md hover:bg-[#e65f00] transition-colors duration-200"
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 {tier.cta.text}
-              </Link>
+              </button>
             </motion.div>
           );
         })}
