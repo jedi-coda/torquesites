@@ -2,20 +2,7 @@
 
 import { CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
-
-async function handleCheckout(priceId: string) {
-  const res = await fetch("/api/checkout", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ priceId }),
-  });
-  const data = await res.json();
-  if (data?.url) {
-    window.location.href = data.url;
-  } else {
-    alert("There was a problem starting checkout.");
-  }
-}
+import { handleCheckout } from "@/lib/stripe";
 
 export default function PricingPage() {
   return (
@@ -78,7 +65,7 @@ export default function PricingPage() {
             onClick={() => handleCheckout("price_1SBxjIRYcQYm7u35pOOsnKnA")}
             className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 px-6 rounded-lg text-center transition"
           >
-            Buy Turbo
+            Start Your Engine →
           </button>
         </div>
 
@@ -129,7 +116,7 @@ export default function PricingPage() {
             onClick={() => handleCheckout("price_1SNvXZRYcQYm7u35AWCkJAGr")}
             className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg text-center transition"
           >
-            Buy Supercharged
+            Shift into Top Gear →
           </button>
         </div>
 
@@ -172,10 +159,10 @@ export default function PricingPage() {
           </ul>
 
           <button
-            onClick={() => handleCheckout("price_1SNvlKRYcQYm7u35gNY72Jkw")}
+            onClick={() => handleCheckout("price_1SNv1kRYcQYm7u35gWY72JkW")}
             className="w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg text-center transition"
           >
-            Buy Hyper Mode
+            Enter Hyper Mode →
           </button>
         </div>
       </section>
