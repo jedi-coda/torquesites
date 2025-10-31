@@ -3,6 +3,20 @@
 import { CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
+async function handleCheckout(priceId: string) {
+  const res = await fetch("/api/checkout", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ priceId }),
+  });
+  const data = await res.json();
+  if (data?.url) {
+    window.location.href = data.url;
+  } else {
+    alert("There was a problem starting checkout.");
+  }
+}
+
 export default function PricingPage() {
   return (
     <div className="bg-white text-gray-900 font-sans">
@@ -60,12 +74,12 @@ export default function PricingPage() {
             </li>
           </ul>
 
-          <a
-            href="/contact"
+          <button
+            onClick={() => handleCheckout("price_1SBxjIRYcQYm7u35pOOsnKnA")}
             className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 px-6 rounded-lg text-center transition"
           >
-            Get Started
-          </a>
+            Buy Turbo
+          </button>
         </div>
 
         {/* Pro (was Buy Out) */}
@@ -111,12 +125,12 @@ export default function PricingPage() {
             </li>
           </ul>
 
-          <a
-            href="/contact"
+          <button
+            onClick={() => handleCheckout("price_1SNvXZRYcQYm7u35AWCkJAGr")}
             className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg text-center transition"
           >
-            Choose Pro
-          </a>
+            Buy Supercharged
+          </button>
         </div>
 
         {/* Custom Build */}
@@ -157,12 +171,12 @@ export default function PricingPage() {
             </li>
           </ul>
 
-          <a
-            href="/contact"
+          <button
+            onClick={() => handleCheckout("price_1SNvlKRYcQYm7u35gNY72Jkw")}
             className="w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg text-center transition"
           >
-            Discuss Custom
-          </a>
+            Buy Hyper Mode
+          </button>
         </div>
       </section>
 
