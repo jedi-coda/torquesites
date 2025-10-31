@@ -17,7 +17,7 @@ export default function HomepagePricingCards() {
       price: "£999",
       monthly: "£99/mo",
       launchTime: "7 days",
-      priceId: "price_1SBxjIRYCQYm7u3p5O0snKnA",
+      priceId: "price_1SBxjIRYcQYm7u35pOOsnKnA",
       features: [
         "Lightning-fast, SEO-optimised microsite",
         "Polished TorqueSites layout — proven to convert",
@@ -37,7 +37,7 @@ export default function HomepagePricingCards() {
       price: "£1,999",
       monthly: "£149/mo",
       launchTime: "14 days",
-      priceId: "price_1SNvXZRYCQYm7u3SAlKCkJAG",
+      priceId: "price_1SNvXZRYcQYm7u35AWCkJAGr",
       features: [
         "Everything in Turbo, plus:",
         "Full colour scheme & brand integration",
@@ -57,7 +57,7 @@ export default function HomepagePricingCards() {
       price: "£2,999",
       monthly: "£199/mo",
       launchTime: "21 days",
-      priceId: "price_1SNvXkRYCQYm7u3SgW72ZKjW",
+      priceId: "price_1SNvlKRYcQYm7u35gNY72Jkw",
       features: [
         "Everything in Supercharged, plus:",
         "Cinematic hero section with motion and video integration",

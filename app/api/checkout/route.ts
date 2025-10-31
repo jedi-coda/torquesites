@@ -1,71 +1,63 @@
-import { NextResponse } from "next/server";
-import Stripe from "stripe";
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const runtime = 'nodejs';
 
-// Initialize Stripe only if secret key is available
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
+
 let stripe: Stripe | null = null;
+
 if (process.env.STRIPE_SECRET_KEY) {
   try {
-    stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-      apiVersion: "2024-06-20",
+    stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: "2023-10-16" as any,
     });
-  } catch (error) {
-    console.warn("Stripe initialization failed:", error);
+    console.log("[CHECKOUT] Stripe initialized ✅");
+  } catch (err) {
+    console.error("[CHECKOUT] Stripe init failed ❌", err);
   }
+} else {
+  console.error("[CHECKOUT] STRIPE_SECRET_KEY is missing ❌");
 }
 
 export async function POST(req: Request) {
+  if (!stripe) {
+    return NextResponse.json(
+      { error: "Stripe not initialized" },
+      { status: 500 }
+    );
+  }
+
   try {
-    if (!stripe) {
-      return NextResponse.json(
-        { error: "Stripe not configured. Please set STRIPE_SECRET_KEY environment variable." },
-        { status: 500 }
-      );
-    }
-
     const body = await req.json();
+    const priceId = body.priceId;
 
-    const { garage, service, amount, customer } = body;
-
-    if (!garage || !service || !amount) {
+    if (!priceId || typeof priceId !== 'string' || !priceId.startsWith('price_')) {
       return NextResponse.json(
-        { error: "Missing required fields" },
+        { error: "Invalid priceId" },
         { status: 400 }
       );
     }
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      mode: "payment",
+      mode: 'payment',
+      payment_method_types: ['card'],
       line_items: [
         {
-          price_data: {
-            currency: "gbp",
-            product_data: {
-              name: `${service} - ${garage}`,
-            },
-            unit_amount: Math.round(amount * 100), // amount in pence
-          },
+          price: priceId,
           quantity: 1,
         },
       ],
-      customer_email: customer?.email,
-      metadata: {
-        garage,
-        service,
-        name: customer?.name || "",
-        phone: customer?.phone || "",
-      },
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cancel`,
+      success_url: 'http://localhost:3000/success',
+      cancel_url: 'http://localhost:3000/cancel',
     });
 
-    return NextResponse.json({ id: session.id });
+    return NextResponse.json({ url: session.url });
   } catch (err: any) {
-    console.error("Stripe Checkout Error:", err);
+    console.error("[CHECKOUT] Session creation failed:", err);
     return NextResponse.json(
-      { error: "Internal server error", details: err.message },
+      { error: "Failed to create checkout session", details: err.message },
       { status: 500 }
     );
   }
