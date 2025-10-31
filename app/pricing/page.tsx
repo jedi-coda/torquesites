@@ -159,7 +159,7 @@ export default function PricingPage() {
           </ul>
 
           <button
-            onClick={() => handleCheckout("price_1SNv1kRYcQYm7u35gWY72JkW")}
+            onClick={() => handleCheckout("price_1SNv1KRYcQYm7u35gWY72JKW")}
             className="w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg text-center transition"
           >
             Enter Hyper Mode →
