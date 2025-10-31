@@ -32,8 +32,8 @@ export async function handleCheckout(priceId: string) {
     }
 
     if (data?.url) {
-      console.log("[CHECKOUT] Redirecting to Stripe checkout:", data.url);
-      window.location.href = data.url;
+      console.log("[CHECKOUT] Opening Stripe checkout in new tab:", data.url);
+      window.open(data.url, '_blank', 'noopener,noreferrer');
     } else {
       console.error("[CHECKOUT] Missing checkout URL in response:", data);
       alert("Checkout session created but no redirect URL received. Please contact support.");
