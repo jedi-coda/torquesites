@@ -76,10 +76,10 @@ export default function Hero() {
               <ArrowRight className="w-5 h-5" />
             </motion.button>
 
-            <Link href="#contact" onClick={() => trackClick('book_call', 'hero')}>
+            <Link href="/book-demo" onClick={() => trackClick('book_call', 'hero')}>
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                className="inline-flex items-center justify-center px-8 py-4 border-2 border-[#C4FF00] text-white font-bold rounded-xl hover:bg-[#C4FF00] hover:text-black hover:shadow-[0_0_10px_rgba(196,255,0,0.4)] transition-all duration-300"
+                whileHover={{ scale: 1.03 }}
+                className="inline-flex items-center justify-center px-6 py-3 rounded-lg font-bold uppercase text-white bg-[#FF9500] hover:bg-[#C4FF00] hover:text-black transition-all duration-300 hover:shadow-[0_0_15px_rgba(196,255,0,0.6)]"
               >
                 BOOK A DEMO
               </motion.button>
