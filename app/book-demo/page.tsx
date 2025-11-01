@@ -41,21 +41,32 @@ export default function BookDemoPage() {
       
       {/* Porsche Image with Animation - Hidden on mobile, shown on desktop */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.98 }}
+        initial={{ opacity: 0, scale: 1.03 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7, ease: 'easeInOut' }}
+        transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
         className="hidden md:block absolute inset-0 z-[-10] flex items-center justify-end pointer-events-none"
       >
         <div className="relative md:mt-[-3rem]">
+          {/* Soft ambient glow behind Porsche */}
+          <div className="absolute inset-0 bg-orange-500/10 blur-xl rounded-full w-[60%] h-[60%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[-1] pointer-events-none" />
+          
+          {/* Cinematic radial gradient overlay for blending */}
+          <div 
+            className="absolute inset-0 z-[1] pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.8) 100%)'
+            }}
+          />
+          
           <img
             src="/images/porsche-911.jpg"
             alt="Porsche 911"
-            className="max-w-4xl md:max-w-6xl object-contain brightness-75 contrast-125 saturate-150 md:mb-0 md:mr-[-2rem] shadow-[0_40px_60px_rgba(0,0,0,0.4)] drop-shadow-xl transition-all duration-700 ease-in-out"
+            className="relative z-0 max-w-4xl md:max-w-6xl object-contain brightness-75 contrast-125 saturate-150 md:mb-0 md:mr-[-2rem] shadow-[0_40px_60px_rgba(0,0,0,0.4)] drop-shadow-xl"
           />
           {/* Ambient glow below car for grounding */}
-          <div className="absolute bottom-[-20px] left-0 right-0 mx-auto w-[300px] h-[60px] rounded-full blur-2xl bg-white/10 z-[-1] pointer-events-none" />
-          {/* Soft Radial Glow behind Porsche */}
-          <div className="absolute z-[-1] bottom-10 right-10 w-[400px] h-[400px] bg-orange-400 opacity-20 blur-3xl rounded-full pointer-events-none" />
+          <div className="absolute bottom-[-20px] left-0 right-0 mx-auto w-[300px] h-[60px] rounded-full blur-2xl bg-white/10 z-[-1] pointer-events-none animate-porsche-glow" />
+          {/* Soft Radial Glow behind Porsche with pulse */}
+          <div className="absolute z-[-1] bottom-10 right-10 w-[400px] h-[400px] bg-orange-400 blur-3xl rounded-full pointer-events-none animate-porsche-glow" />
           {/* Fade gradient overlay on right edge */}
           <div className="absolute z-10 top-0 right-0 h-full w-[200px] bg-gradient-to-l from-black/70 to-transparent pointer-events-none" />
           {/* Fade gradient overlay on left edge */}
@@ -78,52 +89,30 @@ export default function BookDemoPage() {
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,#ff6b00_0%,#0b0b0c_80%)] opacity-25 blur-2xl"></div>
       
       {/* Content */}
-      <div className="relative z-10 text-center max-w-4xl mx-auto px-6 py-20 md:py-32 lg:py-40 flex flex-col items-center justify-center">
+      <div className="relative z-10 text-center max-w-4xl mx-auto px-6 py-12 md:py-20 lg:py-28 flex flex-col items-center justify-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="w-full"
         >
-          {/* Header */}
+          {/* Header - Simplified */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-12"
+            className="mb-8 md:mb-12"
           >
-            {/* Dynamic Greeting */}
+            {/* Dynamic Greeting - Enhanced */}
             <motion.p
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-              className="text-sm text-white/80 mb-4 text-center"
+              transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
+              className="text-2xl sm:text-3xl font-semibold text-stone-200 text-center"
               style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}
             >
               Good {getTimeBasedGreeting()},
             </motion.p>
-            
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-              className="text-4xl md:text-5xl lg:text-5xl font-bold text-[#FF9500] mb-6 leading-tight tracking-tight text-center"
-              style={{ 
-                fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
-                textShadow: '0 0 20px rgba(255, 149, 0, 0.3), 0 0 40px rgba(255, 149, 0, 0.1)'
-              }}
-            >
-              You&apos;ve just found the game-changer.
-            </motion.h1>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
-            >
-              <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-4" style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}>
-                Invite-only access for standout UK garages — limited to the first 100.
-              </p>
-            </motion.div>
           </motion.div>
 
           {/* Glassmorphic Form Card */}
@@ -131,7 +120,7 @@ export default function BookDemoPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="bg-black/40 backdrop-blur-lg border border-white/10 shadow-xl rounded-xl p-8 md:p-12 transition-all duration-300"
+            className="bg-black/40 backdrop-blur-lg border border-white/10 shadow-xl rounded-xl p-8 md:p-12 transition-all duration-300 mt-8 sm:mt-10"
           >
             {submitted ? (
               <div className="text-center py-12">
@@ -158,10 +147,10 @@ export default function BookDemoPage() {
                 onSubmit={handleSubmit} 
                 className="space-y-6 text-left"
               >
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center" style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}>
+                <h2 className="text-2xl md:text-3xl font-bold text-orange-500 mb-6 text-center drop-shadow-lg" style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}>
                   Request Your Demo
                 </h2>
-                <p className="text-base font-medium text-lime-400 mt-2 text-center" style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}>
+                <p className="text-sm font-medium text-lime-400 mb-3 mt-2 text-center" style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}>
                   Claim your exclusive slot.
                 </p>
                 {/* Name */}
@@ -258,7 +247,7 @@ export default function BookDemoPage() {
                     type="submit"
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full px-6 py-4 bg-orange-500 text-white font-bold rounded-lg hover:bg-[#ff9500] hover:shadow-[0_0_20px_rgba(132,255,0,0.5)] hover:scale-[1.01] transition-all duration-300"
+                    className="w-full px-6 py-4 bg-orange-500 text-white font-bold rounded-lg hover:bg-lime-500 hover:text-black hover:shadow-lg hover:shadow-lime-500/50 transition-all duration-300"
                     style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}
                   >
                     Request Demo
@@ -266,7 +255,7 @@ export default function BookDemoPage() {
                 </motion.div>
 
                 {/* Guarantee Text */}
-                <p className="text-sm text-white/70 leading-snug mt-3 text-center" style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}>
+                <p className="text-sm md:text-base text-white/80 leading-snug mt-4 text-center px-2" style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}>
                   Launch your high-performance website in 7–21 days — or your setup fee is protected by our <span className="text-lime-300 underline">Performance-Back Guarantee</span>.
                 </p>
 
@@ -286,15 +275,31 @@ export default function BookDemoPage() {
             className="md:hidden relative w-full mt-12 mb-8"
           >
             <div className="relative">
-              <img
+              {/* Cinematic radial gradient overlay for blending */}
+              <div 
+                className="absolute inset-0 z-[1] pointer-events-none rounded-lg"
+                style={{
+                  background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.6) 100%)'
+                }}
+              />
+              
+              <motion.img
                 src="/images/porsche-911.jpg"
                 alt="Porsche 911"
-                className="w-full max-w-lg mx-auto object-contain brightness-75 contrast-125 saturate-150 shadow-[0_40px_60px_rgba(0,0,0,0.4)] drop-shadow-xl"
+                className="relative z-0 w-full max-w-lg mx-auto object-contain brightness-75 contrast-125 saturate-150 shadow-[0_40px_60px_rgba(0,0,0,0.4)] drop-shadow-xl rounded-lg"
+                animate={{
+                  scale: [1, 1.01, 1],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               />
               {/* Ambient glow below car for grounding */}
-              <div className="absolute bottom-[-20px] left-0 right-0 mx-auto w-[250px] h-[50px] rounded-full blur-2xl bg-white/10 z-[-1] pointer-events-none" />
+              <div className="absolute bottom-[-20px] left-0 right-0 mx-auto w-[250px] h-[50px] rounded-full blur-2xl bg-white/10 z-[-1] pointer-events-none animate-porsche-glow" />
               {/* Soft Radial Glow behind Porsche */}
-              <div className="absolute z-[-1] bottom-10 right-1/2 translate-x-1/2 w-[300px] h-[300px] bg-orange-400 opacity-20 blur-3xl rounded-full pointer-events-none" />
+              <div className="absolute z-[-1] bottom-10 right-1/2 translate-x-1/2 w-[300px] h-[300px] bg-orange-400 blur-3xl rounded-full pointer-events-none animate-porsche-glow" />
             </div>
           </motion.div>
 

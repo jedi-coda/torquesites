@@ -57,6 +57,21 @@
   animation: drift 8s ease-in-out infinite;
 }
 
+@keyframes porsche-glow {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(1.02);
+  }
+}
+
+.animate-porsche-glow {
+  animation: porsche-glow 4s ease-in-out infinite;
+}
+
 
 .bulb-animated {
   display: inline-block;
