@@ -41,7 +41,7 @@ export default function BookDemoPage() {
     <div 
       className="relative z-0 min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden text-white"
       style={{
-        background: 'radial-gradient(circle at center, #0a0a0a 0%, #1a1a1a 50%, #000000 100%)'
+        background: 'radial-gradient(circle at 40% 50%, #1a1a1a 0%, #0d0d0d 70%, #000000 100%)'
       }}
     >
       
@@ -200,7 +200,7 @@ export default function BookDemoPage() {
             </h1>
             
             {/* Optional Subheadline */}
-            <p className="text-orange-500 text-center mt-2 z-10 text-lg md:text-xl font-medium">
+            <p className="text-orange-500 text-center mt-1 z-10 text-lg md:text-xl font-medium">
               Let's build something exceptional.
             </p>
           </motion.div>
@@ -337,7 +337,7 @@ export default function BookDemoPage() {
                     type="submit"
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full px-6 py-4 bg-orange-500 text-white font-bold rounded-lg hover:bg-lime-500 hover:text-black hover:shadow-[0_0_20px_#a3e635] transition-all duration-300"
+                    className="w-full px-6 py-4 bg-orange-500 text-white font-bold rounded-lg transition-colors hover:bg-lime-500 hover:text-black hover:shadow-lg hover:shadow-[0_0_20px_#a3e635] duration-300"
                     style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}
                   >
                     Request Demo
