@@ -69,14 +69,30 @@ export default function BookDemoPage() {
             }}
           />
           
-          <motion.img
-            src="/images/porsche-911.jpg"
-            alt="Porsche 911"
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.8, ease: 'easeOut', delay: 0.3 }}
-            className="relative z-0 max-w-4xl md:max-w-6xl object-contain brightness-75 contrast-125 saturate-150 md:mb-0 md:mr-[-2rem] shadow-[0_40px_60px_rgba(0,0,0,0.4)] drop-shadow-xl"
-          />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              scale: [1, 1.02, 1], // subtle breathing zoom
+            }}
+            transition={{
+              opacity: { duration: 1.2, ease: 'easeOut' },
+              y: { duration: 1.2, ease: 'easeOut' },
+              scale: {
+                duration: 8,
+                ease: "easeInOut",
+                repeat: Infinity,
+              },
+            }}
+            className="relative z-0"
+          >
+            <img
+              src="/images/porsche-911.jpg"
+              alt="Porsche 911"
+              className="max-w-4xl md:max-w-6xl object-contain brightness-75 contrast-125 saturate-150 md:mb-0 md:mr-[-2rem] shadow-[0_40px_60px_rgba(0,0,0,0.4)] drop-shadow-xl"
+            />
+          </motion.div>
           {/* Ambient glow below car for grounding */}
           <div className="absolute bottom-[-20px] left-0 right-0 mx-auto w-[300px] h-[60px] rounded-full blur-2xl bg-white/10 z-[-1] pointer-events-none animate-porsche-glow" />
           {/* Fade gradient overlay on right edge */}
@@ -92,14 +108,30 @@ export default function BookDemoPage() {
       
       {/* Porsche Image for Mobile - Fixed Layout (positioned before content for proper stacking) */}
       <div className="md:hidden relative w-full h-[400px] overflow-hidden mb-8 z-0">
-        <motion.img
-          src="/images/porsche-911.jpg"
-          alt="Porsche 911"
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.8, ease: 'easeOut', delay: 0.3 }}
-          className="absolute inset-0 w-full h-full object-cover z-0"
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            scale: [1, 1.02, 1], // subtle breathing zoom
+          }}
+          transition={{
+            opacity: { duration: 1.2, ease: 'easeOut' },
+            y: { duration: 1.2, ease: 'easeOut' },
+            scale: {
+              duration: 8,
+              ease: "easeInOut",
+              repeat: Infinity,
+            },
+          }}
+          className="absolute inset-0 z-0"
+        >
+          <img
+            src="/images/porsche-911.jpg"
+            alt="Porsche 911"
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
         
         {/* Gentle Pulsing Glow Overlay Behind Porsche */}
         <motion.div
