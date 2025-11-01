@@ -48,17 +48,17 @@ export default function BookDemoPage() {
         className="hidden md:block absolute inset-0 z-[-10] flex items-center justify-end pointer-events-none"
       >
         <div className="relative md:mt-[-3rem]">
-          {/* Pulse Glow Overlay Behind Porsche */}
+          {/* Gentle Pulsing Glow Behind Porsche */}
           <motion.div
             animate={{
-              opacity: [0.5, 0.6, 0.5],
+              opacity: [0.3, 0.4, 0.3],
             }}
             transition={{
               duration: 4,
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute inset-0 bg-orange-500 opacity-40 blur-3xl z-[-1] pointer-events-none rounded-full"
+            className="absolute inset-0 bg-orange-500/20 blur-3xl z-[-1] pointer-events-none rounded-full"
           />
           
           {/* Cinematic radial gradient overlay for blending */}
@@ -69,9 +69,12 @@ export default function BookDemoPage() {
             }}
           />
           
-          <img
+          <motion.img
             src="/images/porsche-911.jpg"
             alt="Porsche 911"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.8, ease: 'easeOut', delay: 0.3 }}
             className="relative z-0 max-w-4xl md:max-w-6xl object-contain brightness-75 contrast-125 saturate-150 md:mb-0 md:mr-[-2rem] shadow-[0_40px_60px_rgba(0,0,0,0.4)] drop-shadow-xl"
           />
           {/* Ambient glow below car for grounding */}
@@ -85,27 +88,30 @@ export default function BookDemoPage() {
       
       {/* Ambient Glow */}
       <div className="absolute bottom-0 right-0 w-[40rem] h-[40rem] rounded-full bg-white/10 blur-3xl z-[-11]" />
-      <section className="relative w-full max-w-7xl mx-auto">
+      <section className="relative w-full max-w-[1280px] mx-auto">
       
       {/* Porsche Image for Mobile - Fixed Layout (positioned before content for proper stacking) */}
       <div className="md:hidden relative w-full h-[400px] overflow-hidden mb-8 z-0">
-        <img
+        <motion.img
           src="/images/porsche-911.jpg"
           alt="Porsche 911"
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.8, ease: 'easeOut', delay: 0.3 }}
           className="absolute inset-0 w-full h-full object-cover z-0"
         />
         
-        {/* Pulse Glow Overlay Behind Porsche */}
+        {/* Gentle Pulsing Glow Overlay Behind Porsche */}
         <motion.div
           animate={{
-            opacity: [0.5, 0.6, 0.5],
+            opacity: [0.3, 0.4, 0.3],
           }}
           transition={{
             duration: 4,
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute inset-0 bg-orange-500 opacity-40 blur-3xl z-[-1] pointer-events-none"
+          className="absolute inset-0 bg-orange-500/20 blur-3xl z-[-1] pointer-events-none"
         />
       </div>
       {/* Diagonal Line Texture */}
@@ -116,8 +122,13 @@ export default function BookDemoPage() {
         }}
       />
       
-      {/* Background Glow Layer */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,#ff6b00_0%,#0b0b0c_80%)] opacity-25 blur-2xl"></div>
+      {/* Dark Radial Gradient Background (replaces heavy orange glow) */}
+      <div 
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at center, #0B0B0C 0%, transparent 70%)'
+        }}
+      />
       
       {/* Soft radial gradient at edges for visual harmony */}
       <div 
@@ -136,35 +147,32 @@ export default function BookDemoPage() {
           className="w-full"
         >
           {/* Header - Cinematic */}
-          <div className="mb-8 md:mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.8, ease: 'easeOut' }}
+            className="mb-8 md:mb-16"
+          >
             {/* Dynamic Greeting - Cinematic */}
-            <motion.h1
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
+            <h1
               className="text-4xl md:text-5xl font-bold text-white text-center z-10"
               style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}
             >
               {greeting},
-            </motion.h1>
+            </h1>
             
             {/* Optional Subheadline */}
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
-              className="text-orange-500 text-center mt-2 z-10 text-lg md:text-xl font-medium"
-            >
+            <p className="text-orange-500 text-center mt-2 z-10 text-lg md:text-xl font-medium">
               Let's build something exceptional.
-            </motion.p>
-          </div>
+            </p>
+          </motion.div>
 
           {/* Glassmorphic Form Card - Positioned lower for hero reveal */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="bg-black/50 backdrop-blur-xl border border-white/10 shadow-2xl rounded-xl p-8 md:p-12 transition-all duration-300 mt-8 md:mt-16 lg:mt-24 w-full max-w-[500px] mx-auto z-10"
+            className="bg-black/50 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_#FFA50055] rounded-xl p-8 md:p-12 transition-all duration-300 mt-8 md:mt-16 lg:mt-24 w-full max-w-[500px] mx-auto z-10"
           >
             {submitted ? (
               <div className="text-center py-12">
