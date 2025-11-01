@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { type Garage } from "@/lib/garage";
 import { getSafeGarage, getSafeHeroVariants, getSafeTheme, premiumTheme } from "@/lib/fallbackGarage";
 
@@ -60,10 +61,13 @@ export default function GarageHero({ garage }: { garage?: Garage | null }) {
             style={backgroundStyle}
           />
         ) : (
-          <img
+          <Image
             src={currentVariantData.src || "/hero/customer.jpg"}
             alt={currentVariantData.alt || "Premium hero background"}
+            width={1920}
+            height={1080}
             className="w-full h-full object-cover transition-opacity duration-700 ease-in-out"
+            priority
           />
         )}
         

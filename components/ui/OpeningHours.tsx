@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Clock } from 'lucide-react';
 
 interface OpeningHoursProps {
@@ -22,10 +22,10 @@ export default function OpeningHours({
   phone = "01494 123456",
   brandColor = "#3b82f6",
 }: OpeningHoursProps) {
-  const now = new Date();
+  const now = useMemo(() => new Date(), []);
   const currentDay = now.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
 
-  const defaultHours = [
+  const defaultHours = useMemo(() => [
     { day: "Monday", hours: "08:30 – 17:30", open: true },
     { day: "Tuesday", hours: "08:30 – 17:30", open: true },
     { day: "Wednesday", hours: "08:30 – 17:30", open: true },
@@ -33,7 +33,7 @@ export default function OpeningHours({
     { day: "Friday", hours: "08:30 – 17:30", open: true },
     { day: "Saturday", hours: "09:00 – 13:00", open: true },
     { day: "Sunday", hours: "Closed", open: false },
-  ];
+  ], []);
 
   // ✅ Stable displayHours with useMemo
   const displayHours = useMemo(() => {
@@ -41,7 +41,7 @@ export default function OpeningHours({
       ...hour,
       isToday: hour.day.toLowerCase() === currentDay,
     }));
-  }, [hours, currentDay]);
+  }, [hours, currentDay, defaultHours]);
 
   const [isOpen, setIsOpen] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
@@ -58,7 +58,7 @@ export default function OpeningHours({
     const match = today.hours.match(/(\d{1,2}):(\d{2})\s*[–-]\s*(\d{1,2}):(\d{2})/);
     if (!match) return;
 
-    const [_, oh, om, ch, cm] = match.map(Number);
+    const [, oh, om, ch, cm] = match.map(Number);
     const nowMinutes = now.getHours() * 60 + now.getMinutes();
     const openMinutes = oh * 60 + om;
     const closeMinutes = ch * 60 + cm;
@@ -70,7 +70,7 @@ export default function OpeningHours({
       setIsOpen(false);
       setStatusMessage('Closed now');
     }
-  }, [displayHours]);
+  }, [displayHours, now]);
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-100">

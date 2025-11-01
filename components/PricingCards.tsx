@@ -84,25 +84,11 @@ export default function PricingCards({ pricing }: Props) {
   return (
     <div className="space-y-8 py-16 bg-black">
       <div className="text-center mb-12">
-        <div 
-          className="inline-block px-4 py-2 border rounded-full mb-4"
-          style={{ 
-            backgroundColor: `${premiumTheme.accentColor}20`,
-            borderColor: `${premiumTheme.accentColor}30`
-          }}
-        >
-          <span 
-            className="text-sm font-medium tracking-wide"
-            style={{ color: premiumTheme.accentColor }}
-          >
-            TRANSPARENT PRICING
-          </span>
-        </div>
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-          Fair <span style={{ color: premiumTheme.accentColor }}>Transparent</span> Pricing
+          Choose Your Performance Mode
         </h2>
         <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-          No hidden fees. No surprises. Just exceptional service at fair prices for all makes and models.
+          Three precision-engineered packages — built for speed, conversion, and reputation.
         </p>
       </div>
       

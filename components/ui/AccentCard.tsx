@@ -1,7 +1,7 @@
 'use client';
 
 export function AccentCard({
-  children, garage, className = ''
+  children, className = ''
 }: { children: React.ReactNode; garage?: any; className?: string }) {
   return (
     <div

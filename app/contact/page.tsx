@@ -3,7 +3,7 @@ export default function ContactPage() {
     <main className="min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-gray-50 text-center">
       <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact MOTmatch</h1>
       <p className="max-w-2xl text-lg text-gray-700 mb-6">
-        Got a question? Whether you’re a driver, garage, or investor — we’d love
+        Got a question? Whether you're a driver, garage, or investor — we'd love
         to hear from you.
       </p>
 
@@ -53,7 +53,7 @@ export default function ContactPage() {
       </form>
 
       <p className="mt-4 text-gray-500 text-sm">
-        💡 If your message doesn’t send, email us directly at{" "}
+        💡 If your message doesn't send, email us directly at{" "}
         <a
           href="mailto:za.akhtar@gmail.com"
           className="text-pink-600 hover:underline"

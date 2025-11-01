@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
 
@@ -77,13 +77,13 @@ export default function GemHero({
   const reduced = usePrefersReducedMotion();
 
   const count = slides.length || 1;
-  const safeIndex = (n: number) => (n + count) % count;
+  const safeIndex = useCallback((n: number) => (n + count) % count, [count]);
 
   const start = useCallback(() => {
     if (reduced || count <= 1) return;
     stop();
     timer.current = setInterval(() => setIndex((i) => safeIndex(i + 1)), autoplayMs);
-  }, [autoplayMs, reduced, count]);
+  }, [autoplayMs, reduced, count, safeIndex, stop]);
 
   const stop = useCallback(() => {
     if (timer.current) clearInterval(timer.current);

@@ -1,0 +1,36 @@
+/* === REFINED HEADER STYLES (Porsche Glow Polish) === */
+
+.refined-header {
+  background: radial-gradient(circle at top center, #0a0a0a, #111111);
+  backdrop-filter: blur(6px);
+  opacity: 0.96;
+}
+
+.refined-tagline {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: #9ca3af;
+  transition: color 0.2s ease;
+}
+
+.refined-tagline:hover {
+  color: #C4FF00;
+}
+
+.refined-nav {
+  color: #f5f5f5;
+  transition: color 0.2s ease;
+}
+
+.refined-nav:hover {
+  color: #C4FF00;
+  text-shadow: 0 0 6px rgba(196, 255, 0, 0.4);
+}
+
+.hover-transition {
+  transition: color 0.3s ease;
+}
+
+.hover-transition:hover {
+  color: #C4FF00;
+}

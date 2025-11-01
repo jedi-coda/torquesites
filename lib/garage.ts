@@ -5,7 +5,7 @@ import path from "path";
 // ---------- Types ----------
 
 export type Brand = { primary?: string; dark?: string };
-export type Contact = { phone?: string; email?: string; whatsapp?: string };
+export type Contact = { phone?: string; email?: string; whatsapp?: string; facebook?: string; instagram?: string; tiktok?: string };
 export type Branch = { name?: string; address?: string; hours?: string; phone?: string };
 export type Service = { icon: string; title: string; description: string };
 export type PricingEntry = {
@@ -32,7 +32,13 @@ export type Garage = {
   tagline?: string;
   brand?: Brand;
   contact?: Contact;
+  address?: string;
   hours?: string;
+  openingHours?: Array<{
+    day: string;
+    hours: string;
+    open: boolean;
+  }>;
   hero?: {
     greeting?: boolean;
     background?: "solid" | "gradient";
@@ -165,17 +171,31 @@ function validateAndNormalize(input: any): Garage | null {
     tagline: typeof input.tagline === "string" ? input.tagline : undefined,
     brand,
     contact,
+    address: typeof input.address === "string" ? input.address : undefined,
     hours: typeof input.hours === "string" ? input.hours : undefined,
+    openingHours: Array.isArray(input.openingHours)
+      ? input.openingHours.filter((h: any) => h && typeof h === "object" && typeof h.day === "string" && typeof h.hours === "string" && typeof h.open === "boolean")
+      : undefined,
     hero,
     chips: Array.isArray(input.chips) ? input.chips.filter((x: unknown) => typeof x === "string") : undefined,
     services: Array.isArray(input.services) 
       ? input.services.filter((x: any) => x && typeof x === "object" && typeof x.icon === "string" && typeof x.title === "string" && typeof x.description === "string")
       : undefined,
-    pricing: input.pricing && typeof input.pricing === "object" ? {
-      mot: typeof input.pricing.mot === "string" ? input.pricing.mot : undefined,
-      interimFrom: typeof input.pricing.interimFrom === "string" ? input.pricing.interimFrom : undefined,
-      fullFrom: typeof input.pricing.fullFrom === "string" ? input.pricing.fullFrom : undefined,
-    } : undefined,
+    pricing: Array.isArray(input.pricing)
+      ? input.pricing
+          .filter((p: any) => p && typeof p === "object")
+          .map((p: any) => ({
+            title: typeof p.title === "string" ? p.title : "",
+            description: typeof p.description === "string" ? p.description : (typeof p.subtitle === "string" ? p.subtitle : undefined),
+            price: typeof p.price === "string" ? p.price : "",
+            features: Array.isArray(p.features) ? p.features.filter((x: any) => typeof x === "string") : undefined,
+            cta1: p.cta1 && typeof p.cta1 === "object" && typeof p.cta1.text === "string" && typeof p.cta1.href === "string" ? { text: p.cta1.text, href: p.cta1.href } : undefined,
+          }))
+      : (input.pricing && typeof input.pricing === "object" ? {
+          mot: typeof input.pricing.mot === "string" ? input.pricing.mot : undefined,
+          interimFrom: typeof input.pricing.interimFrom === "string" ? input.pricing.interimFrom : undefined,
+          fullFrom: typeof input.pricing.fullFrom === "string" ? input.pricing.fullFrom : undefined,
+        } : undefined),
     branches: Array.isArray(input.branches)
       ? input.branches.map((b: any) => ({
           name: typeof b?.name === "string" ? b.name : undefined,
@@ -235,19 +255,18 @@ export async function loadGarage(slug: string): Promise<Garage | undefined> {
   if (!garage) {
     console.warn(`❌ No garage found for slug: ${slug}`);
     return undefined;
-  } else if (!garage.pricing) {
-    console.warn(`⚠️ No pricing found for slug: ${slug}`);
-  } else {
-    console.log(`✅ Pricing found for slug: ${slug}`, garage.pricing);
   }
 
-  const base = validateAndNormalize(garage);
+  // Transform garages.json data structure to match Garage type
+  const transformedGarage = transformGarageData(garage);
+  
+  const base = validateAndNormalize(transformedGarage);
   if (!base) return undefined;
 
   // Optional overlay from app/<slug>/garage.json
   const overlayPath = path.join(repoRoot, "app", slug, "garage.json");
   const overrideRaw = readJsonSafe(overlayPath);
-  const mergedRaw = overlay({ ...garage }, overrideRaw || undefined);
+  const mergedRaw = overlay({ ...transformedGarage }, overrideRaw || undefined);
   let validated = validateAndNormalize(mergedRaw) || base;
 
   // Final normalization pass for colors
@@ -281,6 +300,77 @@ export async function loadGarage(slug: string): Promise<Garage | undefined> {
   };
 
   return validated;
+}
+
+// Transform garages.json data structure to match Garage type
+function transformGarageData(garage: any): any {
+  const transformed = { ...garage };
+  
+  // Transform services array if it contains strings instead of objects
+  if (Array.isArray(garage.services)) {
+    transformed.services = garage.services.map((service: any) => {
+      if (typeof service === 'string') {
+        // Convert string service to object with icon, title, description
+        return {
+          icon: getServiceIcon(service),
+          title: service,
+          description: getServiceDescription(service)
+        };
+      }
+      return service;
+    });
+  }
+  
+  // Transform reviews if they have 'name' instead of 'author'
+  if (Array.isArray(garage.reviews)) {
+    transformed.reviews = garage.reviews.map((review: any) => ({
+      quote: review.quote || review.text || '',
+      author: review.author || review.name || 'Customer'
+    }));
+  }
+  
+  // Ensure logoPath is set if not present
+  if (!transformed.logoPath) {
+    transformed.logoPath = `/logos/${garage.slug}.png`;
+  }
+  
+  return transformed;
+}
+
+// Helper function to get appropriate icon for service
+function getServiceIcon(service: string): string {
+  const iconMap: Record<string, string> = {
+    'MOT Testing': 'shield-check',
+    'Servicing': 'wrench',
+    'Diagnostics': 'settings',
+    'Repairs': 'tool',
+    'Tyres': 'circle',
+    'Brakes': 'square',
+    'Air Con': 'wind',
+    'Exhausts': 'pipe',
+    'Batteries': 'battery',
+    'EV & Hybrid': 'zap',
+    'EV & Hybrids': 'zap'
+  };
+  return iconMap[service] || 'wrench';
+}
+
+// Helper function to get appropriate description for service
+function getServiceDescription(service: string): string {
+  const descMap: Record<string, string> = {
+    'MOT Testing': 'Fast, certified MOT testing',
+    'Servicing': 'Keep your car running smoothly',
+    'Diagnostics': 'Clear fault code scanning',
+    'Repairs': 'Mechanical and bodywork repairs',
+    'Tyres': 'Affordable tyres fitted fast',
+    'Brakes': 'Brake inspection and repair',
+    'Air Con': 'Air conditioning service',
+    'Exhausts': 'Exhaust fitting and repair',
+    'Batteries': 'Battery testing and replacement',
+    'EV & Hybrid': 'Electric and hybrid vehicle service',
+    'EV & Hybrids': 'Electric and hybrid vehicle service'
+  };
+  return descMap[service] || 'Professional automotive service';
 }
 
 

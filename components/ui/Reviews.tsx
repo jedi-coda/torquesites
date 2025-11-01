@@ -29,7 +29,7 @@ export default function Reviews({ garage }: Props) {
             What Our <span className="text-yellow-400">Customers</span> Say
           </h2>
           <p className="max-w-2xl mx-auto text-center text-sm md:text-base text-gray-400">
-            Rated <strong className="text-yellow-400">4.8 ★</strong> on Google by 237+ happy customers. Here's what real customers say about Newtown Garage Chesham.
+            Rated <strong className="text-yellow-400">4.8 ★</strong> on Google by 237+ happy customers. Here's what real customers say about {safeGarage.name}.
           </p>
         </div>
         

@@ -1,6 +1,5 @@
 "use client";
 
-import { getSafeContact } from "@/lib/fallbackGarage";
 import { premiumTheme } from "@/lib/fallbackGarage";
 
 type Props = {

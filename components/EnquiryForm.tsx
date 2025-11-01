@@ -4,10 +4,6 @@ import { useState } from "react";
 import { premiumTheme } from "@/lib/fallbackGarage";
 
 export default function EnquiryForm({
-  garageName,
-  toEmail,
-  brandPrimary = premiumTheme.brandColor,
-  garageSlug,
 }: {
   garageName: string;
   toEmail: string;         // where you want the email to go
@@ -150,11 +146,11 @@ export default function EnquiryForm({
                 }}
               >
                 <option value="MOT">MOT Testing</option>
-          <option value="Interim Service">Interim Service</option>
-          <option value="Full Service">Full Service</option>
+                <option value="Interim Service">Interim Service</option>
+                <option value="Full Service">Full Service</option>
                 <option value="Diagnostics">Advanced Diagnostics</option>
                 <option value="Other">Other Service</option>
-        </select>
+              </select>
             </div>
             
             <div>
@@ -178,9 +174,9 @@ export default function EnquiryForm({
             {/* Honeypot */}
             <input name="company" className="hidden" tabIndex={-1} autoComplete="off" />
             
-        <button
-          type="submit"
-          disabled={submitting}
+            <button
+              type="submit"
+              disabled={submitting}
               className="w-full text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               style={{ backgroundColor: premiumTheme.accentColor }}
               onMouseEnter={(e) => {
@@ -195,7 +191,7 @@ export default function EnquiryForm({
               }}
             >
               {submitting ? "Sending Your Enquiry..." : "Send Enquiry"}
-        </button>
+            </button>
             
             {ok === true && (
               <div className="text-center p-4 bg-green-500/20 border border-green-500/30 rounded-lg">
@@ -211,7 +207,7 @@ export default function EnquiryForm({
                 </div>
               </div>
             )}
-      </form>
+          </form>
         </div>
       </div>
     </div>

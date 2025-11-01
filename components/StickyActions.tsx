@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { Phone } from 'lucide-react';
 
 interface StickyActionBarProps {
@@ -45,7 +46,7 @@ export default function StickyActionBar({
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-black/40 backdrop-blur-sm border-t border-white/20 shadow-2xl z-50">
+    <div className="fixed bottom-0 left-0 right-0 bg-black/40 backdrop-blur-sm border-t border-white/20 shadow-2xl z-50" style={{ marginBottom: 'env(safe-area-inset-bottom)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
@@ -86,19 +87,13 @@ export default function StickyActionBar({
 
           {/* Logo - Right Corner */}
           <div className="w-20 sm:w-24 flex items-center justify-end flex-shrink-0">
-            <img 
+            <Image 
               src={logoPath}
-              alt="Newtown Garage logo"
+              alt={`${logoPath?.includes('gem') ? 'GEM UK Garage' : logoPath?.includes('swift') ? 'Swift Motors' : 'Garage'} logo`}
+              width={96}
+              height={64}
               className="w-20 sm:w-24 h-auto opacity-90 hover:opacity-100 transition-opacity duration-200 filter brightness-110 contrast-125 dark:brightness-125"
               loading="lazy"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.style.display = 'none';
-                const parent = target.parentElement as HTMLElement;
-                if (parent) {
-                  parent.innerHTML = '<div class="w-20 sm:w-24 h-16 bg-gray-800 dark:bg-gray-800 bg-gray-200 rounded-lg flex items-center justify-center text-white dark:text-white text-gray-800 text-xs font-bold">LOGO</div>';
-                }
-              }}
             />
           </div>
         </div>

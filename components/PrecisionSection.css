@@ -1,0 +1,26 @@
+/* PrecisionSection.css */
+.precision-image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.precision-image {
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.image-ambient-glow {
+  background: radial-gradient(circle at center, rgba(249, 115, 22, 0.15), transparent 70%);
+  filter: blur(40px);
+  animation: ambientPulse 8s ease-in-out infinite;
+}
+
+@keyframes ambientPulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+

@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-export default function ReviewsCarousel({ reviews, garage }:{ reviews: Array<{quote:string, author:string}>, garage:any }) {
+export default function ReviewsCarousel({ reviews }:{ reviews: Array<{quote:string, author:string}> }) {
   const ref = useRef<HTMLDivElement>(null);
   const [autoplay, setAutoplay] = useState(true);
 
