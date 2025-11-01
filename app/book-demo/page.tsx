@@ -38,7 +38,12 @@ export default function BookDemoPage() {
   };
 
   return (
-    <div className="relative z-0 min-h-screen flex items-center justify-center px-4 py-20 bg-gradient-to-br from-[#0d0d0d] via-[#1a1a1a] to-[#0a0a0a] overflow-hidden text-white">
+    <div 
+      className="relative z-0 min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden text-white"
+      style={{
+        background: 'radial-gradient(circle at center, #0a0a0a 0%, #1a1a1a 50%, #000000 100%)'
+      }}
+    >
       
       {/* Porsche Image with Animation - Desktop */}
       <motion.div
@@ -129,7 +134,8 @@ export default function BookDemoPage() {
           <img
             src="/images/porsche-911.jpg"
             alt="Porsche 911"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover md:object-contain"
+            style={{ objectPosition: 'center bottom' }}
           />
         </motion.div>
         
@@ -183,7 +189,7 @@ export default function BookDemoPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8, ease: 'easeOut' }}
-            className="mb-8 md:mb-16"
+            className="mb-2 md:mb-6"
           >
             {/* Dynamic Greeting - Cinematic */}
             <h1
@@ -331,7 +337,7 @@ export default function BookDemoPage() {
                     type="submit"
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full px-6 py-4 bg-orange-500 text-white font-bold rounded-lg hover:bg-lime-500 hover:text-black hover:shadow-lg hover:shadow-lime-500/50 transition-all duration-300"
+                    className="w-full px-6 py-4 bg-orange-500 text-white font-bold rounded-lg hover:bg-lime-500 hover:text-black hover:shadow-[0_0_20px_#a3e635] transition-all duration-300"
                     style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}
                   >
                     Request Demo
