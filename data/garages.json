@@ -2,6 +2,7 @@
   {
     "slug": "gem",
     "name": "GEM UK Garage",
+    "tier": "supercharged",
     "brand": { "primary": "#E0AA3E", "dark": "#0B0B0C" },
     "contact": {
       "phone": "01903 999999",
@@ -40,7 +41,7 @@
   {
     "slug": "newtown-garage",
     "name": "Newtown Garage",
-    "tier": "pro",
+    "tier": "hyper",
     "tagline": "Your one stop shop for all your motoring needs. Get the best advice from the best technicians using the best parts.",
     "contact": {
       "phone": "01494 772277",
@@ -137,6 +138,7 @@
   {
     "slug": "swift-motors",
     "name": "Swift Motors",
+    "tier": "turbo",
     "brand": { "primary": "#FFC107", "dark": "#0B0B0C" },
     "contact": {
       "phone": "01903 237137",

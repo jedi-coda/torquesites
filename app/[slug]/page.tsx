@@ -1,50 +1,27 @@
-import { notFound } from "next/navigation";
-import GarageTemplate from "@/components/GarageTemplate";
-import { getAllGarageSlugs, loadGarage } from "@/lib/garage";
+import GarageTemplateHyper from "@/components/templates/GarageTemplateHyper";
+import GarageTemplateSupercharged from "@/components/templates/GarageTemplateSupercharged";
+import GarageTemplateTurbo from "@/components/templates/GarageTemplateTurbo";
+import garages from "@/data/garages.json";
 
-// Ensure static generation of known slugs
-export const dynamic = "force-static";
-
-export function generateStaticParams() {
-  return getAllGarageSlugs().map((slug) => ({ slug }));
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const garage = await loadGarage(slug);
+export default function Page({ params }: { params: { slug: string } }) {
+  const garage = garages.find((g) => g.slug === params.slug);
   
-  if (!garage) {
-    return {
-      title: "Garage Not Found",
-      description: "The requested garage microsite could not be found.",
-    };
+  if (!garage) return <div>Garage not found</div>;
+
+  // Extract and normalize tier from garage data
+  const tier = (garage.tier || "turbo").toLowerCase();
+
+  // Debug: Log tier for troubleshooting
+  // console.log('Garage:', garage.slug, 'Tier:', tier);
+
+  if (tier === "hyper") {
+    return <GarageTemplateHyper garage={garage as any} tier={tier} />;
   }
 
-  return {
-    title: `${garage.name} - MOT Testing & Servicing`,
-    description: garage.tagline || `Professional MOT testing and vehicle servicing at ${garage.name}.`,
-  };
-}
-
-export default async function GaragePage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  
-  // Load garage data from garages.json
-  const garage = await loadGarage(slug);
-  
-  // If garage not found, show 404
-  if (!garage) {
-    notFound();
+  if (tier === "supercharged") {
+    return <GarageTemplateSupercharged garage={garage as any} tier={tier} />;
   }
 
-  // Render the garage microsite using GarageTemplate
-  return <GarageTemplate garage={garage} />;
+  // Default fallback is Turbo
+  return <GarageTemplateTurbo garage={garage as any} tier={tier || "turbo"} />;
 }

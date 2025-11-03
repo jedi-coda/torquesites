@@ -4,9 +4,10 @@ import { type Garage } from '@/lib/garage';
 
 interface FooterProps {
   garage?: Garage | null;
+  tier: string;
 }
 
-export default function Footer({ garage }: FooterProps) {
+export default function Footer({ garage, tier }: FooterProps) {
   const garageName = garage?.name || 'Garage';
   const logoPath = garage?.logoPath;
   
@@ -85,6 +86,17 @@ export default function Footer({ garage }: FooterProps) {
           <p className="text-center text-sm" style={{ color: '#ec008c' }}>
             © 2025 TorqueSites. All rights reserved.
           </p>
+          <span className="text-xs mt-2 block text-center">
+            {tier === 'hyper' && (
+              <span className="text-orange-400 font-semibold">🚀 Hyper Mode • Powered by TorqueSites</span>
+            )}
+            {tier === 'supercharged' && (
+              <span className="text-blue-400 font-semibold">💎 Supercharged Mode • Powered by TorqueSites</span>
+            )}
+            {(tier === 'turbo' || !tier) && (
+              <span className="text-gray-400">⚙️ Turbo Mode • Powered by TorqueSites</span>
+            )}
+          </span>
         </div>
       </div>
     </footer>

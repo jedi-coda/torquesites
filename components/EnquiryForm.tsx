@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { premiumTheme } from "@/lib/fallbackGarage";
 
 export default function EnquiryForm({
@@ -10,38 +10,42 @@ export default function EnquiryForm({
   brandPrimary?: string;   // used for button colour
   garageSlug?: string;     // to determine if we should use .btn classes
 }) {
-  const [submitting, setSubmitting] = useState(false);
-  const [ok, setOk] = useState<null | boolean>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitting(true);
 
-    const form = e.currentTarget;
-    const fd = new FormData(form);
-    const data = Object.fromEntries(fd.entries());
-    try {
-      const res = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          phone: data.phone,
-          email: data.email,
-          service: data.service,
-          message: data.notes,
-          slug: (typeof window !== "undefined" ? window.location.pathname.split("/")[1] : "") || "",
-          honeypot: (data as any).company || "",
-        }),
-      });
-      setOk(res.ok);
-      if (res.ok) form.reset();
-    } catch {
-      setOk(false);
-    } finally {
-      setSubmitting(false);
+    const form = formRef.current;
+    if (!form) return;
+
+    // ✅ Validate browser-native fields
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
     }
-  }
+
+    setIsSubmitting(true);
+
+    try {
+      const formData = new FormData(form);
+
+      const res = await fetch("/api/book-demo", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        window.location.href = "/success";
+      } else {
+        console.error("Submission failed");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="py-16 bg-black">
@@ -70,7 +74,7 @@ export default function EnquiryForm({
         </div>
         
         <div className="bg-gray-900/50 border border-gray-700/50 rounded-2xl p-8 md:p-12 backdrop-blur-sm">
-          <form className="space-y-6" onSubmit={onSubmit}>
+          <form ref={formRef} noValidate className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Your Name *</label>
@@ -97,7 +101,9 @@ export default function EnquiryForm({
                 <label className="block text-sm font-medium text-gray-300 mb-2">Phone Number *</label>
                 <input 
                   name="phone" 
+                  type="tel"
                   required
+                  pattern="[0-9\s]{10,15}"
                   className="w-full rounded-lg h-12 border border-gray-600 bg-gray-800/50 px-4 text-white placeholder:text-gray-400 transition-all duration-300" 
                   onFocus={(e) => {
                     e.currentTarget.style.borderColor = premiumTheme.accentColor;
@@ -113,10 +119,11 @@ export default function EnquiryForm({
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Email Address *</label>
               <input 
                 name="email" 
                 type="email"
+                required
                 className="w-full rounded-lg h-12 border border-gray-600 bg-gray-800/50 px-4 text-white placeholder:text-gray-400 transition-all duration-300" 
                 onFocus={(e) => {
                   e.currentTarget.style.borderColor = premiumTheme.accentColor;
@@ -126,7 +133,7 @@ export default function EnquiryForm({
                   e.currentTarget.style.borderColor = 'rgb(75 85 99)';
                   e.currentTarget.style.boxShadow = 'none';
                 }}
-                placeholder="your.email@example.com (optional)" 
+                placeholder="your.email@example.com" 
               />
             </div>
             
@@ -176,37 +183,22 @@ export default function EnquiryForm({
             
             <button
               type="submit"
-              disabled={submitting}
+              disabled={isSubmitting}
               className="w-full text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               style={{ backgroundColor: premiumTheme.accentColor }}
               onMouseEnter={(e) => {
-                if (!submitting) {
+                if (!isSubmitting) {
                   e.currentTarget.style.backgroundColor = premiumTheme.brandColor;
                 }
               }}
               onMouseLeave={(e) => {
-                if (!submitting) {
+                if (!isSubmitting) {
                   e.currentTarget.style.backgroundColor = premiumTheme.accentColor;
                 }
               }}
             >
-              {submitting ? "Sending Your Enquiry..." : "Send Enquiry"}
+              {isSubmitting ? "Submitting..." : "Send Enquiry"}
             </button>
-            
-            {ok === true && (
-              <div className="text-center p-4 bg-green-500/20 border border-green-500/30 rounded-lg">
-                <div className="text-green-400 text-sm font-medium">
-                  ✅ Thanks! We'll be in touch within 24 hours.
-                </div>
-              </div>
-            )}
-            {ok === false && (
-              <div className="text-center p-4 bg-red-500/20 border border-red-500/30 rounded-lg">
-                <div className="text-red-400 text-sm font-medium">
-                  ❌ Sorry, something went wrong. Please call us directly or try again.
-                </div>
-              </div>
-            )}
           </form>
         </div>
       </div>
