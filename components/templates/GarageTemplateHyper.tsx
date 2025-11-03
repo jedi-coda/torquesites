@@ -1,12 +1,10 @@
 import { type Garage } from "@/lib/garage";
-import Hero from "@/components/Hero";
 import ServicesGrid from "@/components/ServicesGrid";
 import EnquiryForm from "@/components/EnquiryForm";
 import ContactDetails from "@/components/ui/ContactDetails";
 import OpeningHours from "@/components/OpeningHours";
 import MapEmbed from "@/components/MapEmbed";
 import Reviews from "@/components/ui/Reviews";
-import ReviewsCarousel from "@/components/ReviewsCarousel";
 import PricingCards from "@/components/PricingCards";
 import StickyActionsClient from "@/components/StickyActionsClient";
 import Footer from "@/components/Footer";
@@ -29,21 +27,32 @@ export default function GarageTemplateHyper({ garage, tier }: Props) {
         {tier === "supercharged" && "SUPERCHARGED MODE • Powered by TorqueSites"}
         {tier === "hyper" && "HYPER MODE • Powered by TorqueSites"}
       </div>
-      {/* ✅ Show Porsche CTA as full hero ONLY for Hyper tier */}
+      {/* Porsche-style cinematic hero (full-screen) */}
       <CinematicCTA />
 
+      {/* Garage features + trust elements */}
       {safeGarage.services && <ServicesGrid services={safeGarage.services} />}
+
+      {/* MOT & servicing prices */}
       <PricingCards pricing={safeGarage.pricing} />
+
+      {/* Book a service form */}
       <EnquiryForm
         garageName={safeGarage.name}
         toEmail={safeContact.email || "info@premium-garage.example"}
         brandPrimary={safeGarage.brand?.primary || "#1A1A1A"}
         garageSlug={safeGarage.slug}
       />
-      {safeGarage.openingHours?.length > 0 && (
+
+      {/* Opening hours (optional) */}
+      {safeGarage.openingHours && safeGarage.openingHours.length > 0 && (
         <OpeningHours hours={safeGarage.openingHours} />
       )}
+
+      {/* Address + phone contact */}
       <ContactDetails phone={safeContact.phone} email={safeContact.email} />
+
+      {/* Directions only - embedded map */}
       <MapEmbed
         name={safeGarage.name}
         address={
@@ -54,8 +63,11 @@ export default function GarageTemplateHyper({ garage, tier }: Props) {
         mapUrl={safeGarage.mapEmbed}
         garage={garage}
       />
-      <Reviews garage={safeGarage} />
-      {safeGarage.reviews && <ReviewsCarousel reviews={safeGarage.reviews} />}
+
+      {/* Customer reviews (optional, if available) */}
+      {safeGarage.reviews && safeGarage.reviews.length > 0 && (
+        <Reviews garage={safeGarage} />
+      )}
       {/* Spacer to offset Sticky CTA bar */}
       <div className="h-[88px] sm:h-[72px]" />
       <Footer garage={garage} tier={tier} />

@@ -1,12 +1,11 @@
 import { type Garage } from "@/lib/garage";
-import Hero from "@/components/Hero";
+import GarageHero from "@/components/GarageHero";
 import ServicesGrid from "@/components/ServicesGrid";
 import EnquiryForm from "@/components/EnquiryForm";
 import ContactDetails from "@/components/ui/ContactDetails";
 import OpeningHours from "@/components/OpeningHours";
 import MapEmbed from "@/components/MapEmbed";
 import Reviews from "@/components/ui/Reviews";
-import ReviewsCarousel from "@/components/ReviewsCarousel";
 import PricingCards from "@/components/PricingCards";
 import StickyActionsClient from "@/components/StickyActionsClient";
 import Footer from "@/components/Footer";
@@ -28,20 +27,31 @@ export default function GarageTemplateTurbo({ garage, tier }: Props) {
         {tier === "supercharged" && "SUPERCHARGED MODE • Powered by TorqueSites"}
         {tier === "hyper" && "HYPER MODE • Powered by TorqueSites"}
       </div>
-      <Hero garage={garage} />
+      <GarageHero garage={garage} />
 
+      {/* Garage Features (DVSA approved, etc.) */}
       {safeGarage.services && <ServicesGrid services={safeGarage.services} />}
+
+      {/* MOT & Servicing Prices */}
       <PricingCards pricing={safeGarage.pricing} />
+
+      {/* Book a Service Form */}
       <EnquiryForm
         garageName={safeGarage.name}
         toEmail={safeContact.email || "info@premium-garage.example"}
         brandPrimary={safeGarage.brand?.primary || "#1A1A1A"}
         garageSlug={safeGarage.slug}
       />
-      {safeGarage.openingHours?.length > 0 && (
+
+      {/* Garage Opening Hours */}
+      {safeGarage.openingHours && safeGarage.openingHours.length > 0 && (
         <OpeningHours hours={safeGarage.openingHours} />
       )}
+
+      {/* Address and Phone Contact */}
       <ContactDetails phone={safeContact.phone} email={safeContact.email} />
+
+      {/* Google Map Embed */}
       <MapEmbed
         name={safeGarage.name}
         address={
@@ -52,8 +62,11 @@ export default function GarageTemplateTurbo({ garage, tier }: Props) {
         mapUrl={safeGarage.mapEmbed}
         garage={garage}
       />
-      <Reviews garage={safeGarage} />
-      {safeGarage.reviews && <ReviewsCarousel reviews={safeGarage.reviews} />}
+
+      {/* Customer Reviews (only if present) */}
+      {safeGarage.reviews && safeGarage.reviews.length > 0 && (
+        <Reviews garage={safeGarage} />
+      )}
       {/* Spacer to offset Sticky CTA bar */}
       <div className="h-[88px] sm:h-[72px]" />
       <Footer garage={garage} tier={tier} />

@@ -1,12 +1,11 @@
 import { type Garage } from "@/lib/garage";
-import Hero from "@/components/Hero";
+import GarageHero from "@/components/GarageHero";
 import ServicesGrid from "@/components/ServicesGrid";
 import EnquiryForm from "@/components/EnquiryForm";
 import ContactDetails from "@/components/ui/ContactDetails";
 import OpeningHours from "@/components/OpeningHours";
 import MapEmbed from "@/components/MapEmbed";
 import Reviews from "@/components/ui/Reviews";
-import ReviewsCarousel from "@/components/ReviewsCarousel";
 import PricingCards from "@/components/PricingCards";
 import StickyActionsClient from "@/components/StickyActionsClient";
 import Footer from "@/components/Footer";
@@ -29,26 +28,37 @@ export default function GarageTemplateSupercharged({ garage, tier }: Props) {
         {tier === "supercharged" && "SUPERCHARGED MODE • Powered by TorqueSites"}
         {tier === "hyper" && "HYPER MODE • Powered by TorqueSites"}
       </div>
-      <Hero garage={garage} />
+      {/* Garage-specific hero (no SaaS sales copy) */}
+      <GarageHero garage={garage} />
 
+      {/* Service highlights (DVSA, local, etc.) */}
       {safeGarage.services && <ServicesGrid services={safeGarage.services} />}
+
+      {/* MOT & service pricing */}
       <PricingCards pricing={safeGarage.pricing} />
-      
-      {/* Optional mid-page CTA for Supercharged tier */}
+
+      {/* Mid-page visual boost */}
       <div className="my-24">
         <CinematicCTA />
       </div>
 
+      {/* Book a service form */}
       <EnquiryForm
         garageName={safeGarage.name}
         toEmail={safeContact.email || "info@premium-garage.example"}
         brandPrimary={safeGarage.brand?.primary || "#1A1A1A"}
         garageSlug={safeGarage.slug}
       />
-      {safeGarage.openingHours?.length > 0 && (
+
+      {/* Garage opening hours (optional) */}
+      {safeGarage.openingHours && safeGarage.openingHours.length > 0 && (
         <OpeningHours hours={safeGarage.openingHours} />
       )}
+
+      {/* Phone + address contact */}
       <ContactDetails phone={safeContact.phone} email={safeContact.email} />
+
+      {/* Embedded map (no Google reviews) */}
       <MapEmbed
         name={safeGarage.name}
         address={
@@ -59,8 +69,11 @@ export default function GarageTemplateSupercharged({ garage, tier }: Props) {
         mapUrl={safeGarage.mapEmbed}
         garage={garage}
       />
-      <Reviews garage={safeGarage} />
-      {safeGarage.reviews && <ReviewsCarousel reviews={safeGarage.reviews} />}
+
+      {/* Customer reviews (if available - Facebook or Google) */}
+      {safeGarage.reviews && safeGarage.reviews.length > 0 && (
+        <Reviews garage={safeGarage} />
+      )}
       {/* Spacer to offset Sticky CTA bar */}
       <div className="h-[88px] sm:h-[72px]" />
       <Footer garage={garage} tier={tier} />
