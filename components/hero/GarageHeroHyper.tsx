@@ -35,7 +35,7 @@ export default function GarageHeroHyper({ garage }: Props) {
     .map(v => v.src) || [];
 
   // Default to Porsche if no images
-  const defaultImages = ['/images/porsche.webp'];
+  const defaultImages = ['/images/porsche.jpg'];
   const images = heroImages.length > 0 ? heroImages : defaultImages;
 
   // Auto-rotate carousel every 6 seconds
