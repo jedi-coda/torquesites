@@ -73,7 +73,7 @@ export default function EnquiryForm({
           </p>
         </div>
         
-        <div className="bg-gray-900/50 border border-gray-700/50 rounded-2xl p-8 md:p-12 backdrop-blur-sm">
+        <div id="enquiry" className="bg-gray-900/50 border border-gray-700/50 rounded-2xl p-8 md:p-12 backdrop-blur-sm scroll-mt-24">
           <form ref={formRef} noValidate className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>

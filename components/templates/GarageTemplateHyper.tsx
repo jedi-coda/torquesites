@@ -20,6 +20,29 @@ export default function GarageTemplateHyper({ garage, tier }: Props) {
   const safeGarage = getSafeGarage(garage);
   const safeContact = getSafeContact(garage);
 
+  // Extract location (town) from address - e.g., "Chesham" from "Unit A3, ..., Chesham, Buckinghamshire, ..."
+  const extractLocation = (address?: string): string | undefined => {
+    if (!address) return undefined;
+    // Common UK address format: street, town, county, postcode
+    const parts = address.split(',').map(p => p.trim());
+    // Skip common county indicators and street terms
+    const skipTerms = ['road', 'street', 'unit', 'lane', 'drive', 'avenue', 'way', 'county', 'shire', 'borough'];
+    // Look for town (usually before county/postcode, not a street term)
+    for (let i = parts.length - 2; i >= 0; i--) {
+      const part = parts[i];
+      const lowerPart = part.toLowerCase();
+      if (part && 
+          !part.match(/^[\d\s]+$/) && 
+          !skipTerms.some(term => lowerPart.includes(term)) &&
+          !part.match(/^[A-Z]{1,2}\d{1,2}\s?\d[A-Z]{2}$/i)) { // Skip postcodes
+        return part;
+      }
+    }
+    return undefined;
+  };
+
+  const location = extractLocation((garage as any)?.address || safeGarage.branches?.[0]?.address);
+
   return (
     <div className="min-h-screen bg-black">
       <div className="fixed top-4 left-4 z-50 px-4 py-1 text-xs font-bold uppercase rounded-full shadow-md bg-white/10 text-white backdrop-blur-md border border-white/20">
@@ -28,7 +51,11 @@ export default function GarageTemplateHyper({ garage, tier }: Props) {
         {tier === "hyper" && "HYPER MODE • Powered by TorqueSites"}
       </div>
       {/* Porsche-style cinematic hero (full-screen) */}
-      <CinematicCTA />
+      <CinematicCTA 
+        phone={safeContact.phone}
+        garageName={safeGarage.name}
+        location={location}
+      />
 
       {/* Garage features + trust elements */}
       {safeGarage.services && <ServicesGrid services={safeGarage.services} />}

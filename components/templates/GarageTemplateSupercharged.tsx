@@ -39,7 +39,7 @@ export default function GarageTemplateSupercharged({ garage, tier }: Props) {
 
       {/* Mid-page visual boost */}
       <div className="my-24">
-        <CinematicCTA />
+        <CinematicCTA phone={safeContact.phone} />
       </div>
 
       {/* Book a service form */}
