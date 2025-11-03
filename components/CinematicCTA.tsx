@@ -110,13 +110,7 @@ export default function CinematicCTA({ phone, garageName, location }: Props) {
               whileTap={{ scale: 0.98 }}
             >
               <span className="relative z-10">Book Your MOT</span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                style={{ width: '50%' }}
-                animate={{ x: ['-200%', '300%'] }}
-                transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 3.5, ease: 'easeInOut' }}
-              />
-              {/* Enhanced lime glow on button */}
+              {/* Subtle lime glow on hover */}
               <motion.div
                 className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{
