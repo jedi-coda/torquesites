@@ -51,6 +51,14 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function({ addUtilities }) {
+      addUtilities({
+        '.bg-gradient-radial': {
+          'background-image': 'radial-gradient(var(--tw-gradient-stops))',
+        },
+      })
+    },
+  ],
 };
 
