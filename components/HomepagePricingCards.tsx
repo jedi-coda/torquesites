@@ -15,41 +15,45 @@ export default function HomepagePricingCards() {
       title: "Turbo",
       tagline: "Built for speed — your garage online, fast.",
       price: "£999",
-      monthly: "£99/mo",
+      monthly: "£99 /mo",
       launchTime: "7 days",
       priceId: "price_1SBxjIRYcQYm7u35pOOsnKnA",
+      testDriveNote: "🚀 Includes a 14-Day Test Drive — starts once your site goes live.",
       features: [
         "Lightning-fast, SEO-optimised microsite",
-        "Polished TorqueSites layout — proven to convert",
+        "Proven TorqueSites layout — precision-engineered to convert",
         "WhatsApp chat + booking form integration",
         "Google Map embedded for instant directions",
         "Mobile-first design for every device",
-        "Clear contact info and sticky call-to-action bar",
+        "Clear contact info & sticky call-to-action bar",
         "\"Powered by TorqueSites\" footer for early-adopter credibility",
-        "Go live in 7 days"
+        "Launch in 7 days → then your 14-day Test Drive begins"
       ],
-      cta: { text: "Start Your Engine →" },
-      isPopular: false
+      cta: { text: "Start Your Test Drive →" },
+      ctaNote: "(No payment today · Cancel any time before day 14 of your live site)",
+      bottomNote: "💬 Most garages start with our Turbo Test Drive to experience the difference before committing.",
+      isPopular: true
     },
     {
       title: "Supercharged",
-      tagline: "Boost your bookings — engineered for conversion.",
+      tagline: "Boost your bookings — engineered for conversion and brand power.",
       price: "£1,999",
-      monthly: "£149/mo",
+      monthly: "£149 /mo",
       launchTime: "14 days",
       priceId: "price_1SNvXZRYcQYm7u35AWCkJAGr",
+      launchNote: "⚙️ Launch in 14 days · Upgrade from Turbo any time.",
       features: [
         "Everything in Turbo, plus:",
-        "Full colour scheme & brand integration",
+        "Full colour scheme + brand integration",
         "Upgraded hero section with garage-specific imagery",
-        "Facebook or Google reviews embedded for social proof",
+        "Facebook / Google reviews embedded for social proof",
         "Stripe-powered online payments (MOT, servicing, etc.)",
-        "Trust badges + Google Map integration",
-        "Priority updates & premium support",
-        "Live in 14 days"
+        "Trust badges + advanced Google Map integration",
+        "Priority updates & premium support"
       ],
       cta: { text: "Shift into Top Gear →" },
-      isPopular: true
+      bottomNote: "💬 For garages ready to build a lasting online reputation and maximise conversions.",
+      isPopular: false
     }
   ];
 
@@ -72,7 +76,7 @@ export default function HomepagePricingCards() {
           className="text-lime-400 text-center text-lg md:text-xl font-medium mt-4 max-w-2xl mx-auto"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          Two precision-engineered packages — built for speed, conversion, and reputation.
+          Two precision-engineered packages — built to drive bookings, build trust, and grow your garage.
         </motion.p>
       </div>
       
@@ -127,6 +131,16 @@ export default function HomepagePricingCards() {
                     Launch in {tier.launchTime}
                   </div>
                 )}
+                {tier.testDriveNote && (
+                  <div className="text-sm text-[#D0FF00] mb-2 mt-2" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    {tier.testDriveNote}
+                  </div>
+                )}
+                {tier.launchNote && (
+                  <div className="text-sm text-gray-400 mb-2 mt-2" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    {tier.launchNote}
+                  </div>
+                )}
               </div>
               
               <ul className="mb-8 space-y-3">
@@ -145,6 +159,16 @@ export default function HomepagePricingCards() {
               >
                 {tier.cta.text}
               </button>
+              {tier.ctaNote && (
+                <p className="mt-2 text-xs text-gray-400 text-center" style={{ fontFamily: "'Inter', sans-serif" }}>
+                  {tier.ctaNote}
+                </p>
+              )}
+              {tier.bottomNote && (
+                <p className="mt-4 text-sm text-gray-400 text-center" style={{ fontFamily: "'Inter', sans-serif" }}>
+                  {tier.bottomNote}
+                </p>
+              )}
             </motion.div>
           );
         })}
@@ -157,7 +181,9 @@ export default function HomepagePricingCards() {
         className="text-center mt-12"
       >
         <p className="text-gray-400 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
-          All plans include UK hosting, SSL, and DVSA-aligned designs. Setup fees are one-time only.
+          All plans include UK hosting, SSL, and DVSA-aligned design standards.<br />
+          Setup fees are one-time only.<br />
+          Test Drive sites are hosted under TorqueSites domains during the trial and migrated to your own domain upon activation.
         </p>
       </motion.div>
     </div>
