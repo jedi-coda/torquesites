@@ -85,11 +85,11 @@ export default function HomepagePricingCards() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-lime-400 text-center text-lg md:text-xl font-medium mt-4 max-w-2xl mx-auto"
+          className="text-center text-lg md:text-xl font-medium mt-4 max-w-2xl mx-auto space-y-2"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          <p className="mb-2">Experience your garage's future — before you pay a penny.</p>
-          <p>Two precision-engineered packages built to drive bookings, build trust, and grow your garage.</p>
+          <p className="text-white">Experience your garage's future — before you pay a penny.</p>
+          <p className="text-[#C4FF00]">Two precision-engineered packages built to drive bookings, build trust, and grow your garage.</p>
         </motion.div>
       </div>
       
@@ -100,99 +100,78 @@ export default function HomepagePricingCards() {
           return (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`relative p-8 rounded-2xl shadow-2xl hover:scale-[1.02] transition-all duration-300 ${
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 + (index * 0.2), duration: 0.5 }}
+              className={`relative p-8 rounded-2xl flex flex-col ${
                 isPopular 
-                  ? 'bg-gradient-to-br from-[#D0FF00]/10 to-[#D0FF00]/5 border-2 border-[#D0FF00]/50' 
-                  : 'bg-gray-900/30 backdrop-blur-sm border border-gray-800 hover:border-[#D0FF00]/30'
+                  ? 'bg-[#111111] border-2 border-[#C4FF00] shadow-[0_0_12px_#C4FF00]' 
+                  : 'bg-[#111111] border-[1.5px] border-orange-500'
               }`}
             >
-              {isPopular && (
+              {/* Headline */}
+              <h3 className="text-2xl font-bold text-white mb-3 text-center" style={{ fontFamily: "'Inter', sans-serif" }}>
+                {tier.title}
+              </h3>
+              
+              {/* Badge (Turbo only) */}
+              {isPopular && tier.badgeText && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 + (index * 0.2), duration: 0.4 }}
+                  className="mb-4 flex justify-center"
                   whileHover={{ scale: 1.05 }}
-                  className="absolute -top-4 left-1/2 transform -translate-x-1/2"
-                  animate={{ 
-                    scale: [1, 1.02, 1],
-                  }}
-                  transition={{ 
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.3
-                  }}
                 >
-                  <div className="text-black px-4 py-2 rounded-full text-sm font-bold bg-[#D0FF00] shadow-lg shadow-[#D0FF00]/50">
-                    {tier.badgeText || "MOST POPULAR"}
-                  </div>
+                  <span className="bg-[#C4FF00] text-black text-xs px-3 py-1 rounded-full shadow-inner font-semibold">
+                    {tier.badgeText}
+                  </span>
                 </motion.div>
               )}
               
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-white mb-2">
-                  {tier.title}
-                </h3>
-                {tier.tagline && (
-                  <p className="text-sm italic text-[#FF6B00] mb-4" style={{ fontFamily: "'Inter', sans-serif" }}>
-                    {tier.tagline}
-                  </p>
-                )}
-                {tier.testDriveHighlight && (
-                  <div className="mt-4 mb-4 p-3 rounded-lg bg-[#D0FF00]/10 border border-[#D0FF00]/30">
-                    <div className="text-base font-bold text-[#D0FF00] mb-1" style={{ fontFamily: "'Inter', sans-serif" }}>
-                      {tier.testDriveHighlight.title}
-                    </div>
-                    <div className="text-sm text-white" style={{ fontFamily: "'Inter', sans-serif" }}>
-                      {tier.testDriveHighlight.description}
-                    </div>
-                  </div>
-                )}
-                {tier.performanceUpgrade && (
-                  <div className="mt-4 mb-4 text-left">
-                    <div className="text-base font-bold text-[#FF6B00] mb-1" style={{ fontFamily: "'Inter', sans-serif" }}>
-                      {tier.performanceUpgrade.title}
-                    </div>
-                    <div className="text-sm text-gray-300" style={{ fontFamily: "'Inter', sans-serif" }}>
-                      {tier.performanceUpgrade.description}
-                    </div>
-                  </div>
-                )}
-                {tier.priceDisplay && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                    className="mt-4 pt-4 border-t border-gray-700/50"
-                  >
-                    <div className="text-base md:text-lg font-medium text-gray-300 mb-1" style={{ fontFamily: "'Inter', sans-serif" }}>
-                      {tier.priceDisplay}
-                    </div>
-                    {tier.priceSubtext && (
-                      <div className="text-xs text-gray-400 opacity-80" style={{ fontFamily: "'Inter', sans-serif" }}>
-                        {tier.priceSubtext}
-                      </div>
-                    )}
-                  </motion.div>
-                )}
-                {!tier.priceDisplay && tier.priceSubtext && (
-                  <div className="text-sm text-gray-400 mb-2" style={{ fontFamily: "'Inter', sans-serif" }}>
-                    {tier.priceSubtext}
-                  </div>
-                )}
-              </div>
+              {/* Tagline */}
+              {tier.tagline && (
+                <p className="text-sm italic text-[#FF6B00] mb-4 text-center" style={{ fontFamily: "'Inter', sans-serif" }}>
+                  {tier.tagline}
+                </p>
+              )}
               
+              {/* Test Drive Highlight (Turbo only) */}
+              {tier.testDriveHighlight && (
+                <div className="mb-6 text-center">
+                  <div className="text-base font-bold text-[#C4FF00] mb-1" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    {tier.testDriveHighlight.title}
+                  </div>
+                  <div className="text-sm text-white" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    {tier.testDriveHighlight.description}
+                  </div>
+                </div>
+              )}
+              
+              {/* Performance Upgrade (Supercharged only) */}
+              {tier.performanceUpgrade && (
+                <div className="mb-6 text-left">
+                  <div className="text-base font-bold text-[#FF6B00] mb-1" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    {tier.performanceUpgrade.title}
+                  </div>
+                  <div className="text-sm text-gray-300" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    {tier.performanceUpgrade.description}
+                  </div>
+                </div>
+              )}
+              
+              {/* What You'll Experience */}
               {tier.experienceFeatures && tier.experienceFeatures.length > 0 && (
                 <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-[#D0FF00] mb-3" style={{ fontFamily: "'Inter', sans-serif" }}>
+                  <h4 className="text-sm font-semibold text-[#C4FF00] mb-3" style={{ fontFamily: "'Inter', sans-serif" }}>
                     What You'll Experience:
                   </h4>
                   <ul className="space-y-2 mb-4">
                     {tier.experienceFeatures.map((feature: string, i: number) => (
                       <li key={i} className="flex items-start text-gray-300 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
-                        <div className="w-2 h-2 rounded-full mr-3 mt-1.5 flex-shrink-0 bg-[#D0FF00]"></div>
+                        <div className="w-2 h-2 rounded-full mr-3 mt-1.5 flex-shrink-0 bg-[#C4FF00]"></div>
                         {feature}
                       </li>
                     ))}
@@ -200,15 +179,16 @@ export default function HomepagePricingCards() {
                 </div>
               )}
               
+              {/* What's Inside */}
               {tier.whatsInsideFeatures && tier.whatsInsideFeatures.length > 0 && (
                 <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-[#D0FF00] mb-3" style={{ fontFamily: "'Inter', sans-serif" }}>
+                  <h4 className="text-sm font-semibold text-[#C4FF00] mb-3" style={{ fontFamily: "'Inter', sans-serif" }}>
                     What's Inside:
                   </h4>
                   <ul className="space-y-2">
                     {tier.whatsInsideFeatures.map((feature: string, i: number) => (
                       <li key={i} className="flex items-start text-gray-300 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
-                        <div className="w-2 h-2 rounded-full mr-3 mt-1.5 flex-shrink-0 bg-[#D0FF00]"></div>
+                        <div className="w-2 h-2 rounded-full mr-3 mt-1.5 flex-shrink-0 bg-[#C4FF00]"></div>
                         {feature}
                       </li>
                     ))}
@@ -216,39 +196,59 @@ export default function HomepagePricingCards() {
                 </div>
               )}
               
+              {/* CTA Button */}
               <motion.button
                 onClick={() => handleCheckout(tier.priceId)}
-                whileHover={{ y: -2 }}
+                whileHover={isPopular ? {
+                  scale: 1.02,
+                  boxShadow: '0 0 10px rgba(196, 255, 0, 0.6)'
+                } : {
+                  scale: 1.03,
+                  y: -2,
+                  boxShadow: '0 0 20px rgba(255,107,0,0.5)'
+                }}
                 whileTap={{ scale: 0.98 }}
-                animate={!isPopular ? {
-                  boxShadow: [
-                    "0 0 0px rgba(255, 107, 0, 0)",
-                    "0 0 12px rgba(255, 107, 0, 0.4)",
-                    "0 0 0px rgba(255, 107, 0, 0)"
-                  ]
-                } : {}}
-                transition={!isPopular ? {
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                } : {}}
-                className={`mt-auto w-full text-center px-4 py-2 font-semibold text-white bg-[#FF6B00] border border-[#FF6B00] rounded-md hover:bg-[#e65f00] transition-all duration-200 ${
-                  isPopular ? 'hover:ring-2 hover:ring-[#D0FF00] hover:ring-offset-2 hover:ring-offset-gray-900' : ''
-                }`}
+                transition={isPopular ? { type: 'spring', stiffness: 300 } : { type: 'spring', stiffness: 300 }}
+                className="mt-auto w-full text-center px-4 py-2 font-semibold text-white bg-[#FF6B00] border border-[#FF6B00] rounded-md hover:bg-[#e65f00] transition-all duration-200"
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 {tier.cta.text}
               </motion.button>
+              
+              {/* Cancellation Fine Print */}
               {tier.ctaNote && (
                 <p className="mt-2 text-xs text-gray-400 text-center" style={{ fontFamily: "'Inter', sans-serif" }}>
                   {tier.ctaNote}
                 </p>
               )}
+              
+              {/* Bottom Note */}
               {tier.bottomNote && (
                 <p className="mt-4 text-sm text-gray-400 text-center" style={{ fontFamily: "'Inter', sans-serif" }}>
                   {tier.bottomNote}
                 </p>
               )}
+              
+              {/* Horizontal Rule */}
+              <hr className="opacity-40 my-4" />
+              
+              {/* Price Block */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.6 + (index * 0.2), duration: 0.5 }}
+              >
+                {isPopular ? (
+                  <p className="text-sm text-gray-400 mt-4 text-center" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    £999 setup + £49/mo — billed only after your 14-day Test Drive ends.
+                  </p>
+                ) : (
+                  <p className="text-sm text-gray-400 mt-4 text-center" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    £1,999 setup + £99/mo — launch in 14 days · upgrade from Turbo any time.
+                  </p>
+                )}
+              </motion.div>
             </motion.div>
           );
         })}
@@ -258,9 +258,9 @@ export default function HomepagePricingCards() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="text-center mt-12"
+        className="text-center mt-8"
       >
-        <p className="text-gray-400 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
+        <p className="text-xs text-center text-gray-500" style={{ fontFamily: "'Inter', sans-serif" }}>
           All plans include UK hosting, SSL, and DVSA-aligned design standards.<br />
           Setup fees are one-time only.<br />
           Test Drive sites are hosted under TorqueSites domains during the trial and migrated to your own domain upon activation.
