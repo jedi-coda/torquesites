@@ -100,10 +100,15 @@ export default function HomepagePricingCards() {
           return (
             <motion.div
               key={index}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0, x: index === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 + (index * 0.2), duration: 0.5 }}
+              transition={{ delay: index === 0 ? 0.2 : 0.4, duration: 0.6, ease: "easeOut" }}
+              whileHover={{
+                scale: 1.02,
+                boxShadow: '0 0 20px rgba(255, 255, 255, 0.08)',
+                y: -4,
+              }}
               className={`relative p-8 rounded-2xl flex flex-col ${
                 isPopular 
                   ? 'bg-[#111111] border-2 border-[#C4FF00] shadow-[0_0_12px_#C4FF00]' 
@@ -199,17 +204,15 @@ export default function HomepagePricingCards() {
               {/* CTA Button */}
               <motion.button
                 onClick={() => handleCheckout(tier.priceId)}
-                whileHover={isPopular ? {
-                  scale: 1.02,
-                  boxShadow: '0 0 10px rgba(196, 255, 0, 0.6)'
-                } : {
+                whileHover={{
+                  backgroundColor: '#00FF88',
+                  color: '#0B0B0C',
                   scale: 1.03,
-                  y: -2,
-                  boxShadow: '0 0 20px rgba(255,107,0,0.5)'
+                  boxShadow: '0 0 12px rgba(0,255,136,0.5)',
                 }}
                 whileTap={{ scale: 0.98 }}
-                transition={isPopular ? { type: 'spring', stiffness: 300 } : { type: 'spring', stiffness: 300 }}
-                className="mt-auto w-full text-center px-4 py-2 font-semibold text-white bg-[#FF6B00] border border-[#FF6B00] rounded-md hover:bg-[#e65f00] transition-all duration-200"
+                transition={{ type: 'spring', stiffness: 300 }}
+                className="mt-auto w-full text-center px-4 py-2 font-semibold text-white bg-[#FF6B00] border border-[#FF6B00] rounded-md transition-all duration-200"
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 {tier.cta.text}
