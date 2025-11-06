@@ -50,27 +50,6 @@ export default function HomepagePricingCards() {
       ],
       cta: { text: "Shift into Top Gear →" },
       isPopular: true
-    },
-    {
-      title: "Hyper Mode",
-      tagline: "Enter Hyper Mode — where performance meets prestige.",
-      price: "£2,999",
-      monthly: "£199/mo",
-      launchTime: "21 days",
-      priceId: "price_1SNvlKRYcQYm7u35gNY72Jkw",
-      features: [
-        "Everything in Supercharged, plus:",
-        "Cinematic hero section with motion and video integration",
-        "Custom animations + Framer Motion effects",
-        "Advanced SEO + analytics setup",
-        "Tailored on-brand copywriting & messaging",
-        "Dedicated design collaboration with our creative team",
-        "Enhanced performance tuning & speed optimisation",
-        "Exclusive early-access features before public release",
-        "Live in 21 days"
-      ],
-      cta: { text: "Enter Hyper Mode →" },
-      isPopular: false
     }
   ];
 
@@ -93,11 +72,11 @@ export default function HomepagePricingCards() {
           className="text-lime-400 text-center text-lg md:text-xl font-medium mt-4 max-w-2xl mx-auto"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          Three precision-engineered packages — built for speed, conversion, and reputation.
+          Two precision-engineered packages — built for speed, conversion, and reputation.
         </motion.p>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto px-6">
         {pricingTiers.map((tier, index) => {
           const isPopular = tier.isPopular;
           

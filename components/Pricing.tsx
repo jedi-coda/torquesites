@@ -40,12 +40,12 @@ export default function Pricing() {
             Choose Your Performance Mode
           </h2>
           <p className="mt-3 text-brand-navy/70">
-            Three precision-engineered packages — built for speed, conversion, and reputation.
+            Two precision-engineered packages — built for speed, conversion, and reputation.
           </p>
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid gap-6 md:grid-cols-3 items-stretch">
+        <div className="grid gap-6 md:grid-cols-2 items-stretch">
           {/* Launch */}
           <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-6 flex flex-col">
             <div className="mb-3 text-sm font-medium text-brand-navy">Launch (Beta)</div>
@@ -89,24 +89,6 @@ export default function Pricing() {
             </ul>
             <button className="mt-auto inline-flex justify-center rounded-xl px-4 py-3 text-sm font-semibold text-white bg-brand-pink hover:opacity-90 transition">
               Secure Early Partner Package
-            </button>
-          </div>
-
-          {/* Partner */}
-          <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-6 flex flex-col">
-            <div className="mb-3 text-sm font-medium text-brand-navy">Partner (Multi-branch)</div>
-            <div className="mb-1 text-3xl font-semibold text-brand-navy">Custom</div>
-            <div className="mb-6 text-sm text-brand-navy/70">Tailored enterprise plans</div>
-            <ul className="space-y-3 mb-6">
-              {features.partner.map((f) => (
-                <li key={f} className="flex items-start gap-2">
-                  <Check className="h-5 w-5 mt-0.5 text-brand-pink" />
-                  <span className="text-brand-navy/80">{f}</span>
-                </li>
-              ))}
-            </ul>
-            <button className="mt-auto inline-flex justify-center rounded-xl px-4 py-3 text-sm font-semibold text-white bg-brand-navy hover:opacity-90 transition">
-              Request Callback
             </button>
           </div>
         </div>
