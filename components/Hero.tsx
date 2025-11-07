@@ -3,10 +3,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, useAnimation, AnimatePresence, useInView } from 'framer-motion';
 
 const rotatingMessages = [
-  "Experience your garage's future — before you pay a penny.",
-  "Turn quiet garages into booked‑out businesses.",
   "Launch your new website in 7 days — no contracts, no risk.",
-  "Experience the 14‑Day TorqueSites Test Drive — free, fast, and built to convert.",
+  "Turn quiet garages into booked‑out businesses.",
+  "Your future, online — before you pay a penny.",
+  "Test drive TorqueSites free — fast, built to convert.",
 ];
 
 const Hero: React.FC = () => {
@@ -146,7 +146,7 @@ const Hero: React.FC = () => {
         {/* Subtext - Rotating Messages */}
         <motion.div
           variants={itemVariants}
-          className="mb-8 max-w-4xl mx-auto min-h-[4rem] flex items-center justify-center"
+          className="mt-4 mb-6 max-w-3xl md:max-w-4xl mx-auto min-h-[4rem] flex items-center justify-center"
         >
           <AnimatePresence mode="wait">
             <motion.p
@@ -155,7 +155,7 @@ const Hero: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.5, ease: 'easeInOut' }}
-              className="text-white text-sm sm:text-base font-light leading-relaxed"
+              className="text-2xl sm:text-3xl md:text-4xl font-medium text-white/90 leading-relaxed mb-10 max-w-3xl mx-auto text-center"
             >
               {rotatingMessages[currentMessageIndex]}
             </motion.p>
