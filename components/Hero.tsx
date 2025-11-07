@@ -146,7 +146,7 @@ const Hero: React.FC = () => {
         {/* Subtext - Rotating Messages */}
         <motion.div
           variants={itemVariants}
-          className="mt-4 mb-6 max-w-3xl md:max-w-4xl mx-auto min-h-[4rem] flex items-center justify-center"
+          className="mt-4 md:mt-6 mb-6 max-w-3xl mx-auto min-h-[4rem] flex items-center justify-center"
         >
           <AnimatePresence mode="wait">
             <motion.p
@@ -155,7 +155,7 @@ const Hero: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.5, ease: 'easeInOut' }}
-              className="text-2xl sm:text-3xl md:text-4xl font-medium text-white/90 leading-relaxed mb-10 max-w-3xl mx-auto text-center"
+              className="text-3xl sm:text-4xl md:text-5xl font-medium text-white/95 leading-tight max-w-3xl mx-auto text-center"
             >
               {rotatingMessages[currentMessageIndex]}
             </motion.p>
