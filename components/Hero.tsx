@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, useAnimation, AnimatePresence, useInView } from 'framer-motion';
 
 const rotatingMessages = [
+  "Experience your garage's future — before you pay a penny.",
   "Turn quiet garages into booked‑out businesses.",
   "Launch your new website in 7 days — no contracts, no risk.",
   "Experience the 14‑Day TorqueSites Test Drive — free, fast, and built to convert.",
@@ -12,7 +13,7 @@ const Hero: React.FC = () => {
   const [greeting, setGreeting] = useState('');
   const controls = useAnimation();
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
-  const [cycleCount, setCycleCount] = useState(0);
+  const [transitionCount, setTransitionCount] = useState(0);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.3 });
 
@@ -28,26 +29,24 @@ const Hero: React.FC = () => {
   useEffect(() => {
     if (isInView) {
       setCurrentMessageIndex(0);
-      setCycleCount(0);
+      setTransitionCount(0);
     }
   }, [isInView]);
 
   useEffect(() => {
-    if (cycleCount >= 4) return;
+    // Stop after 4 complete cycles (16 transitions: 4 messages × 4 cycles)
+    if (transitionCount >= 16) return;
 
     const interval = setInterval(() => {
       setCurrentMessageIndex((prevIndex) => {
         const nextIndex = (prevIndex + 1) % rotatingMessages.length;
-        // If we've completed a full cycle (back to index 0), increment cycle count
-        if (nextIndex === 0) {
-          setCycleCount((prev) => prev + 1);
-        }
+        setTransitionCount((prevCount) => prevCount + 1);
         return nextIndex;
       });
-    }, 6000); // 6s per message
+    }, 4000); // 4s per message
 
     return () => clearInterval(interval);
-  }, [cycleCount, isInView]);
+  }, [transitionCount]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -156,7 +155,7 @@ const Hero: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.5, ease: 'easeInOut' }}
-              className="mt-4 text-white text-base font-medium transition-opacity duration-500 ease-in-out"
+              className="text-white text-sm sm:text-base font-light leading-relaxed"
             >
               {rotatingMessages[currentMessageIndex]}
             </motion.p>
