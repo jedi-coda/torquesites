@@ -1,10 +1,20 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import React, { useEffect, useState, useRef } from 'react';
+import { motion, useAnimation, AnimatePresence, useInView } from 'framer-motion';
+
+const rotatingMessages = [
+  "Turn quiet garages into booked‑out businesses.",
+  "Launch your new website in 7 days — no contracts, no risk.",
+  "Experience the 14‑Day TorqueSites Test Drive — free, fast, and built to convert.",
+];
 
 const Hero: React.FC = () => {
   const [greeting, setGreeting] = useState('');
   const controls = useAnimation();
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  const [cycleCount, setCycleCount] = useState(0);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: false, amount: 0.3 });
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -13,6 +23,31 @@ const Hero: React.FC = () => {
     else setGreeting('Good evening,');
     controls.start('visible');
   }, [controls]);
+
+  // Reset rotation when section comes back into view (scroll/refresh)
+  useEffect(() => {
+    if (isInView) {
+      setCurrentMessageIndex(0);
+      setCycleCount(0);
+    }
+  }, [isInView]);
+
+  useEffect(() => {
+    if (cycleCount >= 4) return;
+
+    const interval = setInterval(() => {
+      setCurrentMessageIndex((prevIndex) => {
+        const nextIndex = (prevIndex + 1) % rotatingMessages.length;
+        // If we've completed a full cycle (back to index 0), increment cycle count
+        if (nextIndex === 0) {
+          setCycleCount((prev) => prev + 1);
+        }
+        return nextIndex;
+      });
+    }, 6000); // 6s per message
+
+    return () => clearInterval(interval);
+  }, [cycleCount, isInView]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -41,7 +76,7 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0B0B0C] via-[#1B1B1C] to-[#0B0B0C]">
+    <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0B0B0C] via-[#1B1B1C] to-[#0B0B0C]">
       {/* Ambient Lighting */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -109,13 +144,24 @@ const Hero: React.FC = () => {
           </motion.span>
         </motion.h1>
 
-        {/* Subtext */}
-        <motion.p
+        {/* Subtext - Rotating Messages */}
+        <motion.div
           variants={itemVariants}
-          className="text-xl sm:text-2xl md:text-3xl font-light text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed"
+          className="mb-8 max-w-4xl mx-auto min-h-[4rem] flex items-center justify-center"
         >
-          Experience your garage's future — before you pay a penny.
-        </motion.p>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={currentMessageIndex}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.5, ease: 'easeInOut' }}
+              className="mt-4 text-white text-base font-medium transition-opacity duration-500 ease-in-out"
+            >
+              {rotatingMessages[currentMessageIndex]}
+            </motion.p>
+          </AnimatePresence>
+        </motion.div>
 
         {/* Description */}
         <motion.p
@@ -141,21 +187,8 @@ const Hero: React.FC = () => {
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             />
-            <span className="relative z-10 flex items-center justify-center gap-2 text-black group-hover:text-black transition-colors duration-300">
-              START YOUR ENGINE
-              <svg
-                className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2.5}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
+            <span className="relative z-10 flex items-center justify-center text-black group-hover:text-black transition-colors duration-300">
+              Test Drive Now
             </span>
           </motion.button>
 
