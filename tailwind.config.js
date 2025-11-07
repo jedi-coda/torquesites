@@ -34,6 +34,14 @@ module.exports = {
           dark: "#0E0E0E",        // Graphite carbon background
           surface: "#1A1A1A",     // Cards / hover layers
           success: "#3AFF5C",     // Success/Pulse color
+          lime: '#C4FF00',
+          'lime-dark': '#A8E600',
+          'lime-light': '#D4FF40',
+        },
+        accent: {
+          orange: '#FF6B00',
+          'orange-dark': '#E65C00',
+          'orange-light': '#FF8533',
         },
         // Legacy colors for backward compatibility
         pink: {
@@ -48,6 +56,10 @@ module.exports = {
           800: "#9A3412",
           900: "#7C2D12",
         },
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'hero-gradient': 'linear-gradient(135deg, #0B0B0C 0%, #1B1B1C 50%, #0B0B0C 100%)',
       },
     },
   },

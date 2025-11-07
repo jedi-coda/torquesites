@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 let stripe: Stripe | null = null;
-
+npm run dev 
 if (process.env.STRIPE_SECRET_KEY) {
   try {
     stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
