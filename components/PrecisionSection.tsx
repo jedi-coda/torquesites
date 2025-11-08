@@ -112,7 +112,17 @@ export default function PrecisionSection() {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
             className="relative"
           >
-            <div className="relative w-full max-w-xl mx-auto rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 shadow-[0_0_30px_#C4FF00]">
+            <div className="relative w-full max-w-xl mx-auto">
+              {/* Radial Neon Glow Behind Image */}
+              <div 
+                className="absolute -inset-8 -z-10 rounded-xl pointer-events-none"
+                style={{
+                  background: 'radial-gradient(circle at center, rgba(196, 255, 0, 0.4) 0%, rgba(196, 255, 0, 0.25) 30%, rgba(196, 255, 0, 0.1) 50%, transparent 70%)',
+                  filter: 'blur(60px)',
+                }}
+                aria-hidden="true"
+              />
+              <div className="relative rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 shadow-[0_0_30px_#C4FF00]">
               <Image
                 src="/images/Porsche 911- tron.png"
                 alt="Tron-inspired Porsche 911 Targa in motion"
@@ -132,6 +142,7 @@ export default function PrecisionSection() {
               </div>
               <div className="absolute bottom-2 right-2 bg-black text-white text-xs font-semibold px-2 py-1 rounded">
                 Engineering Excellence
+              </div>
               </div>
             </div>
           </motion.div>

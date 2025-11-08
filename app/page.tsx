@@ -293,7 +293,7 @@ export default function HomePage() {
       </section>
 
       {/* GUARANTEE */}
-      <section className="text-center pt-12 pb-10 border-b border-lime-400/10">
+      <section className="text-center pt-8 pb-10 border-b border-lime-400/10">
         <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 tracking-tight">
           Our Guarantee
         </h2>
