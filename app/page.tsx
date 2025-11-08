@@ -287,20 +287,21 @@ export default function HomePage() {
           Ready to accelerate online?
           </h2>
           <p className="text-lg md:text-xl text-white text-center max-w-2xl mx-auto mb-8">
-            Give your garage the website it deserves — engineered, trusted, and built to dominate your market.
+            Launch your new TorqueSite in just 7 days — no risk, no contracts.  
+            Let's show you what performance feels like.
           </p>
           <div className="flex flex-col md:flex-row justify-center items-center gap-4">
           <Link
             href="/contact"
-              className="px-6 py-3 border border-lime-400 text-white hover:bg-lime-400 hover:text-neutral-900 hover:shadow-lg transition ease-out duration-300"
+              className="px-6 py-3 border border-lime-400 text-white hover:bg-lime-400 hover:text-neutral-900 rounded-md transition duration-300 ease-out transform hover:-translate-y-1 hover:scale-105"
             >
               Book a Demo
             </Link>
             <Link
-              href="/#pricing"
-              className="px-6 py-3 border border-lime-400 text-white hover:bg-lime-400 hover:text-neutral-900 hover:shadow-lg transition ease-out duration-300"
+              href="/contact"
+              className="px-6 py-3 bg-orange-500 text-white hover:bg-lime-400 hover:text-neutral-900 rounded-md transition duration-300 ease-out transform hover:-translate-y-1 hover:scale-105"
             >
-              See Pricing →
+              Start Your Test Drive
           </Link>
         </div>
         </motion.div>
