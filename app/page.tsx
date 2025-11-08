@@ -266,10 +266,11 @@ export default function HomePage() {
         <p className="text-orange-500 font-semibold mt-6">No risk. Just results.</p>
       </section>
 
+      {/* TODO: Exclusive Pricing moved to /vip-exclusive — safe to remove after verification */}
       {/* VIP SECTION */}
-      <section id="partner100" className="py-12 md:py-16">
+      {/* <section id="partner100" className="py-12 md:py-16">
       <VIPSection />
-      </section>
+      </section> */}
 
       {/* Divider */}
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent mb-16" />
