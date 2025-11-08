@@ -260,9 +260,8 @@ export default function HomePage() {
           Our Guarantee
         </h2>
         <p className="text-white/90 max-w-2xl mx-auto leading-relaxed">
-          Your site, engineered for performance — built fast, live in <span className="font-semibold">7–21 days.</span><br />
-          Every TorqueSite is backed by our <span className="text-lime-400 font-semibold">Performance-Back Promise</span>. 
-          If you’re not completely satisfied before launch, your setup fee is protected.
+          Your TorqueSite is engineered for performance — built fast, live in 7–14 days.<br />
+          Every site is backed by our <span className="text-lime-400 font-semibold">Performance-Back Promise</span>: If we don't launch a high-converting site you love, your setup fee is protected.
         </p>
         <p className="text-orange-500 font-semibold mt-6">No risk. Just results.</p>
       </section>
