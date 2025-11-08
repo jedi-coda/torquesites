@@ -104,107 +104,36 @@ export default function PrecisionSection() {
             </div>
           </div>
 
-          {/* Right Column – Porsche Image with Breathing Glow and Static Badges */}
+          {/* Right Column – Tron-style Porsche Image */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
-            className="relative aspect-[4/3] lg:aspect-square"
+            className="relative"
           >
-            {/* Single Ambient Glow (No Stacked Blur Rings) */}
-            <div
-              className="absolute -inset-12 bg-gradient-radial from-lime-400/10 via-emerald-500/8 to-transparent blur-3xl -z-10 pointer-events-none"
-              aria-hidden="true"
-            />
-
-            {/* Porsche Image with Border + Breathing Hover */}
-            <motion.div
-              whileHover={{ scale: 1.01 }}
-              className="relative w-full h-full rounded-2xl overflow-hidden shadow-xl border border-zinc-800/40 bg-zinc-900"
-            >
+            <div className="relative w-full max-w-xl mx-auto rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 shadow-[0_0_30px_#C4FF00]">
               <Image
-                src="/images/porsche-precision.jpg"
-                alt="Precision engineered Porsche vehicle"
-                fill
-                className="object-cover"
+                src="/images/Porsche 911- tron.png"
+                alt="Tron-inspired Porsche 911 Targa in motion"
+                width={800}
+                height={500}
                 priority
+                className="object-cover w-full h-auto"
               />
-
-              {/* Top Gradient */}
-              <div
-                className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-white/5 to-transparent pointer-events-none"
-                aria-hidden="true"
-              />
-
-              {/* Bottom Glow Under Car */}
-              <div
-                className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-lime-400/10 via-emerald-500/4 to-transparent pointer-events-none"
-                aria-hidden="true"
-              />
-
-              {/* === BADGES === */}
-
-              {/* Top-Left */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.85, y: -30 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="absolute top-6 left-6 bg-zinc-900/95 backdrop-blur-md px-4 py-2.5 rounded-lg shadow-lg border border-zinc-700/50 ring-1 ring-white/10 select-none"
-              >
-                <p className="text-sm font-semibold text-white tracking-tight">
-                  Precision Crafted
-                </p>
-              </motion.div>
-
-              {/* Top-Right */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.85, y: -30 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.7, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="absolute top-6 right-6 bg-emerald-500/90 backdrop-blur-md px-4 py-2.5 rounded-lg shadow-md ring-1 ring-emerald-400/30 select-none"
-                style={{
-                  boxShadow:
-                    "0 0 24px rgba(16, 185, 129, 0.6), 0 0 36px rgba(16, 185, 129, 0.3)",
-                }}
-              >
-                <p className="text-sm font-semibold text-white tracking-tight">
-                  2.1s Load Time
-                </p>
-              </motion.div>
-
-              {/* Bottom-Left */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.85, y: 30 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.9, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="absolute bottom-6 left-6 bg-zinc-900/95 backdrop-blur-md px-4 py-2.5 rounded-lg shadow-lg border border-zinc-700/50 ring-1 ring-white/10 select-none"
-              >
-                <p className="text-sm font-semibold text-white tracking-tight">
-                  99% Uptime
-                </p>
-              </motion.div>
-
-              {/* Bottom-Right */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.85, y: 30 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 1.1, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="absolute bottom-6 right-6 bg-zinc-900/95 backdrop-blur-md px-5 py-2.5 rounded-full shadow-lg border border-zinc-700/50 ring-1 ring-white/10 select-none"
-              >
-                <p className="text-sm font-semibold text-white tracking-tight">
-                  Engineering Excellence
-                </p>
-              </motion.div>
-            </motion.div>
+              <div className="absolute top-2 left-2 bg-black/70 text-white text-xs font-semibold px-2 py-1 rounded">
+                Precision Crafted
+              </div>
+              <div className="absolute top-2 right-2 bg-green-500 text-black text-xs font-semibold px-2 py-1 rounded">
+                2.1s Load Time
+              </div>
+              <div className="absolute bottom-2 left-2 bg-white text-black text-xs font-semibold px-2 py-1 rounded">
+                99% Uptime
+              </div>
+              <div className="absolute bottom-2 right-2 bg-black text-white text-xs font-semibold px-2 py-1 rounded">
+                Engineering Excellence
+              </div>
+            </div>
           </motion.div>
         </div>
 
