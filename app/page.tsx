@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useMotionValue, animate } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import CountUp from "react-countup";
 import {
@@ -72,6 +72,44 @@ export default function HomePage() {
   useEffect(() => animateCounter(isBookingVisible, setBookingCount, 47), [isBookingVisible]);
   useEffect(() => animateCounter(isCallsVisible, setCallsCount, 23), [isCallsVisible]);
   useEffect(() => animateCounter(isRankingVisible, setRankingCount, 31), [isRankingVisible]);
+
+  // Stats section animation refs and state
+  const statsRef = useRef(null);
+  const isStatsInView = useInView(statsRef, { once: true, margin: "-100px" });
+  const [startFirst, setStartFirst] = useState(false);
+  
+  // Uptime counter setup
+  const uptimeRef = useRef(null);
+  const isUptimeInView = useInView(uptimeRef, { once: false, amount: 0.5 });
+  const uptimeValue = useMotionValue(0);
+  const [uptimeDisplay, setUptimeDisplay] = useState("0.0");
+
+  useEffect(() => {
+    if (isStatsInView) {
+      const timer1 = setTimeout(() => setStartFirst(true), 500);
+      return () => clearTimeout(timer1);
+    }
+  }, [isStatsInView]);
+
+  // Animate uptime counter
+  useEffect(() => {
+    let controls: ReturnType<typeof animate> | undefined;
+
+    if (isUptimeInView) {
+      // Reset before re-animating
+      uptimeValue.set(0);
+
+      controls = animate(uptimeValue, 99.9, {
+        duration: 1.5,
+        ease: "easeOut",
+        onUpdate: (v) => setUptimeDisplay(v.toFixed(1)),
+      });
+    }
+
+    return () => {
+      if (controls) controls.stop();
+    };
+  }, [isUptimeInView, uptimeValue]);
 
   return (
     <div className="bg-gradient-to-b from-[#0E0E0E] to-[#1A1A1A] backdrop-blur-md min-h-screen">
@@ -264,6 +302,36 @@ export default function HomePage() {
           Every site is backed by our <span className="text-lime-400 font-semibold">Performance-Back Promise</span>: If we don't launch a high-converting site you love, your setup fee is protected.
         </p>
         <p className="text-orange-500 font-semibold mt-6">No risk. Just results.</p>
+      </section>
+
+      {/* STATS COUNTER SECTION */}
+      <section ref={statsRef} className="py-12 md:py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isStatsInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto px-6"
+        >
+          <div className="bg-[#0E0E0E] rounded-2xl p-6 border border-[#FF6B00]/20">
+            <div className="text-3xl font-bold text-[#FF6B00] mb-2">
+              {startFirst ? <CountUp end={7} duration={1.5} suffix=" Days" /> : "0 Days"}
+            </div>
+            <div className="text-white text-sm">Average Launch Time</div>
+          </div>
+          <div className="bg-[#0E0E0E] rounded-2xl p-6 border border-[#C4FF00]/20">
+            <span 
+              ref={uptimeRef}
+              className="text-3xl font-bold text-lime-400 mb-2 block"
+            >
+              {uptimeDisplay}%
+            </span>
+            <div className="text-white text-sm">Uptime Guarantee</div>
+          </div>
+          <div className="bg-[#0E0E0E] rounded-2xl p-6 border border-[#FF6B00]/20">
+            <div className="text-3xl font-bold text-[#FF6B00] mb-2">24/7</div>
+            <div className="text-white text-sm">Performance Support</div>
+          </div>
+        </motion.div>
       </section>
 
       {/* TODO: Exclusive Pricing moved to /vip-exclusive — safe to remove after verification */}
