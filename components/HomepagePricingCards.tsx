@@ -204,15 +204,28 @@ export default function HomepagePricingCards() {
               {/* CTA Button */}
               <motion.button
                 onClick={() => handleCheckout(tier.priceId)}
-                whileHover={{
-                  backgroundColor: '#00FF88',
-                  color: '#0B0B0C',
-                  scale: 1.03,
-                  boxShadow: '0 0 12px rgba(0,255,136,0.5)',
-                }}
+                whileHover={
+                  isPopular
+                    ? {
+                        backgroundColor: '#C4FF00',
+                        color: '#000000',
+                        scale: 1.03,
+                        boxShadow: '0 0 20px rgba(196,255,0,0.6), 0 0 30px rgba(196,255,0,0.3)',
+                      }
+                    : {
+                        backgroundColor: '#EA580C',
+                        color: '#FFFFFF',
+                        scale: 1.03,
+                        boxShadow: '0 0 12px rgba(234,88,12,0.5)',
+                      }
+                }
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: 'spring', stiffness: 300 }}
-                className="mt-auto w-full text-center px-4 py-2 font-semibold text-white bg-[#FF6B00] border border-[#FF6B00] rounded-md transition-all duration-200"
+                className={`mt-auto w-full text-center px-4 py-2 font-semibold rounded-md transition-colors duration-300 ${
+                  isPopular
+                    ? 'bg-orange-500 text-black hover:bg-[#C4FF00] hover:text-black focus:ring-2 focus:ring-[#C4FF00] focus:ring-offset-2 focus:ring-offset-black'
+                    : 'bg-orange-500 text-black hover:bg-orange-600 hover:text-white focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-black'
+                }`}
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 {tier.cta.text}
