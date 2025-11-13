@@ -4,11 +4,19 @@ import { useState, useRef } from "react";
 import { premiumTheme } from "@/lib/fallbackGarage";
 
 export default function EnquiryForm({
+  garageName,
+  toEmail,
+  brandPrimary,
+  garageSlug,
+  whatsappNumber,
+  garageAddress
 }: {
   garageName: string;
   toEmail: string;         // where you want the email to go
   brandPrimary?: string;   // used for button colour
   garageSlug?: string;     // to determine if we should use .btn classes
+  whatsappNumber?: string; // WhatsApp number for click-to-message
+  garageAddress?: string;  // Garage address for WhatsApp message
 }) {
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -65,15 +73,15 @@ export default function EnquiryForm({
               GET IN TOUCH
             </span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-            Book Your <span style={{ color: premiumTheme.accentColor }}>Expert</span> Service
+          <h2 className="text-3xl font-bold text-white mb-4 tracking-tight">
+            Let's Get You Booked In
           </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Ready to experience exceptional service? Get in touch with our expert team in Chesham.
+          <p className="text-md text-gray-300 mt-2 max-w-2xl mx-auto">
+            Ready to schedule your MOT or service? Send us your details and we'll confirm your slot.
           </p>
         </div>
         
-        <div id="enquiry" className="bg-gray-900/50 border border-gray-700/50 rounded-2xl p-8 md:p-12 backdrop-blur-sm scroll-mt-24">
+        <section id="booking-form" className="bg-gray-900/50 border border-gray-700/50 rounded-2xl p-8 md:p-12 backdrop-blur-sm scroll-mt-24">
           <form ref={formRef} noValidate className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -181,26 +189,58 @@ export default function EnquiryForm({
             {/* Honeypot */}
             <input name="company" className="hidden" tabIndex={-1} autoComplete="off" />
             
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-              style={{ backgroundColor: premiumTheme.accentColor }}
-              onMouseEnter={(e) => {
-                if (!isSubmitting) {
-                  e.currentTarget.style.backgroundColor = premiumTheme.brandColor;
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="flex-1 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                style={{ backgroundColor: premiumTheme.accentColor }}
+                onMouseEnter={(e) => {
+                  if (!isSubmitting) {
+                    e.currentTarget.style.backgroundColor = premiumTheme.brandColor;
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isSubmitting) {
+                    e.currentTarget.style.backgroundColor = premiumTheme.accentColor;
+                  }
+                }}
+              >
+                {isSubmitting ? "Submitting..." : "Send Enquiry"}
+              </button>
+              
+              {whatsappNumber && (() => {
+                // Extract location from address (typically the town/city before postcode)
+                let location = '';
+                if (garageAddress) {
+                  const parts = garageAddress.split(',').map(p => p.trim());
+                  // Look for town/city (usually second-to-last before postcode)
+                  for (let i = parts.length - 2; i >= 0; i--) {
+                    const part = parts[i];
+                    // Skip if it looks like a postcode, street term, or number
+                    if (part && !part.match(/^[A-Z]{1,2}\d{1,2}\s?\d[A-Z]{2}$/i) && 
+                        !part.match(/^(road|street|lane|drive|avenue|way|unit|building)/i) &&
+                        !part.match(/^\d+$/)) {
+                      location = part;
+                      break;
+                    }
+                  }
                 }
-              }}
-              onMouseLeave={(e) => {
-                if (!isSubmitting) {
-                  e.currentTarget.style.backgroundColor = premiumTheme.accentColor;
-                }
-              }}
-            >
-              {isSubmitting ? "Submitting..." : "Send Enquiry"}
-            </button>
+                const message = `Hi, I'm interested in booking a service at ${garageName}${location ? ` in ${location}` : ''}.`;
+                return (
+                  <a
+                    href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-0 sm:ml-4 inline-flex items-center justify-center rounded-lg bg-green-500 px-4 py-4 text-white font-semibold hover:bg-green-600 transition-all duration-300 transform hover:scale-105 shadow-lg whitespace-nowrap"
+                  >
+                    Message Us on WhatsApp
+                  </a>
+                );
+              })()}
+            </div>
           </form>
-        </div>
+        </section>
       </div>
     </div>
   );

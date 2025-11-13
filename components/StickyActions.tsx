@@ -21,9 +21,11 @@ export default function StickyActionBar({
     if (onBook) {
       onBook();
     } else {
-      // Default behavior - scroll to enquiry form
-      const el = document.getElementById("enquiry");
-      el?.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Default behavior - scroll to booking form
+      const el = document.getElementById("booking-form");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
   };
 

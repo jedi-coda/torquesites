@@ -1,15 +1,15 @@
 import { type Garage } from "@/lib/garage";
-import GarageHero from "@/components/hero/GarageHero";
+import GarageHero from "@/components/GarageHero";
+import ReviewsCarousel from "@/components/ReviewsCarousel";
 import ServicesGrid from "@/components/ServicesGrid";
-import EnquiryForm from "@/components/EnquiryForm";
-import ContactDetails from "@/components/ui/ContactDetails";
-import OpeningHours from "@/components/OpeningHours";
-import MapEmbed from "@/components/MapEmbed";
-import Reviews from "@/components/ui/Reviews";
 import PricingCards from "@/components/PricingCards";
-import StickyActionsClient from "@/components/StickyActionsClient";
+import OpeningHours from "@/components/OpeningHours";
+import EnquiryForm from "@/components/EnquiryForm";
+import MapEmbed from "@/components/MapEmbed";
+import ContactDetails from "@/components/ui/ContactDetails";
+import Reviews from "@/components/ui/Reviews";
 import Footer from "@/components/Footer";
-import CinematicCTA from "@/components/CinematicCTA";
+import StickyActionsClient from "@/components/StickyActionsClient";
 import { getSafeGarage, getSafeContact } from "@/lib/fallbackGarage";
 
 type Props = {
@@ -23,44 +23,41 @@ export default function GarageTemplateSupercharged({ garage, tier }: Props) {
 
   return (
     <div className="min-h-screen bg-black">
-      <div className="fixed top-4 left-4 z-50 px-4 py-1 text-xs font-bold uppercase rounded-full shadow-md bg-white/10 text-white backdrop-blur-md border border-white/20">
-        {tier === "turbo" && "TURBO MODE • Powered by TorqueSites"}
-        {tier === "supercharged" && "SUPERCHARGED MODE • Powered by TorqueSites"}
-        {tier === "hyper" && "HYPER MODE • Powered by TorqueSites"}
-      </div>
-      
-      {garage && (
-        <GarageHero garage={garage} tier={tier as 'supercharged' | 'turbo' | 'hyper'} variant="customer" />
+      {/* Dark dynamic hero section with rotating greeting + 3 headline messages */}
+      <GarageHero garage={garage} />
+
+      {/* Reviews carousel stays here */}
+      {safeGarage.reviews && safeGarage.reviews.length > 0 && (
+        <ReviewsCarousel reviews={safeGarage.reviews} />
       )}
 
-      {/* Service highlights (DVSA, local, etc.) */}
+      {/* Service highlights */}
       {safeGarage.services && <ServicesGrid services={safeGarage.services} />}
 
       {/* MOT & service pricing */}
       <PricingCards pricing={safeGarage.pricing} />
 
-      {/* Mid-page visual boost */}
-      <div className="my-24">
-        <CinematicCTA phone={safeContact.phone} />
+      {/* Opening hours */}
+      {safeGarage.openingHours && safeGarage.openingHours.length > 0 && (
+        <OpeningHours hours={safeGarage.openingHours} />
+      )}
+
+      {/* Mini hero badge - placed between OpeningHours and EnquiryForm */}
+      <div className="text-xs uppercase bg-white/10 px-3 py-1 rounded-md text-white text-center w-fit mx-auto mb-6">
+        SUPERCHARGED MODE • POWERED BY TORQUESITES
       </div>
 
-      {/* Book a service form */}
+      {/* Booking form - scroll anchor for sticky CTA (id="booking-form" is in EnquiryForm) */}
       <EnquiryForm
         garageName={safeGarage.name}
         toEmail={safeContact.email || "info@premium-garage.example"}
         brandPrimary={safeGarage.brand?.primary || "#1A1A1A"}
         garageSlug={safeGarage.slug}
+        whatsappNumber={safeContact.whatsapp}
+        garageAddress={(garage as any)?.address || safeGarage.branches?.[0]?.address}
       />
 
-      {/* Garage opening hours (optional) */}
-      {safeGarage.openingHours && safeGarage.openingHours.length > 0 && (
-        <OpeningHours hours={safeGarage.openingHours} />
-      )}
-
-      {/* Phone + address contact */}
-      <ContactDetails phone={safeContact.phone} email={safeContact.email} />
-
-      {/* Embedded map (no Google reviews) */}
+      {/* Embedded map */}
       <MapEmbed
         name={safeGarage.name}
         address={
@@ -72,13 +69,17 @@ export default function GarageTemplateSupercharged({ garage, tier }: Props) {
         garage={garage}
       />
 
-      {/* Customer reviews (if available - Facebook or Google) */}
+      {/* Contact details */}
+      <ContactDetails phone={safeContact.phone} email={safeContact.email} />
+
+      {/* Full review block (same as Turbo) */}
       {safeGarage.reviews && safeGarage.reviews.length > 0 && (
         <Reviews garage={safeGarage} />
       )}
+
       {/* Spacer to offset Sticky CTA bar */}
       <div className="h-[88px] sm:h-[72px]" />
-      <Footer garage={garage} tier={tier} />
+      <Footer garage={safeGarage} tier={tier} />
       <StickyActionsClient
         logoPath={safeGarage.logoPath}
         phoneNumber={safeContact.phone}

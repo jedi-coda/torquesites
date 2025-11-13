@@ -12,8 +12,10 @@ export default function StickyActionsClient({
   phoneNumber
 }: StickyActionsClientProps) {
   const handleBookClick = () => {
-    const el = document.getElementById("enquiry");
-    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const el = document.getElementById("booking-form");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   const handleCallClick = () => {

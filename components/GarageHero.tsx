@@ -60,19 +60,20 @@ export default function GarageHero({ garage }: { garage?: Garage | null }) {
             className="w-full h-full"
             style={backgroundStyle}
           />
-        ) : (
+        ) : currentVariantData?.src ? (
           <Image
-            src={currentVariantData.src || "/hero/customer.jpg"}
-            alt={currentVariantData.alt || "Premium hero background"}
-            width={1920}
-            height={1080}
-            className="w-full h-full object-cover transition-opacity duration-700 ease-in-out"
+            src={currentVariantData.src}
+            alt={currentVariantData.alt || ''}
+            className="absolute z-0 object-cover w-full h-full"
+            fill
             priority
           />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-b from-black to-zinc-900" />
         )}
         
         {/* Premium gradient overlay for image backgrounds */}
-        {!isSolidBackground && (
+        {!isSolidBackground && currentVariantData?.src && (
           <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/40 to-transparent" />
         )}
         
