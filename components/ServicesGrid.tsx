@@ -26,8 +26,16 @@ export default function ServicesGrid({ services }: ServicesGridProps) {
   }
 
   return (
-    <section className="py-20 px-6 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
+    <section 
+      className="relative py-20 px-6 bg-[#F8FAFC] isolate overflow-hidden" 
+      style={{ 
+        backgroundColor: '#F8FAFC',
+        backgroundImage: 'none',
+        position: 'relative',
+        zIndex: 1
+      }}
+    >
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">

@@ -18,7 +18,33 @@
       "Free MOT re-test",
       "Trusted team"
     ],
-    "services": ["MOT Testing", "Servicing", "Diagnostics", "EV & Hybrid"],
+    "services": [
+      {
+        "title": "MOT",
+        "description": "Fast, hassle-free MOT tests",
+        "icon": "wrench"
+      },
+      {
+        "title": "Servicing",
+        "description": "Keep your car running at its best",
+        "icon": "oil"
+      },
+      {
+        "title": "Repairs",
+        "description": "Mechanical and bodywork repairs",
+        "icon": "settings"
+      },
+      {
+        "title": "Diagnostics",
+        "description": "Clear fault code scanning and diagnosis",
+        "icon": "alert-circle"
+      },
+      {
+        "title": "Tyres",
+        "description": "Affordable, fitted fast",
+        "icon": "car"
+      }
+    ],
     "pricing": {
       "mot": "£54.85",
       "interimFrom": "£149",

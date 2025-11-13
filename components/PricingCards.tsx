@@ -85,10 +85,10 @@ export default function PricingCards({ pricing }: Props) {
     <div className="space-y-8 py-16 bg-black">
       <div className="text-center mb-12">
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-          Choose Your Performance Mode
+          Your Service, Your Way
         </h2>
         <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-          Three precision-engineered packages — built for speed, conversion, and reputation.
+          Choose the right level of care for your vehicle — with clear pricing and zero surprises.
         </p>
       </div>
       
@@ -155,6 +155,7 @@ export default function PricingCards({ pricing }: Props) {
                   href={tier.cta1.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`Book ${tier.title} Online`}
                   className={`block w-full text-center py-4 px-6 rounded-lg font-semibold transition-all duration-300 ${
                     isPopular
                       ? 'text-white transform hover:scale-105 shadow-lg'
@@ -184,6 +185,7 @@ export default function PricingCards({ pricing }: Props) {
                 </a>
               ) : (
                 <button 
+                  aria-label={`Book ${tier.title} Online`}
                   className={`block w-full text-center py-4 px-6 rounded-lg font-semibold transition-all duration-300 ${
                     isPopular
                       ? 'text-white transform hover:scale-105 shadow-lg'
@@ -209,7 +211,12 @@ export default function PricingCards({ pricing }: Props) {
                     }
                   }}
                 >
-                  Book Now
+                  {/* TODO: Connect to Stripe payment links once available in garages.json
+                      For MOT: garage.stripeLinks.mot
+                      For Interim Service: garage.stripeLinks.interim
+                      For Full Service: garage.stripeLinks.full
+                  */}
+                  Book Online
                 </button>
               )}
             </div>
@@ -218,8 +225,8 @@ export default function PricingCards({ pricing }: Props) {
       </div>
       
       <div className="text-center mt-12">
-        <p className="text-gray-400 text-sm">
-          All prices include VAT. Free re-test within 10 working days if required.
+        <p className="text-gray-400 text-sm max-w-2xl mx-auto">
+          All prices include VAT. No hidden costs. Free re-test within 10 working days if required.
         </p>
       </div>
     </div>

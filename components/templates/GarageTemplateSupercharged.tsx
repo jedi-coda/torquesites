@@ -1,5 +1,5 @@
 import { type Garage } from "@/lib/garage";
-import GarageHero from "@/components/GarageHero";
+import GarageHero from "@/components/hero/GarageHero";
 import ServicesGrid from "@/components/ServicesGrid";
 import EnquiryForm from "@/components/EnquiryForm";
 import ContactDetails from "@/components/ui/ContactDetails";
@@ -28,8 +28,10 @@ export default function GarageTemplateSupercharged({ garage, tier }: Props) {
         {tier === "supercharged" && "SUPERCHARGED MODE • Powered by TorqueSites"}
         {tier === "hyper" && "HYPER MODE • Powered by TorqueSites"}
       </div>
-      {/* Garage-specific hero (no SaaS sales copy) */}
-      <GarageHero garage={garage} />
+      
+      {garage && (
+        <GarageHero garage={garage} tier={tier as 'supercharged' | 'turbo' | 'hyper'} variant="customer" />
+      )}
 
       {/* Service highlights (DVSA, local, etc.) */}
       {safeGarage.services && <ServicesGrid services={safeGarage.services} />}
