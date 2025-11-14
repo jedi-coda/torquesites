@@ -60,21 +60,27 @@ export default function GarageHero({ garage }: { garage?: Garage | null }) {
             className="w-full h-full"
             style={backgroundStyle}
           />
-        ) : currentVariantData?.src ? (
-          <Image
-            src={currentVariantData.src}
-            alt={currentVariantData.alt || ''}
-            className="absolute z-0 object-cover w-full h-full"
-            fill
-            priority
-          />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-b from-black to-zinc-900" />
-        )}
-        
-        {/* Premium gradient overlay for image backgrounds */}
-        {!isSolidBackground && currentVariantData?.src && (
-          <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/40 to-transparent" />
+          <>
+            {/* Fallback gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black to-zinc-900" />
+            
+            {/* Only construct and render <Image /> if a valid heroImage path exists */}
+            {(garage as any)?.heroImage && (
+              <Image
+                src={(garage as any).heroImage}
+                alt={`${garage?.name || 'Garage'} Hero Image`}
+                fill
+                className="absolute inset-0 object-cover opacity-80"
+                priority
+              />
+            )}
+            
+            {/* Premium gradient overlay for image backgrounds */}
+            {(garage as any)?.heroImage && (
+              <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/40 to-transparent" />
+            )}
+          </>
         )}
         
         {/* Premium accent overlay */}
@@ -173,6 +179,15 @@ export default function GarageHero({ garage }: { garage?: Garage | null }) {
           </div>
         )}
       </div>
+
+      {/* Development environment badge - top-left */}
+      {process.env.NODE_ENV !== 'production' && (
+        <div className="absolute top-4 left-4 z-10">
+          <span className="rounded-full bg-black/60 px-4 py-1 text-xs font-medium text-white shadow-md backdrop-blur-sm">
+            SUPERCHARGED MODE • POWERED BY TORQUESITES
+          </span>
+        </div>
+      )}
     </div>
   );
 }
