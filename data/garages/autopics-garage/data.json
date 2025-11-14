@@ -1,0 +1,43 @@
+{
+  "slug": "autopics-garage",
+  "name": "Autopics Garage Services",
+  "brand": { "primary": "#0F6BD4", "dark": "#0B0B0C" },
+  "contact": {
+    "phone": "01903 856016",
+    "email": "sales@autopics.co.uk"
+  },
+  "hours": "Mon–Fri 08:30–17:30",
+  "hero": { "greeting": true, "background": "solid" },
+  "chips": [
+    "DVSA MOT",
+    "Local – Independent",
+    "Courtesy cars",
+    "Diagnostics",
+    "Trusted team",
+    "Transparent pricing"
+  ],
+  "services": [
+    "MOT Testing",
+    "Servicing",
+    "Repairs",
+    "Diagnostics",
+    "Tyres",
+    "Brakes",
+    "Batteries",
+    "Exhausts"
+  ],
+  "pricing": { "mot": "£54.85", "interimFrom": "£149", "fullFrom": "£199" },
+  "branches": [
+    {
+      "name": "Rustington",
+      "address": "Unit 15, Brookside Business Park, Rustington BN16 3LP",
+      "hours": "Mon–Fri 08:30–17:30",
+      "phone": "01903 856016"
+    }
+  ],
+  "reviews": [
+    { "quote": "Great service and quick turnaround.", "author": "Customer" }
+  ],
+  "mapEmbed": "https://www.google.com/maps?q=Autopics,+Unit+15+Brookside+Business+Park,+Rustington+BN16+3LP&output=embed"
+}
+

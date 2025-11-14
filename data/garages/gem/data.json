@@ -1,0 +1,66 @@
+{
+  "slug": "gem",
+  "name": "GEM UK Garage",
+  "tier": "supercharged",
+  "brand": { "primary": "#E0AA3E", "dark": "#0B0B0C" },
+  "contact": {
+    "phone": "01903 999999",
+    "email": "info@gem-uk-garage.example"
+  },
+  "hours": "Mon–Fri 8:00–17:00",
+  "hero": { "greeting": true, "background": "solid" },
+  "chips": [
+    "DVSA MOT",
+    "Local – Independent",
+    "Female friendly",
+    "Transparent checklist",
+    "Free MOT re-test",
+    "Trusted team"
+  ],
+  "services": [
+    {
+      "title": "MOT",
+      "description": "Fast, hassle-free MOT tests",
+      "icon": "wrench"
+    },
+    {
+      "title": "Servicing",
+      "description": "Keep your car running at its best",
+      "icon": "oil"
+    },
+    {
+      "title": "Repairs",
+      "description": "Mechanical and bodywork repairs",
+      "icon": "settings"
+    },
+    {
+      "title": "Diagnostics",
+      "description": "Clear fault code scanning and diagnosis",
+      "icon": "alert-circle"
+    },
+    {
+      "title": "Tyres",
+      "description": "Affordable, fitted fast",
+      "icon": "car"
+    }
+  ],
+  "pricing": {
+    "mot": "£54.85",
+    "interimFrom": "£149",
+    "fullFrom": "£199"
+  },
+  "branches": [
+    {
+      "name": "Brighton Road",
+      "address": "Worthing, West Sussex",
+      "hours": "Mon–Fri 8:00–17:00",
+      "phone": "01903 999999"
+    }
+  ],
+  "reviews": [
+    { "quote": "Great communication and very thorough.", "author": "Lydia S." },
+    { "quote": "Service you can trust. Will use again.", "author": "Tom R." }
+  ],
+  "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2521.036751197013!2d-0.45191572342136366!3d50.81195777166338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4875a37a91381a39%3A0x2661520f84ee2f1f!2sGem%20Uk%20Garage!5e0!3m2!1sen!2suk!4v1759495992967!5m2!1sen!2suk"
+}
+

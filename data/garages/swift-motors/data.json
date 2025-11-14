@@ -1,0 +1,47 @@
+{
+  "slug": "swift-motors",
+  "name": "Swift Motors",
+  "tier": "turbo",
+  "brand": { "primary": "#FFC107", "dark": "#0B0B0C" },
+  "contact": {
+    "phone": "01903 237137",
+    "email": "service@swiftmotors.co.uk",
+    "whatsapp": "+447000000000"
+  },
+  "hours": "Mon–Fri 8:00–17:00",
+  "hero": { "greeting": true, "background": "solid" },
+  "chips": [
+    "DVSA MOT",
+    "Local – Independent",
+    "Est. 1994",
+    "Two branches",
+    "Diagnostics",
+    "EV & Hybrids"
+  ],
+  "services": ["MOT Testing", "Servicing", "Diagnostics", "Tyres"],
+  "pricing": {
+    "mot": "£54.85",
+    "interimFrom": "£149",
+    "fullFrom": "£199"
+  },
+  "branches": [
+    {
+      "name": "Willowbrook (Swift 2)",
+      "address": "Unit 22, Ham Bridge Trading Estate, Willowbrook Road, Worthing BN14 8NA",
+      "hours": "Mon–Fri 8:00–17:00",
+      "phone": "01903 237137"
+    },
+    {
+      "name": "Station Road (Swift 1)",
+      "address": "74–76 Station Road, Worthing BN11 1JY",
+      "phone": "01903 230017"
+    }
+  ],
+  "reviews": [
+    { "quote": "Great service, friendly staff, booking was easy.", "author": "Lisa" },
+    { "quote": "Excellent service from the team at Swift Motors.", "author": "Ian" },
+    { "quote": "Decent. Would recommend.", "author": "Richard" }
+  ],
+  "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2520.4675220901904!2d-0.35400032285762584!3d50.822503571665536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4875986c907b76bf%3A0xb57c8c4377a2c0ad!2sSwift%20Motor%20Services!5e0!3m2!1sen!2suk!4v1759496088389!5m2!1sen!2suk"
+}
+

@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { MapPin } from 'lucide-react'
 
-// Default UK fallback Google Maps embed
+// Default Google Maps embed for Newtown Garage
 const DEFAULT_MAP_URL =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2476781.329890136!2d-3.4360!3d55.3781!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760fd3f1a2a4b1%3A0x8d25c82b7a1!2sUnited%20Kingdom!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk";
+  "https://www.google.com/maps?q=Newtown+Garage+114A+Broad+Street+Chesham+HP5+3ED&output=embed";
 
 interface MapEmbedProps {
   name: string
@@ -60,8 +60,8 @@ export default function MapEmbed({ name, address, mapUrl, garage }: MapEmbedProp
   } : null;
 
   return (
-    <section className="relative py-16 sm:py-20 px-6 bg-gradient-to-b from-emerald-50 via-teal-50 to-white text-gray-900">
-      <div className="max-w-5xl mx-auto text-center">
+    <section className="relative py-20 md:py-28 px-6 bg-gradient-to-b from-emerald-50 via-teal-50 to-white text-gray-900">
+      <div className="max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -71,21 +71,9 @@ export default function MapEmbed({ name, address, mapUrl, garage }: MapEmbedProp
           <div className="inline-flex items-center justify-center mb-4 w-12 h-12 rounded-xl bg-emerald-500/90 text-white shadow-md">
             <MapPin className="w-6 h-6" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-2">Find Us Easily</h2>
-          <p className="text-gray-600">
-            Visit <span className="font-semibold text-emerald-700">{name}</span> in{' '}
-            {hasValidAddress ? (
-              <a
-                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(resolvedAddress)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium hover:text-emerald-600 transition-colors duration-200 underline decoration-1 underline-offset-2 hover:decoration-2"
-              >
-                {resolvedAddress}
-              </a>
-            ) : (
-              <span className="font-medium">{resolvedAddress}</span>
-            )}
+          <h2 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900">Find Us Easily</h2>
+          <p className="mt-4 text-gray-600">
+            Visit Newtown Garage in Chesham, Buckinghamshire
           </p>
         </motion.div>
 
@@ -141,13 +129,13 @@ export default function MapEmbed({ name, address, mapUrl, garage }: MapEmbedProp
           className="mt-8 text-center"
         >
           <a
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name || "Garage UK")}`}
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Newtown Garage, 114A Broad Street, Chesham HP5 3ED")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm text-gray-500 bg-white/60 px-4 py-2 rounded-full border border-gray-200 hover:bg-white/80 hover:text-gray-700 transition-colors"
           >
             <MapPin className="w-4 h-4" />
-            <span>Get directions to {name}</span>
+            <span>Get directions to Newtown Garage</span>
           </a>
         </motion.div>
       </div>

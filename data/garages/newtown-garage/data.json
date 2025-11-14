@@ -1,0 +1,98 @@
+{
+  "slug": "newtown-garage",
+  "name": "Newtown Garage",
+  "tier": "supercharged",
+  "tagline": "Your one stop shop for all your motoring needs. Get the best advice from the best technicians using the best parts.",
+  "contact": {
+    "phone": "01494 772277",
+    "email": "info@newtown-garage.example"
+  },
+  "address": "Unit A3, Alma Road Industrial Estate, Chesham, Buckinghamshire, HP5 3HB",
+  "heroImage": "/hero/prestige.jpg",
+  "chips": [
+    "Free local pick-up",
+    "Free MOT re-test",
+    "Transparent checklist",
+    "Female friendly",
+    "Courtesy cars",
+    "Trusted team"
+  ],
+  "services": [
+    { "icon": "wrench", "title": "MOT", "description": "Fast, hassle-free MOT tests" },
+    { "icon": "oil", "title": "Servicing", "description": "Keep your car running at its best" },
+    { "icon": "settings", "title": "Repairs", "description": "Mechanical and bodywork repairs" },
+    { "icon": "alert-circle", "title": "Diagnostics", "description": "Clear fault code scanning and diagnosis" },
+    { "icon": "car", "title": "Tyres", "description": "Affordable, fitted fast" }
+  ],
+  "openingHours": [
+    { "day": "Mon – Fri", "hours": "08:00 – 18:00", "open": true },
+    { "day": "Saturday", "hours": "08:00 – 13:00", "open": true },
+    { "day": "Sunday", "hours": "Closed", "open": false }
+  ],
+  "reviews": [
+    {
+      "name": "Customer",
+      "rating": 5,
+      "text": "DVSA Certified testers providing professional MOT testing onsite.",
+      "date": "2024-01-15"
+    },
+    {
+      "name": "Local Driver",
+      "rating": 5,
+      "text": "Qualified technicians who provide the best possible advice and service.",
+      "date": "2024-02-20"
+    },
+    {
+      "name": "Vehicle Owner",
+      "rating": 5,
+      "text": "Trained and certified for hybrid and electric vehicles - heading into the future!",
+      "date": "2024-03-10"
+    }
+  ],
+  "pricing": [
+    {
+      "title": "MOT Test",
+      "description": "Book your MOT with ease. Fast, certified, and local.",
+      "price": "£49.95",
+      "features": [
+        "DVSA-approved",
+        "While-you-wait",
+        "Free retest*"
+      ],
+      "cta1": {
+        "text": "Book MOT",
+        "href": "https://buy.stripe.com/test_14k7vD2666b61d7su7"
+      }
+    },
+    {
+      "title": "Interim Service",
+      "description": "Essential checks to keep your car running smoothly.",
+      "price": "£89.95",
+      "features": [
+        "Oil & filter change",
+        "20-point check",
+        "Fluid top-up"
+      ],
+      "cta1": {
+        "text": "Book Interim",
+        "href": "https://buy.stripe.com/test_bIYdS81ePdbW1qEaEE"
+      }
+    },
+    {
+      "title": "Full Service",
+      "description": "Comprehensive servicing for peace of mind.",
+      "price": "£149.95",
+      "features": [
+        "All interim checks",
+        "Brake inspection",
+        "Diagnostics scan"
+      ],
+      "cta1": {
+        "text": "Book Full Service",
+        "href": "https://buy.stripe.com/test_3cs8y0ayP3Vf1qE28a"
+      }
+    }
+  ],
+  "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2472.112204883971!2d-0.615266606199233!3d51.712689699305876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48765d057ffc1b21%3A0x3808012303af4373!2sNewtown%20Garage%20Chesham!5e0!3m2!1sen!2suk!4v1759496050521!5m2!1sen!2suk"
+}
+

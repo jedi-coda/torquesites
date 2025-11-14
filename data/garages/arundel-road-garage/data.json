@@ -1,0 +1,44 @@
+{
+  "slug": "arundel-road-garage",
+  "name": "Arundel Road Garage",
+  "brand": { "primary": "#1666B3", "dark": "#0B0B0C" },
+  "contact": {
+    "phone": "01903 201714",
+    "email": "info@arundelroadgarage.co.uk"
+  },
+  "hours": "Mon–Fri 08:30–17:30",
+  "hero": { "greeting": true, "background": "gradient" },
+  "chips": [
+    "DVSA MOT",
+    "Local – Independent",
+    "Servicing & Repairs",
+    "Diagnostics",
+    "Tyres & Brakes",
+    "Air Conditioning"
+  ],
+  "services": [
+    "MOT Testing",
+    "Servicing",
+    "Repairs",
+    "Diagnostics",
+    "Tyres",
+    "Brakes",
+    "Air Con",
+    "Exhausts",
+    "Batteries"
+  ],
+  "pricing": { "mot": "£54.85", "interimFrom": "£149", "fullFrom": "£199" },
+  "branches": [
+    {
+      "name": "Worthing (Arundel Road)",
+      "address": "37 Arundel Road, Worthing BN13 3EH",
+      "hours": "Mon–Fri 08:30–17:30",
+      "phone": "01903 201714"
+    }
+  ],
+  "reviews": [
+    { "quote": "Helpful and professional local garage.", "author": "Customer" }
+  ],
+  "mapEmbed": "https://www.google.com/maps?q=Arundel+Road+Garage,+37+Arundel+Rd,+Worthing+BN13+3EH&output=embed"
+}
+
