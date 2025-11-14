@@ -56,9 +56,9 @@ export default function OpeningHours({ hours }: OpeningHoursProps) {
         <div className="inline-flex items-center justify-center mb-4 w-12 h-12 rounded-xl bg-emerald-500/90 text-white shadow-md">
           <Clock className="w-6 h-6" />
         </div>
-        <h2 className="text-3xl md:text-4xl font-bold mb-2">Opening Hours</h2>
-        <div className={`inline-flex items-center gap-2 px-4 py-1 rounded-full text-sm font-semibold shadow-sm
-          ${isOpenNow ? 'bg-emerald-100 text-emerald-700 animate-pulse' : 'bg-gray-200 text-gray-600'}`}>
+        <h2 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900">Opening Hours</h2>
+        <div className={`inline-flex items-center gap-2
+          ${isOpenNow ? 'bg-green-600 text-white px-2 py-0.5 rounded-full shadow-sm text-xs font-medium animate-pulse' : 'bg-gray-200 text-gray-600 px-4 py-1 rounded-full text-sm font-semibold shadow-sm'}`}>
           {isOpenNow ? '🟢 Open Now' : '🔴 Closed Now'}
         </div>
         <p className="mt-4 text-gray-600">We're here when you need us most.</p>
@@ -74,7 +74,7 @@ export default function OpeningHours({ hours }: OpeningHoursProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               className={`flex justify-between items-center px-6 py-4 rounded-2xl shadow-sm border
-                ${isToday ? 'bg-emerald-100/70 border-emerald-200' : 'bg-white/80 border-gray-100 hover:bg-emerald-50'}
+                ${isToday ? 'bg-green-50 ring-1 ring-green-300 border-emerald-200' : 'bg-white/80 border-gray-100 hover:bg-emerald-50'}
                 backdrop-blur-sm transition-all duration-300`}
             >
               <span className="font-medium">

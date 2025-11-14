@@ -5,6 +5,7 @@ import ServicesGrid from "@/components/ServicesGrid";
 import PricingCards from "@/components/PricingCards";
 import OpeningHours from "@/components/OpeningHours";
 import EnquiryForm from "@/components/EnquiryForm";
+import MiniHeroSection from "@/components/MiniHeroSection";
 import MapEmbed from "@/components/MapEmbed";
 import ContactDetails from "@/components/ui/ContactDetails";
 import Reviews from "@/components/ui/Reviews";
@@ -56,6 +57,9 @@ export default function GarageTemplateSupercharged({ garage, tier }: Props) {
         whatsappNumber={safeContact.whatsapp}
         garageAddress={(garage as any)?.address || safeGarage.branches?.[0]?.address}
       />
+
+      {/* Mini hero section - trust-building content */}
+      <MiniHeroSection />
 
       {/* Embedded map */}
       <MapEmbed
