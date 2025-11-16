@@ -1,27 +1,33 @@
+import { notFound } from "next/navigation";
 import GarageTemplateHyper from "@/components/templates/GarageTemplateHyper";
 import GarageTemplateSupercharged from "@/components/templates/GarageTemplateSupercharged";
 import GarageTemplateTurbo from "@/components/templates/GarageTemplateTurbo";
-import garages from "@/data/garages.json";
+import { loadGarage } from "@/lib/garage";
 
-export default function Page({ params }: { params: { slug: string } }) {
-  const garage = garages.find((g) => g.slug === params.slug);
-  
-  if (!garage) return <div>Garage not found</div>;
+type PageProps = {
+  params: Promise<{ slug: string }>;
+};
 
-  // Extract and normalize tier from garage data
-  const tier = (garage.tier || "turbo").toLowerCase();
+export default async function Page({ params }: PageProps) {
+  const { slug } = await params;
+  const garage = await loadGarage(slug);
 
-  // Debug: Log tier for troubleshooting
-  // console.log('Garage:', garage.slug, 'Tier:', tier);
+  if (!garage) {
+    notFound();
+  }
 
+  // Extract tier from garage data (default to "turbo" if not specified)
+  const tier = garage.tier?.toLowerCase() || "turbo";
+
+  // Render the correct template based on tier
   if (tier === "hyper") {
-    return <GarageTemplateHyper garage={garage as any} tier={tier} />;
+    return <GarageTemplateHyper garage={garage} tier={tier} />;
   }
 
   if (tier === "supercharged") {
-    return <GarageTemplateSupercharged garage={garage as any} tier={tier} />;
+    return <GarageTemplateSupercharged garage={garage} tier={tier} />;
   }
 
   // Default fallback is Turbo
-  return <GarageTemplateTurbo garage={garage as any} tier={tier || "turbo"} />;
+  return <GarageTemplateTurbo garage={garage} tier={tier} />;
 }

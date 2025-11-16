@@ -2,6 +2,9 @@ import { getSafeGarage } from "@/lib/fallbackGarage";
 
 type Props = {
   garage?: any;
+  googleReviewCount?: number | string;
+  googleReviewLink?: string;
+  averageRating?: string;
 };
 
 // 🛠️ Reviews component with premium styling and shared fallback logic
@@ -10,13 +13,56 @@ type Props = {
 // ✅ Premium dark theme with gold accents
 // ✅ Ready for 1000+ dynamic garage microsites
 
-export default function Reviews({ garage }: Props) {
+export default function Reviews({ 
+  garage, 
+  googleReviewCount, 
+  googleReviewLink,
+  averageRating 
+}: Props) {
   const safeGarage = getSafeGarage(garage);
-  const reviews = safeGarage.reviews || [
-    { quote: "Exceptional service and attention to detail. The team really cares about your vehicle.", author: "Sarah M." },
-    { quote: "Premium experience from start to finish. Highly recommend for anyone who values quality.", author: "John D." },
-    { quote: "Professional, reliable, and transparent. This is how garage service should be.", author: "Emma R." }
-  ];
+  const rawReviews = safeGarage.reviews || [];
+  
+  // Normalize reviews to handle both formats: {quote, author} and {text, name, date, rating}
+  const reviews = rawReviews.map((review: any) => {
+    // Handle format: {quote, author}
+    if (review.quote && review.author) {
+      return {
+        text: review.quote,
+        author: review.author,
+        name: review.author,
+        date: review.date,
+        rating: review.rating || 5
+      };
+    }
+    // Handle format: {text, name, date, rating}
+    if (review.text && review.name) {
+      return {
+        text: review.text,
+        author: review.name,
+        name: review.name,
+        date: review.date,
+        rating: review.rating || 5
+      };
+    }
+    // Fallback for any other format
+    return {
+      text: review.text || review.quote || '',
+      author: review.name || review.author || 'Customer',
+      name: review.name || review.author || 'Customer',
+      date: review.date,
+      rating: review.rating || 5
+    };
+  }).filter((r: any) => r.text && r.text.trim().length > 0);
+  
+  // Use provided average rating or calculate from reviews
+  const reviewsWithRatings = reviews.filter((r: any) => typeof r.rating === 'number');
+  const calculatedRating = reviewsWithRatings.length > 0
+    ? (reviewsWithRatings.reduce((sum: number, r: any) => sum + r.rating, 0) / reviewsWithRatings.length).toFixed(1)
+    : undefined;
+  
+  const rating = averageRating || calculatedRating;
+  const reviewCount = googleReviewCount || (reviews.length > 0 ? reviews.length : undefined);
+  const reviewLink = googleReviewLink;
 
   return (
     <div className="py-16 bg-black">
@@ -28,13 +74,21 @@ export default function Reviews({ garage }: Props) {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
             What Our <span className="text-yellow-400">Customers</span> Say
           </h2>
-          <p className="max-w-2xl mx-auto text-center text-sm md:text-base text-gray-400">
-            Rated <strong className="text-yellow-400">4.8 ★</strong> on Google by 237+ happy customers. Here's what real customers say about {safeGarage.name}.
-          </p>
+          {rating && reviewCount && (
+            <p className="max-w-2xl mx-auto text-center text-sm md:text-base text-gray-400">
+              Rated <strong className="text-yellow-400">{rating} ★</strong> on Google by {reviewCount}+ happy customers. Here's what real customers say about {safeGarage.name}.
+            </p>
+          )}
+          {(!rating || !reviewCount) && reviews.length > 0 && (
+            <p className="max-w-2xl mx-auto text-center text-sm md:text-base text-gray-400">
+              Here's what real customers say about {safeGarage.name}.
+            </p>
+          )}
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {reviews.map((review, index) => (
+        {reviews.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {reviews.map((review, index) => (
             <div key={index} className="bg-gray-900/50 border border-gray-700/50 rounded-2xl p-8 hover:border-yellow-500/30 hover:shadow-lg hover:scale-105 transition-all duration-300">
               <div className="mb-6">
                 <div className="flex text-yellow-400 mb-4">
@@ -45,38 +99,43 @@ export default function Reviews({ garage }: Props) {
                   ))}
                 </div>
                 <p className="text-gray-300 italic text-lg leading-relaxed mb-4">
-                  "{review.quote}"
+                  "{review.text}"
                 </p>
                 <div className="flex items-center">
                   <div className="w-10 h-10 bg-yellow-500/20 rounded-full flex items-center justify-center mr-3">
                     {review.author && typeof review.author === 'string' ? (
                       <span className="text-yellow-400 font-semibold text-sm">
-                        {review.author.charAt(0)}
+                        {review.author.charAt(0).toUpperCase()}
                       </span>
                     ) : (
                       <span className="text-yellow-400 font-semibold text-sm">?</span>
                     )}
                   </div>
                   <div>
-                    <p className="text-white font-semibold">{review.author || 'Anonymous'}</p>
-                    <p className="text-gray-400 text-sm">Verified Customer</p>
+                    <p className="text-white font-semibold">{review.author || review.name || 'Anonymous'}</p>
+                    <p className="text-gray-400 text-sm">
+                      {review.date ? new Date(review.date).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : 'Verified Customer'}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           ))}
-        </div>
+          </div>
+        )}
         
-        <div className="text-center mt-12">
-          <a
-            href="https://www.google.com/maps/place/Newtown+Garage+Chesham/@51.707482,-0.6155576,17z/data=!4m8!3m7!1s0x487644a5f5c5b2d1:0x3804721e71227893!8m2!3d51.707482!4d-0.6133689!9m1!1b1!16s%2Fg%2F11c31msx92?entry=ttu"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-6 py-2 text-sm font-semibold text-blue-400 border border-blue-400 rounded-full hover:bg-blue-400 hover:text-black transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-black"
-          >
-            Read all 237 Google reviews →
-          </a>
-        </div>
+        {reviewLink && reviewCount && (
+          <div className="text-center mt-12">
+            <a
+              href={reviewLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-6 py-2 text-sm font-semibold text-blue-400 border border-blue-400 rounded-full hover:bg-blue-400 hover:text-black transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-black"
+            >
+              Read all {reviewCount} Google reviews →
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );

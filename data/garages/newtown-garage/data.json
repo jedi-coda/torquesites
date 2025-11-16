@@ -1,6 +1,22 @@
 {
   "slug": "newtown-garage",
   "name": "Newtown Garage",
+  "brand": {
+    "primary": "#FFFFFF",
+    "secondary": "#000000",
+    "bgColor": "#000000"
+  },
+  "heroConfig": {
+    "greeting": true
+  },
+  "hero": {
+    "headlines": [
+      "Fast, DVSA‑Approved MOT Testing",
+      "Expert Servicing You Can Trust",
+      "One‑Stop Care for Every Vehicle"
+    ],
+    "logoUrl": "/logos/newtown-garage.png"
+  },
   "tier": "supercharged",
   "tagline": "Your one stop shop for all your motoring needs. Get the best advice from the best technicians using the best parts.",
   "contact": {

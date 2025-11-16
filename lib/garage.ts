@@ -29,6 +29,7 @@ export type StripeLinks = { starter?: string; buyout?: string };
 export type Garage = {
   slug: string;
   name: string;
+  tier?: string;
   tagline?: string;
   brand?: Brand;
   contact?: Contact;
@@ -168,6 +169,7 @@ function validateAndNormalize(input: any): Garage | null {
   return {
     slug,
     name,
+    tier: typeof input.tier === "string" ? input.tier : undefined,
     tagline: typeof input.tagline === "string" ? input.tagline : undefined,
     brand,
     contact,
@@ -240,24 +242,16 @@ export function getAllGarageSlugs(): string[] {
 }
 
 export async function loadGarage(slug: string): Promise<Garage | undefined> {
-  const garages = await import("../data/garages.json");
-  const garagesArray = garages.default || garages;
-  
-  console.log("🧠 Full garages object keys:", Object.keys(garages));
-  console.log("🧠 Garages array length:", Array.isArray(garagesArray) ? garagesArray.length : "Not an array");
-  
-  const garage = Array.isArray(garagesArray) 
-    ? garagesArray.find((g: any) => g && g.slug === slug)
-    : undefined;
-
-  console.log(`🚦 Loaded garage for slug [${slug}]:`, garage);
+  // Load from modular structure: data/garages/[slug]/data.json
+  const garageDataPath = path.join(repoRoot, "data", "garages", slug, "data.json");
+  const garage = readJsonSafe(garageDataPath);
 
   if (!garage) {
-    console.warn(`❌ No garage found for slug: ${slug}`);
+    console.warn(`❌ No garage found for slug: ${slug} at ${garageDataPath}`);
     return undefined;
   }
 
-  // Transform garages.json data structure to match Garage type
+  // Transform garage data structure to match Garage type
   const transformedGarage = transformGarageData(garage);
   
   const base = validateAndNormalize(transformedGarage);

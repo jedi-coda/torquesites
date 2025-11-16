@@ -11,36 +11,59 @@ import ContactDetails from "@/components/ui/ContactDetails";
 import Reviews from "@/components/ui/Reviews";
 import Footer from "@/components/Footer";
 import StickyActionsClient from "@/components/StickyActionsClient";
-import { getSafeGarage, getSafeContact } from "@/lib/fallbackGarage";
 
 type Props = {
-  garage?: Garage | null;
-  tier: string;
+  garage: Garage;
+  tier: "supercharged";
 };
 
 export default function GarageTemplateSupercharged({ garage, tier }: Props) {
-  const safeGarage = getSafeGarage(garage);
-  const safeContact = getSafeContact(garage);
+  // Extract data from garage prop
+  const garageName = garage.name;
+  const contact = garage.contact || {};
+  const brand = garage.brand || {};
+  const services = garage.services || [];
+  const reviews = garage.reviews || [];
+  const pricing = garage.pricing;
+  const openingHours = garage.openingHours || [];
+  const address = garage.address || garage.branches?.[0]?.address;
+  const mapEmbed = garage.mapEmbed;
+  const logoPath = garage.logoPath;
+  const stripeLinks = garage.stripeLinks;
+  const tagline = garage.tagline;
+  const content = garage.content || {};
+  
+  // Calculate average rating from reviews if available
+  const reviewsWithRatings = reviews.filter((r: any) => typeof r.rating === 'number');
+  const averageRating = reviewsWithRatings.length > 0
+    ? (reviewsWithRatings.reduce((sum: number, r: any) => sum + r.rating, 0) / reviewsWithRatings.length).toFixed(1)
+    : undefined;
+  
+  // Extract Google review data if available (from content or garage metadata)
+  const googleReviewCount = (garage as any)?.googleReviewCount;
+  const googleReviewLink = (garage as any)?.googleReviewLink;
 
   return (
     <div className="min-h-screen bg-black">
       {/* Dark dynamic hero section with rotating greeting + 3 headline messages */}
       <GarageHero garage={garage} />
 
-      {/* Reviews carousel stays here */}
-      {safeGarage.reviews && safeGarage.reviews.length > 0 && (
-        <ReviewsCarousel reviews={safeGarage.reviews} />
+      {/* Reviews carousel - only render if reviews exist */}
+      {reviews.length > 0 && (
+        <ReviewsCarousel reviews={reviews} />
       )}
 
-      {/* Service highlights */}
-      {safeGarage.services && <ServicesGrid services={safeGarage.services} />}
+      {/* Service highlights - only render if services exist */}
+      {services.length > 0 && (
+        <ServicesGrid services={services} />
+      )}
 
       {/* MOT & service pricing */}
-      <PricingCards pricing={safeGarage.pricing} />
+      {pricing && <PricingCards pricing={pricing} />}
 
-      {/* Opening hours */}
-      {safeGarage.openingHours && safeGarage.openingHours.length > 0 && (
-        <OpeningHours hours={safeGarage.openingHours} />
+      {/* Opening hours - only render if opening hours exist */}
+      {openingHours.length > 0 && (
+        <OpeningHours hours={openingHours} />
       )}
 
       {/* Mini hero badge - placed between OpeningHours and EnquiryForm */}
@@ -50,43 +73,59 @@ export default function GarageTemplateSupercharged({ garage, tier }: Props) {
 
       {/* Booking form - scroll anchor for sticky CTA (id="booking-form" is in EnquiryForm) */}
       <EnquiryForm
-        garageName={safeGarage.name}
-        toEmail={safeContact.email || "info@premium-garage.example"}
-        brandPrimary={safeGarage.brand?.primary || "#1A1A1A"}
-        garageSlug={safeGarage.slug}
-        whatsappNumber={safeContact.whatsapp}
-        garageAddress={(garage as any)?.address || safeGarage.branches?.[0]?.address}
+        garageName={garageName}
+        toEmail={contact.email || "info@premium-garage.example"}
+        brandPrimary={brand.primary || "#1A1A1A"}
+        garageSlug={garage.slug}
+        whatsappNumber={contact.whatsapp}
+        garageAddress={address}
       />
 
-      {/* Mini hero section - trust-building content */}
-      <MiniHeroSection />
+      {/* Mini hero section - trust-building content with dynamic messaging */}
+      <MiniHeroSection
+        messaging={{
+          heading: content.aboutBlurb ? undefined : "Trusted by Local Drivers",
+          subtext: content.aboutBlurb || tagline || "Our experienced technicians provide honest, high-quality service that keeps our customers coming back. You're in safe hands — just ask the locals."
+        }}
+        brand={brand}
+        meta={{
+          garageName: garageName,
+          location: address?.split(',')?.[address.split(',').length - 2]?.trim() || undefined
+        }}
+      />
 
       {/* Embedded map */}
-      <MapEmbed
-        name={safeGarage.name}
-        address={
-          (garage as any)?.address ||
-          safeGarage.branches?.[0]?.address ||
-          "Address not available"
-        }
-        mapUrl={safeGarage.mapEmbed}
-        garage={garage}
-      />
+      {mapEmbed && (
+        <MapEmbed
+          name={garageName}
+          address={address}
+          mapUrl={mapEmbed}
+          garage={garage}
+        />
+      )}
 
       {/* Contact details */}
-      <ContactDetails phone={safeContact.phone} email={safeContact.email} />
+      {(contact.phone || contact.email) && (
+        <ContactDetails phone={contact.phone} email={contact.email} />
+      )}
 
-      {/* Full review block (same as Turbo) */}
-      {safeGarage.reviews && safeGarage.reviews.length > 0 && (
-        <Reviews garage={safeGarage} />
+      {/* Full review block - only render if reviews exist */}
+      {reviews.length > 0 && (
+        <Reviews
+          garage={garage}
+          googleReviewCount={googleReviewCount}
+          googleReviewLink={googleReviewLink}
+          averageRating={averageRating}
+        />
       )}
 
       {/* Spacer to offset Sticky CTA bar */}
       <div className="h-[88px] sm:h-[72px]" />
-      <Footer garage={safeGarage} tier={tier} />
+      <Footer garage={garage} tier={tier} />
       <StickyActionsClient
-        logoPath={safeGarage.logoPath}
-        phoneNumber={safeContact.phone}
+        logoPath={logoPath}
+        phoneNumber={contact.phone}
+        stripeLinks={stripeLinks}
       />
     </div>
   );

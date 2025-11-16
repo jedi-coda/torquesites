@@ -2,7 +2,32 @@
 
 import Image from 'next/image';
 
-export default function MiniHeroSection() {
+interface MiniHeroSectionProps {
+  messaging?: {
+    heading?: string;
+    subtext?: string;
+  };
+  brand?: {
+    primary?: string;
+    dark?: string;
+  };
+  meta?: {
+    garageName?: string;
+    location?: string;
+  };
+}
+
+export default function MiniHeroSection({
+  messaging,
+  brand,
+  meta
+}: MiniHeroSectionProps) {
+  const heading = messaging?.heading || "Trusted by Local Drivers";
+  const subtext = messaging?.subtext || "Our experienced technicians provide honest, high-quality service that keeps our customers coming back. You're in safe hands — just ask the locals.";
+  const imageAlt = meta?.garageName 
+    ? `Friendly mechanic at ${meta.garageName}${meta.location ? ` in ${meta.location}` : ''} handing keys back to a smiling customer`
+    : "Friendly mechanic handing keys back to a smiling customer";
+
   return (
     <section className="relative w-full bg-black py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6">
@@ -11,7 +36,7 @@ export default function MiniHeroSection() {
           <div className="relative w-full h-[300px] md:h-[400px] rounded-lg overflow-hidden">
             <Image
               src="/images/customer-car-window.webp"
-              alt="Friendly mechanic handing keys back to a smiling customer"
+              alt={imageAlt}
               fill
               className="object-cover"
               priority
@@ -23,10 +48,10 @@ export default function MiniHeroSection() {
           {/* Text Column */}
           <div className="text-white space-y-6">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
-              Trusted by Local Drivers
+              {heading}
             </h2>
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-              Our experienced technicians provide honest, high-quality service that keeps our customers coming back. You're in safe hands — just ask the locals.
+              {subtext}
             </p>
           </div>
         </div>

@@ -1,15 +1,18 @@
 'use client';
 
 import StickyActions from './StickyActions';
+import { type StripeLinks } from '@/lib/garage';
 
 interface StickyActionsClientProps {
   logoPath?: string;
   phoneNumber?: string;
+  stripeLinks?: StripeLinks;
 }
 
 export default function StickyActionsClient({
   logoPath,
-  phoneNumber
+  phoneNumber,
+  stripeLinks
 }: StickyActionsClientProps) {
   const handleBookClick = () => {
     const el = document.getElementById("booking-form");
