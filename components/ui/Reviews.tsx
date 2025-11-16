@@ -22,8 +22,19 @@ export default function Reviews({
   const safeGarage = getSafeGarage(garage);
   const rawReviews = safeGarage.reviews || [];
   
-  // Normalize reviews to handle both formats: {quote, author} and {text, name, date, rating}
+  // Normalize reviews to handle multiple formats: {quote, name, title}, {quote, author}, {text, name, date, rating}
   const reviews = rawReviews.map((review: any) => {
+    // Handle format: {quote, name, title} - new format
+    if (review.quote && review.name) {
+      return {
+        text: review.quote,
+        author: review.name,
+        name: review.name,
+        title: review.title,
+        date: review.date,
+        rating: review.rating || 5
+      };
+    }
     // Handle format: {quote, author}
     if (review.quote && review.author) {
       return {
@@ -68,9 +79,6 @@ export default function Reviews({
     <div className="py-16 bg-black">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
-          <div className="inline-block px-4 py-2 bg-yellow-500/20 border border-yellow-500/30 rounded-full mb-4">
-            <span className="text-yellow-400 text-sm font-medium tracking-wide">CUSTOMER REVIEWS</span>
-          </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
             What Our <span className="text-yellow-400">Customers</span> Say
           </h2>
@@ -114,7 +122,7 @@ export default function Reviews({
                   <div>
                     <p className="text-white font-semibold">{review.author || review.name || 'Anonymous'}</p>
                     <p className="text-gray-400 text-sm">
-                      {review.date ? new Date(review.date).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : 'Verified Customer'}
+                      {review.title || (review.date ? new Date(review.date).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : 'Verified Customer')}
                     </p>
                   </div>
                 </div>
@@ -124,15 +132,16 @@ export default function Reviews({
           </div>
         )}
         
-        {reviewLink && reviewCount && (
+        {/* Google Reviews Link - show below testimonials when reviews exist */}
+        {reviews.length > 0 && (
           <div className="text-center mt-12">
             <a
-              href={reviewLink}
+              href={reviewLink || "https://www.google.com/search?q=newtown+garage+chesham&hl=en#lrd=0x48764e6b06034d9f:0xd609bcefa3f0e3d0,1,,,"}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-6 py-2 text-sm font-semibold text-blue-400 border border-blue-400 rounded-full hover:bg-blue-400 hover:text-black transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-black"
+              className="text-blue-400 hover:underline text-sm mt-4 inline-block"
             >
-              Read all {reviewCount} Google reviews →
+              Read more reviews on Google →
             </a>
           </div>
         )}

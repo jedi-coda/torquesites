@@ -47,22 +47,19 @@
   ],
   "reviews": [
     {
-      "name": "Customer",
-      "rating": 5,
-      "text": "DVSA Certified testers providing professional MOT testing onsite.",
-      "date": "2024-01-15"
+      "quote": "Highly recommend Newtown Garage. Honest, friendly and professional service every time.",
+      "name": "Clare W.",
+      "title": "Google Review"
     },
     {
-      "name": "Local Driver",
-      "rating": 5,
-      "text": "Qualified technicians who provide the best possible advice and service.",
-      "date": "2024-02-20"
+      "quote": "Great local garage. Booked online and got a reminder too. MOT done on time. No fuss.",
+      "name": "James L.",
+      "title": "Google Review"
     },
     {
-      "name": "Vehicle Owner",
-      "rating": 5,
-      "text": "Trained and certified for hybrid and electric vehicles - heading into the future!",
-      "date": "2024-03-10"
+      "quote": "Been coming here for years. Trust them completely. Quality service and great team.",
+      "name": "Abid M.",
+      "title": "Google Review"
     }
   ],
   "pricing": [
@@ -109,6 +106,8 @@
       }
     }
   ],
-  "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2472.112204883971!2d-0.615266606199233!3d51.712689699305876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48765d057ffc1b21%3A0x3808012303af4373!2sNewtown%20Garage%20Chesham!5e0!3m2!1sen!2suk!4v1759496050521!5m2!1sen!2suk"
+  "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2472.112204883971!2d-0.615266606199233!3d51.712689699305876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48765d057ffc1b21%3A0x3808012303af4373!2sNewtown%20Garage%20Chesham!5e0!3m2!1sen!2suk!4v1759496050521!5m2!1sen!2suk",
+  "logoPath": "/logos/newtown-logo.png",
+  "logo": "/logos/newtown-logo.png"
 }
 
