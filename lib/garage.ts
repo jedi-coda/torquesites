@@ -63,6 +63,10 @@ export type Garage = {
   stripeLinks?: StripeLinks;
   mapEmbed?: string;
   geo?: { lat?: number; lng?: number };
+  googleReviewUrl?: string;
+  googleReviewLink?: string;
+  googleReviewCount?: number | string;
+  googleRating?: number;
   theme?: {
     accent?: string;
     accent2?: string;
@@ -143,6 +147,10 @@ function validateAndNormalize(input: any): Garage | null {
 
   const mapEmbed = typeof input.mapEmbed === "string" ? input.mapEmbed : undefined;
   const logoPath = typeof input.logoPath === "string" ? input.logoPath : undefined;
+  const googleReviewUrl = typeof input.googleReviewUrl === "string" ? input.googleReviewUrl : undefined;
+  const googleReviewLink = typeof input.googleReviewLink === "string" ? input.googleReviewLink : undefined;
+  const googleReviewCount = typeof input.googleReviewCount === "string" || typeof input.googleReviewCount === "number" ? input.googleReviewCount : undefined;
+  const googleRating = typeof input.googleRating === "number" ? input.googleRating : undefined;
 
   const hero = input.hero && typeof input.hero === "object" ? {
     greeting: typeof input.hero.greeting === "boolean" ? input.hero.greeting : undefined,
@@ -218,6 +226,10 @@ function validateAndNormalize(input: any): Garage | null {
     stripeLinks,
     mapEmbed,
     geo,
+    googleReviewUrl,
+    googleReviewLink,
+    googleReviewCount,
+    googleRating,
   };
 }
 

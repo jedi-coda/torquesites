@@ -2,8 +2,10 @@ import { getSafeGarage } from "@/lib/fallbackGarage";
 
 type Props = {
   garage?: any;
+  googleRating?: number | undefined;
   googleReviewCount?: number | string;
   googleReviewLink?: string;
+  googleReviewUrl?: string; // ✅ NEW PROP (alias for googleReviewLink for consistency)
   averageRating?: string;
 };
 
@@ -15,8 +17,10 @@ type Props = {
 
 export default function Reviews({ 
   garage, 
+  googleRating,
   googleReviewCount, 
   googleReviewLink,
+  googleReviewUrl,
   averageRating 
 }: Props) {
   const safeGarage = getSafeGarage(garage);
@@ -65,15 +69,15 @@ export default function Reviews({
     };
   }).filter((r: any) => r.text && r.text.trim().length > 0);
   
-  // Use provided average rating or calculate from reviews
+  // Use provided googleRating, averageRating, or calculate from reviews
   const reviewsWithRatings = reviews.filter((r: any) => typeof r.rating === 'number');
   const calculatedRating = reviewsWithRatings.length > 0
     ? (reviewsWithRatings.reduce((sum: number, r: any) => sum + r.rating, 0) / reviewsWithRatings.length).toFixed(1)
     : undefined;
   
-  const rating = averageRating || calculatedRating;
+  const rating = googleRating?.toFixed(1) || averageRating || calculatedRating;
   const reviewCount = googleReviewCount || (reviews.length > 0 ? reviews.length : undefined);
-  const reviewLink = googleReviewLink;
+  const reviewLink = googleReviewUrl || googleReviewLink; // ✅ Use googleReviewUrl if provided, fallback to googleReviewLink
 
   return (
     <div className="py-16 bg-black">
@@ -132,16 +136,16 @@ export default function Reviews({
           </div>
         )}
         
-        {/* Google Reviews Link - show below testimonials when reviews exist */}
-        {reviews.length > 0 && (
-          <div className="text-center mt-12">
+        {/* ✅ Enhanced CTA button - only show if googleReviewUrl is provided */}
+        {reviewLink && reviews.length > 0 && (
+          <div className="mt-12 text-center">
             <a
-              href={reviewLink || "https://www.google.com/search?q=newtown+garage+chesham&hl=en#lrd=0x48764e6b06034d9f:0xd609bcefa3f0e3d0,1,,,"}
+              href={reviewLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-400 hover:underline text-sm mt-4 inline-block"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-400 text-black font-bold rounded-full hover:bg-yellow-300 transition"
             >
-              Read more reviews on Google →
+              Read More Reviews on Google →
             </a>
           </div>
         )}

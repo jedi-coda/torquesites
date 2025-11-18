@@ -59,7 +59,10 @@ export default function GarageTemplate({ garage }: Props) {
         mapUrl={safeGarage.mapEmbed}
         garage={garage}
       />
-      <Reviews garage={safeGarage} />
+      <Reviews 
+        garage={safeGarage} 
+        googleReviewUrl={(garage as any)?.googleReviewUrl || (garage as any)?.googleReviewLink}
+      />
       {safeGarage.reviews && <ReviewsCarousel reviews={safeGarage.reviews} />}
       <Footer garage={garage} />
       <StickyActionsClient 

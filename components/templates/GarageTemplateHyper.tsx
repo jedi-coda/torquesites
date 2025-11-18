@@ -93,7 +93,10 @@ export default function GarageTemplateHyper({ garage, tier }: Props) {
 
       {/* Customer reviews (optional, if available) */}
       {safeGarage.reviews && safeGarage.reviews.length > 0 && (
-        <Reviews garage={safeGarage} />
+        <Reviews 
+          garage={safeGarage} 
+          googleReviewUrl={(garage as any)?.googleReviewUrl || (garage as any)?.googleReviewLink}
+        />
       )}
       {/* Spacer to offset Sticky CTA bar */}
       <div className="h-[88px] sm:h-[72px]" />

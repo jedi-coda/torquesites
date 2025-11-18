@@ -8,7 +8,7 @@ import EnquiryForm from "@/components/EnquiryForm";
 import MiniHeroSection from "@/components/MiniHeroSection";
 import MapEmbed from "@/components/MapEmbed";
 import ContactDetails from "@/components/ui/ContactDetails";
-import Reviews from "@/components/ui/Reviews";
+import Reviews from "@/components/Reviews";
 import Footer from "@/components/Footer";
 import StickyActionsClient from "@/components/StickyActionsClient";
 
@@ -39,9 +39,26 @@ export default function GarageTemplateSupercharged({ garage, tier }: Props) {
     ? (reviewsWithRatings.reduce((sum: number, r: any) => sum + r.rating, 0) / reviewsWithRatings.length).toFixed(1)
     : undefined;
   
-  // Extract Google review data if available (from content or garage metadata)
-  const googleReviewCount = (garage as any)?.googleReviewCount;
-  const googleReviewLink = (garage as any)?.googleReviewLink;
+  // Extract and parse Google review data if available (from content or garage metadata)
+  const parsedGoogleRating = typeof garage?.googleRating === "string"
+    ? parseFloat(garage.googleRating)
+    : garage?.googleRating;
+  
+  const parsedGoogleReviewCount = typeof garage?.googleReviewCount === "string"
+    ? parseInt(garage.googleReviewCount, 10)
+    : garage?.googleReviewCount;
+  
+  const googleReviewLink = garage?.googleReviewLink;
+  const googleReviewUrl = garage?.googleReviewUrl || googleReviewLink;
+
+  // Transform reviews to match Reviews component format
+  const transformedReviews = reviews.map((review: any) => ({
+    name: review.name || review.author || 'Customer',
+    date: review.date || '',
+    rating: review.rating || 5,
+    text: review.text || review.quote || '',
+    location: review.location
+  }));
 
   return (
     <div className="min-h-screen bg-black">
@@ -110,12 +127,12 @@ export default function GarageTemplateSupercharged({ garage, tier }: Props) {
       )}
 
       {/* Full review block - only render if reviews exist */}
-      {reviews.length > 0 && (
+      {transformedReviews.length > 0 && (
         <Reviews
-          garage={garage}
-          googleReviewCount={googleReviewCount}
-          googleReviewLink={googleReviewLink}
-          averageRating={averageRating}
+          reviews={transformedReviews}
+          googleReviewUrl={googleReviewUrl}
+          googleRating={parsedGoogleRating}
+          googleReviewCount={parsedGoogleReviewCount}
         />
       )}
 
