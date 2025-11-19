@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Phone, Shield, Award, Clock, CheckCircle } from 'lucide-react';
 import { type Garage } from "@/lib/garage";
 import { getSafeGarage, getSafeTheme, premiumTheme } from "@/lib/fallbackGarage";
 
@@ -31,7 +32,7 @@ export default function GarageHero({ garage }: { garage?: Garage | null }) {
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [dynamicGreeting, setDynamicGreeting] = useState("Good morning");
 
-  // Compute time-based greeting with garage name
+  // Compute time-based greeting
   // Morning = 5-11, Afternoon = 12-17, Evening = 18-4
   useEffect(() => {
     if (!heroConfig.greeting) return;
@@ -44,8 +45,8 @@ export default function GarageHero({ garage }: { garage?: Garage | null }) {
       timeGreeting = "Good afternoon";
     }
     
-    setDynamicGreeting(`${timeGreeting}, Welcome to ${safeGarage.name}`);
-  }, [heroConfig.greeting, safeGarage.name]);
+    setDynamicGreeting(timeGreeting);
+  }, [heroConfig.greeting]);
 
   // Auto-rotate through messages every 3 seconds
   useEffect(() => {
@@ -60,6 +61,33 @@ export default function GarageHero({ garage }: { garage?: Garage | null }) {
 
   const currentRotatingHeadline = rotatingMessages[currentMessageIndex] || rotatingMessages[0];
   const subtext = safeGarage.tagline || "Expert MOT testing and vehicle care for all makes and models";
+
+  // Animation variants for staggered entrance
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2, delayChildren: 0.1 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.6, 0.05, 0.01, 0.9] as any },
+    },
+  };
+
+  const glowVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 1.2, ease: 'easeOut' as any },
+    },
+  };
   
   // Extract brand colors - use garage.brand.primary/dark or theme, with fallbacks
   const primaryColor = (garage as any)?.brand?.primary || theme.primary || premiumTheme.brandColor;
@@ -118,109 +146,202 @@ export default function GarageHero({ garage }: { garage?: Garage | null }) {
           </>
         )}
         
-        {/* Premium accent overlay - use brand primary color */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent"
-          style={{
-            background: `linear-gradient(to bottom right, transparent, transparent, ${primaryColor}10)`
-          }}
-        />
+        {/* Ambient background glow effects */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 0.15, scale: 1 }}
+            transition={{ duration: 2, ease: 'easeOut' }}
+            className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[120px]"
+            style={{
+              background: `radial-gradient(circle, ${primaryColor}30, ${primaryColor}10, transparent)`
+            }}
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 0.2, scale: 1 }}
+            transition={{ duration: 2.5, delay: 0.5, ease: 'easeOut' }}
+            className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[100px]"
+            style={{
+              background: `radial-gradient(circle, ${accentColor}20, ${accentColor}05, transparent)`
+            }}
+          />
+        </div>
+        
+        {/* Glass blur overlay */}
+        <div className="absolute inset-0 backdrop-blur-[1px] bg-black/20" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col justify-center items-center h-full text-white text-center p-6 max-w-6xl mx-auto">
-        <div className="mb-6">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="relative z-10 flex flex-col justify-center items-center h-full text-white text-center p-6 max-w-6xl mx-auto"
+      >
+        {/* DVSA Approved Badge */}
+        <motion.div variants={itemVariants} className="mb-6">
           <div 
-            className="inline-block px-4 py-2 border rounded-full mb-4"
+            className="inline-block px-4 py-2 border rounded-full mb-4 backdrop-blur-sm"
             style={{ 
               backgroundColor: `${accentColor}20`,
               borderColor: `${accentColor}30`
             }}
           >
             <span 
-              className="text-sm font-medium tracking-wide"
+              className="text-sm font-medium tracking-wide flex items-center gap-2"
               style={{ color: accentColor }}
             >
+              <Shield className="w-4 h-4" />
               DVSA APPROVED
             </span>
           </div>
-        </div>
+        </motion.div>
         
-        <h1 className={`text-5xl md:text-7xl font-bold mb-8 tracking-tight leading-tight ${greetingTextColor}`}>
-          {heroConfig.greeting && (
-            <span>
-              {dynamicGreeting}
+        {/* Greeting */}
+        {heroConfig.greeting && (
+          <motion.p
+            variants={itemVariants}
+            className="text-lg sm:text-xl md:text-2xl font-light text-gray-400 mb-2 tracking-wide"
+          >
+            {dynamicGreeting}
+          </motion.p>
+        )}
+        
+        {/* Main Headline */}
+        <motion.h1 
+          variants={itemVariants}
+          className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight leading-tight ${greetingTextColor}`}
+        >
+          <motion.span variants={glowVariants} className="relative inline-block">
+            <span className="relative z-10">
+              Welcome to {safeGarage.name}
             </span>
-          )}
-          {!heroConfig.greeting && (
-            <span>Welcome to {safeGarage.name}</span>
-          )}
-        </h1>
+            <motion.span
+              animate={{ opacity: [0.4, 0.6, 0.4], scale: [1, 1.02, 1] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute inset-0 blur-xl opacity-50 -z-10"
+              style={{ color: accentColor }}
+            >
+              Welcome to {safeGarage.name}
+            </motion.span>
+          </motion.span>
+        </motion.h1>
         
-        {/* Rotating headline with fade transition - ensure proper text wrapping */}
+        {/* Rotating headline with fade transition */}
         {rotatingMessages.length > 0 && (
-          <div className="relative min-h-[80px] md:min-h-[96px] mb-8 flex items-center justify-center px-4">
+          <motion.div 
+            variants={itemVariants}
+            className="relative min-h-[80px] md:min-h-[96px] mb-6 flex items-center justify-center px-4"
+          >
             <AnimatePresence mode="wait">
-              <motion.div
+              <motion.p
                 key={currentMessageIndex}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="absolute inset-0 flex items-center justify-center"
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.5, ease: 'easeInOut' }}
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-white/95 leading-tight max-w-5xl mx-auto text-center break-words"
               >
-                <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight text-center px-4 break-words max-w-5xl">
-                  {currentRotatingHeadline}
-                </h2>
-              </motion.div>
+                {currentRotatingHeadline}
+              </motion.p>
             </AnimatePresence>
-          </div>
+          </motion.div>
         )}
         
         {/* Tagline below rotating headlines */}
         {subtext && (
-          <p className="text-xl md:text-2xl max-w-3xl mb-8 text-gray-200 leading-relaxed">
+          <motion.p
+            variants={itemVariants}
+            className="text-base sm:text-lg md:text-xl max-w-3xl mb-8 text-gray-400 leading-relaxed"
+          >
             {subtext}
-          </p>
+          </motion.p>
         )}
         
-        <div className="flex flex-col sm:flex-row gap-4 mb-8">
-          <button 
-            className="px-8 py-4 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+        {/* CTAs */}
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-8"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            className="group relative px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg font-semibold rounded-full overflow-hidden transition-all duration-500 w-full sm:w-auto min-w-[240px]"
             style={{ backgroundColor: accentColor }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = primaryColor;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = accentColor;
-            }}
           >
-            Book Your MOT
-          </button>
-          <button 
-            className="px-8 py-4 border-2 font-semibold rounded-lg transition-all duration-300"
+            <motion.span
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"
+              style={{ backgroundColor: `${accentColor}50` }}
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            />
+            <span className="relative z-10 flex items-center justify-center text-white group-hover:text-white transition-colors duration-300">
+              Book Your MOT
+            </span>
+          </motion.button>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            className="group relative px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg font-semibold rounded-full border-2 bg-transparent overflow-hidden transition-all duration-500 w-full sm:w-auto min-w-[240px]"
             style={{ 
               borderColor: accentColor,
               color: accentColor
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = `${accentColor}10`;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-            }}
           >
-            Call to Book
-          </button>
-        </div>
+            <span 
+              className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"
+              style={{ backgroundColor: accentColor }}
+            />
+            <motion.span
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"
+              style={{ backgroundColor: `${accentColor}50` }}
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            />
+            <span className="relative z-10 flex items-center justify-center gap-2 text-current group-hover:text-black transition-colors duration-300">
+              <Phone className="w-4 h-4" />
+              Call to Book
+            </span>
+          </motion.button>
+        </motion.div>
+        
+        {/* Trust Badges */}
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-sm sm:text-base text-gray-400"
+        >
+          <span className="flex items-center gap-2">
+            <Shield className="w-4 h-4" />
+            DVSA Approved
+          </span>
+          <span className="hidden sm:inline text-gray-600">•</span>
+          <span className="flex items-center gap-2">
+            <Award className="w-4 h-4" />
+            Expert Service
+          </span>
+          <span className="hidden sm:inline text-gray-600">•</span>
+          <span className="flex items-center gap-2">
+            <Clock className="w-4 h-4" />
+            Fast Turnaround
+          </span>
+          <span className="hidden sm:inline text-gray-600">•</span>
+          <span className="flex items-center gap-2">
+            <CheckCircle className="w-4 h-4" />
+            Trusted Local
+          </span>
+        </motion.div>
         
         {/* Message indicators */}
         {rotatingMessages.length > 1 && (
           <div className="absolute bottom-8 flex gap-3">
             {rotatingMessages.map((_: string, index: number) => (
-              <button
+              <motion.button
                 key={index}
                 onClick={() => setCurrentMessageIndex(index)}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
                 className="w-4 h-4 rounded-full transition-all duration-300"
                 style={{
                   backgroundColor: index === currentMessageIndex 
@@ -230,22 +351,12 @@ export default function GarageHero({ garage }: { garage?: Garage | null }) {
                     ? `0 0 20px ${accentColor}50`
                     : 'none'
                 }}
-                onMouseEnter={(e) => {
-                  if (index !== currentMessageIndex) {
-                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (index !== currentMessageIndex) {
-                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
-                  }
-                }}
                 aria-label={`Show message ${index + 1}`}
               />
             ))}
           </div>
         )}
-      </div>
+      </motion.div>
 
       {/* Development environment badge - top-left */}
       {process.env.NODE_ENV !== 'production' && (
