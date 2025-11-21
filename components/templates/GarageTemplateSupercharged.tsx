@@ -40,13 +40,35 @@ export default function GarageTemplateSupercharged({ garage, tier }: Props) {
     : undefined;
   
   // Extract and parse Google review data if available (from content or garage metadata)
-  const parsedGoogleRating = typeof garage?.googleRating === "string"
-    ? parseFloat(garage.googleRating)
-    : garage?.googleRating;
+  // Safely coerce strings/numbers to numbers using parseFloat and parseInt
+  // Defensive parsing: handle string, number, null, undefined, or invalid values
+  const parsedGoogleRating = garage?.googleRating !== null && garage?.googleRating !== undefined
+    ? (typeof garage.googleRating === "string"
+        ? parseFloat(garage.googleRating)
+        : garage.googleRating)
+    : undefined;
   
-  const parsedGoogleReviewCount = typeof garage?.googleReviewCount === "string"
-    ? parseInt(garage.googleReviewCount, 10)
-    : garage?.googleReviewCount;
+  const parsedGoogleReviewCount = garage?.googleReviewCount !== null && garage?.googleReviewCount !== undefined
+    ? (typeof garage.googleReviewCount === "string"
+        ? parseInt(garage.googleReviewCount, 10)
+        : garage.googleReviewCount)
+    : undefined;
+  
+  // Validate that both are valid numbers (not null, undefined, NaN, or Infinity)
+  // Fallback to undefined if invalid - defensive coding for production
+  const validRating = 
+    typeof parsedGoogleRating === "number" && 
+    Number.isFinite(parsedGoogleRating) && 
+    !isNaN(parsedGoogleRating)
+      ? parsedGoogleRating
+      : undefined;
+  
+  const validCount = 
+    typeof parsedGoogleReviewCount === "number" && 
+    Number.isFinite(parsedGoogleReviewCount) && 
+    !isNaN(parsedGoogleReviewCount)
+      ? parsedGoogleReviewCount
+      : undefined;
   
   const googleReviewLink = garage?.googleReviewLink;
   const googleReviewUrl = garage?.googleReviewUrl || googleReviewLink;
@@ -131,8 +153,8 @@ export default function GarageTemplateSupercharged({ garage, tier }: Props) {
         <Reviews
           reviews={transformedReviews}
           googleReviewUrl={googleReviewUrl}
-          googleRating={parsedGoogleRating}
-          googleReviewCount={parsedGoogleReviewCount}
+          numericGoogleRating={validRating}
+          numericGoogleReviewCount={validCount}
         />
       )}
 

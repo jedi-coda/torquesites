@@ -11,14 +11,18 @@ interface ReviewsProps {
   googleReviewUrl?: string;
   googleRating?: number | string;
   googleReviewCount?: number | string;
+  numericGoogleRating?: number;
+  numericGoogleReviewCount?: number;
 }
 
-export default function Reviews({ reviews = [], googleReviewUrl, googleRating, googleReviewCount }: ReviewsProps) {
-  // Debug logging for incoming props
-  console.log("✅ Incoming Props:", {
+export default function Reviews({ reviews = [], googleReviewUrl, googleRating, googleReviewCount, numericGoogleRating, numericGoogleReviewCount }: ReviewsProps) {
+  // Enhanced debug logging for incoming props
+  console.log("✅ Reviews Component - Incoming Props:", {
     googleRating,
+    googleRatingType: typeof googleRating,
     googleReviewCount,
-    reviews
+    googleReviewCountType: typeof googleReviewCount,
+    reviewsCount: reviews?.length || 0
   });
 
   // Don't render anything if no reviews exist
@@ -44,25 +48,72 @@ export default function Reviews({ reviews = [], googleReviewUrl, googleRating, g
     );
   };
 
-  // Safely coerce strings/numbers to numbers
-  const displayRating = typeof googleRating === "string"
-    ? parseFloat(googleRating)
-    : googleRating;
+  // Use pre-parsed numeric props if provided, otherwise parse from googleRating/googleReviewCount
+  const finalNumericRating = numericGoogleRating !== undefined
+    ? numericGoogleRating
+    : (typeof googleRating === "string"
+        ? parseFloat(googleRating)
+        : googleRating);
 
-  const displayCount = typeof googleReviewCount === "string"
-    ? parseInt(googleReviewCount, 10)
-    : googleReviewCount;
+  const finalNumericCount = numericGoogleReviewCount !== undefined
+    ? numericGoogleReviewCount
+    : (typeof googleReviewCount === "string"
+        ? parseInt(googleReviewCount, 10)
+        : googleReviewCount);
 
-  // Conditionally render summary only if both are valid numbers
-  const showSummary =
-    typeof displayRating === "number" &&
-    typeof displayCount === "number" &&
-    !isNaN(displayRating) &&
-    !isNaN(displayCount);
+  // Validate: both must be numbers, finite, and not NaN
+  const isValidRating = 
+    typeof finalNumericRating === "number" && 
+    Number.isFinite(finalNumericRating) && 
+    !isNaN(finalNumericRating);
+
+  const isValidCount = 
+    typeof finalNumericCount === "number" && 
+    Number.isFinite(finalNumericCount) && 
+    !isNaN(finalNumericCount);
+
+  // Show summary only if both values are valid
+  const showSummary = isValidRating && isValidCount;
+
+  // Enhanced debug logging for validation
+  console.log("🔍 Validation Results:", {
+    finalNumericRating,
+    finalNumericCount,
+    isValidRating,
+    isValidCount,
+    showSummary
+  });
 
   if (!showSummary) {
-    console.log("⛔ Skipping summary — invalid values", { displayRating, displayCount });
+    console.log("⛔ Skipping summary — invalid values", { 
+      finalNumericRating, 
+      finalNumericCount,
+      ratingValid: isValidRating,
+      countValid: isValidCount
+    });
+  } else {
+    console.log("✅ Summary will render:", {
+      rating: finalNumericRating,
+      count: finalNumericCount
+    });
   }
+
+  // Final log just before return
+  console.log("🔚 Final Values Before Return:", {
+    googleRating,
+    googleRatingType: typeof googleRating,
+    numericGoogleRating,
+    numericGoogleRatingType: typeof numericGoogleRating,
+    finalNumericRating,
+    finalNumericRatingType: typeof finalNumericRating,
+    googleReviewCount,
+    googleReviewCountType: typeof googleReviewCount,
+    numericGoogleReviewCount,
+    numericGoogleReviewCountType: typeof numericGoogleReviewCount,
+    finalNumericCount,
+    finalNumericCountType: typeof finalNumericCount,
+    showSummary
+  });
 
   return (
     <section className="py-16 px-6 bg-black">
@@ -74,7 +125,7 @@ export default function Reviews({ reviews = [], googleReviewUrl, googleRating, g
           </h2>
           {showSummary && (
             <p className="text-gray-400 text-center text-lg">
-              Rated {displayRating}★ on Google by {displayCount}+ happy customers.
+              Rated {finalNumericRating}★ on Google by {finalNumericCount}+ happy customers.
             </p>
           )}
         </div>

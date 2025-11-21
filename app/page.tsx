@@ -380,6 +380,15 @@ export default function HomePage() {
         <p className="text-xs text-neutral-400 mb-8">
           Powered by <span className="text-lime-400">TorqueSites</span>. Engineered in the UK. © 2025 TorqueSites Ltd. All rights reserved.
         </p>
+        <div className="mt-2 flex items-center justify-center space-x-3 text-xs text-neutral-500">
+          <Link href="/terms" className="hover:text-lime-400 transition-colors">Terms</Link>
+          <span>•</span>
+          <Link href="/privacy" className="hover:text-lime-400 transition-colors">Privacy</Link>
+          <span>•</span>
+          <Link href="/refund-policy" className="hover:text-lime-400 transition-colors">Refunds</Link>
+          <span>•</span>
+          <Link href="/faq" className="hover:text-lime-400 transition-colors">FAQ</Link>
+        </div>
         <div className="w-full h-px bg-gradient-to-r from-transparent via-lime-500/30 to-transparent" />
       </footer>
     </main>
