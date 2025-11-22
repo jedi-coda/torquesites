@@ -365,12 +365,12 @@ export default function HomePage() {
             >
               Book a Demo
             </Link>
-            <Link
-              href="/contact"
+            <a
+              href="https://checkout.stripe.com/c/pay/cs_live_a12lClprpRFDIsWNWJSsUQhG5R5vzCMZDF1DPwO4Xzg3WCoiOYpu1o2Rbq#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdkdWxOYHwnPyd1blppbHNgWjA0Vj1JQD1XXGZUXGgycDYwZ0NBanBQdj1kTmY8Y0BcNW1wYHJWSF92aHMxaXdIaUpCX0RHaE1cfXJGT0FQUTx%2FNW5nbjwzPE1QVk12S0w9TDRua3w0NGZqNTVuRjx0MU50NycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjY2NjY2MnKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSdga2RnaWBVaWRmYG1qaWFgd3YnP3F3cGB4JSUl"
               className="px-6 py-3 bg-orange-500 text-white hover:bg-lime-400 hover:text-neutral-900 rounded-md transition duration-300 ease-out transform hover:-translate-y-1 hover:scale-105"
             >
-              Start Your Test Drive
-          </Link>
+              Start Your Free Test Drive
+            </a>
         </div>
         </motion.div>
       </section>
