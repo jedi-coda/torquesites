@@ -165,6 +165,7 @@ export default function GarageTemplateSupercharged({ garage, tier }: Props) {
         logoPath={logoPath}
         phoneNumber={contact.phone}
         stripeLinks={stripeLinks}
+        tier={tier}
       />
     </div>
   );

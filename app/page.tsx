@@ -360,7 +360,7 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col md:flex-row justify-center items-center gap-4">
           <Link
-            href="/contact"
+            href="/book-demo"
               className="px-6 py-3 border border-lime-400 text-white hover:bg-lime-400 hover:text-neutral-900 rounded-md transition duration-300 ease-out transform hover:-translate-y-1 hover:scale-105"
             >
               Book a Demo

@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, useAnimation, AnimatePresence, useInView } from 'framer-motion';
+import Link from 'next/link';
 
 const rotatingMessages = [
   "Launch your new website in 7 days — no contracts, no risk.",
@@ -175,36 +176,43 @@ const Hero: React.FC = () => {
           variants={itemVariants}
           className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center"
         >
-          <motion.button
+          <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             className="group relative px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg font-semibold rounded-full overflow-hidden transition-all duration-500 w-full sm:w-auto min-w-[240px]"
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 group-hover:from-[#C4FF00] group-hover:to-[#A8E600] transition-all duration-500" />
-            <motion.span
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 blur-xl bg-gradient-to-r from-orange-400/50 to-orange-500/50 group-hover:from-[#C4FF00]/50 group-hover:to-[#A8E600]/50 transition-opacity duration-500"
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <span className="relative z-10 flex items-center justify-center text-black group-hover:text-black transition-colors duration-300">
-              Test Drive Now
-            </span>
-          </motion.button>
+            <a
+              href="https://checkout.stripe.com/c/pay/cs_live_a12lClprpRFDIsWNWJSsUQhG5R5vzCMZDF1DPwO4Xzg3WCoiOYpu1o2Rbq#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdkdWxOYHwnPyd1blppbHNgWjA0Vj1JQD1XXGZUXGgycDYwZ0NBanBQdj1kTmY8Y0BcNW1wYHJWSF92aHMxaXdIaUpCX0RHaE1cfXJGT0FQUTx%2FNW5nbjwzPE1QVk12S0w9TDRua3w0NGZqNTVuRjx0MU50NycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjY2NjY2MnKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSdga2RnaWBVaWRmYG1qaWFgd3YnP3F3cGB4JSUl"
+              className="block"
+            >
+              <span className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 group-hover:from-[#C4FF00] group-hover:to-[#A8E600] transition-all duration-500" />
+              <motion.span
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 blur-xl bg-gradient-to-r from-orange-400/50 to-orange-500/50 group-hover:from-[#C4FF00]/50 group-hover:to-[#A8E600]/50 transition-opacity duration-500"
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              />
+              <span className="relative z-10 flex items-center justify-center text-black group-hover:text-black transition-colors duration-300">
+                Start Your Free Test Drive
+              </span>
+            </a>
+          </motion.div>
 
           {/* Secondary CTA */}
-          <motion.button
+          <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             className="group relative px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg font-semibold rounded-full border-2 border-gray-600 hover:border-[#C4FF00] bg-transparent text-white hover:text-black overflow-hidden transition-all duration-500 w-full sm:w-auto min-w-[240px]"
           >
-            <span className="absolute inset-0 bg-[#C4FF00] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
-            <motion.span
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 blur-xl bg-[#C4FF00]/50 transition-opacity duration-500"
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <span className="relative z-10">BOOK A DEMO</span>
-          </motion.button>
+            <Link href="/book-demo" className="block">
+              <span className="absolute inset-0 bg-[#C4FF00] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+              <motion.span
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 blur-xl bg-[#C4FF00]/50 transition-opacity duration-500"
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              />
+              <span className="relative z-10">BOOK A DEMO</span>
+            </Link>
+          </motion.div>
         </motion.div>
 
         {/* Trust Indicators */}

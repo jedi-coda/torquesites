@@ -24,7 +24,7 @@ export type PricingEntry = {
 };
 
 export type Pricing = { mot?: string; interimFrom?: string; fullFrom?: string } | PricingEntry[];
-export type StripeLinks = { starter?: string; buyout?: string };
+export type StripeLinks = { starter?: string; buyout?: string; mot?: string };
 
 export type Garage = {
   slug: string;
@@ -143,6 +143,7 @@ function validateAndNormalize(input: any): Garage | null {
   const stripeLinks: StripeLinks | undefined = input.stripeLinks && typeof input.stripeLinks === "object" ? {
     starter: normalizeStripe(input.stripeLinks.starter),
     buyout: normalizeStripe(input.stripeLinks.buyout),
+    mot: normalizeStripe(input.stripeLinks.mot),
   } : undefined;
 
   const mapEmbed = typeof input.mapEmbed === "string" ? input.mapEmbed : undefined;

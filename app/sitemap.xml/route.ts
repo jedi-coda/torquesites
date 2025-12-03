@@ -1,14 +1,49 @@
 import { getAllGarageSlugs } from "@/lib/garage";
+import { MetadataRoute } from "next";
 
-export async function GET() {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
   const slugs = getAllGarageSlugs();
-  const urls = ["/", "/pricing", "/contact", "/partnership", "/terms", "/privacy", "/refund-policy", "/faq", ...slugs.map((s) => `/${s}`)];
-  const body = `<?xml version="1.0" encoding="UTF-8"?>\n` +
-    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">` +
-    urls.map((u) => `<url><loc>${base}${u}</loc></url>`).join("") +
-    `</urlset>`;
-  return new Response(body, { headers: { "content-type": "application/xml" } });
+  const lastModified = new Date();
+
+  return [
+    {
+      url: `${baseUrl}/`,
+      lastModified,
+    },
+    {
+      url: `${baseUrl}/pricing`,
+      lastModified,
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified,
+    },
+    {
+      url: `${baseUrl}/partnership`,
+      lastModified,
+    },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified,
+    },
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified,
+    },
+    {
+      url: `${baseUrl}/refund-policy`,
+      lastModified,
+    },
+    {
+      url: `${baseUrl}/faq`,
+      lastModified,
+    },
+    ...slugs.map((slug) => ({
+      url: `${baseUrl}/${slug}`,
+      lastModified,
+    })),
+  ];
 }
 
 

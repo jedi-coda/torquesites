@@ -23,8 +23,8 @@ export default function Header() {
           </p>
         </Link>
         <div className="flex gap-8">
-          <Link href="#pricing" className="text-white hover:text-[#C4FF00] transition-colors duration-200 font-medium">Pricing</Link>
-          <Link href="#contact" className="text-white hover:text-[#C4FF00] transition-colors duration-200 font-medium">Book a Demo</Link>
+          <Link href="/pricing" className="text-white hover:text-[#C4FF00] transition-colors duration-200 font-medium">Pricing</Link>
+          <Link href="/book-demo" className="text-white hover:text-[#C4FF00] transition-colors duration-200 font-medium">Book a Demo</Link>
         </div>
       </div>
     </header>
