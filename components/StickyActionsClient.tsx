@@ -9,13 +9,15 @@ interface StickyActionsClientProps {
   phoneNumber?: string;
   stripeLinks?: StripeLinks;
   tier?: string;
+  garageName?: string;
 }
 
 export default function StickyActionsClient({
   logoPath,
   phoneNumber,
   stripeLinks,
-  tier
+  tier,
+  garageName
 }: StickyActionsClientProps) {
   // For Supercharged template, use custom layout
   if (tier === 'supercharged') {
@@ -30,9 +32,9 @@ export default function StickyActionsClient({
     };
 
     return (
-      <div className="fixed bottom-0 left-0 right-0 bg-black/40 backdrop-blur-sm border-t border-white/20 shadow-2xl z-50" style={{ marginBottom: 'env(safe-area-inset-bottom)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+      <div className="fixed bottom-0 left-0 right-0 bg-black/40 backdrop-blur-sm border-t border-white/20 shadow-2xl z-50" style={{ paddingBottom: 'env(safe-area-inset-bottom)', height: '72px' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+          <div className="flex items-center justify-between h-full">
             
             {/* Invisible spacer for perfect centering */}
             <div className="w-20 sm:w-24 flex-shrink-0" aria-hidden="true"></div>
@@ -59,8 +61,8 @@ export default function StickyActionsClient({
               </button>
             </div>
 
-            {/* Logo - Right Corner */}
-            <div className="w-20 sm:w-24 flex items-center justify-end flex-shrink-0">
+            {/* Logo and Garage Name - Right Corner */}
+            <div className="w-20 sm:w-24 flex items-center justify-end gap-2 flex-shrink-0">
               <Image 
                 src={logoPath || '/logos/newtown-logo.png'}
                 alt={`${logoPath?.includes('gem') ? 'GEM UK Garage' : logoPath?.includes('swift') ? 'Swift Motors' : 'Garage'} logo`}
@@ -69,6 +71,11 @@ export default function StickyActionsClient({
                 className="w-20 sm:w-24 h-auto opacity-90 hover:opacity-100 transition-opacity duration-200 filter brightness-110 contrast-125"
                 loading="lazy"
               />
+              {garageName && (
+                <span className="text-white text-sm font-semibold truncate">
+                  {garageName}
+                </span>
+              )}
             </div>
           </div>
         </div>
