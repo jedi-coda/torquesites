@@ -1,0 +1,15 @@
+{
+    "rewrites": [
+      {
+        "source": "/",
+        "destination": "/newtown-garage",
+        "has": [
+          {
+            "type": "host",
+            "value": "motamersham.co.uk"
+          }
+        ]
+      }
+    ]
+  }
+  
