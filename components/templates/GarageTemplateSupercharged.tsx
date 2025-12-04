@@ -158,15 +158,17 @@ export default function GarageTemplateSupercharged({ garage, tier }: Props) {
         />
       )}
 
-      {/* Spacer to offset Sticky CTA bar */}
-      <div className="h-[88px] sm:h-[72px]" />
-      <Footer garage={garage} tier={tier} />
-      <StickyActionsClient
-        logoPath={logoPath}
-        phoneNumber={contact.phone}
-        stripeLinks={stripeLinks}
-        tier={tier}
-      />
+      {/* Wrapper with bottom padding to offset Sticky CTA bar */}
+      <div className="pb-[96px] lg:pb-[120px]">
+        <Footer garage={garage} tier={tier} />
+        <StickyActionsClient
+          logoPath={logoPath}
+          phoneNumber={contact.phone}
+          stripeLinks={stripeLinks}
+          tier={tier}
+          garageName={garageName}
+        />
+      </div>
     </div>
   );
 }
